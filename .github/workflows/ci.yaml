@@ -70,7 +70,7 @@ jobs:
         run: |
           kubectl get events -A -w &
           kubectl -n flux-system logs -f deploy/helm-controller &
-          if ! helm install --rollback-on-failure --debug all-in-one charts/all-in-one -f charts/all-in-one-ci/${{ matrix.test }}/values.yaml; then
+          if ! helm install --rollback-on-failure --debug helm-chart-of-the-death charts/helm-chart-of-the-death -f tests/${{ matrix.test }}/values.yaml; then
             kubectl get pods -A
             #kubectl -n infra-nginx-ingress get all
             kubectl -n infra-loki logs loki-0

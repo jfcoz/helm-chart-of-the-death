@@ -32,141 +32,150 @@ spec:
   test:
     enable: true
   values:
-    # default failurePolicy Fail will block is webhook made an error. Ignore will continue
+    debug:
+      - disallow-capabilities
+      - disallow-host-namespaces
+      - disallow-host-path
+      - disallow-host-ports
+      - disallow-privileged-containers
+      - restrict-sysctls
+      - other
     failurePolicy: Ignore
-    # validationFailureAction : Audit or Enforce
-    validationFailureAction: Enforce
     policyExclude:
       disallow-capabilities:
         any:
           - resources:
+              kinds:
+                - Pod
+              names:
+                - rook-ceph.cephfs.csi.ceph.com-nodeplugin*
+                - rook-ceph.rbd.csi.ceph.com-nodeplugin*
               namespaces:
                 - rook-ceph
+          - resources:
               kinds:
                 - Pod
               names:
-                - "rook-ceph.cephfs.csi.ceph.com-nodeplugin*"
-                - "rook-ceph.rbd.csi.ceph.com-nodeplugin*"
-          - resources:
+                - k8s-monitoring-alloy-logs-*
               namespaces:
                 - infra-k8s-monitoring
+          - resources:
               kinds:
                 - Pod
               names:
-                - "k8s-monitoring-alloy-logs-*"
-          - resources:
+                - svclb-nginx-ingress-ingress-nginx-controller-*
               namespaces:
                 - kube-system
-              kinds:
-                - Pod
-              names:
-                - "svclb-nginx-ingress-ingress-nginx-controller-*"
       disallow-host-namespaces:
         any:
           - resources:
               namespaces:
                 - rook-ceph
-                # TODO: split more specific component
           - resources:
               namespaces:
                 - infra-prometheus
-                # TODO: split more specific component
           - resources:
-              namespaces:
-                - infra-trivy
               kinds:
                 - Pod
               names:
-                - "node-collector-*"
+                - node-collector-*
+              namespaces:
+                - infra-trivy
           - resources:
               namespaces:
                 - infra-smartctl-exporter
       disallow-host-path:
         any:
-          # TODO: split more specific component
           - resources:
               namespaces:
                 - rook-ceph
           - resources:
+              kinds:
+                - Pod
               namespaces:
                 - infra-promtail
+          - resources:
               kinds:
                 - Pod
-          - resources:
               namespaces:
                 - infra-x509
-              kinds:
-                - Pod
           - resources:
-              namespaces:
-                - infra-k8s-monitoring
               kinds:
                 - Pod
               names:
-                - "k8s-monitoring-alloy-logs-*"
-          - resources:
+                - k8s-monitoring-alloy-logs-*
               namespaces:
-                - infra-prometheus
+                - infra-k8s-monitoring
+          - resources:
               kinds:
                 - DaemonSet
               names:
-                - "prometheus-prometheus-node-exporter"
-          - resources:
+                - prometheus-prometheus-node-exporter
               namespaces:
                 - infra-prometheus
+          - resources:
               kinds:
                 - Pod
               names:
-                - "prometheus-prometheus-node-exporter-*"
+                - prometheus-prometheus-node-exporter-*
+              namespaces:
+                - infra-prometheus
           - resources:
+              kinds:
+                - Pod
+              names:
+                - node-collector-*
               namespaces:
                 - infra-trivy
-              kinds:
-                - Pod
-              names:
-                - "node-collector-*"
           - resources:
               namespaces:
                 - infra-smartctl-exporter
           - resources:
+              kinds:
+                - Pod
+              names:
+                - node-agent-*
+                - velero-*
               namespaces:
                 - infra-velero
+          - resources:
               kinds:
                 - Pod
               names:
-                - "node-agent-*"
-                - "velero-*"
-          - resources:
+                - falco-*
+                - infra-falco-falco-*
               namespaces:
                 - infra-falco
+          - resources:
               kinds:
                 - Pod
               names:
-                - "falco-*"
-                - "infra-falco-falco-*"
+                - example-*
+              namespaces:
+                - example
       disallow-host-ports:
         any:
           - resources:
-              namespaces:
-                - infra-prometheus
               kinds:
                 - DaemonSet
               names:
-                - "prometheus-prometheus-node-exporter"
-          - resources:
+                - prometheus-prometheus-node-exporter
               namespaces:
                 - infra-prometheus
+          - resources:
               kinds:
                 - Pod
               names:
-                - "prometheus-prometheus-node-exporter-*"
+                - prometheus-prometheus-node-exporter-*
+              namespaces:
+                - infra-prometheus
           - resources:
+              kinds:
+                - Pod
+              names:
+                - svclb-nginx-ingress-ingress-nginx-controller-*
               namespaces:
                 - kube-system
-              kinds:
-                - Pod
-              names:
-                - "svclb-nginx-ingress-ingress-nginx-controller-*"
           - resources:
               namespaces:
                 - infra-smartctl-exporter
@@ -175,25 +184,28 @@ spec:
           - resources:
               namespaces:
                 - rook-ceph
-                # TODO: split more specific component
           - resources:
               namespaces:
                 - infra-smartctl-exporter
           - resources:
-              namespaces:
-                - infra-falco
               kinds:
                 - Pod
               names:
-                - "falco-*"
-                - "infra-falco-falco-*"
+                - falco-*
+                - infra-falco-falco-*
+              namespaces:
+                - infra-falco
+      other:
+        any:
+          - useless: true
       restrict-sysctls:
         any:
           - resources:
-              namespaces:
-                - kube-system
               kinds:
                 - Pod
                 - DaemonSet
               names:
-                - "svclb-nginx-ingress-ingress-nginx-controller-*"
+                - svclb-nginx-ingress-ingress-nginx-controller-*
+              namespaces:
+                - kube-system
+    validationFailureAction: Enforce
