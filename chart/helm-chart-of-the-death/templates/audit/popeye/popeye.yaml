@@ -1,0 +1,134 @@
+{{- $me := .Values.components.audit.popeye }}
+{{- if include "common.managed" $me }}
+# Popeye ServiceAccount.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: popeye
+  namespace: {{ $me.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+---
+# Popeye needs get/list access on the following Kubernetes resources.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: popeye
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+rules:
+- apiGroups: [""]
+  resources:
+   - configmaps
+   - endpoints
+   - namespaces
+   - nodes
+   - persistentvolumes
+   - persistentvolumeclaims
+   - pods
+   - secrets
+   - serviceaccounts
+   - services
+  verbs: ["get", "list"]
+- apiGroups: ["apps"]
+  resources:
+  - daemonsets
+  - deployments
+  - statefulsets
+  - replicasets
+  verbs: ["get", "list"]
+- apiGroups: ["networking.k8s.io"]
+  resources:
+  - ingresses
+  - networkpolicies
+  verbs: ["get", "list"]
+- apiGroups: ["batch.k8s.io"]
+  resources:
+  - cronjobs
+  - jobs
+  verbs: ["get", "list"]
+- apiGroups: ["gateway.networking.k8s.io"]
+  resources:
+  - gateway-classes
+  - gateways
+  - httproutes
+  verbs: ["get", "list"]
+- apiGroups: ["autoscaling"]
+  resources:
+  - horizontalpodautoscalers
+  verbs: ["get", "list"]
+- apiGroups: ["policy"]
+  resources:
+  - poddisruptionbudgets
+  - podsecuritypolicies
+  verbs: ["get", "list"]
+- apiGroups: ["rbac.authorization.k8s.io"]
+  resources:
+  - clusterroles
+  - clusterrolebindings
+  - roles
+  - rolebindings
+  verbs: ["get", "list"]
+- apiGroups: ["metrics.k8s.io"]
+  resources:
+  - pods
+  - nodes
+  verbs: ["get", "list"]
+---
+# Binds Popeye to this ClusterRole.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: popeye
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+subjects:
+- kind: ServiceAccount
+  name: popeye
+  namespace: {{ $me.namespace }}
+roleRef:
+  kind: ClusterRole
+  name: popeye
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: popeye
+  namespace: {{ $me.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+spec:
+  schedule: "3 * * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: popeye
+          restartPolicy: Never
+          containers:
+            - name: popeye
+              # until https://github.com/derailed/popeye/pull/278
+              #image: derailed/popeye:v0.21.3
+              image: ghcr.io/undistro/popeye:0.21
+              imagePullPolicy: IfNotPresent
+              args:
+                - --push-gtwy-url=http://push-gateway-prometheus-pushgateway.infra-push-gateway:9091
+                - --force-exit-zero
+              resources:
+                requests:
+                  memory: 1000Mi
+                  cpu: 50m
+                limits:
+                  cpu: 500m
+                  memory: 1000Mi
+{{- end }}

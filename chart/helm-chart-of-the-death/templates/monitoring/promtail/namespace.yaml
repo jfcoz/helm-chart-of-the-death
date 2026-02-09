@@ -1,0 +1,11 @@
+{{- $me := .Values.components.monitoring.promtail }}
+{{- if include "common.managed" $me }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $me.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+{{- end }}

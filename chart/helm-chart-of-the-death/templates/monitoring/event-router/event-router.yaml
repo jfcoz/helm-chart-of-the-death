@@ -1,0 +1,109 @@
+{{- $me := .Values.components.monitoring.eventRouter }}
+{{- if include "common.managed" .Values.components.monitoring.kubePrometheusStack }}
+# from
+# curl -s https://raw.githubusercontent.com/kuoss/eventrouter/main/yaml/eventrouter.yaml
+# update rbac api version
+# change namespace
+# log to stderr
+# resources
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $me.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: eventrouter
+  namespace: {{ $me.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: eventrouter
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+rules:
+- apiGroups: [""]
+  resources: ["events"]
+  verbs: ["get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: eventrouter
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: eventrouter
+subjects:
+- kind: ServiceAccount
+  name: eventrouter
+  namespace: {{ $me.namespace }}
+---
+apiVersion: v1
+data:
+  config.json: |-
+    {
+      "sink": "stdout"
+    }
+kind: ConfigMap
+metadata:
+  name: eventrouter-cm
+  namespace: {{ $me.namespace }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eventrouter
+  namespace: {{ $me.namespace }}
+  labels:
+    app: eventrouter
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eventrouter
+  template:
+    metadata:
+      labels:
+        app: eventrouter
+        tier: control-plane-addons
+    spec:
+      containers:
+        - name: kube-eventrouter
+          #until merge and release of https://github.com/kuoss/eventrouter/pull/63
+          #image: ghcr.io/kuoss/eventrouter:v0.4.15
+          image: ghcr.io/jfcoz/kuoss-eventrouter:v0.4.15
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+          - name: config-volume
+            mountPath: /etc/eventrouter
+          resources:
+            requests:
+              cpu: 1m
+              memory: 50M
+      serviceAccount: eventrouter
+      volumes:
+        - name: config-volume
+          configMap:
+            name: eventrouter-cm
+{{- end }}

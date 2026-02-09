@@ -1,0 +1,13 @@
+{{- $me := .Values.components.audit.popeye }}
+{{- if include "common.managed" $me }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $me.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+  labels:
+    network-policy-push-gateway: "true"
+{{- end }}

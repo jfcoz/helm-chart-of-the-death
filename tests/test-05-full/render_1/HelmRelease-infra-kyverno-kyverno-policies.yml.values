@@ -1,0 +1,165 @@
+# default failurePolicy Fail will block is webhook made an error. Ignore will continue
+failurePolicy: Ignore
+# validationFailureAction : Audit or Enforce
+validationFailureAction: Enforce
+policyExclude:
+  disallow-capabilities:
+    any:
+      - resources:
+          namespaces:
+            - rook-ceph
+          kinds:
+            - Pod
+          names:
+            - "rook-ceph.cephfs.csi.ceph.com-nodeplugin*"
+            - "rook-ceph.rbd.csi.ceph.com-nodeplugin*"
+      - resources:
+          namespaces:
+            - infra-k8s-monitoring
+          kinds:
+            - Pod
+          names:
+            - "k8s-monitoring-alloy-logs-*"
+      - resources:
+          namespaces:
+            - kube-system
+          kinds:
+            - Pod
+          names:
+            - "svclb-nginx-ingress-ingress-nginx-controller-*"
+  disallow-host-namespaces:
+    any:
+      - resources:
+          namespaces:
+            - rook-ceph
+            # TODO: split more specific component
+      - resources:
+          namespaces:
+            - infra-prometheus
+            # TODO: split more specific component
+      - resources:
+          namespaces:
+            - infra-trivy
+          kinds:
+            - Pod
+          names:
+            - "node-collector-*"
+      - resources:
+          namespaces:
+            - infra-smartctl-exporter
+  disallow-host-path:
+    any:
+      # TODO: split more specific component
+      - resources:
+          namespaces:
+            - rook-ceph
+      - resources:
+          namespaces:
+            - infra-promtail
+          kinds:
+            - Pod
+      - resources:
+          namespaces:
+            - infra-x509
+          kinds:
+            - Pod
+      - resources:
+          namespaces:
+            - infra-k8s-monitoring
+          kinds:
+            - Pod
+          names:
+            - "k8s-monitoring-alloy-logs-*"
+      - resources:
+          namespaces:
+            - infra-prometheus
+          kinds:
+            - DaemonSet
+          names:
+            - "prometheus-prometheus-node-exporter"
+      - resources:
+          namespaces:
+            - infra-prometheus
+          kinds:
+            - Pod
+          names:
+            - "prometheus-prometheus-node-exporter-*"
+      - resources:
+          namespaces:
+            - infra-trivy
+          kinds:
+            - Pod
+          names:
+            - "node-collector-*"
+      - resources:
+          namespaces:
+            - infra-smartctl-exporter
+      - resources:
+          namespaces:
+            - infra-velero
+          kinds:
+            - Pod
+          names:
+            - "node-agent-*"
+            - "velero-*"
+      - resources:
+          namespaces:
+            - infra-falco
+          kinds:
+            - Pod
+          names:
+            - "falco-*"
+            - "infra-falco-falco-*"
+  disallow-host-ports:
+    any:
+      - resources:
+          namespaces:
+            - infra-prometheus
+          kinds:
+            - DaemonSet
+          names:
+            - "prometheus-prometheus-node-exporter"
+      - resources:
+          namespaces:
+            - infra-prometheus
+          kinds:
+            - Pod
+          names:
+            - "prometheus-prometheus-node-exporter-*"
+      - resources:
+          namespaces:
+            - kube-system
+          kinds:
+            - Pod
+          names:
+            - "svclb-nginx-ingress-ingress-nginx-controller-*"
+      - resources:
+          namespaces:
+            - infra-smartctl-exporter
+  disallow-privileged-containers:
+    any:
+      - resources:
+          namespaces:
+            - rook-ceph
+            # TODO: split more specific component
+      - resources:
+          namespaces:
+            - infra-smartctl-exporter
+      - resources:
+          namespaces:
+            - infra-falco
+          kinds:
+            - Pod
+          names:
+            - "falco-*"
+            - "infra-falco-falco-*"
+  restrict-sysctls:
+    any:
+      - resources:
+          namespaces:
+            - kube-system
+          kinds:
+            - Pod
+            - DaemonSet
+          names:
+            - "svclb-nginx-ingress-ingress-nginx-controller-*"

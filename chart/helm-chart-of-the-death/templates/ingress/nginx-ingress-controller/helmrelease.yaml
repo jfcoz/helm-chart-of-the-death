@@ -1,0 +1,34 @@
+{{- $me := .Values.components.ingress.nginxIngressController }}
+{{- if include "common.managed" $me }}
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: nginx-ingress
+  namespace: {{ $me.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+spec:
+  interval: 1h
+  timeout: 30m
+  chart:
+    spec:
+      chart: ingress-nginx
+      version: {{ $me.chartVersion | quote }}
+      sourceRef:
+        kind: HelmRepository
+        name: {{ $me.chartRepository | quote }}
+        namespace: {{ $.Release.Namespace }}
+      interval: 1h
+  install:
+    remediation:
+      retries: -1
+  upgrade:
+    remediation:
+      remediateLastFailure: true
+  test:
+    enable: true
+  values:
+    {{- include "ingress.nginxIngressController.mergedValues" . | nindent 4 }}
+{{- end }}

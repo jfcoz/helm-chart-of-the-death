@@ -1,0 +1,84 @@
+{{- $me := .Values.components.monitoring.kubePrometheusStack }}
+{{- if include "common.managed" $me }}
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prometheus
+  namespace: {{ $me.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+spec:
+  {{- if or
+           (include "common.used" .Values.components.monitoring.thanos)
+           false
+  }}
+  dependsOn:
+    {{- if include "common.used" .Values.components.monitoring.thanos }}
+    - name: thanos
+      namespace: {{ .Values.components.monitoring.thanos.namespace }}
+    {{- end }}
+  {{- end }}
+  #  - name: ceph-cluster
+  #    namespace: rook-ceph
+  #  - name: nginx-ingress
+  #    namespace: infra-nginx-ingress
+  interval: 1h
+  timeout: 10m
+  chart:
+    spec:
+      chart: kube-prometheus-stack
+      # each major contains upgrade process in changelog
+      version: {{ $me.chartVersion | quote }}
+      sourceRef:
+        kind: HelmRepository
+        name: {{ $me.chartRepository | quote }}
+        namespace: {{ $.Release.Namespace }}
+      interval: 1h
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  test:
+    enable: true
+  values:
+    {{- include "monitoring.kubePrometheusStack.mergedValues" . | nindent 4 }}
+  postRenderers:
+  - kustomize:
+      ##replace severity warning by critical on KubePodCrashLooping
+      #patchesStrategicMerge:
+      #- kind: PrometheusRule
+      #  apiVersion: monitoring.coreos.com/v1
+      #  metadata:
+      #    name: prometheus-kube-prometheus-kubernetes-apps
+      #    namespace: {{ $me.namespace }}
+      #  spec:
+      #    groups:
+      #    - $patch: merge
+      #      name: kubernetes-apps
+      #      rules:
+      #      - $patch: merge
+      #        alert: KubePodCrashLooping
+      #        labels:
+      #          severity: critical
+      patches:
+      - target:
+          version: v1
+          kind: PrometheusRule
+          name: prometheus-kube-prometheus-kubernetes-apps
+        patch: |
+          # TODO: when possible, identify rule by name. until that we test to check if source rule has change
+          # test: check if the specified node has the specified value, if the value differs it will throw an error
+          - op: test
+            path: /spec/groups/0/name
+            value: "kubernetes-apps"
+          - op: test
+            path: /spec/groups/0/rules/0/alert
+            value: "KubePodCrashLooping"
+          - op: replace
+            path: /spec/groups/0/rules/0/labels/severity
+            value: critical
+{{- end }}

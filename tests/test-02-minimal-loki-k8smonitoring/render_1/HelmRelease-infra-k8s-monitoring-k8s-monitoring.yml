@@ -1,0 +1,61 @@
+---
+# Source: helm-chart-of-the-death/templates/monitoring/k8s-monitoring/helmrelease.yaml
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: k8s-monitoring
+  namespace: infra-k8s-monitoring
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  dependsOn:
+    - name: loki
+      namespace: infra-loki
+  interval: 1h
+  timeout: 5m
+  chart:
+    spec:
+      chart: k8s-monitoring
+      version: "3.7.2"
+      sourceRef:
+        kind: HelmRepository
+        name: "grafana"
+        namespace: default
+      interval: 1h
+  upgrade:
+    remediation:
+      remediateLastFailure: true
+  test:
+    enable: true
+  values:
+    alloy-logs:
+      alloy:
+        securityContext:
+          capabilities:
+            add: []
+      enabled: true
+    alloy-metrics:
+      enabled: true
+    alloy-singleton:
+      alloy:
+        securityContext:
+          capabilities:
+            add: []
+      enabled: true
+    cluster:
+      name: change_me
+    clusterEvents:
+      enabled: true
+    clusterMetrics:
+      enabled: true
+    destinationsMap:
+      localLogs:
+        type: loki
+        url: http://loki.infra-loki:3100/loki/api/v1/push
+      localPrometheus:
+        type: prometheus
+        url: http://prometheus-kube-prometheus-prometheus.infra-prometheus:9090
+    nodeLogs:
+      enabled: true
+    podLogs:
+      enabled: true

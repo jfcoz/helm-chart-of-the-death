@@ -1,0 +1,8 @@
+---
+# Source: helm-chart-of-the-death/templates/monitoring/tempo/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infra-tempo
+  annotations:
+    helm.sh/resource-policy: keep

@@ -1,0 +1,188 @@
+---
+# Source: helm-chart-of-the-death/templates/monitoring/loki/helmrelease-loki.yaml
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: loki
+  namespace: infra-loki
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  #dependsOn:
+  #  - name: prometheus
+  #    namespace: infra-prometheus
+  interval: 1h
+  timeout: 20m
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      remediateLastFailure: true
+  chart:
+    spec:
+      chart: loki
+      version: "6.51.0"
+      sourceRef:
+        kind: HelmRepository
+        name: "grafana"
+        namespace: default
+      interval: 1h
+  test:
+    enable: true
+  values:
+    backend:
+      replicas: 0
+    bloomBuilder:
+      replicas: 0
+    bloomGateway:
+      replicas: 0
+    bloomPlanner:
+      replicas: 0
+    chunksCache:
+      allocatedMemory: 64
+      resources:
+        requests:
+          cpu: 10m
+          memory: 80M
+    compactor:
+      replicas: 1
+      resources:
+        limits:
+          memory: 200M
+        requests:
+          cpu: 10m
+          memory: 100M
+    deploymentMode: Distributed
+    distributor:
+      autoscaling:
+        enabled: true
+        targetCPUUtilizationPercentage: 90
+      resources:
+        limits:
+          memory: 100M
+        requests:
+          cpu: 100m
+          memory: 70M
+    indexGateway:
+      extraArgs:
+        - -log.level=warn
+      maxUnavailable: 1
+      replicas: 1
+      resources:
+        limits:
+          memory: 200M
+        requests:
+          cpu: 10m
+          memory: 50M
+    ingester:
+      autoscaling:
+        enabled: true
+        minReplicas: 2
+        targetCPUUtilizationPercentage: 90
+      enabled: true
+      extraArgs:
+        - -log.level=warn
+      resources:
+        limits:
+          memory: 2000M
+        requests:
+          cpu: 60m
+          memory: 200M
+      zoneAwareReplication:
+        enabled: false
+    loki:
+      auth_enabled: false
+      commonConfig:
+        replication_factor: 3
+      compactor:
+        delete_request_store: s3
+        retention_enabled: true
+      ingester:
+        chunk_encoding: snappy
+      limits_config:
+        allow_structured_metadata: true
+        retention_period: 7d
+        volume_enabled: true
+      pattern_ingester:
+        enabled: true
+      schemaConfig:
+        configs:
+          - from: "2025-11-23"
+            index:
+              period: 24h
+              prefix: loki_index_
+            object_store: s3
+            schema: v13
+            store: tsdb
+      storage:
+        bucketNames:
+          chunks: '{{ (((lookup "v1" "ConfigMap" "infra-loki" "loki-bucket").data).BUCKET_NAME) | default "bucket configmap not available yet" }}'
+          ruler: unused
+        object_store:
+          s3:
+            access_key_id: '{{ (((lookup "v1" "Secret" "infra-loki" "loki-bucket").data).AWS_ACCESS_KEY_ID) | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
+            bucket_lookup_type: path
+            endpoint: '{{ (((lookup "v1" "ConfigMap" "infra-loki" "loki-bucket").data).BUCKET_HOST) | default "bucket configmap not available yet" }}'
+            insecure: true
+            secret_access_key: '{{ (((lookup "v1" "Secret" "infra-loki" "loki-bucket").data).AWS_SECRET_ACCESS_KEY) | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
+        type: s3
+        use_thanos_objstore: true
+      tracing:
+        enabled: true
+    lokiCanary:
+      enabled: false
+    patternIngester:
+      extraArgs:
+        - -log.level=warn
+      maxUnavailable: 1
+      replicas: 1
+      resources:
+        requests:
+          cpu: 20m
+          memory: 100M
+    querier:
+      autoscaling:
+        enabled: true
+        targetCPUUtilizationPercentage: 90
+      maxUnavailable: 1
+      resources:
+        requests:
+          cpu: 50m
+          memory: 100M
+    queryFrontend:
+      autoscaling:
+        enabled: true
+        targetCPUUtilizationPercentage: 90
+      maxUnavailable: 1
+      resources:
+        limits:
+          memory: 200M
+        requests:
+          cpu: 20m
+          memory: 150M
+    queryScheduler:
+      replicas: 1
+      resources:
+        limits:
+          memory: 200M
+        requests:
+          cpu: 10m
+          memory: 50M
+    read:
+      replicas: 0
+    resultsCache:
+      allocatedMemory: 128
+      resources:
+        requests:
+          cpu: 10m
+          memory: 150
+    ruler:
+      storage:
+        type: local
+    singleBinary:
+      replicas: 0
+    test:
+      enabled: false
+    write:
+      replicas: 0

@@ -1,0 +1,10 @@
+prometheusRules:
+  create: false
+prometheusServiceMonitor:
+  create: false
+secretsExporter:
+  cache:
+    maxDuration: 600
+  resources:
+    limits:
+      cpu: 1000m

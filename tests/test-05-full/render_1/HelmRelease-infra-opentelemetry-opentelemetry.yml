@@ -1,0 +1,59 @@
+---
+# Source: helm-chart-of-the-death/templates/monitoring/opentelemetry-operator/helmrelease.yaml
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: opentelemetry
+  namespace: infra-opentelemetry
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  interval: 1h
+  timeout: 2m
+  install:
+    crds: Create
+    # temporaire pour featureGates string et map en cours de switch
+    disableSchemaValidation: true
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      remediateLastFailure: true
+    # temporaire pour featureGates string et map en cours de switch
+    disableSchemaValidation: true
+  chart:
+    spec:
+      chart: opentelemetry-operator
+      version: "0.102.0"
+      sourceRef:
+        kind: HelmRepository
+        name: "opentelemetry"
+        namespace: default
+      interval: 1h
+  test:
+    enable: true
+  values:
+    admissionWebhooks:
+      certManager:
+        enabled: true
+      # Exclude system namespaces, cf https://cloud.google.com/kubernetes-engine/docs/how-to/optimize-webhooks?hl=fr#unsafe-webhooks
+      namespaceSelector:
+        matchExpressions:
+          - key: kubernetes.io/metadata.name
+            operator: NotIn
+            values:
+              - kube-system
+              - kube-node-lease
+    manager:
+      collectorImage:
+        repository: "ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-k8s"
+      serviceMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: true
+      resources:
+        requests:
+          cpu: 5m
+        limits:
+          cpu: 500m
+          #extraArgs:
+          #  - --feature-gates=operator.autoinstrumentation.go

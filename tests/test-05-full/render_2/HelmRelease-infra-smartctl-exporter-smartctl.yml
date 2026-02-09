@@ -1,0 +1,222 @@
+---
+# Source: prometheus-smartctl-exporter/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: smartctl-prometheus-smartctl-exporter
+  labels:
+    helm.sh/chart: prometheus-smartctl-exporter-0.16.0
+    app.kubernetes.io/name: prometheus-smartctl-exporter
+    app.kubernetes.io/instance: smartctl
+    app.kubernetes.io/version: "v0.14.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: prometheus-smartctl-exporter/templates/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: smartctl-prometheus-smartctl-exporter
+  labels:
+    helm.sh/chart: prometheus-smartctl-exporter-0.16.0
+    app.kubernetes.io/name: prometheus-smartctl-exporter
+    app.kubernetes.io/instance: smartctl
+    app.kubernetes.io/version: "v0.14.0"
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: unrestricted-psp
+subjects:
+- kind: ServiceAccount
+  name: smartctl-prometheus-smartctl-exporter
+  namespace: infra-smartctl-exporter
+---
+# Source: prometheus-smartctl-exporter/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: smartctl-prometheus-smartctl-exporter
+  labels:
+    helm.sh/chart: prometheus-smartctl-exporter-0.16.0
+    app.kubernetes.io/name: prometheus-smartctl-exporter
+    app.kubernetes.io/instance: smartctl
+    app.kubernetes.io/version: "v0.14.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: prometheus-smartctl-exporter
+    app.kubernetes.io/instance: smartctl
+---
+# Source: prometheus-smartctl-exporter/templates/daemonset.yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: smartctl-prometheus-smartctl-exporter-0
+  labels:
+    helm.sh/chart: prometheus-smartctl-exporter-0.16.0
+    app.kubernetes.io/name: prometheus-smartctl-exporter
+    app.kubernetes.io/instance: smartctl
+    app.kubernetes.io/version: "v0.14.0"
+    app.kubernetes.io/managed-by: Helm
+    idx: i0
+spec:
+  updateStrategy: 
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus-smartctl-exporter
+      app.kubernetes.io/instance: smartctl
+      idx: i0
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: prometheus-smartctl-exporter
+        app.kubernetes.io/instance: smartctl
+        idx: i0
+    spec:
+      containers:
+      - image: "ghcr.io/joryirving/smartctl_exporter:0.14.0"
+        imagePullPolicy: IfNotPresent
+        args:
+        - '--smartctl.path=/usr/sbin/smartctl'
+        - '--smartctl.interval=120s'
+
+        - '--smartctl.device=/dev/sda'
+
+        - '--web.listen-address=0.0.0.0:9633'
+        - '--web.telemetry-path=/metrics'
+        name: main
+        securityContext:
+          privileged: true
+          runAsUser: 0
+        ports:
+        - name: http
+          containerPort: 9633
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 10m
+            memory: 40M
+        volumeMounts:
+        - mountPath: /hostdev
+          name: dev
+      dnsPolicy: ClusterFirst
+      hostNetwork: false
+      restartPolicy: Always
+      serviceAccountName: smartctl-prometheus-smartctl-exporter
+      volumes:
+      - hostPath:
+          path: /dev
+        name: dev
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+---
+# Source: prometheus-smartctl-exporter/templates/prometheusrule.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: smartctl-prometheus-smartctl-exporter.rules
+  labels:
+    helm.sh/chart: prometheus-smartctl-exporter-0.16.0
+    app.kubernetes.io/name: prometheus-smartctl-exporter
+    app.kubernetes.io/instance: smartctl
+    app.kubernetes.io/version: "v0.14.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  groups:
+    - name: prometheus-smartctl-exporter
+      rules:
+        - alert: SmartCTLDDeviceTemperature
+          expr: smartctl_device_temperature{temperature_type="current"} > 60
+          for: 1m
+          annotations:
+            description: Device {{ $labels.device }} on instance {{ $labels.instance }} has temperature
+              higher than 60°C
+            summary: Device has temperature higher than 60°C
+          labels:
+            severity: warning
+        - alert: SmartCTLDInterfaceSlow
+          expr: smartctl_device_interface_speed{speed_type="current"} != on(device, instance, namespace, pod) smartctl_device_interface_speed{speed_type="max"}
+          for: 1m
+          annotations:
+            description: Device {{ $labels.device }} on instance {{ $labels.instance }} interface
+              is slower then it should be
+            summary: Device interface is slower then it should be
+          labels:
+            severity: warning
+        - alert: SmartCTLDeviceAvailableSpareUnderThreshold
+          expr: smartctl_device_available_spare_threshold > smartctl_device_available_spare
+          for: 1m
+          annotations:
+            description: Device {{ $labels.device }} on instance {{ $labels.instance }} is under
+              available spare threshold
+            summary: Device is under available spare threshold
+          labels:
+            severity: warning
+        - alert: SmartCTLDeviceCriticalWarning
+          expr: smartctl_device_critical_warning != 0
+          for: 1m
+          annotations:
+            description: Device {{ $labels.device }} on instance {{ $labels.instance }} has critical
+              controller warnings
+            summary: Device has critical controller warnings
+          labels:
+            severity: critical
+        - alert: SmartCTLDeviceMediaErrors
+          expr: smartctl_device_media_errors != 0
+          for: 1m
+          annotations:
+            description: Device {{ $labels.device }} on instance {{ $labels.instance }} has media
+              errors
+            summary: Device has media errors
+          labels:
+            severity: critical
+        - alert: SmartCTLDeviceStatus
+          expr: smartctl_device_status != 1
+          for: 1m
+          annotations:
+            description: Device {{ $labels.device }} on instance {{ $labels.instance }} has bad
+              status
+            summary: Device has bad status
+          labels:
+            severity: critical
+---
+# Source: prometheus-smartctl-exporter/templates/servicemonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: smartctl-prometheus-smartctl-exporter
+  labels:
+    helm.sh/chart: prometheus-smartctl-exporter-0.16.0
+    app.kubernetes.io/name: prometheus-smartctl-exporter
+    app.kubernetes.io/instance: smartctl
+    app.kubernetes.io/version: "v0.14.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  attachMetadata:
+    node: false
+  endpoints:
+    - interval: 60s
+      path: /metrics
+      port: http
+      scheme: http
+      scrapeTimeout: 30s
+  namespaceSelector:
+    matchNames:
+      - infra-smartctl-exporter
+  selector:
+    matchLabels:
+      helm.sh/chart: prometheus-smartctl-exporter-0.16.0
+      app.kubernetes.io/name: prometheus-smartctl-exporter
+      app.kubernetes.io/instance: smartctl
+      app.kubernetes.io/version: "v0.14.0"
+      app.kubernetes.io/managed-by: Helm

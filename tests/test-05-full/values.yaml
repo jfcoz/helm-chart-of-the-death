@@ -1,0 +1,135 @@
+cloudProvider: none
+
+kubernetesDistribution: k3s
+
+global:
+  ingressWildcardSuffix: replaced.by.kustomization
+  grafanaAdminPassword: change_me
+alerts:
+  alertmanager_slack_webhook: https://example.com
+  alertmanager_watchdog_webhook: https://example.com
+  alertmanager_oncall_webhook: https://example.com
+
+components:
+  ingress:
+    nginxIngressController:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-nginx-ingress
+      values:
+        controller:
+          # run on all node
+          kind: DaemonSet
+          updateStrategy:
+            rollingUpdate:
+              maxUnavailable: 50%
+
+  monitoring:
+    datadog:
+      managed: true
+    keda:
+      namespace: infra-keda
+      managed: true
+      helmResourcePolicyKeep: true
+      values: {}
+    kubePrometheusStack:
+      namespace: infra-prometheus
+      managed: true
+      helmResourcePolicyKeep: true
+      values: {}
+    thanos:
+      namespace: infra-thanos
+      managed: true
+      helmResourcePolicyKeep: true
+    loki:
+      namespace: infra-loki
+      managed: true
+      helmResourcePolicyKeep: true
+      config:
+        # deploymentMode: SimpleScalable / Distributed / SingleBinary
+        deploymentMode: Distributed
+    promtail:
+      namespace: infra-promtail
+      managed: true
+      helmResourcePolicyKeep: true
+    k8sMonitoring:
+      namespace: infra-k8s-monitoring
+      managed: true
+      helmResourcePolicyKeep: true
+    openTelemetryOperator:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-opentelemetry
+    openTelemetryCollector:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-opentelemetry
+    x509CertificateExporter:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-x509
+      values: {}
+    pushGateway:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-push-gateway
+    tempo:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-tempo
+    smartctlExporter:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-smartctl-exporter
+    eventRouter:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-event-router
+    blackboxExporter:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-blackbox-exporter
+
+  backup:
+    velero:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-velero
+
+  security:
+    certManager:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-cert-manager
+    kyverno:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-kyverno
+    falco:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-falco
+    trivy:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-trivy
+
+  audit:
+    popeye:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-popeye
+
+  storage:
+    rook:
+      managed: false
+      used: true
+      helmResourcePolicyKeep: true
+      namespace: rook-ceph
+
+cloudProviderSpecific:
+  aws:
+    cloudwatchAgent:
+      used: false
+    fluentd:
+      used: false

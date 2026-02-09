@@ -1,0 +1,3 @@
+config:
+  data:
+    EXPIRING_CHECK_THRESHOLD: "30"

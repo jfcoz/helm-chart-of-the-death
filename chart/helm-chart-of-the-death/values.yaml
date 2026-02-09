@@ -1,0 +1,250 @@
+# cloudProvider aws/gcp/ovh/scw/do/none
+cloudProvider: none
+
+# kind/k3s
+kubernetesDistribution: none
+
+global:
+  clusterName: change_me
+  ingressWildcardSuffix: replaced.by.kustomization
+  # contactAddress: replaced.by.kustomization
+  # grafanaAdminPassword: must.be.replaced.by.kustomization
+  # clusterName: must.be.replaced.by.kustomization
+
+repositories:
+  - name: cnpg
+    url: https://cloudnative-pg.github.io/charts
+  - name: kubernetes-ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
+  - name: kedacore
+    url: https://kedacore.github.io/charts
+  - name: prometheus-community
+    url: https://prometheus-community.github.io/helm-charts
+  - name: stevehipwell
+    url: https://stevehipwell.github.io/helm-charts/
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
+  - name: datadog
+    url: https://helm.datadoghq.com
+  - name: enix
+    url: https://charts.enix.io
+  - name: opentelemetry
+    url: https://open-telemetry.github.io/opentelemetry-helm-charts
+  - name: vmware-tanzu
+    url: https://vmware-tanzu.github.io/helm-charts
+  - name: jetstack
+    url: https://charts.jetstack.io
+  - name: kyverno
+    url: https://kyverno.github.io/kyverno/
+  - name: falcosecurity
+    url: https://falcosecurity.github.io/charts
+
+components:
+  ingress:
+    nginxIngressController:
+      managed: false
+      helmResourcePolicyKeep: true
+      namespace: infra-nginx-ingress
+      chartVersion: "4.14.2"
+      chartRepository: kubernetes-ingress-nginx
+      values: {}
+
+  monitoring:
+    datadog:
+      namespace: infra-datadog
+      managed: false
+      used: true
+      helmResourcePolicyKeep: true
+      chartVersion: "3.161.2"
+      chartRepository: datadog
+      values: {}
+
+    keda:
+      namespace: infra-keda
+      managed: false
+      helmResourcePolicyKeep: true
+      chartVersion: "2.18.3"
+      chartRepository: kedacore
+      values: {}
+
+    kubePrometheusStack:
+      namespace: infra-prometheus
+      managed: false
+      helmResourcePolicyKeep: true
+      chartVersion: "81.2.1"
+      chartRepository: prometheus-community
+      values: {}
+
+    thanos:
+      namespace: infra-thanos
+      managed: false
+      helmResourcePolicyKeep: true
+      chartVersion: "1.22.1"
+      chartRepository: stevehipwell
+      values: {}
+
+    loki:
+      namespace: infra-loki
+      managed: false
+      helmResourcePolicyKeep: true
+      chartVersion: "6.51.0"
+      chartRepository: grafana
+      config:
+        # deploymentMode: SimpleScalable / Distributed / SingleBinary
+        deploymentMode: SimpleScalable
+        # buckets:
+        #   chunks: "change_me"
+        # aws:
+        #   roleArn: "change_me"
+        #   region: "change_me"
+      values: {}
+
+    promtail:
+      namespace: infra-promtail
+      managed: false
+      helmResourcePolicyKeep: true
+      chartVersion: "6.17.1"
+      chartRepository: grafana
+      values: {}
+
+    k8sMonitoring:
+      namespace: infra-k8s-monitoring
+      managed: false
+      helmResourcePolicyKeep: true
+      chartVersion: "3.7.2"
+      chartRepository: grafana
+      values: {}
+
+
+    openTelemetryOperator:
+      managed: false
+      helmResourcePolicyKeep: true
+      namespace: infra-opentelemetry
+      chartVersion: "0.102.0"
+      chartRepository: opentelemetry
+      values: {}
+
+    openTelemetryCollector:
+      managed: false
+      helmResourcePolicyKeep: true
+      namespace: infra-opentelemetry
+      values: {}
+
+    x509CertificateExporter:
+      managed: false
+      helmResourcePolicyKeep: true
+      namespace: infra-x509
+      chartVersion: "3.19.1"
+      chartRepository: enix
+      values: {}
+
+    pushGateway:
+      managed: false
+      helmResourcePolicyKeep: true
+      namespace: infra-push-gateway
+      chartVersion: "3.6.0"
+      chartRepository: prometheus-community
+      values: {}
+
+    tempo:
+      managed: false
+      helmResourcePolicyKeep: true
+      namespace: infra-tempo
+      chartVersion: "1.60.0"
+      chartRepository: grafana
+      values: {}
+
+    smartctlExporter:
+      managed: false
+      helmResourcePolicyKeep: true
+      namespace: infra-smartctl-exporter
+      chartVersion: "0.16"
+      chartRepository: prometheus-community
+      values: {}
+
+    eventRouter:
+      managed: false
+      helmResourcePolicyKeep: true
+      namespace: infra-event-router
+      values: {}
+
+    blackboxExporter:
+      managed: false
+      helmResourcePolicyKeep: true
+      namespace: infra-blackbox-exporter
+      chartVersion: "11.7.0"
+      chartRepository: prometheus-community
+      values: {}
+
+  backup:
+    velero:
+      managed: false
+      helmResourcePolicyKeep: true
+      namespace: infra-velero
+      chartVersion: "11.3.2"
+      chartRepository: vmware-tanzu
+      values: {}
+
+  security:
+    certManager:
+      managed: false
+      helmResourcePolicyKeep: true
+      namespace: infra-cert-manager
+      chartVersion: "1.19.2"
+      chartRepository: jetstack
+      values: {}
+
+    kyverno:
+      managed: false
+      helmResourcePolicyKeep: true
+      namespace: infra-kyverno
+      chartVersion: "3.6.2"
+      chartRepository: kyverno
+      values: {}
+
+    falco:
+      managed: false
+      helmResourcePolicyKeep: true
+      namespace: infra-falco
+      chartVersion: "7.2.0"
+      chartRepository: falcosecurity
+      values: {}
+
+    trivy:
+      managed: false
+      helmResourcePolicyKeep: true
+      namespace: infra-trivy
+      chartVersion: "TODO"
+      chartRepository: TODO
+      values: {}
+
+  audit:
+    popeye:
+      managed: false
+      helmResourcePolicyKeep: true
+      namespace: infra-popeye
+
+  storage:
+    rook:
+      managed: false
+      used: true
+      helmResourcePolicyKeep: true
+      namespace: rook-ceph
+      chartVersion: "TODO"
+      chartRepository: TODO
+      values: {}
+
+  database:
+    cnpg:
+      managed: false
+      helmResourcePolicyKeep: true
+      namespace: cnpg-operator
+      chartVersion: "0.27.0"
+      chartRepository: cnpg
+
+cloudProviderSpecific:
+  aws:
+    cloudwatchAgent:
+      used: false
+    fluentd:
+      used: false

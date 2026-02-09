@@ -1,0 +1,132 @@
+collectors:
+  containerd:
+    enabled: true
+    socket: /run/k3s/containerd/containerd.sock
+  kubernetes:
+    enabled: true
+controller:
+  daemonset:
+    updateStrategy:
+      rollingUpdate:
+        maxUnavailable: 50%
+customRules:
+  default-rules-exclusions.yaml: |-
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "infra-x509"
+          and container.image.repository in (
+            enix/x509-certificate-exporter,
+            docker.io/enix/x509-certificate-exporter
+          )
+        )
+    # condition not needed for ourself
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "infra-falco"
+          and container.image.repository in (
+            falcosecurity/k8s-metacollector,
+            docker.io/falcosecurity/k8s-metacollector
+          )
+        )
+    - list: allowed_container_images_loading_kernel_module
+      override:
+        items: append
+      items:
+        - quay.io/cephcsi/cephcsi
+    - macro: postgres_running_cnpg
+      condition: (proc.pname=postgres and (proc.cmdline startswith "sh -c /controller/manager wal-archive --log-destination /controller/log/postgres.json"))
+
+    - rule: "Run shell untrusted"
+      override:
+        condition: append
+      condition: |
+        and not postgres_running_cnpg
+driver:
+  loader:
+    initContainer:
+      resources:
+        requests:
+          memory: 35M
+falcoctl:
+  artifact:
+    follow:
+      resources:
+        requests:
+          cpu: 1m
+          memory: 35M
+    install:
+      resources:
+        requests:
+          memory: 35M
+falcosidekick:
+  config:
+    alertmanager:
+      endpoint: /api/v2/alerts
+      hostport: http://prometheus-kube-prometheus-alertmanager.infra-prometheus:9093
+      minimumpriority: notice
+    customfields: cluster_name:change_me
+  enabled: true
+  podAnnotations:
+    ad.datadoghq.com/falcosidekick.logs: |-
+      [{
+        "log_processing_rules": [
+          {
+            "type": "exclude_at_match",
+            "name": "exclude_info_level",
+            "pattern" : "[INFO]"
+          }
+        ]
+      }]
+  resources:
+    requests:
+      cpu: 2m
+      memory: 70M
+  webui:
+    enabled: true
+    initContainer:
+      resources:
+        requests:
+          memory: 10M
+    redis:
+      customConfig:
+        - maxmemory-policy allkeys-lfu
+        - maxmemory 30mb
+      resources:
+        limits:
+          memory: 300M
+        requests:
+          cpu: 5m
+          memory: 300M
+    replicaCount: 1
+    resources:
+      requests:
+        cpu: 2m
+        memory: 20M
+k8s-metacollector:
+  resources:
+    requests:
+      cpu: 5m
+      memory: 50M
+metrics:
+  enabled: true
+podPriorityClassName: system-node-critical
+resources:
+  requests:
+    cpu: 100m
+    memory: 150M
+serviceMonitor:
+  create: false
+tolerations:
+  - effect: NoSchedule
+    key: master
+    operator: Exists
+  - effect: NoSchedule
+    key: storage
+    operator: Exists
+tty: false

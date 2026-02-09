@@ -1,0 +1,37 @@
+{{- $me := .Values.components.monitoring.loki }}
+{{- if include "common.managed" $me }}
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: loki
+  namespace: {{ $me.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+spec:
+  #dependsOn:
+  #  - name: prometheus
+  #    namespace: infra-prometheus
+  interval: 1h
+  timeout: 20m
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      remediateLastFailure: true
+  chart:
+    spec:
+      chart: loki
+      version: {{ $me.chartVersion | quote }}
+      sourceRef:
+        kind: HelmRepository
+        name: {{ $me.chartRepository | quote }}
+        namespace: {{ $.Release.Namespace }}
+      interval: 1h
+  test:
+    enable: true
+  values:
+    {{- include "monitoring.loki.mergedValues" . | nindent 4 }}
+{{- end }}

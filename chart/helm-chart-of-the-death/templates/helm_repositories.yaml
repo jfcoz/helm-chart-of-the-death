@@ -1,0 +1,40 @@
+{{- range .Values.repositories }}
+{{- $reponame := .name }}
+
+
+{{/* search if repositories is needed */}}
+{{- $needed := false }}
+{{- /* loop on components categories */}}
+{{- range keys ($.Values.components) }}
+{{- $category := . }}
+{{- /* loop on components */}}
+{{- range keys (dig . false $.Values.components) }}
+{{- $component := . }}
+{{- $isManaged := dig $category $component "managed" false $.Values.components }}
+{{- $chartRepository := dig $category $component "chartRepository" "" $.Values.components }}
+{{- if and
+           (eq $chartRepository $reponame)
+           $isManaged
+}}
+{{- $needed = true }}
+{{- end }}
+{{- end }}
+{{- end }}
+
+{{- if $needed }}
+
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    {{- if .helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+spec:
+  interval: 1h
+  url: {{ .url }}
+---
+{{- end }}
+{{- end }}

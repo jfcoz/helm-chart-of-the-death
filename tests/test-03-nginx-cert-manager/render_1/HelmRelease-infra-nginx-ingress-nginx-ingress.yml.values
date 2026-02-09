@@ -1,0 +1,11 @@
+controller:
+  config: null
+  externalTrafficPolicy: Local
+  metrics:
+    enabled: true
+  resources:
+    requests:
+      memory: 300M
+  service:
+    externalTrafficPolicy: ""
+    type: ClusterIP

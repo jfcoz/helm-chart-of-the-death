@@ -1,0 +1,56 @@
+{{- $me := .Values.components.monitoring.blackboxExporter }}
+{{- if include "common.managed" $me }}
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: blackbox
+  namespace: {{ $me.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+spec:
+  dependsOn:
+    - name: prometheus
+      namespace: infra-prometheus
+  interval: 1h
+  timeout: 10m
+  chart:
+    spec:
+      chart: prometheus-blackbox-exporter
+      # each major contains upgrade process in changelog
+      version: {{ $me.chartVersion | quote }}
+      sourceRef:
+        kind: HelmRepository
+        name: {{ $me.chartRepository | quote }}
+        namespace: {{ $.Release.Namespace }}
+      interval: 1h
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  test:
+    enable: true
+  values:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 25M
+    serviceMonitor:
+      enabled: true
+      selfMonitor:
+        enabled: true
+    prometheusRule:
+      enabled: true
+      rules:
+        - alert: HttpCodeNode200
+          expr: avg by (namespace, instance) (probe_http_status_code!=200)
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: HTTP probe response code is not 200
+            description: "HTTP probe response code {{ "{{" }} $value }} is not 200, on {{ "{{" }} $labels.instance }}"
+{{- end }}
