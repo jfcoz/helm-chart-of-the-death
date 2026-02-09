@@ -105,6 +105,21 @@ components:
       managed: true
       helmResourcePolicyKeep: true
       namespace: infra-kyverno
+      values: {}
+      policyExclude:
+        other:
+          any:
+            - useless: true
+        disallow-host-path:
+          any:
+            - resources:
+                namespaces:
+                  - example
+                kinds:
+                  - Pod
+                names:
+                  - "example-*"
+
     falco:
       managed: true
       helmResourcePolicyKeep: true
