@@ -24,7 +24,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install Cosign
-        uses: sigstore/cosign-installer@v4
+        uses: sigstore/cosign-installer@v4.0.0
 
       - name: Configure Git
         run: |
@@ -35,7 +35,7 @@ jobs:
         uses: azure/setup-helm@v4
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1
+        uses: helm/chart-releaser-action@v1.7.0
         with:
           charts_dir: charts
           config: cr.yaml
