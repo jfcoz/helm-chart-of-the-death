@@ -9,7 +9,7 @@ if [ ! -z "$1" ]; then
 fi
 
 cd $(dirname $0)
-chart_dir=$PWD/../chart/helm-chart-of-the-death/
+chart_dir=$PWD/../charts/helm-chart-of-the-death/
 
 # to test on a specific cluster using
 # if .Capabilities.APIVersions.Has "objectbucket.io/v1alpha1"
