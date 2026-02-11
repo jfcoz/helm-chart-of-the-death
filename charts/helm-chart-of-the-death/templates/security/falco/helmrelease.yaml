@@ -12,7 +12,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: falco
+      chart: {{ $me.chartName }}
       sourceRef:
         kind: HelmRepository
         name: {{ $me.chartRepository | quote }}

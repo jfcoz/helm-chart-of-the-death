@@ -45,6 +45,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-nginx-ingress
+      chartName: ingress-nginx
       chartVersion: "4.14.2"
       chartRepository: kubernetes-ingress-nginx
       values: {}
@@ -55,6 +56,7 @@ components:
       managed: false
       used: true
       helmResourcePolicyKeep: true
+      chartName: datadog
       chartVersion: "3.161.2"
       chartRepository: datadog
       values: {}
@@ -63,6 +65,7 @@ components:
       namespace: infra-keda
       managed: false
       helmResourcePolicyKeep: true
+      chartName: keda
       chartVersion: "2.18.3"
       chartRepository: kedacore
       values: {}
@@ -71,6 +74,7 @@ components:
       namespace: infra-prometheus
       managed: false
       helmResourcePolicyKeep: true
+      chartName: kube-prometheus-stack
       chartVersion: "81.2.1"
       chartRepository: prometheus-community
       values: {}
@@ -79,6 +83,7 @@ components:
       namespace: infra-thanos
       managed: false
       helmResourcePolicyKeep: true
+      chartName: thanos
       chartVersion: "1.22.1"
       chartRepository: stevehipwell
       values: {}
@@ -87,6 +92,7 @@ components:
       namespace: infra-loki
       managed: false
       helmResourcePolicyKeep: true
+      chartName: loki
       chartVersion: "6.51.0"
       chartRepository: grafana
       config:
@@ -103,6 +109,7 @@ components:
       namespace: infra-promtail
       managed: false
       helmResourcePolicyKeep: true
+      chartName: promtail
       chartVersion: "6.17.1"
       chartRepository: grafana
       values: {}
@@ -111,6 +118,7 @@ components:
       namespace: infra-k8s-monitoring
       managed: false
       helmResourcePolicyKeep: true
+      chartName: k8s-monitoring
       chartVersion: "3.7.2"
       chartRepository: grafana
       values: {}
@@ -120,6 +128,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-opentelemetry
+      chartName: opentelemetry-operator
       chartVersion: "0.102.0"
       chartRepository: opentelemetry
       values: {}
@@ -134,6 +143,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-x509
+      chartName: x509-certificate-exporter
       chartVersion: "3.19.1"
       chartRepository: enix
       values: {}
@@ -142,6 +152,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-push-gateway
+      chartName: prometheus-pushgateway
       chartVersion: "3.6.0"
       chartRepository: prometheus-community
       values: {}
@@ -150,6 +161,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-tempo
+      chartName: tempo-distributed
       chartVersion: "1.60.0"
       chartRepository: grafana
       values: {}
@@ -158,6 +170,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-smartctl-exporter
+      chartName: prometheus-smartctl-exporter
       chartVersion: "0.16"
       chartRepository: prometheus-community
       values: {}
@@ -172,6 +185,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-blackbox-exporter
+      chartName: prometheus-blackbox-exporter
       chartVersion: "11.7.0"
       chartRepository: prometheus-community
       values: {}
@@ -181,6 +195,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-velero
+      chartName: velero
       chartVersion: "11.3.2"
       chartRepository: vmware-tanzu
       values: {}
@@ -190,6 +205,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-cert-manager
+      chartName: cert-manager
       chartVersion: "1.19.2"
       chartRepository: jetstack
       values: {}
@@ -198,6 +214,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-kyverno
+      chartName: kyverno
       chartVersion: "3.6.2"
       chartRepository: kyverno
       values: {}
@@ -206,6 +223,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-falco
+      chartName: falco
       chartVersion: "7.2.0"
       chartRepository: falcosecurity
       values: {}
@@ -214,6 +232,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-trivy
+      chartName: TODO
       chartVersion: "TODO"
       chartRepository: TODO
       values: {}
@@ -239,6 +258,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: cnpg-operator
+      chartName: cloudnative-pg
       chartVersion: "0.27.0"
       chartRepository: cnpg
 

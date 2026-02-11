@@ -23,7 +23,7 @@ spec:
       remediateLastFailure: true
   chart:
     spec:
-      chart: tempo-distributed
+      chart: {{ $me.chartName }}
       version: {{ $me.chartVersion | quote }}
       sourceRef:
         kind: HelmRepository

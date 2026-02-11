@@ -23,7 +23,7 @@ spec:
   timeout: 30m
   chart:
     spec:
-      chart: x509-certificate-exporter
+      chart: {{ $me.chartName }}
       version: {{ $me.chartVersion | quote }}
       sourceRef:
         kind: HelmRepository

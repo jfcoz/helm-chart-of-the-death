@@ -12,7 +12,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: cert-manager
+      chart: {{ $me.chartName }}
       sourceRef:
         kind: HelmRepository
         name: {{ $me.chartRepository | quote }}
