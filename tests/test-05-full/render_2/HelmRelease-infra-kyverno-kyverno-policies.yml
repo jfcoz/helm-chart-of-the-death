@@ -252,6 +252,13 @@ spec:
             - infra-falco-falco-*
             namespaces:
             - infra-falco
+        - resources:
+            kinds:
+            - Pod
+            names:
+            - example-*
+            namespaces:
+            - example
       validate:
         failureAction: Enforce
         allowExistingViolations: true
