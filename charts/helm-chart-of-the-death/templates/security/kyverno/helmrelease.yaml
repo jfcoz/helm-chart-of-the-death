@@ -19,7 +19,7 @@ spec:
   timeout: 30m
   chart:
     spec:
-      chart: kyverno
+      chart: {{ $me.chartName }}
       # each major contains upgrade process in changelog
       version: {{ $me.chartVersion | quote }}
       sourceRef:

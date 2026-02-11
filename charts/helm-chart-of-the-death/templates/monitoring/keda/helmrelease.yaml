@@ -24,7 +24,7 @@ spec:
   timeout: 10m
   chart:
     spec:
-      chart: keda
+      chart: {{ $me.chartName }}
       version: {{ $me.chartVersion | quote }}
       sourceRef:
         kind: HelmRepository

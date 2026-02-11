@@ -1,5 +1,5 @@
 ---
-# Source: helm-chart-of-the-death/templates/monitoring/loki/helmrelease-loki.yaml
+# Source: helm-chart-of-the-death/templates/monitoring/loki/helmrelease.yaml
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:

@@ -28,7 +28,7 @@ spec:
   timeout: 5m
   chart:
     spec:
-      chart: k8s-monitoring
+      chart: {{ $me.chartName }}
       version: {{ $me.chartVersion | quote }}
       sourceRef:
         kind: HelmRepository

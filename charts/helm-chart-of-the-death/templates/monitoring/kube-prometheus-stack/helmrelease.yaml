@@ -28,7 +28,7 @@ spec:
   timeout: 10m
   chart:
     spec:
-      chart: kube-prometheus-stack
+      chart: {{ $me.chartName }}
       # each major contains upgrade process in changelog
       version: {{ $me.chartVersion | quote }}
       sourceRef:

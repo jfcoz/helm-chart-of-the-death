@@ -117,7 +117,7 @@ spec:
   wait: true
 ```
 
-```
+```yaml
 # clusters/$cluster/helm-chart-of-the-death.yaml
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
