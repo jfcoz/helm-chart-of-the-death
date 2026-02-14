@@ -1,0 +1,17 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "customManagers": [
+    {
+      "customType": "jsonata",
+      "fileFormat": "yaml",
+      "managerFilePatterns": ["/(^|/)charts/.*/values.yaml$/"],
+      "matchStrings": [
+        "$map(components[].*[].*, function($c) {{ \"depName\": $c.chartName, \"currentValue\": $c.chartVersion}})"
+      ],
+      "datasourceTemplate": "helm"
+    }
+  ]
+}
