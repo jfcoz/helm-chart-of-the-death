@@ -3,6 +3,14 @@
   "extends": [
     "config:recommended"
   ],
+  "packageRules": [
+    {
+      // automerge patch
+      "matchUpdateTypes": ["patch"],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true
+    }
+  ],
   "bumpVersions": [
     {
       "filePatterns": ["{{packageFileDir}}/Chart.{yaml,yml}"],
