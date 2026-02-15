@@ -57,7 +57,7 @@ components:
       used: true
       helmResourcePolicyKeep: true
       chartName: datadog
-      chartVersion: "3.161.2"
+      chartVersion: "3.170.1"
       chartRepository: datadog
       values: {}
 
