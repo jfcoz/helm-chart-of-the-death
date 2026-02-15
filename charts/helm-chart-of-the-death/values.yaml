@@ -46,7 +46,7 @@ components:
       helmResourcePolicyKeep: true
       namespace: infra-nginx-ingress
       chartName: ingress-nginx
-      chartVersion: "4.14.2"
+      chartVersion: "4.14.3"
       chartRepository: kubernetes-ingress-nginx
       values: {}
 
