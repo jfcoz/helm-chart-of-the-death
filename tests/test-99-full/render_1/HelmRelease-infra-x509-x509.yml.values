@@ -1,0 +1,52 @@
+hostPathsExporter:
+  daemonSets:
+    masters:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: In
+                    values:
+                      - "true"
+      tolerations:
+        - effect: NoSchedule
+          key: master
+          operator: Exists
+      watchDirectories:
+        - /var/lib/rancher/k3s/server/tls/
+        - /var/lib/rancher/k3s/agent/
+    nodes:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: node-role.kubernetes.io/control-plane
+                    operator: NotIn
+                    values:
+                      - "true"
+      tolerations:
+        - effect: NoSchedule
+          key: storage
+          operator: Exists
+      watchDirectories:
+        - /var/lib/rancher/k3s/agent/
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 30M
+    requests:
+      cpu: 1m
+      memory: 30M
+prometheusRules:
+  create: true
+prometheusServiceMonitor:
+  create: true
+secretsExporter:
+  cache:
+    maxDuration: 600
+  resources:
+    limits:
+      cpu: 1000m

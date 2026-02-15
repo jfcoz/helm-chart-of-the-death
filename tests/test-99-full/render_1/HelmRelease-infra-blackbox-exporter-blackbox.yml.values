@@ -1,0 +1,19 @@
+resources:
+  requests:
+    cpu: 10m
+    memory: 25M
+serviceMonitor:
+  enabled: true
+  selfMonitor:
+    enabled: true
+prometheusRule:
+  enabled: true
+  rules:
+    - alert: HttpCodeNode200
+      expr: avg by (namespace, instance) (probe_http_status_code!=200)
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: HTTP probe response code is not 200
+        description: "HTTP probe response code {{ $value }} is not 200, on {{ $labels.instance }}"

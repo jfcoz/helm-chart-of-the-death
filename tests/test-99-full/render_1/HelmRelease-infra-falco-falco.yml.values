@@ -1,0 +1,96 @@
+collectors:
+  containerd:
+    enabled: true
+    socket: /run/k3s/containerd/containerd.sock
+  kubernetes:
+    enabled: true
+controller:
+  daemonset:
+    updateStrategy:
+      rollingUpdate:
+        maxUnavailable: 50%
+customRules:
+  default-rules-exclusions.yaml: "- macro: k8s_containers\n  override:\n    condition: append\n  condition: |\n    or (\n      k8s.ns.name = \"infra-velero\"\n      and container.image.repository in (\n        docker.io/velero/velero\n      )\n    )\n- macro: k8s_containers\n  override:\n    condition: append\n  condition: |\n    or (\n      k8s.ns.name = \"infra-keda\"\n      and container.image.repository in (\n        ghcr.io/kedacore/keda,\n        ghcr.io/kedacore/keda-admission-webhooks,\n        ghcr.io/kedacore/keda-metrics-apiserver\n      )\n    )\n- macro: k8s_containers\n  override:\n    condition: append\n  condition: |\n    or (\n      k8s.ns.name = \"infra-k8s-monitoring\"\n      and container.image.repository in (\n        docker.io/grafana/alloy,\n        docker.io/grafana/alloy-operator,\n        ghcr.io/grafana/alloy-operator,\n        ghcr.io/grafana/helm-chart-toolbox-kubectl\n      )\n    )\n- macro: k8s_containers\n  override:\n    condition: append\n  condition: |\n    or (\n      k8s.ns.name = \"infra-prometheus\"\n      and container.image.repository in (\n        quay.io/kiwigrid/k8s-sidecar,\n        quay.io/prometheus/prometheus,\n        registry.k8s.io/kube-state-metrics/kube-state-metrics,\n        ghcr.io/jkroepke/kube-webhook-certgen\n      )\n    )\n- macro: k8s_containers\n  override:\n    condition: append\n  condition: |\n    or (\n      k8s.ns.name = \"infra-opentelemetry\"\n      and container.image.repository in (\n        ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator\n      )\n    )\n- macro: k8s_containers\n  override:\n    condition: append\n  condition: |\n    or (\n      k8s.ns.name = \"infra-promtail\"\n      and container.image.repository in (\n        grafana/promtail,\n        docker.io/grafana/promtail\n      )\n    )\n- macro: k8s_containers\n  override:\n    condition: append\n  condition: |\n    or (\n      k8s.ns.name = \"infra-x509\"\n      and container.image.repository in (\n        enix/x509-certificate-exporter,\n        docker.io/enix/x509-certificate-exporter\n      )\n    )\n- macro: k8s_containers\n  override:\n    condition: append\n  condition: |\n    or (\n      k8s.ns.name = \"infra-nginx-ingress\"\n      and container.image.repository in (\n        registry.k8s.io/ingress-nginx/controller\n      )\n    )\n- macro: k8s_containers\n  override:\n    condition: append\n  condition: |\n    or (\n      k8s.ns.name = \"infra-popeye\"\n      and container.image.repository in (\n        ghcr.io/undistro/popeye\n      )\n    )\n- macro: k8s_containers\n  override:\n    condition: append\n  condition: |\n    or (\n      k8s.ns.name = \"infra-cert-manager\"\n      and container.image.repository in (\n        quay.io/jetstack/cert-manager-controller,\n        quay.io/jetstack/cert-manager-webhook\n      )\n    )\n# condition not needed for ourself\n- macro: k8s_containers\n  override:\n    condition: append\n  condition: |\n    or (\n      k8s.ns.name = \"infra-falco\"\n      and container.image.repository in (\n        falcosecurity/k8s-metacollector,\n        docker.io/falcosecurity/k8s-metacollector\n      )\n    )\n- macro: k8s_containers\n  override:\n    condition: append\n  condition: |\n    or (\n      k8s.ns.name = \"infra-kyverno\"\n      and container.image.repository in (\n        reg.kyverno.io/kyverno/kyverno,\n        reg.kyverno.io/kyverno/cleanup-controller,\n        reg.kyverno.io/kyverno/reports-controller,\n        reg.kyverno.io/kyverno/background-controller \n      )\n    )\n- list: allowed_container_images_loading_kernel_module\n  override:\n    items: append\n  items:\n    - quay.io/cephcsi/cephcsi"
+driver:
+  loader:
+    initContainer:
+      resources:
+        requests:
+          memory: 35M
+falcoctl:
+  artifact:
+    follow:
+      resources:
+        requests:
+          cpu: 1m
+          memory: 35M
+    install:
+      resources:
+        requests:
+          memory: 35M
+falcosidekick:
+  config:
+    alertmanager:
+      endpoint: /api/v2/alerts
+      hostport: http://prometheus-kube-prometheus-alertmanager.infra-prometheus:9093
+      minimumpriority: notice
+    customfields: cluster_name:change_me
+  enabled: true
+  podAnnotations:
+    ad.datadoghq.com/falcosidekick.logs: |-
+      [{
+        "log_processing_rules": [
+          {
+            "type": "exclude_at_match",
+            "name": "exclude_info_level",
+            "pattern" : "[INFO]"
+          }
+        ]
+      }]
+  resources:
+    requests:
+      cpu: 2m
+      memory: 70M
+  webui:
+    enabled: true
+    initContainer:
+      resources:
+        requests:
+          memory: 10M
+    redis:
+      customConfig:
+        - maxmemory-policy allkeys-lfu
+        - maxmemory 30mb
+      resources:
+        limits:
+          memory: 300M
+        requests:
+          cpu: 5m
+          memory: 300M
+    replicaCount: 1
+    resources:
+      requests:
+        cpu: 2m
+        memory: 20M
+k8s-metacollector:
+  resources:
+    requests:
+      cpu: 5m
+      memory: 50M
+metrics:
+  enabled: true
+podPriorityClassName: system-node-critical
+resources:
+  requests:
+    cpu: 100m
+    memory: 150M
+serviceMonitor:
+  create: true
+tolerations:
+  - effect: NoSchedule
+    key: master
+    operator: Exists
+  - effect: NoSchedule
+    key: storage
+    operator: Exists
+tty: false

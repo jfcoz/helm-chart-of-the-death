@@ -1,0 +1,177 @@
+debug:
+  - disallow-host-path
+  - disallow-host-ports
+  - disallow-privileged-containers
+  - restrict-sysctls
+  - disallow-capabilities
+  - disallow-host-namespaces
+  - other
+failurePolicy: Ignore
+policyExclude:
+  disallow-capabilities:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - rook-ceph.cephfs.csi.ceph.com-nodeplugin*
+            - rook-ceph.rbd.csi.ceph.com-nodeplugin*
+          namespaces:
+            - rook-ceph
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - k8s-monitoring-alloy-logs-*
+          namespaces:
+            - infra-k8s-monitoring
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - svclb-nginx-ingress-ingress-nginx-controller-*
+          namespaces:
+            - kube-system
+  disallow-host-namespaces:
+    any:
+      - resources:
+          namespaces:
+            - rook-ceph
+      - resources:
+          namespaces:
+            - infra-prometheus
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - node-collector-*
+          namespaces:
+            - infra-trivy
+      - resources:
+          namespaces:
+            - infra-smartctl-exporter
+  disallow-host-path:
+    any:
+      - resources:
+          namespaces:
+            - rook-ceph
+      - resources:
+          kinds:
+            - Pod
+          namespaces:
+            - infra-promtail
+      - resources:
+          kinds:
+            - Pod
+          namespaces:
+            - infra-x509
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - k8s-monitoring-alloy-logs-*
+          namespaces:
+            - infra-k8s-monitoring
+      - resources:
+          kinds:
+            - DaemonSet
+          names:
+            - prometheus-prometheus-node-exporter
+          namespaces:
+            - infra-prometheus
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - prometheus-prometheus-node-exporter-*
+          namespaces:
+            - infra-prometheus
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - node-collector-*
+          namespaces:
+            - infra-trivy
+      - resources:
+          namespaces:
+            - infra-smartctl-exporter
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - node-agent-*
+            - velero-*
+          namespaces:
+            - infra-velero
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - falco-*
+            - infra-falco-falco-*
+          namespaces:
+            - infra-falco
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - example-*
+          namespaces:
+            - example
+  disallow-host-ports:
+    any:
+      - resources:
+          kinds:
+            - DaemonSet
+          names:
+            - prometheus-prometheus-node-exporter
+          namespaces:
+            - infra-prometheus
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - prometheus-prometheus-node-exporter-*
+          namespaces:
+            - infra-prometheus
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - svclb-nginx-ingress-ingress-nginx-controller-*
+          namespaces:
+            - kube-system
+      - resources:
+          namespaces:
+            - infra-smartctl-exporter
+  disallow-privileged-containers:
+    any:
+      - resources:
+          namespaces:
+            - rook-ceph
+      - resources:
+          namespaces:
+            - infra-smartctl-exporter
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - falco-*
+            - infra-falco-falco-*
+          namespaces:
+            - infra-falco
+  other:
+    any:
+      - useless: true
+  restrict-sysctls:
+    any:
+      - resources:
+          kinds:
+            - Pod
+            - DaemonSet
+          names:
+            - svclb-nginx-ingress-ingress-nginx-controller-*
+          namespaces:
+            - kube-system
+validationFailureAction: Enforce

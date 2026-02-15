@@ -1,0 +1,16 @@
+controller:
+  config: null
+  externalTrafficPolicy: Local
+  kind: DaemonSet
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
+  resources:
+    requests:
+      memory: 300M
+  service:
+    externalTrafficPolicy: Local
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 50%

@@ -1,0 +1,11 @@
+---
+# Source: helm-chart-of-the-death/templates/helm_repositories.yaml
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: kubernetes-ingress-nginx
+  namespace: default
+  annotations:
+spec:
+  interval: 1h
+  url: https://kubernetes.github.io/ingress-nginx

@@ -1,0 +1,15 @@
+global:
+  ingressWildcardSuffix: replaced.by.kustomization
+  grafanaAdminPassword: change_me
+alerts:
+  alertmanager_slack_webhook: https://example.com
+  alertmanager_watchdog_webhook: https://example.com
+  alertmanager_oncall_webhook: https://example.com
+
+components:
+  security:
+    kyverno:
+      managed: true
+    falco:
+      # only to test rules exclusions
+      used: true

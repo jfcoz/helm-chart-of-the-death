@@ -1,0 +1,51 @@
+debug:
+  - disallow-capabilities
+  - disallow-host-namespaces
+  - disallow-host-path
+  - disallow-host-ports
+  - disallow-privileged-containers
+  - restrict-sysctls
+failurePolicy: Ignore
+policyExclude:
+  disallow-capabilities:
+    any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - rook-ceph.cephfs.csi.ceph.com-nodeplugin*
+            - rook-ceph.rbd.csi.ceph.com-nodeplugin*
+          namespaces:
+            - rook-ceph
+  disallow-host-namespaces:
+    any:
+      - resources:
+          namespaces:
+            - rook-ceph
+  disallow-host-path:
+    any:
+      - resources:
+          namespaces:
+            - rook-ceph
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - falco-*
+            - infra-falco-falco-*
+          namespaces:
+            - infra-falco
+  disallow-privileged-containers:
+    any:
+      - resources:
+          namespaces:
+            - rook-ceph
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - falco-*
+            - infra-falco-falco-*
+          namespaces:
+            - infra-falco
+validationFailureAction: Enforce

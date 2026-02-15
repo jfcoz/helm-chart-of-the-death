@@ -1,0 +1,8 @@
+---
+# Source: helm-chart-of-the-death/templates/monitoring/keda/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infra-keda
+  annotations:
+    helm.sh/resource-policy: keep

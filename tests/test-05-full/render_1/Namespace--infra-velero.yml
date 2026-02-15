@@ -1,8 +1,0 @@
----
-# Source: helm-chart-of-the-death/templates/backup/velero/namespace.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: infra-velero
-  annotations:
-    helm.sh/resource-policy: keep
