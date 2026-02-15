@@ -66,7 +66,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       chartName: keda
-      chartVersion: "2.18.3"
+      chartVersion: "2.19.0"
       chartRepository: kedacore
       values: {}
 
