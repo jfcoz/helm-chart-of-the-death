@@ -13,14 +13,6 @@ admissionController:
     - effect: NoSchedule
       key: storage
       operator: Exists
-  topologySpreadConstraints:
-    - labelSelector:
-        matchLabels:
-          app.kubernetes.io/component: admission-controller
-          app.kubernetes.io/instance: all-in-one
-      maxSkew: 1
-      topologyKey: topology.kubernetes.io/zone
-      whenUnsatisfiable: DoNotSchedule
 backgroundController:
   resources:
     requests:

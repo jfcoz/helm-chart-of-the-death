@@ -1,5 +1,6 @@
 # cloudProvider aws/gcp/ovh/scw/do/none
 cloudProvider: none
+multiZone: true
 
 # kind/k3s
 kubernetesDistribution: none

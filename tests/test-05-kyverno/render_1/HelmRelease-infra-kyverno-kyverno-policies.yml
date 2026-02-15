@@ -35,12 +35,12 @@ spec:
     admissionController:
       replicas: 1
     debug:
+      - restrict-sysctls
       - disallow-capabilities
       - disallow-host-namespaces
       - disallow-host-path
       - disallow-host-ports
       - disallow-privileged-containers
-      - restrict-sysctls
     failurePolicy: Ignore
     policyExclude:
       disallow-capabilities:

@@ -1,3 +1,5 @@
+multiZone: false
+
 global:
   ingressWildcardSuffix: replaced.by.kustomization
   grafanaAdminPassword: change_me
