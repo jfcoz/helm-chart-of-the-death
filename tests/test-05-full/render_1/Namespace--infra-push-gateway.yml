@@ -1,8 +1,0 @@
----
-# Source: helm-chart-of-the-death/templates/monitoring/push-gateway/namespace.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: infra-push-gateway
-  annotations:
-    helm.sh/resource-policy: keep

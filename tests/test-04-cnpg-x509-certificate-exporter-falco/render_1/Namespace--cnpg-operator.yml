@@ -1,8 +1,0 @@
----
-# Source: helm-chart-of-the-death/templates/database/cnpg/namespace.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: cnpg-operator
-  annotations:
-    helm.sh/resource-policy: keep

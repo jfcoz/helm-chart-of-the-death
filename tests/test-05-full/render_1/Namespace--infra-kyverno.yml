@@ -1,8 +1,0 @@
----
-# Source: helm-chart-of-the-death/templates/security/kyverno/namespace.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: infra-kyverno
-  annotations:
-    helm.sh/resource-policy: keep

@@ -1,8 +1,0 @@
----
-# Source: helm-chart-of-the-death/templates/security/falco/namespace.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: infra-falco
-  annotations:
-    helm.sh/resource-policy: keep
