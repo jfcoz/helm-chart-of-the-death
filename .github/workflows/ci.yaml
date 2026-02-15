@@ -5,7 +5,6 @@ on:
 
 jobs:
   lint-test:
-    runs-on: ubuntu-latest
     timeout-minutes: 10
 
     strategy:
@@ -16,6 +15,11 @@ jobs:
         - "test-02-minimal-loki-k8smonitoring"
         - "test-03-nginx-cert-manager"
         - "test-04-cnpg-x509-certificate-exporter-falco"
+        runson:
+        - ubuntu-24.04
+        - ubuntu-24.04-arm
+
+    runs-on: [ "${{ matrix.runson }}" ]
 
     steps:
       - name: Checkout
