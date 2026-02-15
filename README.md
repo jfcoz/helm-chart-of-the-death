@@ -153,3 +153,7 @@ helmResourcePolicyKeep: true
 ```
 
 To remove it, first set this to false, and after, set enabled to false
+
+## Similar projets
+
+- [DoD-Platform-One/BigBang](https://github.com/DoD-Platform-One/bigbang/tree/master): DoD DevSecOps Reference Architecture
