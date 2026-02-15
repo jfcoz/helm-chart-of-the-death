@@ -259,7 +259,7 @@ components:
       helmResourcePolicyKeep: true
       namespace: cnpg-operator
       chartName: cloudnative-pg
-      chartVersion: "0.27.0"
+      chartVersion: "0.27.1"
       chartRepository: cnpg
 
 cloudProviderSpecific:
