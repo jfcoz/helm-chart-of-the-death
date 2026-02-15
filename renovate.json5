@@ -3,6 +3,7 @@
   "extends": [
     "config:recommended"
   ],
+  "bumpVersion": "patch",
   "customManagers": [
     {
       "customType": "jsonata",
