@@ -1,0 +1,8 @@
+---
+# Source: helm-chart-of-the-death/templates/monitoring/promtail/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infra-promtail
+  annotations:
+    helm.sh/resource-policy: keep

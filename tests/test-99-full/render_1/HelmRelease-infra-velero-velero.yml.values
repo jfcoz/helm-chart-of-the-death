@@ -1,0 +1,105 @@
+configuration:
+  backupStorageLocation:
+    - bucket: velero-k3s
+      config:
+        checksumAlgorithm: ""
+        region: sbg
+        s3ForcePathStyle: "true"
+        s3Url: https://s3.sbg.io.cloud.ovh.net
+      name: default
+      provider: velero.io/aws
+  defaultVolumesToFsBackup: true
+  logLevel: info
+credentials:
+  existingSecret: cloud-credentials
+deployNodeAgent: true
+initContainers:
+  - image: velero/velero-plugin-for-aws:v1.13.2
+    name: velero-plugin-for-aws
+    volumeMounts:
+      - mountPath: /target
+        name: plugins
+kubectl:
+  image:
+    repository: jfcoz/kubectl-deb12-basic
+metrics:
+  prometheusRule:
+    enabled: true
+    spec:
+      - alert: VeleroPartialFailure
+        annotations:
+          summary: At least one Velero partial backup failure on schedule {{ $labels.schedule }}
+        expr: sum(rate(velero_backup_partial_failure_total{schedule=~".+"}[1d])) by (schedule) > 0
+        for: 3m
+        labels:
+          severity: critical
+      - alert: VeleroBackupFailure
+        annotations:
+          summary: At least one Velero backup failure on schedule {{ $labels.schedule }}
+        expr: sum(rate(velero_backup_failure_total{schedule=~".+"}[1d])) by (schedule) > 0
+        for: 3m
+        labels:
+          severity: critical
+      - alert: VeleroVolumeSnapshotFailure
+        annotations:
+          summary: At least one Velero volume snapshot failure on schedule {{ $labels.schedule }}
+        expr: sum(rate(velero_volume_snapshot_failure_total{schedule=~".+"}[1d])) by (schedule) > 0
+        for: 3m
+        labels:
+          severity: critical
+      - alert: VeleroBackupDeletionFailure
+        annotations:
+          summary: At least one Velero backup deletion failure on schedule {{ $labels.schedule }}
+        expr: sum(rate(velero_backup_deletion_failure_total{schedule=~".+"}[1d])) by (schedule) > 0
+        for: 3m
+        labels:
+          severity: critical
+      - alert: VeleroMissingSchedule
+        annotations:
+          summary: No Velero backup since one day on schedule {{ $labels.schedule }}
+        expr: sum(rate(velero_backup_attempt_total{schedule=~".+"}[1d])) by (schedule) == 0
+        for: 3m
+        labels:
+          severity: critical
+  serviceMonitor:
+    enabled: true
+nodeAgent:
+  resources:
+    limits:
+      memory: 500Mi
+    requests:
+      cpu: 5m
+      memory: 100Mi
+    updateStrategy:
+      rollingUpdate:
+        maxUnavailable: 50%
+  tolerations:
+    - effect: NoSchedule
+      key: master
+      operator: Exists
+    - effect: NoSchedule
+      key: storage
+      operator: Exists
+resources:
+  limits:
+    cpu: 1
+    memory: 1500Mi
+  requests:
+    cpu: 0m
+    memory: 300Mi
+schedules:
+  nightly:
+    schedule: 29 3 * * *
+    template:
+      excludedResources:
+        - clustersbomreports.aquasecurity.github.io
+        - sbomreports.aquasecurity.github.io
+      ttl: 744h
+snapshotsEnabled: false
+upgradeJobResources:
+  limits:
+    cpu: 100m
+    memory: 256Mi
+  requests:
+    cpu: 50m
+    memory: 128Mi

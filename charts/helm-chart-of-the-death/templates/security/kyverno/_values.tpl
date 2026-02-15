@@ -7,6 +7,7 @@ admissionController:
   - key: storage
     operator: Exists
     effect: NoSchedule
+  {{- if .Values.multiZone }}
   topologySpreadConstraints:
     - maxSkew: 1
       topologyKey: topology.kubernetes.io/zone
@@ -15,8 +16,11 @@ admissionController:
         matchLabels:
           app.kubernetes.io/instance: "{{ .Release.Name }}"
           app.kubernetes.io/component: admission-controller
+  {{- end }}
+  {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
   serviceMonitor:
     enabled: true
+  {{- end }}
   networkPolicy:
     enabled: true
   container:

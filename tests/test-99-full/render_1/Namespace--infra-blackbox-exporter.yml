@@ -1,0 +1,8 @@
+---
+# Source: helm-chart-of-the-death/templates/monitoring/blackbox-exporter/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infra-blackbox-exporter
+  annotations:
+    helm.sh/resource-policy: keep

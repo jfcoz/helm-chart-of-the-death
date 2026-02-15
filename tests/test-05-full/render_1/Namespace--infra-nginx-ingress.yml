@@ -1,8 +1,0 @@
----
-# Source: helm-chart-of-the-death/templates/ingress/nginx-ingress-controller/namespace.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: infra-nginx-ingress
-  annotations:
-    helm.sh/resource-policy: keep

@@ -1,0 +1,8 @@
+---
+# Source: helm-chart-of-the-death/templates/security/cert-manager/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infra-cert-manager
+  annotations:
+    helm.sh/resource-policy: keep

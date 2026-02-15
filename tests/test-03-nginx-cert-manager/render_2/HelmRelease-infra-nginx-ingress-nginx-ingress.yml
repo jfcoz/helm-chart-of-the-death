@@ -487,6 +487,10 @@ metadata:
 spec:
   controller: k8s.io/ingress-nginx
 ---
+# Source: ingress-nginx/templates/controller-poddisruptionbudget.yaml
+# PDB is not supported for DaemonSets.
+# https://github.com/kubernetes/kubernetes/issues/108124
+---
 # Source: ingress-nginx/templates/admission-webhooks/validating-webhook.yaml
 # before changing this value, check the required kubernetes version
 # https://kubernetes.io/docs/reference/access-authn-authz/extensible-admission-controllers/#prerequisites
@@ -526,10 +530,6 @@ webhooks:
         namespace: infra-nginx-ingress
         port: 443
         path: /networking/v1/ingresses
----
-# Source: ingress-nginx/templates/controller-poddisruptionbudget.yaml
-# PDB is not supported for DaemonSets.
-# https://github.com/kubernetes/kubernetes/issues/108124
 ---
 # Source: ingress-nginx/templates/admission-webhooks/job-patch/serviceaccount.yaml
 apiVersion: v1

@@ -1,0 +1,53 @@
+---
+# Source: helm-chart-of-the-death/templates/monitoring/blackbox-exporter/helmrelease.yaml
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: blackbox
+  namespace: infra-blackbox-exporter
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  dependsOn:
+    - name: prometheus
+      namespace: infra-prometheus
+  interval: 1h
+  timeout: 10m
+  chart:
+    spec:
+      chart: prometheus-blackbox-exporter
+      # each major contains upgrade process in changelog
+      version: "11.8.0"
+      sourceRef:
+        kind: HelmRepository
+        name: "prometheus-community"
+        namespace: default
+      interval: 1h
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  test:
+    enable: true
+  values:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 25M
+    serviceMonitor:
+      enabled: true
+      selfMonitor:
+        enabled: true
+    prometheusRule:
+      enabled: true
+      rules:
+        - alert: HttpCodeNode200
+          expr: avg by (namespace, instance) (probe_http_status_code!=200)
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: HTTP probe response code is not 200
+            description: "HTTP probe response code {{ $value }} is not 200, on {{ $labels.instance }}"

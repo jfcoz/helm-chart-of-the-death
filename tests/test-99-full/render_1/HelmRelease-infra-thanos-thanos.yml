@@ -1,0 +1,62 @@
+---
+# Source: helm-chart-of-the-death/templates/monitoring/thanos/helmrelease.yaml
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: thanos
+  namespace: infra-thanos
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  #dependsOn:
+  #  # cannot depend of prometheus, prometheus depends on thanos
+  #  - name: prometheus
+  #    namespace: infra-prometheus
+  interval: 1h
+  timeout: 5m
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      remediateLastFailure: true
+  chart:
+    spec:
+      chart: thanos
+      version: "1.22.1"
+      sourceRef:
+        kind: HelmRepository
+        name: "stevehipwell"
+        namespace: default
+      interval: 1h
+  test:
+    enable: true
+  values:
+    compact:
+      enabled: true
+      persistence:
+        enabled: true
+        storageClass: ceph-block
+    objstoreConfig:
+      value: |-
+        type: S3
+        config:
+          bucket: thanos-bucket
+          endpoint: rook-ceph-rgw-ceph-objectstore.rook-ceph.svc
+          region: rook
+          access_key: {{ (((lookup "v1" "Secret" "infra-thanos" "thanos-bucket").data).AWS_ACCESS_KEY_ID) | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}
+          secret_key: {{ (((lookup "v1" "Secret" "infra-thanos" "thanos-bucket").data).AWS_SECRET_ACCESS_KEY) | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}
+          insecure: true
+    receiver:
+      ingestor:
+        persistence:
+          enabled: true
+          storageClass: ceph-block
+    rule:
+      persistence:
+        enabled: true
+        storageClass: ceph-block
+    storeGateway:
+      persistence:
+        enabled: true
+        storageClass: ceph-block

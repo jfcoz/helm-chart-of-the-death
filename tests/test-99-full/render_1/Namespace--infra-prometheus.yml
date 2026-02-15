@@ -1,0 +1,10 @@
+---
+# Source: helm-chart-of-the-death/templates/monitoring/kube-prometheus-stack/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infra-prometheus
+  annotations:
+    helm.sh/resource-policy: keep
+  labels:
+    network-policy-push-gateway: "true"

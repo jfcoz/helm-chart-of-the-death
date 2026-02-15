@@ -1,0 +1,194 @@
+---
+# Source: prometheus-blackbox-exporter/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: blackbox-prometheus-blackbox-exporter
+  namespace: infra-blackbox-exporter
+  labels:
+    helm.sh/chart: prometheus-blackbox-exporter-11.8.0
+    app.kubernetes.io/name: prometheus-blackbox-exporter
+    app.kubernetes.io/instance: blackbox
+    app.kubernetes.io/version: "v0.28.0"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: prometheus-blackbox-exporter/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: blackbox-prometheus-blackbox-exporter
+  namespace: infra-blackbox-exporter
+  labels:
+    helm.sh/chart: prometheus-blackbox-exporter-11.8.0
+    app.kubernetes.io/name: prometheus-blackbox-exporter
+    app.kubernetes.io/instance: blackbox
+    app.kubernetes.io/version: "v0.28.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  blackbox.yaml: |
+    modules:
+      http_2xx:
+        http:
+          follow_redirects: true
+          preferred_ip_protocol: ip4
+          valid_http_versions:
+          - HTTP/1.1
+          - HTTP/2.0
+        prober: http
+        timeout: 5s
+---
+# Source: prometheus-blackbox-exporter/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: blackbox-prometheus-blackbox-exporter
+  namespace: infra-blackbox-exporter
+  labels:
+    helm.sh/chart: prometheus-blackbox-exporter-11.8.0
+    app.kubernetes.io/name: prometheus-blackbox-exporter
+    app.kubernetes.io/instance: blackbox
+    app.kubernetes.io/version: "v0.28.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9115
+      targetPort: http
+      protocol: TCP
+      name: http
+    
+  selector:
+    app.kubernetes.io/name: prometheus-blackbox-exporter
+    app.kubernetes.io/instance: blackbox
+---
+# Source: prometheus-blackbox-exporter/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blackbox-prometheus-blackbox-exporter
+  namespace: infra-blackbox-exporter
+  labels:
+    helm.sh/chart: prometheus-blackbox-exporter-11.8.0
+    app.kubernetes.io/name: prometheus-blackbox-exporter
+    app.kubernetes.io/instance: blackbox
+    app.kubernetes.io/version: "v0.28.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus-blackbox-exporter
+      app.kubernetes.io/instance: blackbox
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: prometheus-blackbox-exporter-11.8.0
+        app.kubernetes.io/name: prometheus-blackbox-exporter
+        app.kubernetes.io/instance: blackbox
+        app.kubernetes.io/version: "v0.28.0"
+        app.kubernetes.io/managed-by: Helm
+      annotations:
+        checksum/config: f43e733459690a84886aec93596a01748c2f936776a534eeaeb9f084e62ebb91
+    spec:
+      automountServiceAccountToken: false
+      serviceAccountName: blackbox-prometheus-blackbox-exporter
+      restartPolicy: Always
+      
+      containers:
+      
+      - name: blackbox-exporter
+        image: quay.io/prometheus/blackbox-exporter:v0.28.0
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        args:
+        - "--config.file=/config/blackbox.yaml"
+        resources:
+          requests:
+            cpu: 10m
+            memory: 25M
+        ports:
+        - containerPort: 9115
+          name: http
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /-/healthy
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /-/healthy
+            port: http
+        volumeMounts:
+        - mountPath: /config
+          name: config
+      hostNetwork: false
+      volumes:
+      - name: config
+        configMap:
+          name: blackbox-prometheus-blackbox-exporter
+---
+# Source: prometheus-blackbox-exporter/templates/prometheusrule.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: blackbox-prometheus-blackbox-exporter
+  labels:
+    helm.sh/chart: prometheus-blackbox-exporter-11.8.0
+    app.kubernetes.io/name: prometheus-blackbox-exporter
+    app.kubernetes.io/instance: blackbox
+    app.kubernetes.io/version: "v0.28.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  groups:
+    - name: prometheus-blackbox-exporter
+      rules: 
+        - alert: HttpCodeNode200
+          annotations:
+            description: HTTP probe response code {{ $value }} is not 200, on {{ $labels.instance
+              }}
+            summary: HTTP probe response code is not 200
+          expr: avg by (namespace, instance) (probe_http_status_code!=200)
+          for: 1m
+          labels:
+            severity: critical
+---
+# Source: prometheus-blackbox-exporter/templates/selfservicemonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: blackbox-prometheus-blackbox-exporter
+  namespace: infra-blackbox-exporter
+  labels:
+    helm.sh/chart: prometheus-blackbox-exporter-11.8.0
+    app.kubernetes.io/name: prometheus-blackbox-exporter
+    app.kubernetes.io/instance: blackbox
+    app.kubernetes.io/version: "v0.28.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  endpoints:
+  - path: /metrics
+    interval: 30s
+    scrapeTimeout: 30s
+    scheme: http
+  jobLabel: "blackbox"
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus-blackbox-exporter
+      app.kubernetes.io/instance: blackbox
+  namespaceSelector:
+    matchNames:
+      - infra-blackbox-exporter

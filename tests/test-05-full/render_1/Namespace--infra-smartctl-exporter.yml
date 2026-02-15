@@ -1,8 +1,0 @@
----
-# Source: helm-chart-of-the-death/templates/monitoring/smarctl-exporter/namespace.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: infra-smartctl-exporter
-  annotations:
-    helm.sh/resource-policy: keep
