@@ -15,8 +15,10 @@ admissionController:
         matchLabels:
           app.kubernetes.io/instance: "{{ .Release.Name }}"
           app.kubernetes.io/component: admission-controller
+  {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
   serviceMonitor:
     enabled: true
+  {{- end }}
   networkPolicy:
     enabled: true
   container:
