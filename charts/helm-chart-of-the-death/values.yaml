@@ -93,7 +93,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       chartName: loki
-      chartVersion: "6.51.0"
+      chartVersion: "6.53.0"
       chartRepository: grafana
       config:
         # deploymentMode: SimpleScalable / Distributed / SingleBinary
