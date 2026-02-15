@@ -6,7 +6,7 @@ metadata:
   name: blackbox-prometheus-blackbox-exporter
   namespace: infra-blackbox-exporter
   labels:
-    helm.sh/chart: prometheus-blackbox-exporter-11.7.0
+    helm.sh/chart: prometheus-blackbox-exporter-11.8.0
     app.kubernetes.io/name: prometheus-blackbox-exporter
     app.kubernetes.io/instance: blackbox
     app.kubernetes.io/version: "v0.28.0"
@@ -19,7 +19,7 @@ metadata:
   name: blackbox-prometheus-blackbox-exporter
   namespace: infra-blackbox-exporter
   labels:
-    helm.sh/chart: prometheus-blackbox-exporter-11.7.0
+    helm.sh/chart: prometheus-blackbox-exporter-11.8.0
     app.kubernetes.io/name: prometheus-blackbox-exporter
     app.kubernetes.io/instance: blackbox
     app.kubernetes.io/version: "v0.28.0"
@@ -44,7 +44,7 @@ metadata:
   name: blackbox-prometheus-blackbox-exporter
   namespace: infra-blackbox-exporter
   labels:
-    helm.sh/chart: prometheus-blackbox-exporter-11.7.0
+    helm.sh/chart: prometheus-blackbox-exporter-11.8.0
     app.kubernetes.io/name: prometheus-blackbox-exporter
     app.kubernetes.io/instance: blackbox
     app.kubernetes.io/version: "v0.28.0"
@@ -68,7 +68,7 @@ metadata:
   name: blackbox-prometheus-blackbox-exporter
   namespace: infra-blackbox-exporter
   labels:
-    helm.sh/chart: prometheus-blackbox-exporter-11.7.0
+    helm.sh/chart: prometheus-blackbox-exporter-11.8.0
     app.kubernetes.io/name: prometheus-blackbox-exporter
     app.kubernetes.io/instance: blackbox
     app.kubernetes.io/version: "v0.28.0"
@@ -88,7 +88,7 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: prometheus-blackbox-exporter-11.7.0
+        helm.sh/chart: prometheus-blackbox-exporter-11.8.0
         app.kubernetes.io/name: prometheus-blackbox-exporter
         app.kubernetes.io/instance: blackbox
         app.kubernetes.io/version: "v0.28.0"
@@ -147,7 +147,7 @@ kind: PrometheusRule
 metadata:
   name: blackbox-prometheus-blackbox-exporter
   labels:
-    helm.sh/chart: prometheus-blackbox-exporter-11.7.0
+    helm.sh/chart: prometheus-blackbox-exporter-11.8.0
     app.kubernetes.io/name: prometheus-blackbox-exporter
     app.kubernetes.io/instance: blackbox
     app.kubernetes.io/version: "v0.28.0"
@@ -173,7 +173,7 @@ metadata:
   name: blackbox-prometheus-blackbox-exporter
   namespace: infra-blackbox-exporter
   labels:
-    helm.sh/chart: prometheus-blackbox-exporter-11.7.0
+    helm.sh/chart: prometheus-blackbox-exporter-11.8.0
     app.kubernetes.io/name: prometheus-blackbox-exporter
     app.kubernetes.io/instance: blackbox
     app.kubernetes.io/version: "v0.28.0"
