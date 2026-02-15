@@ -6,7 +6,7 @@ metadata:
   name: tempo
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/version: "2.9.0"
@@ -19,7 +19,7 @@ kind: ConfigMap
 metadata:
   name: tempo-runtime
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/version: "2.9.0"
@@ -37,7 +37,7 @@ kind: ConfigMap
 metadata:
   name: tempo-config
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/version: "2.9.0"
@@ -232,7 +232,7 @@ metadata:
   name: tempo-compactor
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: compactor
@@ -259,7 +259,7 @@ metadata:
   name: tempo-distributor-discovery
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: distributor
@@ -293,7 +293,7 @@ metadata:
   name: tempo-distributor
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: distributor
@@ -332,7 +332,7 @@ metadata:
   name: tempo-gossip-ring
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: gossip-ring
@@ -362,7 +362,7 @@ metadata:
   name: tempo-ingester-discovery
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: ingester
@@ -393,7 +393,7 @@ metadata:
   name: tempo-ingester
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: ingester
@@ -425,7 +425,7 @@ metadata:
   name: tempo-memcached
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: memcached
@@ -453,7 +453,7 @@ metadata:
   name: tempo-metrics-generator-discovery
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: metrics-generator
@@ -485,7 +485,7 @@ metadata:
   name: tempo-metrics-generator
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: metrics-generator
@@ -516,7 +516,7 @@ metadata:
   name: tempo-querier
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: querier
@@ -546,7 +546,7 @@ metadata:
   name: tempo-query-frontend-discovery
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: query-frontend
@@ -580,7 +580,7 @@ metadata:
   name: tempo-query-frontend
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: query-frontend
@@ -610,7 +610,7 @@ metadata:
   name: tempo-compactor
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: compactor
@@ -633,7 +633,7 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: tempo-distributed-1.60.0
+        helm.sh/chart: tempo-distributed-1.61.3
         app.kubernetes.io/name: tempo
         app.kubernetes.io/instance: tempo
         app.kubernetes.io/version: "2.9.0"
@@ -641,7 +641,7 @@ spec:
         app.kubernetes.io/component: compactor
         app.kubernetes.io/part-of: memberlist
       annotations:
-        checksum/config: 57abfcca344b173087877f3a4e2ad7a04659795f9fbf57e265a69a0422a91965
+        checksum/config: f11f6e6c889d6dafb1f1bb04fa494bca42241d2cc721d8fc3027c9dcefbe7f89
     spec:
       serviceAccountName: tempo
       securityContext:
@@ -738,7 +738,7 @@ metadata:
   name: tempo-distributor
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: distributor
@@ -761,7 +761,7 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: tempo-distributed-1.60.0
+        helm.sh/chart: tempo-distributed-1.61.3
         app.kubernetes.io/name: tempo
         app.kubernetes.io/instance: tempo
         app.kubernetes.io/version: "2.9.0"
@@ -769,7 +769,7 @@ spec:
         app.kubernetes.io/component: distributor
         app.kubernetes.io/part-of: memberlist
       annotations:
-        checksum/config: 57abfcca344b173087877f3a4e2ad7a04659795f9fbf57e265a69a0422a91965
+        checksum/config: f11f6e6c889d6dafb1f1bb04fa494bca42241d2cc721d8fc3027c9dcefbe7f89
     spec:
       serviceAccountName: tempo
       securityContext:
@@ -878,7 +878,7 @@ metadata:
   name: tempo-metrics-generator
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: metrics-generator
@@ -897,7 +897,7 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: tempo-distributed-1.60.0
+        helm.sh/chart: tempo-distributed-1.61.3
         app.kubernetes.io/name: tempo
         app.kubernetes.io/instance: tempo
         app.kubernetes.io/version: "2.9.0"
@@ -905,7 +905,7 @@ spec:
         app.kubernetes.io/component: metrics-generator
         app.kubernetes.io/part-of: memberlist
       annotations:
-        checksum/config: 57abfcca344b173087877f3a4e2ad7a04659795f9fbf57e265a69a0422a91965
+        checksum/config: f11f6e6c889d6dafb1f1bb04fa494bca42241d2cc721d8fc3027c9dcefbe7f89
     spec:
       serviceAccountName: tempo
       securityContext:
@@ -1012,7 +1012,7 @@ metadata:
   name: tempo-querier
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: querier
@@ -1035,7 +1035,7 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: tempo-distributed-1.60.0
+        helm.sh/chart: tempo-distributed-1.61.3
         app.kubernetes.io/name: tempo
         app.kubernetes.io/instance: tempo
         app.kubernetes.io/version: "2.9.0"
@@ -1043,7 +1043,7 @@ spec:
         app.kubernetes.io/component: querier
         app.kubernetes.io/part-of: memberlist
       annotations:
-        checksum/config: 57abfcca344b173087877f3a4e2ad7a04659795f9fbf57e265a69a0422a91965
+        checksum/config: f11f6e6c889d6dafb1f1bb04fa494bca42241d2cc721d8fc3027c9dcefbe7f89
     spec:
       serviceAccountName: tempo
       securityContext:
@@ -1151,7 +1151,7 @@ metadata:
   name: tempo-query-frontend
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: query-frontend
@@ -1173,14 +1173,14 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: tempo-distributed-1.60.0
+        helm.sh/chart: tempo-distributed-1.61.3
         app.kubernetes.io/name: tempo
         app.kubernetes.io/instance: tempo
         app.kubernetes.io/version: "2.9.0"
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: query-frontend
       annotations:
-        checksum/config: 57abfcca344b173087877f3a4e2ad7a04659795f9fbf57e265a69a0422a91965
+        checksum/config: f11f6e6c889d6dafb1f1bb04fa494bca42241d2cc721d8fc3027c9dcefbe7f89
     spec:
       serviceAccountName: tempo
       securityContext:
@@ -1287,7 +1287,7 @@ metadata:
   name: tempo-ingester
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: ingester
@@ -1315,7 +1315,7 @@ metadata:
   name: tempo-ingester
   namespace: infra-tempo
   labels:    
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: ingester
@@ -1337,7 +1337,7 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: tempo-distributed-1.60.0
+        helm.sh/chart: tempo-distributed-1.61.3
         app.kubernetes.io/name: tempo
         app.kubernetes.io/instance: tempo
         app.kubernetes.io/version: "2.9.0"
@@ -1345,7 +1345,7 @@ spec:
         app.kubernetes.io/component: ingester
         app.kubernetes.io/part-of: memberlist
       annotations:
-        checksum/config: 57abfcca344b173087877f3a4e2ad7a04659795f9fbf57e265a69a0422a91965
+        checksum/config: f11f6e6c889d6dafb1f1bb04fa494bca42241d2cc721d8fc3027c9dcefbe7f89
         storage/size: "10Gi"
     spec:
       serviceAccountName: tempo
@@ -1468,7 +1468,7 @@ metadata:
   name: tempo-memcached
   namespace: infra-tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: memcached
@@ -1486,7 +1486,7 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: tempo-distributed-1.60.0
+        helm.sh/chart: tempo-distributed-1.61.3
         app.kubernetes.io/name: tempo
         app.kubernetes.io/instance: tempo
         app.kubernetes.io/component: memcached
@@ -1577,7 +1577,7 @@ kind: PrometheusRule
 metadata:
   name: tempo
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/version: "2.9.0"
@@ -1593,7 +1593,7 @@ metadata:
   name: tempo-compactor
   namespace: "infra-tempo"
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: compactor
@@ -1630,7 +1630,7 @@ metadata:
   name: tempo-distributor
   namespace: "infra-tempo"
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: distributor
@@ -1667,7 +1667,7 @@ metadata:
   name: tempo-ingester
   namespace: "infra-tempo"
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: ingester
@@ -1704,7 +1704,7 @@ metadata:
   name: tempo-memcached
   namespace: "infra-tempo"
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: memcached
@@ -1740,7 +1740,7 @@ metadata:
   name: tempo-metrics-generator
   namespace: "infra-tempo"
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: metrics-generator
@@ -1777,7 +1777,7 @@ metadata:
   name: tempo-querier
   namespace: "infra-tempo"
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: querier
@@ -1814,7 +1814,7 @@ metadata:
   name: tempo-query-frontend
   namespace: "infra-tempo"
   labels:
-    helm.sh/chart: tempo-distributed-1.60.0
+    helm.sh/chart: tempo-distributed-1.61.3
     app.kubernetes.io/name: tempo
     app.kubernetes.io/instance: tempo
     app.kubernetes.io/component: query-frontend

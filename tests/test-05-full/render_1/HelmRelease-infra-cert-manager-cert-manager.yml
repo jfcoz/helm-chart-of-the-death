@@ -15,7 +15,7 @@ spec:
         kind: HelmRepository
         name: "jetstack"
         namespace: default
-      version: "1.19.2"
+      version: "v1.19.3"
   interval: 1h
   values:
     installCRDs: true

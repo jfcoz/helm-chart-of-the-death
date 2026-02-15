@@ -6,10 +6,10 @@ metadata:
   name: loki
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
 automountServiceAccountToken: true
 ---
 # Source: loki/templates/config.yaml
@@ -19,10 +19,10 @@ metadata:
   name: loki
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
 data:
   config.yaml: |
     
@@ -170,10 +170,10 @@ metadata:
   name: loki-gateway
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: gateway
 data:
   nginx.conf: |
@@ -382,10 +382,10 @@ metadata:
   name: loki-runtime
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
 data:
   runtime-config.yaml: |
     {}
@@ -395,10 +395,10 @@ kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
   name: loki-clusterrole
 rules:
 - apiGroups: [""] # "" indicates the core API group
@@ -411,10 +411,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: loki-clusterrolebinding
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
 subjects:
   - kind: ServiceAccount
     name: loki
@@ -430,10 +430,10 @@ kind: Service
 metadata:
   name: loki-chunks-cache
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: "memcached-chunks-cache"
   annotations:
     {}
@@ -461,10 +461,10 @@ metadata:
   name: loki-compactor
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: compactor
   annotations:
 spec:
@@ -520,10 +520,10 @@ metadata:
   name: loki-distributor
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: distributor
   annotations:
 spec:
@@ -549,10 +549,10 @@ metadata:
   name: loki-gateway
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: gateway
     prometheus.io/service-monitor: "false"
   annotations:
@@ -604,10 +604,10 @@ metadata:
   name: loki-index-gateway
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: index-gateway
   annotations:
 spec:
@@ -662,10 +662,10 @@ metadata:
   name: loki-ingester
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: ingester
   annotations:
 spec:
@@ -691,10 +691,10 @@ metadata:
   name: loki-querier
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: querier
   annotations:
 spec:
@@ -720,10 +720,10 @@ metadata:
   name: loki-query-frontend-headless
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: query-frontend
     prometheus.io/service-monitor: "false"
   annotations:
@@ -756,10 +756,10 @@ metadata:
   name: loki-query-frontend
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: query-frontend
   annotations:
 spec:
@@ -790,10 +790,10 @@ metadata:
   name: loki-query-scheduler
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: query-scheduler
   annotations:
 spec:
@@ -820,10 +820,10 @@ kind: Service
 metadata:
   name: loki-results-cache
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: "memcached-results-cache"
   annotations:
     {}
@@ -879,10 +879,10 @@ metadata:
   name: loki-memberlist
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
   annotations:
 spec:
   type: ClusterIP
@@ -904,10 +904,10 @@ metadata:
   name: loki-distributor
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: distributor
     app.kubernetes.io/part-of: memberlist
 spec:
@@ -926,10 +926,10 @@ spec:
       annotations:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
       labels:
-        helm.sh/chart: loki-6.51.0
+        helm.sh/chart: loki-6.53.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
-        app.kubernetes.io/version: "3.6.3"
+        app.kubernetes.io/version: "3.6.5"
         app.kubernetes.io/component: distributor
         app.kubernetes.io/part-of: memberlist
     spec:
@@ -944,7 +944,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: distributor
-          image: docker.io/grafana/loki:3.6.3
+          image: docker.io/grafana/loki:3.6.5
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
@@ -1012,10 +1012,10 @@ metadata:
   name: loki-gateway
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: gateway
 spec:
   replicas: 1
@@ -1099,10 +1099,10 @@ metadata:
   name: loki-querier
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: querier
     app.kubernetes.io/part-of: memberlist
 spec:
@@ -1121,10 +1121,10 @@ spec:
       annotations:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
       labels:
-        helm.sh/chart: loki-6.51.0
+        helm.sh/chart: loki-6.53.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
-        app.kubernetes.io/version: "3.6.3"
+        app.kubernetes.io/version: "3.6.5"
         app.kubernetes.io/component: querier
         app.kubernetes.io/part-of: memberlist
     spec:
@@ -1148,7 +1148,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: querier
-          image: docker.io/grafana/loki:3.6.3
+          image: docker.io/grafana/loki:3.6.5
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
@@ -1218,10 +1218,10 @@ metadata:
   name: loki-query-frontend
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: query-frontend
 spec:
   strategy:
@@ -1239,10 +1239,10 @@ spec:
       annotations:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
       labels:
-        helm.sh/chart: loki-6.51.0
+        helm.sh/chart: loki-6.53.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
-        app.kubernetes.io/version: "3.6.3"
+        app.kubernetes.io/version: "3.6.5"
         app.kubernetes.io/component: query-frontend
         app.kubernetes.io/part-of: memberlist
     spec:
@@ -1257,7 +1257,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: query-frontend
-          image: docker.io/grafana/loki:3.6.3
+          image: docker.io/grafana/loki:3.6.5
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
@@ -1325,10 +1325,10 @@ metadata:
   name: loki-query-scheduler
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: query-scheduler
 spec:
   replicas: 1
@@ -1347,10 +1347,10 @@ spec:
       annotations:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
       labels:
-        helm.sh/chart: loki-6.51.0
+        helm.sh/chart: loki-6.53.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
-        app.kubernetes.io/version: "3.6.3"
+        app.kubernetes.io/version: "3.6.5"
         app.kubernetes.io/component: query-scheduler
         app.kubernetes.io/part-of: memberlist
     spec:
@@ -1365,7 +1365,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: query-scheduler
-          image: docker.io/grafana/loki:3.6.3
+          image: docker.io/grafana/loki:3.6.5
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
@@ -1433,10 +1433,10 @@ metadata:
   name: loki-distributor
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: distributor
 spec:
   scaleTargetRef:
@@ -1460,10 +1460,10 @@ metadata:
   name: loki-ingester
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: ingester
 spec:
   scaleTargetRef:
@@ -1487,10 +1487,10 @@ metadata:
   name: loki-querier
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: querier
 spec:
   scaleTargetRef:
@@ -1514,10 +1514,10 @@ metadata:
   name: loki-query-frontend
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: query-frontend
 spec:
   scaleTargetRef:
@@ -1540,10 +1540,10 @@ kind: StatefulSet
 metadata:
   name: loki-chunks-cache
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: "memcached-chunks-cache"
     name: "memcached-chunks-cache"
   annotations:
@@ -1669,10 +1669,10 @@ metadata:
   name: loki-compactor
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: compactor
     app.kubernetes.io/part-of: memberlist
 spec:
@@ -1693,10 +1693,10 @@ spec:
       annotations:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
       labels:
-        helm.sh/chart: loki-6.51.0
+        helm.sh/chart: loki-6.53.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
-        app.kubernetes.io/version: "3.6.3"
+        app.kubernetes.io/version: "3.6.5"
         app.kubernetes.io/component: compactor
         app.kubernetes.io/part-of: memberlist
     spec:
@@ -1711,7 +1711,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: compactor
-          image: docker.io/grafana/loki:3.6.3
+          image: docker.io/grafana/loki:3.6.5
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
@@ -1790,10 +1790,10 @@ metadata:
   name: loki-index-gateway
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: index-gateway
 spec:
   replicas: 1
@@ -1811,10 +1811,10 @@ spec:
       annotations:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
       labels:
-        helm.sh/chart: loki-6.51.0
+        helm.sh/chart: loki-6.53.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
-        app.kubernetes.io/version: "3.6.3"
+        app.kubernetes.io/version: "3.6.5"
         app.kubernetes.io/component: index-gateway
         app.kubernetes.io/part-of: memberlist
     spec:
@@ -1829,7 +1829,7 @@ spec:
       terminationGracePeriodSeconds: 300
       containers:
         - name: index-gateway
-          image: docker.io/grafana/loki:3.6.3
+          image: docker.io/grafana/loki:3.6.5
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
@@ -1902,10 +1902,10 @@ metadata:
   name: loki-ingester
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: ingester
     app.kubernetes.io/part-of: memberlist
 spec:
@@ -1924,10 +1924,10 @@ spec:
       annotations:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
       labels:
-        helm.sh/chart: loki-6.51.0
+        helm.sh/chart: loki-6.53.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
-        app.kubernetes.io/version: "3.6.3"
+        app.kubernetes.io/version: "3.6.5"
         app.kubernetes.io/component: ingester
         app.kubernetes.io/part-of: memberlist
     spec:
@@ -1951,7 +1951,7 @@ spec:
       terminationGracePeriodSeconds: 300
       containers:
         - name: ingester
-          image: docker.io/grafana/loki:3.6.3
+          image: docker.io/grafana/loki:3.6.5
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
@@ -2028,10 +2028,10 @@ metadata:
   name: loki-pattern-ingester
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: pattern-ingester
 spec:
   replicas: 1
@@ -2051,10 +2051,10 @@ spec:
       annotations:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
       labels:
-        helm.sh/chart: loki-6.51.0
+        helm.sh/chart: loki-6.53.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
-        app.kubernetes.io/version: "3.6.3"
+        app.kubernetes.io/version: "3.6.5"
         app.kubernetes.io/component: pattern-ingester
         app.kubernetes.io/part-of: memberlist
     spec:
@@ -2069,7 +2069,7 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
         - name: pattern-ingester
-          image: docker.io/grafana/loki:3.6.3
+          image: docker.io/grafana/loki:3.6.5
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
@@ -2146,10 +2146,10 @@ kind: StatefulSet
 metadata:
   name: loki-results-cache
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: "memcached-results-cache"
     name: "memcached-results-cache"
   annotations:
@@ -2275,10 +2275,10 @@ metadata:
   name: loki-ruler
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.51.0
+    helm.sh/chart: loki-6.53.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
-    app.kubernetes.io/version: "3.6.3"
+    app.kubernetes.io/version: "3.6.5"
     app.kubernetes.io/component: ruler
     app.kubernetes.io/part-of: memberlist
 spec:
@@ -2296,10 +2296,10 @@ spec:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
         kubectl.kubernetes.io/default-container: "ruler"
       labels:
-        helm.sh/chart: loki-6.51.0
+        helm.sh/chart: loki-6.53.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
-        app.kubernetes.io/version: "3.6.3"
+        app.kubernetes.io/version: "3.6.5"
         app.kubernetes.io/component: ruler
         app.kubernetes.io/part-of: memberlist
     spec:
@@ -2314,7 +2314,7 @@ spec:
       terminationGracePeriodSeconds: 300
       containers:
         - name: ruler
-          image: docker.io/grafana/loki:3.6.3
+          image: docker.io/grafana/loki:3.6.5
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml

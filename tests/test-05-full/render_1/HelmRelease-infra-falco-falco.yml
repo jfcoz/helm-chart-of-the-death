@@ -15,7 +15,7 @@ spec:
         kind: HelmRepository
         name: "falcosecurity"
         namespace: default
-      version: "7.2.0"
+      version: "8.0.0"
   interval: 10m0s
   values:
     collectors:

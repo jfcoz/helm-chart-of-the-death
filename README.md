@@ -24,7 +24,7 @@ metadata:
   name: helm-chart-of-the-death
   namespace: flux-system
 spec:
-  interval: 1h
+  interval: 1m
   url: https://github.com/jfcoz/helm-chart-of-the-death
   ref:
     branch: main
