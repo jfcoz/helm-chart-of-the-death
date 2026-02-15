@@ -32,6 +32,8 @@ spec:
   test:
     enable: true
   values:
+    admissionController:
+      replicas: 1
     debug:
       - disallow-capabilities
       - disallow-host-namespaces

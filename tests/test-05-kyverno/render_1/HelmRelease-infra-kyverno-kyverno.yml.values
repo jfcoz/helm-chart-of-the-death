@@ -8,9 +8,7 @@ admissionController:
         memory: 150M
   networkPolicy:
     enabled: true
-  replicas: 3
-  serviceMonitor:
-    enabled: true
+  replicas: 1
   tolerations:
     - effect: NoSchedule
       key: storage

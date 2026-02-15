@@ -10,6 +10,10 @@ components:
   security:
     kyverno:
       managed: true
+      values:
+        admissionController:
+          # only one for tests in kind
+          replicas: 1
     falco:
       # only to test rules exclusions
       used: true
