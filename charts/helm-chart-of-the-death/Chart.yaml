@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helm-chart-of-the-death
 description: "One chart to rule them all !"
-version: 0.7.0
+version: 0.8.0
 maintainers:
 - name: jfcoz
   email: julien-helmchartofthedeath@francoz.net
