@@ -3,7 +3,7 @@
   "extends": [
     "config:recommended"
   ],
-  "rebaseWhen": "behind-base-branch"
+  "rebaseWhen": "behind-base-branch",
   "packageRules": [
     {
       // automerge patch
