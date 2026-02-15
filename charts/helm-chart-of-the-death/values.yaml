@@ -186,7 +186,7 @@ components:
       helmResourcePolicyKeep: true
       namespace: infra-blackbox-exporter
       chartName: prometheus-blackbox-exporter
-      chartVersion: "11.7.0"
+      chartVersion: "11.8.0"
       chartRepository: prometheus-community
       values: {}
 
