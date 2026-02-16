@@ -874,6 +874,8 @@ metadata:
     app.kubernetes.io/managed-by: Helm
 data:
   default-rules-exclusions.yaml: |-
+    
+    # Macro k8s_containers:
     - macro: k8s_containers
       override:
         condition: append
@@ -907,6 +909,24 @@ data:
             docker.io/falcosecurity/k8s-metacollector
           )
         )
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "rook-ceph"
+          and container.image.repository in (
+            quay.io/cephcsi/ceph-csi-operator,
+            registry.k8s.io/sig-storage/csi-snapshotter,
+            registry.k8s.io/sig-storage/csi-attacher,
+            registry.k8s.io/sig-storage/csi-provisionner,
+            registry.k8s.io/sig-storage/csi-resizer
+          )
+        )
+    
+    
+    
+    # list allowed_container_images_loading_kernel_module
     - list: allowed_container_images_loading_kernel_module
       override:
         items: append
@@ -1277,7 +1297,7 @@ spec:
         app.kubernetes.io/instance: falco
       annotations:
         checksum/config: c0a2ed1d7b33faa486da8ee98a2acb7596a9d40f74cb0f54311767353241c097
-        checksum/rules: 365e18615ac0c4bc012f6bb02ad0413cfb4d56fd2913f3950a2ce3577e3332d4
+        checksum/rules: 0d786a37d140b56b5e4b412cda2cfd1a0d6ba6258c1e099cc5708fe3b38319ff
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     spec:
       serviceAccountName: falco

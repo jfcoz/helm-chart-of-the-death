@@ -30,7 +30,9 @@ spec:
           rollingUpdate:
             maxUnavailable: 50%
     customRules:
-      default-rules-exclusions.yaml: |-
+      default-rules-exclusions.yaml: |2-
+
+        # Macro k8s_containers:
         - macro: k8s_containers
           override:
             condition: append
@@ -64,6 +66,24 @@ spec:
                 docker.io/falcosecurity/k8s-metacollector
               )
             )
+        - macro: k8s_containers
+          override:
+            condition: append
+          condition: |
+            or (
+              k8s.ns.name = "rook-ceph"
+              and container.image.repository in (
+                quay.io/cephcsi/ceph-csi-operator,
+                registry.k8s.io/sig-storage/csi-snapshotter,
+                registry.k8s.io/sig-storage/csi-attacher,
+                registry.k8s.io/sig-storage/csi-provisionner,
+                registry.k8s.io/sig-storage/csi-resizer
+              )
+            )
+
+
+
+        # list allowed_container_images_loading_kernel_module
         - list: allowed_container_images_loading_kernel_module
           override:
             items: append

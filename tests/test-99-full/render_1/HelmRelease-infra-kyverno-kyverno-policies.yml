@@ -33,12 +33,12 @@ spec:
     enable: true
   values:
     debug:
+      - disallow-host-namespaces
       - disallow-host-path
       - disallow-host-ports
       - disallow-privileged-containers
       - restrict-sysctls
       - disallow-capabilities
-      - disallow-host-namespaces
       - other
     failurePolicy: Ignore
     policyExclude:
