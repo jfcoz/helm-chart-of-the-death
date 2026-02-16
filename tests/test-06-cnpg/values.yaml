@@ -1,0 +1,18 @@
+global:
+  ingressWildcardSuffix: replaced.by.kustomization
+  grafanaAdminPassword: change_me
+alerts:
+  alertmanager_slack_webhook: https://example.com
+  alertmanager_watchdog_webhook: https://example.com
+  alertmanager_oncall_webhook: https://example.com
+
+components:
+  database:
+    cnpg:
+      managed: true
+    cnpgPluginBarmanCloud:
+      managed: true
+
+  security:
+    certManager:
+      managed: true

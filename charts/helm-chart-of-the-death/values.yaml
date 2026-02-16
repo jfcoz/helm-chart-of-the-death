@@ -263,6 +263,14 @@ components:
       chartVersion: "0.27.1"
       chartRepository: cnpg
 
+    cnpgPluginBarmanCloud:
+      managed: false
+      helmResourcePolicyKeep: true
+      chartName: plugin-barman-cloud
+      chartVersion: "0.5.0"
+      chartRepository: cnpg
+
+
 cloudProviderSpecific:
   aws:
     cloudwatchAgent:

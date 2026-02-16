@@ -16,6 +16,7 @@ jobs:
         - "test-03-nginx-cert-manager"
         - "test-04-cnpg-x509-certificate-exporter-falco"
         - "test-05-kyverno"
+        - "test-06-cnpg"
         runson:
         - ubuntu-24.04
         - ubuntu-24.04-arm
