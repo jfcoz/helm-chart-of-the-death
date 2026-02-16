@@ -123,6 +123,30 @@ customRules:
           )
         )
     {{- end }}
+    {{- if include "common.used" .Values.components.database.cnpg }}
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "{{ .Values.components.database.cnpg.namespace}}"
+          and container.image.repository in (
+            ghcr.io/cloudnative-pg/cloudnative-pg
+          )
+        )
+    {{- end }}
+    {{- if include "common.used" .Values.components.database.cnpgPluginBarmanCloud }}
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "{{ .Values.components.database.cnpg.namespace}}"
+          and container.image.repository in (
+            ghcr.io/cloudnative-pg/plugin-barman-cloud
+          )
+        )
+    {{- end }}
     {{- if include "common.used" .Values.components.security.certManager }}
     - macro: k8s_containers
       override:
@@ -163,6 +187,8 @@ customRules:
           )
         )
     {{- end }}
+
+
     {{- if include "common.used" .Values.components.storage.rook }}
     - list: allowed_container_images_loading_kernel_module
       override:
@@ -170,6 +196,8 @@ customRules:
       items:
         - quay.io/cephcsi/cephcsi
     {{- end }}
+
+
     {{- if include "common.used" .Values.components.database.cnpg }}
     - macro: postgres_running_cnpg
       condition: (proc.pname=postgres and (proc.cmdline startswith "sh -c /controller/manager wal-archive --log-destination /controller/log/postgres.json"))
