@@ -5,6 +5,8 @@ customRules:
   # les custom rules seront dans /etc/falco/rules.d/ et seront charges apres celles par default qu'elles peuvent donc patcher
   # CF : https://github.com/falcosecurity/charts/issues/788#issuecomment-2527646482
   default-rules-exclusions.yaml: |-
+
+    # Macro k8s_containers:
     {{- if include "common.used" .Values.components.backup.velero }}
     - macro: k8s_containers
       override:
@@ -187,8 +189,26 @@ customRules:
           )
         )
     {{- end }}
+    {{- if include "common.used" .Values.components.storage.rook }}
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "{{ .Values.components.storage.rook.namespace }}"
+          and container.image.repository in (
+            quay.io/cephcsi/ceph-csi-operator,
+            registry.k8s.io/sig-storage/csi-snapshotter,
+            registry.k8s.io/sig-storage/csi-attacher,
+            registry.k8s.io/sig-storage/csi-provisionner,
+            registry.k8s.io/sig-storage/csi-resizer
+          )
+        )
+    {{- end }}
 
 
+
+    # list allowed_container_images_loading_kernel_module
     {{- if include "common.used" .Values.components.storage.rook }}
     - list: allowed_container_images_loading_kernel_module
       override:
