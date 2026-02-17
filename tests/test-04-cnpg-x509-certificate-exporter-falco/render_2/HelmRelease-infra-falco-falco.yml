@@ -876,6 +876,20 @@ data:
   default-rules-exclusions.yaml: |-
     
     # Macro k8s_containers:
+    # fluxcd
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "flux-system"
+          and container.image.repository in (
+            ghcr.io/fluxcd/helm-controller,
+            ghcr.io/fluxcd/kustomize-controller,
+            ghcr.io/fluxcd/notification-controller,
+            ghcr.io/fluxcd/source-controller
+          )
+        )
     - macro: k8s_containers
       override:
         condition: append
@@ -933,9 +947,6 @@ data:
         items: append
       items:
         - quay.io/cephcsi/cephcsi
-    
-    
-    # TODO : enlever : merge upstream : https://github.com/falcosecurity/rules/commit/70e257f32b85e3667cbac698793da4b4dc78982d
     - macro: postgres_running_cnpg
       condition: (proc.pname=postgres and (proc.cmdline startswith "sh -c /controller/manager wal-archive --log-destination /controller/log/postgres.json"))
     
@@ -1301,7 +1312,7 @@ spec:
         app.kubernetes.io/instance: falco
       annotations:
         checksum/config: c0a2ed1d7b33faa486da8ee98a2acb7596a9d40f74cb0f54311767353241c097
-        checksum/rules: 6f31b174c21212902f4e42780b3d79030c31725c6743e01ab89151c00cc48ab6
+        checksum/rules: 651e4cf62189929346c306754a06ea301c6e3f0c8d67418406e5ffebe336d33e
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     spec:
       serviceAccountName: falco

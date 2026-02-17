@@ -41,6 +41,11 @@ repositories:
     url: https://falcosecurity.github.io/charts
 
 components:
+
+  gitops:
+    fluxcd:
+      namespace: flux-system
+
   ingress:
     nginxIngressController:
       managed: false

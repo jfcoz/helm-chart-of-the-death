@@ -7,6 +7,20 @@ customRules:
   default-rules-exclusions.yaml: |-
 
     # Macro k8s_containers:
+    # fluxcd
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "{{ .Values.components.gitops.fluxcd.namespace}}"
+          and container.image.repository in (
+            ghcr.io/fluxcd/helm-controller,
+            ghcr.io/fluxcd/kustomize-controller,
+            ghcr.io/fluxcd/notification-controller,
+            ghcr.io/fluxcd/source-controller
+          )
+        )
     {{- if include "common.used" .Values.components.backup.velero }}
     - macro: k8s_containers
       override:
