@@ -13,6 +13,20 @@ customRules:
   default-rules-exclusions.yaml: |2-
 
     # Macro k8s_containers:
+    # fluxcd
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "flux-system"
+          and container.image.repository in (
+            ghcr.io/fluxcd/helm-controller,
+            ghcr.io/fluxcd/kustomize-controller,
+            ghcr.io/fluxcd/notification-controller,
+            ghcr.io/fluxcd/source-controller
+          )
+        )
     - macro: k8s_containers
       override:
         condition: append
@@ -70,9 +84,6 @@ customRules:
         items: append
       items:
         - quay.io/cephcsi/cephcsi
-
-
-    # TODO : enlever : merge upstream : https://github.com/falcosecurity/rules/commit/70e257f32b85e3667cbac698793da4b4dc78982d
     - macro: postgres_running_cnpg
       condition: (proc.pname=postgres and (proc.cmdline startswith "sh -c /controller/manager wal-archive --log-destination /controller/log/postgres.json"))
 
