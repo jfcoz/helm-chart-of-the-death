@@ -197,10 +197,11 @@ customRules:
         or (
           k8s.ns.name = "{{ .Values.components.storage.rook.namespace }}"
           and container.image.repository in (
+            quay.io/cephcsi/cephcsi,
             quay.io/cephcsi/ceph-csi-operator,
             registry.k8s.io/sig-storage/csi-snapshotter,
             registry.k8s.io/sig-storage/csi-attacher,
-            registry.k8s.io/sig-storage/csi-provisionner,
+            registry.k8s.io/sig-storage/csi-provisioner,
             registry.k8s.io/sig-storage/csi-resizer
           )
         )
