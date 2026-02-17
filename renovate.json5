@@ -3,6 +3,9 @@
   "extends": [
     "config:recommended"
   ],
+  "schedule": [
+    "* 0-16 * * 1-5"
+  ],
   "rebaseWhen": "behind-base-branch",
   "packageRules": [
     {
