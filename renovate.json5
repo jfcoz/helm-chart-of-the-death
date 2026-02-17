@@ -3,6 +3,10 @@
   "extends": [
     "config:recommended"
   ],
+  "timezone": "Europe/Paris",
+  "schedule": [
+    "* 0-16 * * 1-5"
+  ],
   "rebaseWhen": "behind-base-branch",
   "packageRules": [
     {
