@@ -81,7 +81,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       chartName: kube-prometheus-stack
-      chartVersion: "82.0.2"
+      chartVersion: "82.1.0"
       chartRepository: prometheus-community
       values: {}
 
