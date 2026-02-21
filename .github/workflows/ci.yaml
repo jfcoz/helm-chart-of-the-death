@@ -17,6 +17,7 @@ jobs:
         - "test-04-cnpg-x509-certificate-exporter-falco"
         - "test-05-kyverno"
         - "test-06-cnpg"
+        - "test-07-datadog"
         runson:
         - ubuntu-24.04
         - ubuntu-24.04-arm
