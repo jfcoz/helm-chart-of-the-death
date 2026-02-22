@@ -41,8 +41,21 @@ repositories:
     url: https://falcosecurity.github.io/charts
   - name: external-secrets
     url: https://charts.external-secrets.io
+  - name: cilium
+    url: https://helm.cilium.io/
 
 components:
+
+  cni:
+    cilium:
+      managed: false
+      used: false
+      helmResourcePolicyKeep: true
+      namespace: cilium
+      chartName: cilium
+      chartVersion: "1.19.1"
+      chartRepository: cilium
+      values: {}
 
   gitops:
     fluxcd:
