@@ -18,6 +18,7 @@ jobs:
         - "test-05-kyverno"
         - "test-06-cnpg"
         - "test-07-datadog"
+        - "test-08-external-secrets"
         runson:
         - ubuntu-24.04
         - ubuntu-24.04-arm
