@@ -1,10 +1,10 @@
 debug:
+  - disallow-host-ports
   - disallow-privileged-containers
   - restrict-sysctls
   - disallow-capabilities
   - disallow-host-namespaces
   - disallow-host-path
-  - disallow-host-ports
   - other
 failurePolicy: Ignore
 policyExclude:

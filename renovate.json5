@@ -3,17 +3,18 @@
   "extends": [
     "config:recommended"
   ],
+  // "printConfig": true,
   "timezone": "Europe/Paris",
-  "schedule": [
-    "* 0-16 * * 1-5"
-  ],
   "rebaseWhen": "behind-base-branch",
   "packageRules": [
     {
       // automerge patch
       "matchUpdateTypes": ["patch"],
       "matchCurrentVersion": "!/^0/",
-      "automerge": true
+      "automerge": true,
+      "schedule": [
+        "* 0-16 * * 1-5"
+      ]
     }
   ],
   "bumpVersions": [
