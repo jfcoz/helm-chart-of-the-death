@@ -163,6 +163,18 @@ customRules:
           )
         )
     {{- end }}
+    {{- if include "common.used" .Values.components.security.externalSecrets }}
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "{{ .Values.components.security.externalSecrets.namespace}}"
+          and container.image.repository in (
+            ghcr.io/external-secrets/external-secrets
+          )
+        )
+    {{- end }}
     {{- if include "common.used" .Values.components.security.certManager }}
     - macro: k8s_containers
       override:

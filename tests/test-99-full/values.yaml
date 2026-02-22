@@ -101,6 +101,10 @@ components:
       managed: true
       helmResourcePolicyKeep: true
       namespace: infra-cert-manager
+    externalSecrets:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-external-secrets
     kyverno:
       managed: true
       helmResourcePolicyKeep: true
