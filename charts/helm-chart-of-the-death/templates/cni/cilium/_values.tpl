@@ -7,6 +7,20 @@ cluster:
 k8sServiceHost: {{ .Values.global.kubernetesApi.host | required "missing global.kubernetesApi.host" }}
 k8sServicePort: {{ .Values.global.kubernetesApi.port }}
 
+updateStrategy:
+  rollingUpdate:
+    maxUnavailable: 33%
+
+envoy:
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 33%
+
+{{- if semverCompare ">=1.19.0" $me.chartVersion }}
+# netork policy : reject instead of drop
+serviceNoBackendResponse: icmp
+{{- end }}
+
 kubeProxyReplacement: true
 
 routingMode: tunnel

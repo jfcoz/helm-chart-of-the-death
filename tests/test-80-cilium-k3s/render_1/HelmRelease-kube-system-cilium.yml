@@ -15,11 +15,16 @@ spec:
         kind: HelmRepository
         name: "cilium"
         namespace: default
-      version: "1.18.0"
+      version: "1.19.1"
   interval: 10m0s
+  timeout: 30m
   values:
     cluster:
       name: change-me
+    envoy:
+      updateStrategy:
+        rollingUpdate:
+          maxUnavailable: 33%
     ipam:
       operator:
         clusterPoolIPv4PodCIDRList:
@@ -28,4 +33,8 @@ spec:
     k8sServicePort: 6443
     kubeProxyReplacement: true
     routingMode: tunnel
+    serviceNoBackendResponse: icmp
     tunnelProtocol: geneve
+    updateStrategy:
+      rollingUpdate:
+        maxUnavailable: 33%

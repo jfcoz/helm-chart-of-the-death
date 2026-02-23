@@ -1,5 +1,9 @@
 cluster:
   name: change-me
+envoy:
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 33%
 ipam:
   operator:
     clusterPoolIPv4PodCIDRList:
@@ -8,4 +12,8 @@ k8sServiceHost: fake.domain.name
 k8sServicePort: 6443
 kubeProxyReplacement: true
 routingMode: tunnel
+serviceNoBackendResponse: icmp
 tunnelProtocol: geneve
+updateStrategy:
+  rollingUpdate:
+    maxUnavailable: 33%
