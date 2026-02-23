@@ -1,0 +1,8 @@
+---
+# Source: helm-chart-of-the-death/templates/cni/cilium/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cilium
+  annotations:
+    helm.sh/resource-policy: keep

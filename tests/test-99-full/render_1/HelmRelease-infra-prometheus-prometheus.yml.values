@@ -1153,7 +1153,7 @@ prometheus:
   prometheusSpec:
     enableRemoteWriteReceiver: true
     externalLabels:
-      cluster: change_me
+      cluster: change-me
     maximumStartupDurationSeconds: 900
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false

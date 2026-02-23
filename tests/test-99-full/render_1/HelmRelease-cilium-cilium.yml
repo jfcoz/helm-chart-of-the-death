@@ -1,0 +1,31 @@
+---
+# Source: helm-chart-of-the-death/templates/cni/cilium/helmrelease.yaml
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cilium
+  namespace: cilium
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  chart:
+    spec:
+      chart: cilium
+      sourceRef:
+        kind: HelmRepository
+        name: "cilium"
+        namespace: default
+      version: "1.18.0"
+  interval: 10m0s
+  values:
+    cluster:
+      name: change-me
+    ipam:
+      operator:
+        clusterPoolIPv4PodCIDRList:
+          - 10.42.0.0/16
+    k8sServiceHost: fake.domain.name
+    k8sServicePort: 6443
+    kubeProxyReplacement: true
+    routingMode: tunnel
+    tunnelProtocol: geneve

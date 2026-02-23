@@ -613,13 +613,13 @@ data:
         write_relabel_config {
           source_labels = ["cluster"]
           regex = ""
-          replacement = "change_me"
+          replacement = "change-me"
           target_label = "cluster"
         }
         write_relabel_config {
           source_labels = ["k8s_cluster_name"]
           regex = ""
-          replacement = "change_me"
+          replacement = "change-me"
           target_label = "k8s_cluster_name"
         }
       }
@@ -791,8 +791,8 @@ data:
         max_backoff_retries = "10"
       }
       external_labels = {
-        "cluster" = "change_me",
-        "k8s_cluster_name" = "change_me",
+        "cluster" = "change-me",
+        "k8s_cluster_name" = "change-me",
       }
     }
     // Destination: localPrometheus (prometheus)
@@ -827,13 +827,13 @@ data:
         write_relabel_config {
           source_labels = ["cluster"]
           regex = ""
-          replacement = "change_me"
+          replacement = "change-me"
           target_label = "cluster"
         }
         write_relabel_config {
           source_labels = ["k8s_cluster_name"]
           regex = ""
-          replacement = "change_me"
+          replacement = "change-me"
           target_label = "k8s_cluster_name"
         }
       }
@@ -1250,8 +1250,8 @@ data:
         max_backoff_retries = "10"
       }
       external_labels = {
-        "cluster" = "change_me",
-        "k8s_cluster_name" = "change_me",
+        "cluster" = "change-me",
+        "k8s_cluster_name" = "change-me",
       }
     }
 ---

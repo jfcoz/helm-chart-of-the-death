@@ -6,11 +6,14 @@ multiZone: true
 kubernetesDistribution: none
 
 global:
-  clusterName: change_me
-  ingressWildcardSuffix: replaced.by.kustomization
+  # clusterName: change-me
+  # ingressWildcardSuffix: replaced.by.kustomization
   # contactAddress: replaced.by.kustomization
   # grafanaAdminPassword: must.be.replaced.by.kustomization
   # clusterName: must.be.replaced.by.kustomization
+  kubernetesApi:
+    host: replaced.by.kustomization
+    port: 6443
 
 repositories:
   - name: cnpg
@@ -41,8 +44,21 @@ repositories:
     url: https://falcosecurity.github.io/charts
   - name: external-secrets
     url: https://charts.external-secrets.io
+  - name: cilium
+    url: https://helm.cilium.io/
 
 components:
+
+  cni:
+    cilium:
+      managed: false
+      used: false
+      helmResourcePolicyKeep: true
+      namespace: kube-system
+      chartName: cilium
+      chartVersion: "1.18.0"
+      chartRepository: cilium
+      values: {}
 
   gitops:
     fluxcd:

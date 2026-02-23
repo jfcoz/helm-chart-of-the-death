@@ -1,0 +1,14 @@
+{{- $me := .Values.components.cni.cilium }}
+{{- if and
+          (include "common.managed" $me)
+          (ne $me.namespace "kube-system")
+}}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $me.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+{{- end }}

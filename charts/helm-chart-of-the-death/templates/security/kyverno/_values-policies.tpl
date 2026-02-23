@@ -3,6 +3,16 @@
 {{- $me := .Values.components.security.kyverno }}
 disallow-capabilities:
   any:
+  {{- if include "common.used" .Values.components.cni.cilium }}
+  - resources:
+      namespaces:
+      - {{ .Values.components.cni.cilium.namespace }}
+      kinds:
+      - Pod
+      names:
+      - "cilium-*"
+      - "cilium-envoy-*"
+  {{- end }}
   {{- if include "common.used" .Values.components.storage.rook }}
   - resources:
       namespaces:
@@ -31,8 +41,18 @@ disallow-capabilities:
       names:
       - "svclb-nginx-ingress-ingress-nginx-controller-*"
   {{- end }}
+
 disallow-host-namespaces:
   any:
+  {{- if include "common.used" .Values.components.cni.cilium }}
+  - resources:
+      namespaces:
+      - {{ .Values.components.cni.cilium.namespace }}
+      kinds:
+      - Pod
+      names:
+      - "cilium-*"
+  {{- end }}
   {{- if include "common.used" .Values.components.storage.rook }}
   - resources:
       namespaces:
@@ -59,9 +79,19 @@ disallow-host-namespaces:
       namespaces:
       - {{ .Values.components.monitoring.smartctlExporter.namespace }}
   {{- end }}
+
 disallow-host-path:
   any:
   # TODO: split more specific component
+  {{- if include "common.used" .Values.components.cni.cilium }}
+  - resources:
+      namespaces:
+      - {{ .Values.components.cni.cilium.namespace }}
+      kinds:
+      - Pod
+      names:
+      - "cilium-*"
+  {{- end }}
   {{- if include "common.used" .Values.components.storage.rook }}
   - resources:
       namespaces:
@@ -142,8 +172,20 @@ disallow-host-path:
       - "falco-*"
       - "infra-falco-falco-*"
   {{- end }}
+
 disallow-host-ports:
   any:
+  {{- if include "common.used" .Values.components.cni.cilium }}
+  - resources:
+      namespaces:
+      - {{ .Values.components.cni.cilium.namespace }}
+      kinds:
+      - Pod
+      names:
+      - "cilium-*"
+      - "cilium-envoy-*"
+      - "cilium-operator-*"
+  {{- end }}
   {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
   - resources:
       namespaces:
@@ -174,8 +216,18 @@ disallow-host-ports:
       namespaces:
       - {{ .Values.components.monitoring.smartctlExporter.namespace }}
   {{- end }}
+
 disallow-privileged-containers:
   any:
+  {{- if include "common.used" .Values.components.cni.cilium }}
+  - resources:
+      namespaces:
+      - {{ .Values.components.cni.cilium.namespace }}
+      kinds:
+      - Pod
+      names:
+      - "cilium-*"
+  {{- end }}
   {{- if include "common.used" .Values.components.storage.rook }}
   - resources:
       namespaces:
@@ -197,6 +249,46 @@ disallow-privileged-containers:
       - "falco-*"
       - "infra-falco-falco-*"
   {{- end }}
+
+disallow-selinux:
+  any:
+  {{- if include "common.used" .Values.components.cni.cilium }}
+  - resources:
+      namespaces:
+      - {{ .Values.components.cni.cilium.namespace }}
+      kinds:
+      - Daemonset
+      names:
+      - "cilium"
+  - resources:
+      namespaces:
+      - {{ .Values.components.cni.cilium.namespace }}
+      kinds:
+      - Pod
+      names:
+      - "cilium-*"
+      - "cilium-envoy-*"
+  {{- end }}
+
+restrict-seccomp:
+  any:
+  {{- if eq .Values.kubernetesDistribution "k3s" }}
+  - resources:
+      namespaces:
+      - {{ .Values.components.cni.cilium.namespace }}
+      kinds:
+      - DaemonSet
+      names:
+      - "cilium"
+  - resources:
+      namespaces:
+      - {{ .Values.components.cni.cilium.namespace }}
+      kinds:
+      - Pod
+      names:
+      - "cilium-*"
+  {{- end }}
+
 restrict-sysctls:
   any:
   {{- if eq .Values.kubernetesDistribution "k3s" }}

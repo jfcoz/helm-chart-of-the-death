@@ -1850,7 +1850,7 @@ spec:
             - name: DEBUG
               value: "false"
             - name: CUSTOMFIELDS
-              value: "cluster_name:change_me"
+              value: "cluster_name:change-me"
             - name: TEMPLATEDFIELDS
               value: ""
             - name: CUSTOMTAGS
