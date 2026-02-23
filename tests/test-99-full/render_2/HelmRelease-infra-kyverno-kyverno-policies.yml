@@ -39,6 +39,14 @@ spec:
             kinds:
             - Pod
             names:
+            - cilium-*
+            - cilium-envoy-*
+            namespaces:
+            - cilium
+        - resources:
+            kinds:
+            - Pod
+            names:
             - rook-ceph.cephfs.csi.ceph.com-nodeplugin*
             - rook-ceph.rbd.csi.ceph.com-nodeplugin*
             namespaces:
@@ -128,6 +136,13 @@ spec:
       exclude:
         any:
         - resources:
+            kinds:
+            - Pod
+            names:
+            - cilium-*
+            namespaces:
+            - cilium
+        - resources:
             namespaces:
             - rook-ceph
         - resources:
@@ -192,6 +207,13 @@ spec:
               - Pod
       exclude:
         any:
+        - resources:
+            kinds:
+            - Pod
+            names:
+            - cilium-*
+            namespaces:
+            - cilium
         - resources:
             namespaces:
             - rook-ceph
@@ -306,6 +328,15 @@ spec:
               - Pod
       exclude:
         any:
+        - resources:
+            kinds:
+            - Pod
+            names:
+            - cilium-*
+            - cilium-envoy-*
+            - cilium-operator-*
+            namespaces:
+            - cilium
         - resources:
             kinds:
             - DaemonSet
@@ -445,6 +476,13 @@ spec:
       exclude:
         any:
         - resources:
+            kinds:
+            - Pod
+            names:
+            - cilium-*
+            namespaces:
+            - cilium
+        - resources:
             namespaces:
             - rook-ceph
         - resources:
@@ -566,6 +604,23 @@ spec:
         - resources:
             kinds:
               - Pod
+      exclude:
+        any:
+        - resources:
+            kinds:
+            - Daemonset
+            names:
+            - cilium
+            namespaces:
+            - cilium
+        - resources:
+            kinds:
+            - Pod
+            names:
+            - cilium-*
+            - cilium-envoy-*
+            namespaces:
+            - cilium
       validate:
         failureAction: Enforce
         allowExistingViolations: true
@@ -597,6 +652,23 @@ spec:
         - resources:
             kinds:
               - Pod
+      exclude:
+        any:
+        - resources:
+            kinds:
+            - Daemonset
+            names:
+            - cilium
+            namespaces:
+            - cilium
+        - resources:
+            kinds:
+            - Pod
+            names:
+            - cilium-*
+            - cilium-envoy-*
+            namespaces:
+            - cilium
       validate:
         failureAction: Enforce
         allowExistingViolations: true
@@ -713,6 +785,22 @@ spec:
         - resources:
             kinds:
               - Pod
+      exclude:
+        any:
+        - resources:
+            kinds:
+            - DaemonSet
+            names:
+            - cilium
+            namespaces:
+            - cilium
+        - resources:
+            kinds:
+            - Pod
+            names:
+            - cilium-*
+            namespaces:
+            - cilium
       validate:
         failureAction: Enforce
         allowExistingViolations: true

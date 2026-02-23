@@ -135,7 +135,7 @@ spec:
           endpoint: /api/v2/alerts
           hostport: http://prometheus-kube-prometheus-alertmanager.infra-prometheus:9093
           minimumpriority: notice
-        customfields: cluster_name:change_me
+        customfields: cluster_name:change-me
       enabled: true
       podAnnotations:
         ad.datadoghq.com/falcosidekick.logs: |-

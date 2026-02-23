@@ -1,0 +1,6 @@
+{{- if .Values.components.cni.cilium.managed }}
+{{- if eq .Values.kubernetesDistribution "k3s" }}
+cilium is enabled as a kube-proxy-replacement. Each k3s master should have options:
+--flannel-backend=none --disable-network-policy --disable-kube-proxy
+{{- end }}
+{{- end }}

@@ -3,14 +3,21 @@ cloudProvider: none
 kubernetesDistribution: k3s
 
 global:
+  clusterName: change-me
   ingressWildcardSuffix: replaced.by.kustomization
   grafanaAdminPassword: change_me
+  kubernetesApi:
+    host: fake.domain.name
 alerts:
   alertmanager_slack_webhook: https://example.com
   alertmanager_watchdog_webhook: https://example.com
   alertmanager_oncall_webhook: https://example.com
 
 components:
+  cni:
+    cilium:
+      managed: true
+
   ingress:
     nginxIngressController:
       managed: true

@@ -1,0 +1,24 @@
+{{- $me := .Values.components.cni.cilium }}
+{{- if include "common.managed" $me }}
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cilium
+  namespace: {{ $me.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+spec:
+  chart:
+    spec:
+      chart: {{ $me.chartName }}
+      sourceRef:
+        kind: HelmRepository
+        name: {{ $me.chartRepository | quote }}
+        namespace: {{ $.Release.Namespace }}
+      version: {{ $me.chartVersion | quote }}
+  interval: 10m0s
+  values:
+    {{- include "cni.cilium.mergedValues" . | nindent 4 }}
+{{- end }}

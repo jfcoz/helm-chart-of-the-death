@@ -6,11 +6,14 @@ multiZone: true
 kubernetesDistribution: none
 
 global:
-  clusterName: change_me
-  ingressWildcardSuffix: replaced.by.kustomization
+  # clusterName: change-me
+  # ingressWildcardSuffix: replaced.by.kustomization
   # contactAddress: replaced.by.kustomization
   # grafanaAdminPassword: must.be.replaced.by.kustomization
   # clusterName: must.be.replaced.by.kustomization
+  kubernetesApi:
+    host: replaced.by.kustomization
+    port: 6443
 
 repositories:
   - name: cnpg
@@ -53,7 +56,7 @@ components:
       helmResourcePolicyKeep: true
       namespace: cilium
       chartName: cilium
-      chartVersion: "1.19.1"
+      chartVersion: "1.18.0"
       chartRepository: cilium
       values: {}
 

@@ -1,0 +1,13 @@
+cloudProvider: none
+
+kubernetesDistribution: k3s
+
+global:
+  clusterName: change-me
+  kubernetesApi:
+    host: fake.domain.name
+
+components:
+  cni:
+    cilium:
+      managed: true

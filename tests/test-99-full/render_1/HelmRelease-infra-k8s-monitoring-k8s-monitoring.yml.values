@@ -13,7 +13,7 @@ alloy-singleton:
         add: []
   enabled: true
 cluster:
-  name: change_me
+  name: change-me
 clusterEvents:
   enabled: true
 clusterMetrics:

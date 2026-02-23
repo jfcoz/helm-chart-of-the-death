@@ -1,15 +1,25 @@
 debug:
-  - disallow-host-ports
-  - disallow-privileged-containers
+  - disallow-selinux
+  - restrict-seccomp
   - restrict-sysctls
   - disallow-capabilities
   - disallow-host-namespaces
   - disallow-host-path
+  - disallow-host-ports
+  - disallow-privileged-containers
   - other
 failurePolicy: Ignore
 policyExclude:
   disallow-capabilities:
     any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - cilium-*
+            - cilium-envoy-*
+          namespaces:
+            - cilium
       - resources:
           kinds:
             - Pod
@@ -35,6 +45,13 @@ policyExclude:
   disallow-host-namespaces:
     any:
       - resources:
+          kinds:
+            - Pod
+          names:
+            - cilium-*
+          namespaces:
+            - cilium
+      - resources:
           namespaces:
             - rook-ceph
       - resources:
@@ -52,6 +69,13 @@ policyExclude:
             - infra-smartctl-exporter
   disallow-host-path:
     any:
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - cilium-*
+          namespaces:
+            - cilium
       - resources:
           namespaces:
             - rook-ceph
@@ -123,6 +147,15 @@ policyExclude:
     any:
       - resources:
           kinds:
+            - Pod
+          names:
+            - cilium-*
+            - cilium-envoy-*
+            - cilium-operator-*
+          namespaces:
+            - cilium
+      - resources:
+          kinds:
             - DaemonSet
           names:
             - prometheus-prometheus-node-exporter
@@ -148,6 +181,13 @@ policyExclude:
   disallow-privileged-containers:
     any:
       - resources:
+          kinds:
+            - Pod
+          names:
+            - cilium-*
+          namespaces:
+            - cilium
+      - resources:
           namespaces:
             - rook-ceph
       - resources:
@@ -161,9 +201,42 @@ policyExclude:
             - infra-falco-falco-*
           namespaces:
             - infra-falco
+  disallow-selinux:
+    any:
+      - resources:
+          kinds:
+            - Daemonset
+          names:
+            - cilium
+          namespaces:
+            - cilium
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - cilium-*
+            - cilium-envoy-*
+          namespaces:
+            - cilium
   other:
     any:
       - useless: true
+  restrict-seccomp:
+    any:
+      - resources:
+          kinds:
+            - DaemonSet
+          names:
+            - cilium
+          namespaces:
+            - cilium
+      - resources:
+          kinds:
+            - Pod
+          names:
+            - cilium-*
+          namespaces:
+            - cilium
   restrict-sysctls:
     any:
       - resources:

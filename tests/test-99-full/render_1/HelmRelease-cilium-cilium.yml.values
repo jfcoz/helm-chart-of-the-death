@@ -1,0 +1,11 @@
+cluster:
+  name: change-me
+ipam:
+  operator:
+    clusterPoolIPv4PodCIDRList:
+      - 10.42.0.0/16
+k8sServiceHost: fake.domain.name
+k8sServicePort: 6443
+kubeProxyReplacement: true
+routingMode: tunnel
+tunnelProtocol: geneve
