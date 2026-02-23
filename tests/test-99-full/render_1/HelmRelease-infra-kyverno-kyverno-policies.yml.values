@@ -1,12 +1,12 @@
 debug:
+  - disallow-host-path
+  - disallow-host-ports
+  - disallow-privileged-containers
   - disallow-selinux
   - restrict-seccomp
   - restrict-sysctls
   - disallow-capabilities
   - disallow-host-namespaces
-  - disallow-host-path
-  - disallow-host-ports
-  - disallow-privileged-containers
   - other
 failurePolicy: Ignore
 policyExclude:
@@ -19,7 +19,7 @@ policyExclude:
             - cilium-*
             - cilium-envoy-*
           namespaces:
-            - cilium
+            - kube-system
       - resources:
           kinds:
             - Pod
@@ -50,7 +50,7 @@ policyExclude:
           names:
             - cilium-*
           namespaces:
-            - cilium
+            - kube-system
       - resources:
           namespaces:
             - rook-ceph
@@ -75,7 +75,7 @@ policyExclude:
           names:
             - cilium-*
           namespaces:
-            - cilium
+            - kube-system
       - resources:
           namespaces:
             - rook-ceph
@@ -153,7 +153,7 @@ policyExclude:
             - cilium-envoy-*
             - cilium-operator-*
           namespaces:
-            - cilium
+            - kube-system
       - resources:
           kinds:
             - DaemonSet
@@ -186,7 +186,7 @@ policyExclude:
           names:
             - cilium-*
           namespaces:
-            - cilium
+            - kube-system
       - resources:
           namespaces:
             - rook-ceph
@@ -209,7 +209,7 @@ policyExclude:
           names:
             - cilium
           namespaces:
-            - cilium
+            - kube-system
       - resources:
           kinds:
             - Pod
@@ -217,7 +217,7 @@ policyExclude:
             - cilium-*
             - cilium-envoy-*
           namespaces:
-            - cilium
+            - kube-system
   other:
     any:
       - useless: true
@@ -229,14 +229,14 @@ policyExclude:
           names:
             - cilium
           namespaces:
-            - cilium
+            - kube-system
       - resources:
           kinds:
             - Pod
           names:
             - cilium-*
           namespaces:
-            - cilium
+            - kube-system
   restrict-sysctls:
     any:
       - resources:

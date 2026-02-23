@@ -491,7 +491,7 @@ grafana:
           datasourceUid: prometheus
       name: tempo
       type: tempo
-      url: http://tempo-query-frontend.infra-tempo:3100
+      url: http://tempo-query-frontend.infra-tempo:3200
     - access: proxy
       name: thanos
       type: prometheus

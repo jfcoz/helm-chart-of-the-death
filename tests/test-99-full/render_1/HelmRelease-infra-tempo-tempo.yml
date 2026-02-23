@@ -25,7 +25,7 @@ spec:
       version: "1.61.3"
       sourceRef:
         kind: HelmRepository
-        name: "grafana"
+        name: "grafana-community"
         namespace: default
       interval: 1h
   test:

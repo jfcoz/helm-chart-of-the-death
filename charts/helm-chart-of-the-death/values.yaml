@@ -28,6 +28,8 @@ repositories:
     url: https://stevehipwell.github.io/helm-charts/
   - name: grafana
     url: https://grafana.github.io/helm-charts
+  - name: grafana-community
+    url: https://grafana-community.github.io/helm-charts
   - name: datadog
     url: https://helm.datadoghq.com
   - name: enix
@@ -187,7 +189,7 @@ components:
       namespace: infra-tempo
       chartName: tempo-distributed
       chartVersion: "1.61.3"
-      chartRepository: grafana
+      chartRepository: grafana-community
       values: {}
 
     smartctlExporter:
