@@ -5,5 +5,5 @@ tempo-distributor.{{ .Values.components.monitoring.tempo.namespace}}:4317
 
 {{/* tempo query endpoint */}}
 {{- define "monitoring.tempo.queryEndpoint" -}}
-http://tempo-query-frontend.{{ .Values.components.monitoring.tempo.namespace}}:3100
+http://tempo-query-frontend.{{ .Values.components.monitoring.tempo.namespace}}:3200
 {{- end }}
