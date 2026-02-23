@@ -42,7 +42,7 @@ spec:
             - cilium-*
             - cilium-envoy-*
             namespaces:
-            - cilium
+            - kube-system
         - resources:
             kinds:
             - Pod
@@ -141,7 +141,7 @@ spec:
             names:
             - cilium-*
             namespaces:
-            - cilium
+            - kube-system
         - resources:
             namespaces:
             - rook-ceph
@@ -213,7 +213,7 @@ spec:
             names:
             - cilium-*
             namespaces:
-            - cilium
+            - kube-system
         - resources:
             namespaces:
             - rook-ceph
@@ -336,7 +336,7 @@ spec:
             - cilium-envoy-*
             - cilium-operator-*
             namespaces:
-            - cilium
+            - kube-system
         - resources:
             kinds:
             - DaemonSet
@@ -481,7 +481,7 @@ spec:
             names:
             - cilium-*
             namespaces:
-            - cilium
+            - kube-system
         - resources:
             namespaces:
             - rook-ceph
@@ -612,7 +612,7 @@ spec:
             names:
             - cilium
             namespaces:
-            - cilium
+            - kube-system
         - resources:
             kinds:
             - Pod
@@ -620,7 +620,7 @@ spec:
             - cilium-*
             - cilium-envoy-*
             namespaces:
-            - cilium
+            - kube-system
       validate:
         failureAction: Enforce
         allowExistingViolations: true
@@ -660,7 +660,7 @@ spec:
             names:
             - cilium
             namespaces:
-            - cilium
+            - kube-system
         - resources:
             kinds:
             - Pod
@@ -668,7 +668,7 @@ spec:
             - cilium-*
             - cilium-envoy-*
             namespaces:
-            - cilium
+            - kube-system
       validate:
         failureAction: Enforce
         allowExistingViolations: true
@@ -793,14 +793,14 @@ spec:
             names:
             - cilium
             namespaces:
-            - cilium
+            - kube-system
         - resources:
             kinds:
             - Pod
             names:
             - cilium-*
             namespaces:
-            - cilium
+            - kube-system
       validate:
         failureAction: Enforce
         allowExistingViolations: true
