@@ -54,7 +54,7 @@ components:
       managed: false
       used: false
       helmResourcePolicyKeep: true
-      namespace: cilium
+      namespace: kube-system
       chartName: cilium
       chartVersion: "1.18.0"
       chartRepository: cilium
