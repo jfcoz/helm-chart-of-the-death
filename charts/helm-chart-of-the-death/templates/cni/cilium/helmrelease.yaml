@@ -19,6 +19,7 @@ spec:
         namespace: {{ $.Release.Namespace }}
       version: {{ $me.chartVersion | quote }}
   interval: 10m0s
+  timeout: 30m
   values:
     {{- include "cni.cilium.mergedValues" . | nindent 4 }}
 {{- end }}
