@@ -222,7 +222,7 @@ components:
       helmResourcePolicyKeep: true
       namespace: infra-velero
       chartName: velero
-      chartVersion: "11.3.2"
+      chartVersion: "11.4.0"
       chartRepository: vmware-tanzu
       values: {}
 
