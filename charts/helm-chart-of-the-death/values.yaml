@@ -188,7 +188,7 @@ components:
       helmResourcePolicyKeep: true
       namespace: infra-tempo
       chartName: tempo-distributed
-      chartVersion: "1.64.0"
+      chartVersion: "2.4.2"
       chartRepository: grafana-community
       values: {}
 
