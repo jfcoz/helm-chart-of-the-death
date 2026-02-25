@@ -6,10 +6,10 @@ metadata:
   name: k8s-monitoring-alloy-operator
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: alloy-operator-0.4.1
+    helm.sh/chart: alloy-operator-0.4.2
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.5.2"
+    app.kubernetes.io/version: "1.6.0"
     app.kubernetes.io/managed-by: Helm
 automountServiceAccountToken: true
 ---
@@ -229,7 +229,7 @@ data:
   self-reporting-metric.prom: |
     # HELP grafana_kubernetes_monitoring_build_info A metric to report the version of the Kubernetes Monitoring Helm chart
     # TYPE grafana_kubernetes_monitoring_build_info gauge
-    grafana_kubernetes_monitoring_build_info{version="3.8.0", namespace="infra-k8s-monitoring"} 1
+    grafana_kubernetes_monitoring_build_info{version="3.8.1", namespace="infra-k8s-monitoring"} 1
     # HELP grafana_kubernetes_monitoring_feature_info A metric to report the enabled features of the Kubernetes Monitoring Helm chart
     # TYPE grafana_kubernetes_monitoring_feature_info gauge
     grafana_kubernetes_monitoring_feature_info{feature="clusterEvents", version="1.0.0"} 1
@@ -642,10 +642,10 @@ kind: ClusterRole
 metadata:
   name: k8s-monitoring-alloy-operator-alloy-manager
   labels:
-    helm.sh/chart: alloy-operator-0.4.1
+    helm.sh/chart: alloy-operator-0.4.2
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.5.2"
+    app.kubernetes.io/version: "1.6.0"
     app.kubernetes.io/managed-by: Helm
 rules:
   - apiGroups:
@@ -700,10 +700,10 @@ kind: ClusterRoleBinding
 metadata:
   name: k8s-monitoring-alloy-operator-alloy-manager
   labels:
-    helm.sh/chart: alloy-operator-0.4.1
+    helm.sh/chart: alloy-operator-0.4.2
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.5.2"
+    app.kubernetes.io/version: "1.6.0"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -720,10 +720,10 @@ kind: ClusterRoleBinding
 metadata:
   name: k8s-monitoring-alloy-operator
   labels:
-    helm.sh/chart: alloy-operator-0.4.1
+    helm.sh/chart: alloy-operator-0.4.2
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.5.2"
+    app.kubernetes.io/version: "1.6.0"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -741,10 +741,10 @@ metadata:
   name: k8s-monitoring-alloy-operator-leader-election-role
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: alloy-operator-0.4.1
+    helm.sh/chart: alloy-operator-0.4.2
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.5.2"
+    app.kubernetes.io/version: "1.6.0"
     app.kubernetes.io/managed-by: Helm
 rules:
   - apiGroups:
@@ -786,10 +786,10 @@ metadata:
   name: k8s-monitoring-alloy-operator-leader-election-rolebinding
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: alloy-operator-0.4.1
+    helm.sh/chart: alloy-operator-0.4.2
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.5.2"
+    app.kubernetes.io/version: "1.6.0"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -807,10 +807,10 @@ metadata:
   name: k8s-monitoring-alloy-operator
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: alloy-operator-0.4.1
+    helm.sh/chart: alloy-operator-0.4.2
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.5.2"
+    app.kubernetes.io/version: "1.6.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
@@ -834,10 +834,10 @@ metadata:
   name: k8s-monitoring-alloy-operator
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: alloy-operator-0.4.1
+    helm.sh/chart: alloy-operator-0.4.2
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.5.2"
+    app.kubernetes.io/version: "1.6.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
@@ -848,10 +848,10 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: alloy-operator-0.4.1
+        helm.sh/chart: alloy-operator-0.4.2
         app.kubernetes.io/name: alloy-operator
         app.kubernetes.io/instance: k8s-monitoring
-        app.kubernetes.io/version: "1.5.2"
+        app.kubernetes.io/version: "1.6.0"
         app.kubernetes.io/managed-by: Helm
     spec:
       serviceAccountName: k8s-monitoring-alloy-operator
@@ -859,7 +859,7 @@ spec:
         runAsNonRoot: true
       containers:
         - name: alloy-operator
-          image: "ghcr.io/grafana/alloy-operator:1.5.2"
+          image: "ghcr.io/grafana/alloy-operator:1.6.0"
           imagePullPolicy: IfNotPresent
           args:
             - --health-probe-bind-address=:8081
@@ -1619,7 +1619,7 @@ metadata:
   labels:
     app.kubernetes.io/name: k8s-monitoring-add-finalizer
     app.kubernetes.io/instance: k8s-monitoring
-    helm.sh/chart: k8s-monitoring-3.8.0
+    helm.sh/chart: k8s-monitoring-3.8.1
   annotations:
     helm.sh/hook: post-install,post-upgrade
     helm.sh/hook-weight: "15"
@@ -1672,7 +1672,7 @@ metadata:
   labels:
     app.kubernetes.io/name: k8s-monitoring-remove-alloy-and-finalizer
     app.kubernetes.io/instance: k8s-monitoring
-    helm.sh/chart: k8s-monitoring-3.8.0
+    helm.sh/chart: k8s-monitoring-3.8.1
   annotations:
     helm.sh/hook: pre-delete
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded

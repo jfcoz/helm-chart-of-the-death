@@ -33,14 +33,14 @@ spec:
     enable: true
   values:
     debug:
+      - disallow-host-path
+      - disallow-host-ports
+      - disallow-privileged-containers
       - disallow-selinux
       - restrict-seccomp
       - restrict-sysctls
       - disallow-capabilities
       - disallow-host-namespaces
-      - disallow-host-path
-      - disallow-host-ports
-      - disallow-privileged-containers
       - other
     failurePolicy: Ignore
     policyExclude:
