@@ -245,17 +245,6 @@ customRules:
     {{- end }}
 
 
-    {{- if include "common.used" .Values.components.database.cnpg }}
-    - macro: postgres_running_cnpg
-      condition: (proc.pname=postgres and (proc.cmdline startswith "sh -c /controller/manager wal-archive --log-destination /controller/log/postgres.json"))
-
-    - rule: "Run shell untrusted"
-      override:
-        condition: append
-      condition: |
-        and not postgres_running_cnpg
-    {{- end }}
-
 {{- end }}
 
 {{/* values */}}
