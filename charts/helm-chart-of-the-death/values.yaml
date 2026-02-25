@@ -145,7 +145,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       chartName: k8s-monitoring
-      chartVersion: "3.8.0"
+      chartVersion: "3.8.1"
       chartRepository: grafana
       values: {}
 
