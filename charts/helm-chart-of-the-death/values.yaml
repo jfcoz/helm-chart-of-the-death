@@ -251,7 +251,7 @@ components:
       helmResourcePolicyKeep: true
       namespace: infra-kyverno
       chartName: kyverno
-      chartVersion: "3.6.2"
+      chartVersion: "3.7.1"
       chartRepository: kyverno
       values: {}
 
