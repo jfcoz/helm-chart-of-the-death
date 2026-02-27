@@ -584,6 +584,9 @@ prometheus-node-exporter:
     requests:
       memory: 25M
       cpu: 20m
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 30%
   extraArgs:
     # default from https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml#L2474
     - --collector.filesystem.mount-points-exclude=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/.+)($|/)
