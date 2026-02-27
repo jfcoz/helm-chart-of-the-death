@@ -260,7 +260,7 @@ components:
       helmResourcePolicyKeep: true
       namespace: infra-falco
       chartName: falco
-      chartVersion: "8.0.0"
+      chartVersion: "8.0.1"
       chartRepository: falcosecurity
       values: {}
 
