@@ -110,7 +110,7 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       chartName: thanos
-      chartVersion: "1.22.1"
+      chartVersion: "1.23.0"
       chartRepository: stevehipwell
       values: {}
 
