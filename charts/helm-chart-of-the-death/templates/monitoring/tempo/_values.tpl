@@ -37,14 +37,20 @@ ingester:
     # persistence is required with boltdb
     enabled: true
     # waiting https://github.com/grafana/helm-charts/pull/3606
+    {{- if $me.excludeFromBackup }}
     labels:
-      {{- if include "common.used" .Values.components.backup.velero }}
+      # for CSI Snapshot
       velero.io/exclude-from-backup: "true"
-      {{- end }}
+    {{- end }}
     claims:
       - name: data
         size: 10Gi
         storageClass: ceph-block
+  {{- if $me.excludeFromBackup }}
+  podLabels:
+    # for FileSystemBackup
+    velero.io/exclude-from-backup: "true"
+  {{- end }}
   replicas: 1
   autoscaling:
     enabled: true

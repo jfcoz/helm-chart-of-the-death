@@ -3,6 +3,8 @@ compact:
   persistence:
     enabled: true
     storageClass: ceph-block
+  podLabels:
+    velero.io/exclude-from-backup: "true"
 objstoreConfig:
   value: |-
     type: S3
@@ -26,3 +28,5 @@ storeGateway:
   persistence:
     enabled: true
     storageClass: ceph-block
+  podLabels:
+    velero.io/exclude-from-backup: "true"

@@ -134,6 +134,8 @@ falcosidekick:
       customConfig:
         - maxmemory-policy allkeys-lfu
         - maxmemory 30mb
+      podLabels:
+        velero.io/exclude-from-backup: "true"
       resources:
         limits:
           memory: 300M

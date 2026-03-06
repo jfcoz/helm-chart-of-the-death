@@ -15,7 +15,7 @@ spec:
         kind: HelmRepository
         name: "falcosecurity"
         namespace: default
-      version: "8.0.0"
+      version: "8.0.1"
   interval: 10m0s
   values:
     collectors:
@@ -154,6 +154,8 @@ spec:
           customConfig:
             - maxmemory-policy allkeys-lfu
             - maxmemory 30mb
+          podLabels:
+            velero.io/exclude-from-backup: "true"
           resources:
             limits:
               memory: 300M

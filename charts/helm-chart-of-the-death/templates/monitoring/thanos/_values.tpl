@@ -6,6 +6,11 @@ compact:
   persistence:
     enabled: true
     storageClass: ceph-block
+  {{- if $me.excludeFromBackup }}
+  podLabels:
+    # for FileSystemBackup
+    velero.io/exclude-from-backup: "true"
+  {{- end }}
 receiver:
   ingestor:
     persistence:
@@ -19,6 +24,11 @@ storeGateway:
   persistence:
     enabled: true
     storageClass: ceph-block
+  {{- if $me.excludeFromBackup }}
+  podLabels:
+    # for FileSystemBackup
+    velero.io/exclude-from-backup: "true"
+  {{- end }}
 objstoreConfig:
   value: |-
     type: S3

@@ -1344,6 +1344,7 @@ spec:
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: ingester
         app.kubernetes.io/part-of: memberlist
+        velero.io/exclude-from-backup: "true"
       annotations:
         checksum/config: bf5ae324d9e95aecbd66d047c64d669eb55fc9618e749cf0dae2cdc3cc4b93d7
         storage/size: "10Gi"

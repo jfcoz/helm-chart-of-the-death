@@ -6,10 +6,10 @@ metadata:
   name: thanos-compact
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.22.1
+    helm.sh/chart: thanos-1.23.0
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
-    app.kubernetes.io/version: "0.40.1"
+    app.kubernetes.io/version: "0.41.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: compact
     app.kubernetes.io/component-instance: thanos-compact
@@ -22,10 +22,10 @@ metadata:
   name: thanos-query
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.22.1
+    helm.sh/chart: thanos-1.23.0
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
-    app.kubernetes.io/version: "0.40.1"
+    app.kubernetes.io/version: "0.41.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: query
     app.kubernetes.io/component-instance: thanos-query
@@ -38,10 +38,10 @@ metadata:
   name: thanos-store-gateway
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.22.1
+    helm.sh/chart: thanos-1.23.0
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
-    app.kubernetes.io/version: "0.40.1"
+    app.kubernetes.io/version: "0.41.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: store-gateway
     app.kubernetes.io/component-instance: thanos-store-gateway
@@ -54,10 +54,10 @@ metadata:
   name: thanos-objstore-config
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.22.1
+    helm.sh/chart: thanos-1.23.0
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
-    app.kubernetes.io/version: "0.40.1"
+    app.kubernetes.io/version: "0.41.0"
     app.kubernetes.io/managed-by: Helm
 data:
   config: |-
@@ -70,10 +70,10 @@ metadata:
   name: thanos-compact-headless
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.22.1
+    helm.sh/chart: thanos-1.23.0
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
-    app.kubernetes.io/version: "0.40.1"
+    app.kubernetes.io/version: "0.41.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: compact
     app.kubernetes.io/component-instance: thanos-compact
@@ -97,10 +97,10 @@ metadata:
   name: thanos-query
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.22.1
+    helm.sh/chart: thanos-1.23.0
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
-    app.kubernetes.io/version: "0.40.1"
+    app.kubernetes.io/version: "0.41.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: query
     app.kubernetes.io/component-instance: thanos-query
@@ -126,10 +126,10 @@ metadata:
   name: thanos-store-gateway-headless
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.22.1
+    helm.sh/chart: thanos-1.23.0
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
-    app.kubernetes.io/version: "0.40.1"
+    app.kubernetes.io/version: "0.41.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: store-gateway
     app.kubernetes.io/component-instance: thanos-store-gateway
@@ -156,10 +156,10 @@ metadata:
   name: thanos-query
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.22.1
+    helm.sh/chart: thanos-1.23.0
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
-    app.kubernetes.io/version: "0.40.1"
+    app.kubernetes.io/version: "0.41.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: query
     app.kubernetes.io/component-instance: thanos-query
@@ -198,7 +198,7 @@ spec:
             runAsUser: 65534
             seccompProfile:
               type: RuntimeDefault
-          image: quay.io/thanos/thanos:v0.40.1
+          image: quay.io/thanos/thanos:v0.41.0
           imagePullPolicy: IfNotPresent
           env:
             - name: HOST_IP_ADDRESS
@@ -247,10 +247,10 @@ metadata:
   name: thanos-compact
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.22.1
+    helm.sh/chart: thanos-1.23.0
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
-    app.kubernetes.io/version: "0.40.1"
+    app.kubernetes.io/version: "0.41.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: compact
     app.kubernetes.io/component-instance: thanos-compact
@@ -268,6 +268,7 @@ spec:
         app.kubernetes.io/name: thanos
         app.kubernetes.io/instance: thanos
         app.kubernetes.io/component: compact
+        velero.io/exclude-from-backup: "true"
       annotations:
         checksum/config: 074d8aeda012087b4d8e16d542949f9b9de17694f57d55eff67360700e82aedf
     spec:
@@ -292,7 +293,7 @@ spec:
             runAsUser: 65534
             seccompProfile:
               type: RuntimeDefault
-          image: quay.io/thanos/thanos:v0.40.1
+          image: quay.io/thanos/thanos:v0.41.0
           imagePullPolicy: IfNotPresent
           env:
             - name: NAME
@@ -373,10 +374,10 @@ metadata:
   name: thanos-store-gateway
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.22.1
+    helm.sh/chart: thanos-1.23.0
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
-    app.kubernetes.io/version: "0.40.1"
+    app.kubernetes.io/version: "0.41.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: store-gateway
     app.kubernetes.io/component-instance: thanos-store-gateway
@@ -394,6 +395,7 @@ spec:
         app.kubernetes.io/name: thanos
         app.kubernetes.io/instance: thanos
         app.kubernetes.io/component: store-gateway
+        velero.io/exclude-from-backup: "true"
       annotations:
         checksum/config: 074d8aeda012087b4d8e16d542949f9b9de17694f57d55eff67360700e82aedf
     spec:
@@ -418,7 +420,7 @@ spec:
             runAsUser: 65534
             seccompProfile:
               type: RuntimeDefault
-          image: quay.io/thanos/thanos:v0.40.1
+          image: quay.io/thanos/thanos:v0.41.0
           imagePullPolicy: IfNotPresent
           env:
             - name: NAME

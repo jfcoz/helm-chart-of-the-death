@@ -103,6 +103,7 @@ components:
       chartName: kube-prometheus-stack
       chartVersion: "82.9.0"
       chartRepository: prometheus-community
+      excludeFromBackup: true
       values: {}
 
     thanos:
@@ -112,6 +113,7 @@ components:
       chartName: thanos
       chartVersion: "1.23.0"
       chartRepository: stevehipwell
+      excludeFromBackup: true
       values: {}
 
     loki:
@@ -121,6 +123,7 @@ components:
       chartName: loki
       chartVersion: "6.53.0"
       chartRepository: grafana
+      excludeFromBackup: true
       config:
         # deploymentMode: SimpleScalable / Distributed / SingleBinary
         deploymentMode: SimpleScalable
@@ -190,6 +193,7 @@ components:
       chartName: tempo-distributed
       chartVersion: "2.4.2"
       chartRepository: grafana-community
+      excludeFromBackup: true
       values: {}
 
     smartctlExporter:
@@ -262,6 +266,7 @@ components:
       chartName: falco
       chartVersion: "8.0.1"
       chartRepository: falcosecurity
+      excludeFromBackup: true
       values: {}
 
     trivy:
