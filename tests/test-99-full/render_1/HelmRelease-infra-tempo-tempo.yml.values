@@ -27,6 +27,8 @@ ingester:
     enabled: true
     labels:
       velero.io/exclude-from-backup: "true"
+  podLabels:
+    velero.io/exclude-from-backup: "true"
   replicas: 1
   resources:
     limits:

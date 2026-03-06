@@ -271,6 +271,7 @@
 
 {{/* values */}}
 {{- define "monitoring.kubePrometheusStack.defaultValues" }}
+{{- $me := .Values.components.monitoring.kubePrometheusStack }}
 grafana:
   adminPassword: {{ .Values.global.grafanaAdminPassword | required "global.grafanaAdminPassword is mandatory" | quote }}
   grafana.ini:
@@ -548,8 +549,20 @@ prometheus:
         memory: 3Gi
       limits:
         memory: 3Gi
+    {{- if $me.excludeFromBackup }}
+    podMetadata:
+      labels:
+        # for FileSystemBackup
+        velero.io/exclude-from-backup: "true"
+    {{- end }}
     storageSpec:
       volumeClaimTemplate:
+        {{- if $me.excludeFromBackup }}
+        metadata:
+          labels:
+            # for CSI Snapshot
+            velero.io/exclude-from-backup: "true"
+        {{- end }}
         spec:
           storageClassName: ceph-block
           #storageClassName: longhorn 

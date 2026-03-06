@@ -1155,6 +1155,9 @@ prometheus:
     externalLabels:
       cluster: change-me
     maximumStartupDurationSeconds: 900
+    podMetadata:
+      labels:
+        velero.io/exclude-from-backup: "true"
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
     replicas: 1
@@ -1168,6 +1171,9 @@ prometheus:
     serviceMonitorSelectorNilUsesHelmValues: false
     storageSpec:
       volumeClaimTemplate:
+        metadata:
+          labels:
+            velero.io/exclude-from-backup: "true"
         spec:
           accessModes:
             - ReadWriteOnce
@@ -1208,6 +1214,9 @@ prometheus-node-exporter:
     requests:
       cpu: 20m
       memory: 25M
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 30%
 prometheusOperator:
   prometheusConfigReloader:
     resources:

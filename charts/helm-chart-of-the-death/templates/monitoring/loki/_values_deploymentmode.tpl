@@ -38,11 +38,11 @@ bloomGateway:
 
 # deploymentMode: SimpleScalable only, so we disable it
 backend:
-   replicas: 0
+  replicas: 0
 read:
-   replicas: 0
+  replicas: 0
 write:
-   replicas: 0
+  replicas: 0
 
 # deploymentMode: SingleBinary only
 singleBinary:
@@ -90,11 +90,20 @@ bloomGateway:
 
 # deploymentMode: SimpleScalable only
 backend:
-   replicas: 3
+  replicas: 3
 read:
-   replicas: 3
+  replicas: 3
 write:
-   replicas: 3
+  replicas: 3
+  {{- if $me.excludeFromBackup }}
+  podLabels:
+    # for FileSystemBackup
+    velero.io/exclude-from-backup: "true"
+  persistence:
+    labels:
+      # CSI Snapshot
+      velero.io/exclude-from-backup: "true"
+  {{- end }}
 
 # deploymentMode: SingleBinary only, so we disable it
 singleBinary:
@@ -280,11 +289,11 @@ bloomGateway:
 
 # deploymentMode: SimpleScalable only, so we disabel 
 backend:
-   replicas: 0
+  replicas: 0
 read:
-   replicas: 0
+  replicas: 0
 write:
-   replicas: 0
+  replicas: 0
 
 # deploymentMode: SingleBinary only, so we disable
 singleBinary:

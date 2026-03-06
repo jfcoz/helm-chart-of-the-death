@@ -21,7 +21,7 @@ spec:
     spec:
       chart: kube-prometheus-stack
       # each major contains upgrade process in changelog
-      version: "82.4.0"
+      version: "82.9.0"
       sourceRef:
         kind: HelmRepository
         name: "prometheus-community"
@@ -1193,6 +1193,9 @@ spec:
         externalLabels:
           cluster: change-me
         maximumStartupDurationSeconds: 900
+        podMetadata:
+          labels:
+            velero.io/exclude-from-backup: "true"
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
         replicas: 1
@@ -1206,6 +1209,9 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         storageSpec:
           volumeClaimTemplate:
+            metadata:
+              labels:
+                velero.io/exclude-from-backup: "true"
             spec:
               accessModes:
                 - ReadWriteOnce
@@ -1246,6 +1252,9 @@ spec:
         requests:
           cpu: 20m
           memory: 25M
+      updateStrategy:
+        rollingUpdate:
+          maxUnavailable: 30%
     prometheusOperator:
       prometheusConfigReloader:
         resources:

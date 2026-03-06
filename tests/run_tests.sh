@@ -4,6 +4,8 @@ set -o pipefail
 shopt -s nullglob
 #set -x
 
+helm repo update
+
 if [ ! -z "$1" ]; then
 	FLAG="$1"
 fi

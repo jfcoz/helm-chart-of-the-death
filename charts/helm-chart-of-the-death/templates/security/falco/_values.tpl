@@ -329,6 +329,11 @@ falcosidekick:
         requests:
           memory: 10M
     redis:
+      {{- if $me.excludeFromBackup }}
+      podLabels:
+        # for FileSystemBackup
+        velero.io/exclude-from-backup: "true"
+      {{- end }}
       resources:
         requests:
           memory: 300M
