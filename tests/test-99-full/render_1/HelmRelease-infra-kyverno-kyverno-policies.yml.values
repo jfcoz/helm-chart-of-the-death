@@ -1,4 +1,5 @@
 debug:
+  - disallow-host-namespaces
   - disallow-host-path
   - disallow-host-ports
   - disallow-privileged-containers
@@ -6,7 +7,6 @@ debug:
   - restrict-seccomp
   - restrict-sysctls
   - disallow-capabilities
-  - disallow-host-namespaces
   - other
 failurePolicy: Ignore
 policyExclude:
