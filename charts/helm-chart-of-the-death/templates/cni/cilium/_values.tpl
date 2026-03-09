@@ -17,7 +17,7 @@ envoy:
       maxUnavailable: 33%
 
 {{- if semverCompare ">=1.19.0" $me.chartVersion }}
-# netork policy : reject instead of drop
+# netork policy : icmp instead of none
 serviceNoBackendResponse: icmp
 {{- end }}
 
