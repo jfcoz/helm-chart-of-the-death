@@ -191,7 +191,7 @@ components:
       helmResourcePolicyKeep: true
       namespace: infra-tempo
       chartName: tempo-distributed
-      chartVersion: "2.5.0"
+      chartVersion: "2.5.1"
       chartRepository: grafana-community
       excludeFromBackup: true
       values: {}
