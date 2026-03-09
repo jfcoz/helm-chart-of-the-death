@@ -17,8 +17,8 @@ envoy:
       maxUnavailable: 33%
 
 {{- if semverCompare ">=1.19.0" $me.chartVersion }}
-# netork policy : icmp instead of none
-serviceNoBackendResponse: icmp
+# Configure what the response should be to pod egress traffic denied by network policy : icmp instead of none
+policyDenyResponse: icmp
 {{- end }}
 
 kubeProxyReplacement: true
