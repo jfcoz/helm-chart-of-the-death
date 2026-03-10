@@ -11,7 +11,7 @@ metadata:
     {{- end }}
 spec:
   interval: 1h
-  timeout: 2m
+  timeout: {{ $me.release.timeout }}
   install:
     crds: Create
     # temporaire pour featureGates string et map en cours de switch
@@ -24,11 +24,11 @@ spec:
     disableSchemaValidation: true
   chart:
     spec:
-      chart: {{ $me.chartName }}
-      version: {{ $me.chartVersion | quote }}
+      chart: {{ $me.chart.name }}
+      version: {{ $me.chart.version | quote }}
       sourceRef:
         kind: HelmRepository
-        name: {{ $me.chartRepository | quote }}
+        name: {{ $me.chart.repository | quote }}
         namespace: {{ $.Release.Namespace }}
       interval: 1h
   test:

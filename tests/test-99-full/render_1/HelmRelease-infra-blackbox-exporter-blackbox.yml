@@ -12,7 +12,7 @@ spec:
     - name: prometheus
       namespace: infra-prometheus
   interval: 1h
-  timeout: 10m
+  timeout: 5m
   chart:
     spec:
       chart: prometheus-blackbox-exporter

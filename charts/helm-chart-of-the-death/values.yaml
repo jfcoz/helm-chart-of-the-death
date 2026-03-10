@@ -57,9 +57,12 @@ components:
       used: false
       helmResourcePolicyKeep: true
       namespace: kube-system
-      chartName: cilium
-      chartVersion: "1.19.1"
-      chartRepository: cilium
+      chart:
+        name: cilium
+        version: "1.19.1"
+        repository: cilium
+      release:
+        timeout: 30m
       values: {}
 
   gitops:
@@ -71,9 +74,12 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-nginx-ingress
-      chartName: ingress-nginx
-      chartVersion: "4.15.0"
-      chartRepository: kubernetes-ingress-nginx
+      chart:
+        name: ingress-nginx
+        version: "4.15.0"
+        repository: kubernetes-ingress-nginx
+      release:
+        timeout: 30m
       values: {}
 
   monitoring:
@@ -82,48 +88,63 @@ components:
       managed: false
       used: true
       helmResourcePolicyKeep: true
-      chartName: datadog
-      chartVersion: "3.183.0"
-      chartRepository: datadog
+      chart:
+        name: datadog
+        version: "3.183.0"
+        repository: datadog
+      release:
+        timeout: 5m
       values: {}
 
     keda:
       namespace: infra-keda
       managed: false
       helmResourcePolicyKeep: true
-      chartName: keda
-      chartVersion: "2.19.0"
-      chartRepository: kedacore
+      chart:
+        name: keda
+        version: "2.19.0"
+        repository: kedacore
+      release:
+        timeout: 5m
       values: {}
 
     kubePrometheusStack:
       namespace: infra-prometheus
       managed: false
       helmResourcePolicyKeep: true
-      chartName: kube-prometheus-stack
-      chartVersion: "82.10.3"
-      chartRepository: prometheus-community
+      chart:
+        name: kube-prometheus-stack
+        version: "82.10.3"
+        repository: prometheus-community
       excludeFromBackup: true
+      release:
+        timeout: 10m
       values: {}
 
     thanos:
       namespace: infra-thanos
       managed: false
       helmResourcePolicyKeep: true
-      chartName: thanos
-      chartVersion: "1.23.0"
-      chartRepository: stevehipwell
+      chart:
+        name: thanos
+        version: "1.23.0"
+        repository: stevehipwell
       excludeFromBackup: true
+      release:
+        timeout: 5m
       values: {}
 
     loki:
       namespace: infra-loki
       managed: false
       helmResourcePolicyKeep: true
-      chartName: loki
-      chartVersion: "6.53.0"
-      chartRepository: grafana
+      chart:
+        name: loki
+        version: "6.53.0"
+        repository: grafana
       excludeFromBackup: true
+      release:
+        timeout: 20m
       config:
         # deploymentMode: SimpleScalable / Distributed / SingleBinary
         deploymentMode: SimpleScalable
@@ -138,18 +159,24 @@ components:
       namespace: infra-promtail
       managed: false
       helmResourcePolicyKeep: true
-      chartName: promtail
-      chartVersion: "6.17.1"
-      chartRepository: grafana
+      chart:
+        name: promtail
+        version: "6.17.1"
+        repository: grafana
+      release:
+        timeout: 30m
       values: {}
 
     k8sMonitoring:
       namespace: infra-k8s-monitoring
       managed: false
       helmResourcePolicyKeep: true
-      chartName: k8s-monitoring
-      chartVersion: "3.8.1"
-      chartRepository: grafana
+      chart:
+        name: k8s-monitoring
+        version: "3.8.1"
+        repository: grafana
+      release:
+        timeout: 5m
       values: {}
 
 
@@ -157,9 +184,12 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-opentelemetry
-      chartName: opentelemetry-operator
-      chartVersion: "0.107.0"
-      chartRepository: opentelemetry
+      chart:
+        name: opentelemetry-operator
+        version: "0.107.0"
+        repository: opentelemetry
+      release:
+        timeout: 5m
       values: {}
 
     openTelemetryCollector:
@@ -172,37 +202,49 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-x509
-      chartName: x509-certificate-exporter
-      chartVersion: "3.19.1"
-      chartRepository: enix
+      chart:
+        name: x509-certificate-exporter
+        version: "3.19.1"
+        repository: enix
+      release:
+        timeout: 10m
       values: {}
 
     pushGateway:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-push-gateway
-      chartName: prometheus-pushgateway
-      chartVersion: "3.6.0"
-      chartRepository: prometheus-community
+      chart:
+        name: prometheus-pushgateway
+        version: "3.6.0"
+        repository: prometheus-community
+      release:
+        timeout: 5m
       values: {}
 
     tempo:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-tempo
-      chartName: tempo-distributed
-      chartVersion: "2.6.0"
-      chartRepository: grafana-community
+      chart:
+        name: tempo-distributed
+        version: "2.6.0"
+        repository: grafana-community
       excludeFromBackup: true
+      release:
+        timeout: 10m
       values: {}
 
     smartctlExporter:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-smartctl-exporter
-      chartName: prometheus-smartctl-exporter
-      chartVersion: "0.16"
-      chartRepository: prometheus-community
+      chart:
+        name: prometheus-smartctl-exporter
+        version: "0.16"
+        repository: prometheus-community
+      release:
+        timeout: 10m
       values: {}
 
     eventRouter:
@@ -215,9 +257,12 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-blackbox-exporter
-      chartName: prometheus-blackbox-exporter
-      chartVersion: "11.8.0"
-      chartRepository: prometheus-community
+      chart:
+        name: prometheus-blackbox-exporter
+        version: "11.8.0"
+        repository: prometheus-community
+      release:
+        timeout: 5m
       values: {}
 
   backup:
@@ -225,9 +270,12 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-velero
-      chartName: velero
-      chartVersion: "11.4.0"
-      chartRepository: vmware-tanzu
+      chart:
+        name: velero
+        version: "11.4.0"
+        repository: vmware-tanzu
+      release:
+        timeout: 10m
       values: {}
 
   security:
@@ -235,18 +283,24 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-cert-manager
-      chartName: cert-manager
-      chartVersion: "v1.20.0"
-      chartRepository: jetstack
+      chart:
+        name: cert-manager
+        version: "v1.20.0"
+        repository: jetstack
+      release:
+        timeout: 5m
       values: {}
 
     externalSecrets:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-external-secrets
-      chartName: external-secrets
-      chartVersion: "2.1.0"
-      chartRepository: external-secrets
+      chart:
+        name: external-secrets
+        version: "2.1.0"
+        repository: external-secrets
+      release:
+        timeout: 5m
       values: {}
 
 
@@ -254,28 +308,37 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-kyverno
-      chartName: kyverno
-      chartVersion: "3.6.2"
-      chartRepository: kyverno
+      chart:
+        name: kyverno
+        version: "3.6.2"
+        repository: kyverno
+      release:
+        timeout: 10m
       values: {}
 
     falco:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-falco
-      chartName: falco
-      chartVersion: "8.0.1"
-      chartRepository: falcosecurity
+      chart:
+        name: falco
+        version: "8.0.1"
+        repository: falcosecurity
       excludeFromBackup: true
+      release:
+        timeout: 10m
       values: {}
 
     trivy:
       managed: false
       helmResourcePolicyKeep: true
       namespace: infra-trivy
-      chartName: TODO
-      chartVersion: "TODO"
-      chartRepository: TODO
+      chart:
+        name: TODO
+        version: "TODO"
+        repository: TODO
+      release:
+        timeout: 10m
       values: {}
 
   audit:
@@ -290,8 +353,9 @@ components:
       used: true
       helmResourcePolicyKeep: true
       namespace: rook-ceph
-      chartVersion: "TODO"
-      chartRepository: TODO
+      chart:
+        version: "TODO"
+        repository: TODO
       values: {}
 
   database:
@@ -299,17 +363,23 @@ components:
       managed: false
       helmResourcePolicyKeep: true
       namespace: cnpg-operator
-      chartName: cloudnative-pg
-      chartVersion: "0.27.1"
-      chartRepository: cnpg
+      chart:
+        name: cloudnative-pg
+        version: "0.27.1"
+        repository: cnpg
+      release:
+        timeout: 5m
       values: {}
 
     cnpgPluginBarmanCloud:
       managed: false
       helmResourcePolicyKeep: true
-      chartName: plugin-barman-cloud
-      chartVersion: "0.5.0"
-      chartRepository: cnpg
+      chart:
+        name: plugin-barman-cloud
+        version: "0.5.0"
+        repository: cnpg
+      release:
+        timeout: 5m
       values: {}
 
 

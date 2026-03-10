@@ -11,7 +11,7 @@
 {{- range keys (dig . false $.Values.components) }}
 {{- $component := . }}
 {{- $isManaged := dig $category $component "managed" false $.Values.components }}
-{{- $chartRepository := dig $category $component "chartRepository" "" $.Values.components }}
+{{- $chartRepository := dig $category $component "chart" "repository" "" $.Values.components }}
 {{- if and
            (eq $chartRepository $reponame)
            $isManaged

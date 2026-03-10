@@ -16,7 +16,7 @@ envoy:
     rollingUpdate:
       maxUnavailable: 33%
 
-{{- if semverCompare ">=1.19.0" $me.chartVersion }}
+{{- if semverCompare ">=1.19.0" $me.chart.version }}
 # Configure what the response should be to pod egress traffic denied by network policy : icmp instead of none
 policyDenyResponse: icmp
 {{- end }}

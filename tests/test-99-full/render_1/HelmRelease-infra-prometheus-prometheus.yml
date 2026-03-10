@@ -21,7 +21,7 @@ spec:
     spec:
       chart: kube-prometheus-stack
       # each major contains upgrade process in changelog
-      version: "82.10.1"
+      version: "82.10.3"
       sourceRef:
         kind: HelmRepository
         name: "prometheus-community"

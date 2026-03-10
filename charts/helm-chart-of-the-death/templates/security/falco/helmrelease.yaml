@@ -12,13 +12,14 @@ metadata:
 spec:
   chart:
     spec:
-      chart: {{ $me.chartName }}
+      chart: {{ $me.chart.name }}
       sourceRef:
         kind: HelmRepository
-        name: {{ $me.chartRepository | quote }}
+        name: {{ $me.chart.repository | quote }}
         namespace: {{ $.Release.Namespace }}
-      version: {{ $me.chartVersion | quote }}
+      version: {{ $me.chart.version | quote }}
   interval: 10m0s
+  timeout: {{ $me.release.timeout }}
   values:
     {{- include "security.falco.mergedValues" . | nindent 4 }}
 {{- end }}

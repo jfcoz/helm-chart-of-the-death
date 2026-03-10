@@ -14,15 +14,15 @@ spec:
     - name: kyverno
       namespace: {{ $me.namespace }}
   interval: 1h
-  timeout: 30m
+  timeout: {{ $me.release.timeout }}
   chart:
     spec:
       chart: kyverno-policies
       # each major contains upgrade process in changelog
-      version: {{ $me.chartVersion | quote }}
+      version: {{ $me.chart.version | quote }}
       sourceRef:
         kind: HelmRepository
-        name: {{ $me.chartRepository | quote }}
+        name: {{ $me.chart.repository | quote }}
         namespace: {{ $.Release.Namespace }}
       interval: 1h
   install:
