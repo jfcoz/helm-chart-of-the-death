@@ -158,7 +158,7 @@ components:
       helmResourcePolicyKeep: true
       namespace: infra-opentelemetry
       chartName: opentelemetry-operator
-      chartVersion: "0.106.0"
+      chartVersion: "0.107.0"
       chartRepository: opentelemetry
       values: {}
 
