@@ -7,9 +7,9 @@ metadata:
   name: opentelemetry-operator
   namespace: infra-opentelemetry
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -3167,6 +3167,8 @@ spec:
                 type: boolean
               hostPID:
                 type: boolean
+              hostUsers:
+                type: boolean
               image:
                 type: string
               imagePullPolicy:
@@ -4299,7 +4301,65 @@ spec:
                     type: array
                   enabled:
                     type: boolean
+                  evaluationInterval:
+                    default: 30s
+                    format: duration
+                    type: string
+                  podMonitorNamespaceSelector:
+                    default: {}
+                    properties:
+                      matchExpressions:
+                        items:
+                          properties:
+                            key:
+                              type: string
+                            operator:
+                              type: string
+                            values:
+                              items:
+                                type: string
+                              type: array
+                              x-kubernetes-list-type: atomic
+                          required:
+                          - key
+                          - operator
+                          type: object
+                        type: array
+                        x-kubernetes-list-type: atomic
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        type: object
+                    type: object
+                    x-kubernetes-map-type: atomic
                   podMonitorSelector:
+                    properties:
+                      matchExpressions:
+                        items:
+                          properties:
+                            key:
+                              type: string
+                            operator:
+                              type: string
+                            values:
+                              items:
+                                type: string
+                              type: array
+                              x-kubernetes-list-type: atomic
+                          required:
+                          - key
+                          - operator
+                          type: object
+                        type: array
+                        x-kubernetes-list-type: atomic
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        type: object
+                    type: object
+                    x-kubernetes-map-type: atomic
+                  probeNamespaceSelector:
+                    default: {}
                     properties:
                       matchExpressions:
                         items:
@@ -4357,6 +4417,33 @@ spec:
                     type: array
                     x-kubernetes-list-type: atomic
                     x-kubernetes-preserve-unknown-fields: true
+                  scrapeConfigNamespaceSelector:
+                    default: {}
+                    properties:
+                      matchExpressions:
+                        items:
+                          properties:
+                            key:
+                              type: string
+                            operator:
+                              type: string
+                            values:
+                              items:
+                                type: string
+                              type: array
+                              x-kubernetes-list-type: atomic
+                          required:
+                          - key
+                          - operator
+                          type: object
+                        type: array
+                        x-kubernetes-list-type: atomic
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        type: object
+                    type: object
+                    x-kubernetes-map-type: atomic
                   scrapeConfigSelector:
                     properties:
                       matchExpressions:
@@ -4387,6 +4474,37 @@ spec:
                     default: 30s
                     format: duration
                     type: string
+                  scrapeProtocols:
+                    items:
+                      type: string
+                    type: array
+                  serviceMonitorNamespaceSelector:
+                    default: {}
+                    properties:
+                      matchExpressions:
+                        items:
+                          properties:
+                            key:
+                              type: string
+                            operator:
+                              type: string
+                            values:
+                              items:
+                                type: string
+                              type: array
+                              x-kubernetes-list-type: atomic
+                          required:
+                          - key
+                          - operator
+                          type: object
+                        type: array
+                        x-kubernetes-list-type: atomic
+                      matchLabels:
+                        additionalProperties:
+                          type: string
+                        type: object
+                    type: object
+                    x-kubernetes-map-type: atomic
                   serviceMonitorSelector:
                     properties:
                       matchExpressions:
@@ -11858,6 +11976,8 @@ spec:
                 type: boolean
               hostPID:
                 type: boolean
+              hostUsers:
+                type: boolean
               image:
                 type: string
               imagePullPolicy:
@@ -13821,7 +13941,65 @@ spec:
                         type: array
                       enabled:
                         type: boolean
+                      evaluationInterval:
+                        default: 30s
+                        format: duration
+                        type: string
+                      podMonitorNamespaceSelector:
+                        default: {}
+                        properties:
+                          matchExpressions:
+                            items:
+                              properties:
+                                key:
+                                  type: string
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    type: string
+                                  type: array
+                                  x-kubernetes-list-type: atomic
+                              required:
+                              - key
+                              - operator
+                              type: object
+                            type: array
+                            x-kubernetes-list-type: atomic
+                          matchLabels:
+                            additionalProperties:
+                              type: string
+                            type: object
+                        type: object
+                        x-kubernetes-map-type: atomic
                       podMonitorSelector:
+                        properties:
+                          matchExpressions:
+                            items:
+                              properties:
+                                key:
+                                  type: string
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    type: string
+                                  type: array
+                                  x-kubernetes-list-type: atomic
+                              required:
+                              - key
+                              - operator
+                              type: object
+                            type: array
+                            x-kubernetes-list-type: atomic
+                          matchLabels:
+                            additionalProperties:
+                              type: string
+                            type: object
+                        type: object
+                        x-kubernetes-map-type: atomic
+                      probeNamespaceSelector:
+                        default: {}
                         properties:
                           matchExpressions:
                             items:
@@ -13879,6 +14057,33 @@ spec:
                         type: array
                         x-kubernetes-list-type: atomic
                         x-kubernetes-preserve-unknown-fields: true
+                      scrapeConfigNamespaceSelector:
+                        default: {}
+                        properties:
+                          matchExpressions:
+                            items:
+                              properties:
+                                key:
+                                  type: string
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    type: string
+                                  type: array
+                                  x-kubernetes-list-type: atomic
+                              required:
+                              - key
+                              - operator
+                              type: object
+                            type: array
+                            x-kubernetes-list-type: atomic
+                          matchLabels:
+                            additionalProperties:
+                              type: string
+                            type: object
+                        type: object
+                        x-kubernetes-map-type: atomic
                       scrapeConfigSelector:
                         properties:
                           matchExpressions:
@@ -13909,6 +14114,37 @@ spec:
                         default: 30s
                         format: duration
                         type: string
+                      scrapeProtocols:
+                        items:
+                          type: string
+                        type: array
+                      serviceMonitorNamespaceSelector:
+                        default: {}
+                        properties:
+                          matchExpressions:
+                            items:
+                              properties:
+                                key:
+                                  type: string
+                                operator:
+                                  type: string
+                                values:
+                                  items:
+                                    type: string
+                                  type: array
+                                  x-kubernetes-list-type: atomic
+                              required:
+                              - key
+                              - operator
+                              type: object
+                            type: array
+                            x-kubernetes-list-type: atomic
+                          matchLabels:
+                            additionalProperties:
+                              type: string
+                            type: object
+                        type: object
+                        x-kubernetes-map-type: atomic
                       serviceMonitorSelector:
                         properties:
                           matchExpressions:
@@ -17344,9 +17580,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -17713,9 +17949,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -17732,9 +17968,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -17753,9 +17989,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -17775,9 +18011,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -17797,9 +18033,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -17996,9 +18232,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18019,9 +18255,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18047,9 +18283,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18070,9 +18306,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18091,9 +18327,9 @@ spec:
       annotations:
         kubectl.kubernetes.io/default-container: manager
       labels:
-        helm.sh/chart: opentelemetry-operator-0.106.0
+        helm.sh/chart: opentelemetry-operator-0.107.0
         app.kubernetes.io/name: opentelemetry-operator
-        app.kubernetes.io/version: "0.145.0"
+        app.kubernetes.io/version: "0.146.0"
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: opentelemetry-operator
         app.kubernetes.io/instance: opentelemetry
@@ -18108,7 +18344,7 @@ spec:
             - --enable-leader-election
             - --health-probe-addr=:8081
             - --webhook-port=9443
-            - --collector-image=ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-k8s:0.145.0
+            - --collector-image=ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-k8s:0.146.0
           command:
             - /manager
           env:
@@ -18118,7 +18354,7 @@ spec:
                   fieldPath: spec.serviceAccountName
             - name: ENABLE_WEBHOOKS
               value: "true"
-          image: "ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator:0.145.0"
+          image: "ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator:0.146.0"
           name: manager
           imagePullPolicy: IfNotPresent
           ports:
@@ -18196,9 +18432,9 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18222,9 +18458,9 @@ apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18241,9 +18477,9 @@ metadata:
   annotations:
     cert-manager.io/inject-ca-from: infra-opentelemetry/opentelemetry-opentelemetry-operator-serving-cert
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18347,9 +18583,9 @@ metadata:
   name: opentelemetry-opentelemetry-operator
   namespace: infra-opentelemetry
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18365,9 +18601,9 @@ metadata:
   name: opentelemetry-opentelemetry-operator
   namespace: infra-opentelemetry
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18390,9 +18626,9 @@ metadata:
   annotations:
     cert-manager.io/inject-ca-from: infra-opentelemetry/opentelemetry-opentelemetry-operator-serving-cert
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18525,9 +18761,9 @@ metadata:
   name: "opentelemetry-opentelemetry-operator-cert-manager"
   namespace: infra-opentelemetry
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18578,9 +18814,9 @@ metadata:
   name: "opentelemetry-opentelemetry-operator-metrics"
   namespace: infra-opentelemetry
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18631,9 +18867,9 @@ metadata:
   name: "opentelemetry-opentelemetry-operator-webhook"
   namespace: infra-opentelemetry
   labels:
-    helm.sh/chart: opentelemetry-operator-0.106.0
+    helm.sh/chart: opentelemetry-operator-0.107.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.145.0"
+    app.kubernetes.io/version: "0.146.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry

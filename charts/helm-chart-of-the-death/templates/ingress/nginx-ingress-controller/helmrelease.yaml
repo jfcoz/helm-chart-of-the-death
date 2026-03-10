@@ -14,11 +14,11 @@ spec:
   timeout: {{ $me.release.timeout }}
   chart:
     spec:
-      chart: {{ $me.chartName }}
-      version: {{ $me.chartVersion | quote }}
+      chart: {{ $me.chart.name }}
+      version: {{ $me.chart.version | quote }}
       sourceRef:
         kind: HelmRepository
-        name: {{ $me.chartRepository | quote }}
+        name: {{ $me.chart.repository | quote }}
         namespace: {{ $.Release.Namespace }}
       interval: 1h
   install:
