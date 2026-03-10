@@ -12,7 +12,7 @@ spec:
   #  - name: prometheus
   #    namespace: infra-prometheus
   interval: 1h
-  timeout: 5m
+  timeout: 10m
   install:
     crds: Create
   upgrade:
@@ -22,7 +22,7 @@ spec:
   chart:
     spec:
       chart: tempo-distributed
-      version: "2.5.1"
+      version: "2.6.0"
       sourceRef:
         kind: HelmRepository
         name: "grafana-community"

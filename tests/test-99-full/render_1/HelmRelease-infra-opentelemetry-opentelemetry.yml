@@ -9,7 +9,7 @@ metadata:
     helm.sh/resource-policy: keep
 spec:
   interval: 1h
-  timeout: 2m
+  timeout: 5m
   install:
     crds: Create
     # temporaire pour featureGates string et map en cours de switch

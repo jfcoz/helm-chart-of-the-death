@@ -20,7 +20,7 @@ spec:
     {{- end }}
   {{- end }}
   interval: 1h
-  timeout: 30m
+  timeout: {{ $me.release.timeout }}
   chart:
     spec:
       chart: {{ $me.chartName }}

@@ -12,7 +12,7 @@ spec:
     - name: kyverno
       namespace: infra-kyverno
   interval: 1h
-  timeout: 30m
+  timeout: 10m
   chart:
     spec:
       chart: kyverno-policies
@@ -33,6 +33,7 @@ spec:
     enable: true
   values:
     debug:
+      - disallow-host-ports
       - disallow-privileged-containers
       - disallow-selinux
       - restrict-seccomp
@@ -40,7 +41,6 @@ spec:
       - disallow-capabilities
       - disallow-host-namespaces
       - disallow-host-path
-      - disallow-host-ports
       - other
     failurePolicy: Ignore
     policyExclude:

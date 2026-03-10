@@ -17,6 +17,7 @@ spec:
         namespace: default
       version: "8.0.1"
   interval: 10m0s
+  timeout: 10m
   values:
     collectors:
       containerd:

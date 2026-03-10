@@ -19,6 +19,7 @@ spec:
         namespace: {{ $.Release.Namespace }}
       version: {{ $me.chartVersion | quote }}
   interval: 10m0s
+  timeout: {{ $me.release.timeout }}
   values:
     {{- include "security.falco.mergedValues" . | nindent 4 }}
 {{- end }}

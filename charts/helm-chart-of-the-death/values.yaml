@@ -60,6 +60,8 @@ components:
       chartName: cilium
       chartVersion: "1.19.1"
       chartRepository: cilium
+      release:
+        timeout: 30m
       values: {}
 
   gitops:
@@ -74,6 +76,8 @@ components:
       chartName: ingress-nginx
       chartVersion: "4.15.0"
       chartRepository: kubernetes-ingress-nginx
+      release:
+        timeout: 30m
       values: {}
 
   monitoring:
@@ -85,6 +89,8 @@ components:
       chartName: datadog
       chartVersion: "3.183.0"
       chartRepository: datadog
+      release:
+        timeout: 5m
       values: {}
 
     keda:
@@ -94,6 +100,8 @@ components:
       chartName: keda
       chartVersion: "2.19.0"
       chartRepository: kedacore
+      release:
+        timeout: 5m
       values: {}
 
     kubePrometheusStack:
@@ -104,6 +112,8 @@ components:
       chartVersion: "82.10.3"
       chartRepository: prometheus-community
       excludeFromBackup: true
+      release:
+        timeout: 10m
       values: {}
 
     thanos:
@@ -114,6 +124,8 @@ components:
       chartVersion: "1.23.0"
       chartRepository: stevehipwell
       excludeFromBackup: true
+      release:
+        timeout: 5m
       values: {}
 
     loki:
@@ -124,6 +136,8 @@ components:
       chartVersion: "6.53.0"
       chartRepository: grafana
       excludeFromBackup: true
+      release:
+        timeout: 20m
       config:
         # deploymentMode: SimpleScalable / Distributed / SingleBinary
         deploymentMode: SimpleScalable
@@ -141,6 +155,8 @@ components:
       chartName: promtail
       chartVersion: "6.17.1"
       chartRepository: grafana
+      release:
+        timeout: 30m
       values: {}
 
     k8sMonitoring:
@@ -150,6 +166,8 @@ components:
       chartName: k8s-monitoring
       chartVersion: "3.8.1"
       chartRepository: grafana
+      release:
+        timeout: 5m
       values: {}
 
 
@@ -160,6 +178,8 @@ components:
       chartName: opentelemetry-operator
       chartVersion: "0.107.0"
       chartRepository: opentelemetry
+      release:
+        timeout: 5m
       values: {}
 
     openTelemetryCollector:
@@ -175,6 +195,8 @@ components:
       chartName: x509-certificate-exporter
       chartVersion: "3.19.1"
       chartRepository: enix
+      release:
+        timeout: 10m
       values: {}
 
     pushGateway:
@@ -184,6 +206,8 @@ components:
       chartName: prometheus-pushgateway
       chartVersion: "3.6.0"
       chartRepository: prometheus-community
+      release:
+        timeout: 5m
       values: {}
 
     tempo:
@@ -194,6 +218,8 @@ components:
       chartVersion: "2.6.0"
       chartRepository: grafana-community
       excludeFromBackup: true
+      release:
+        timeout: 10m
       values: {}
 
     smartctlExporter:
@@ -203,6 +229,8 @@ components:
       chartName: prometheus-smartctl-exporter
       chartVersion: "0.16"
       chartRepository: prometheus-community
+      release:
+        timeout: 10m
       values: {}
 
     eventRouter:
@@ -218,6 +246,8 @@ components:
       chartName: prometheus-blackbox-exporter
       chartVersion: "11.8.0"
       chartRepository: prometheus-community
+      release:
+        timeout: 5m
       values: {}
 
   backup:
@@ -228,6 +258,8 @@ components:
       chartName: velero
       chartVersion: "11.4.0"
       chartRepository: vmware-tanzu
+      release:
+        timeout: 10m
       values: {}
 
   security:
@@ -238,6 +270,8 @@ components:
       chartName: cert-manager
       chartVersion: "v1.20.0"
       chartRepository: jetstack
+      release:
+        timeout: 5m
       values: {}
 
     externalSecrets:
@@ -247,6 +281,8 @@ components:
       chartName: external-secrets
       chartVersion: "2.1.0"
       chartRepository: external-secrets
+      release:
+        timeout: 5m
       values: {}
 
 
@@ -257,6 +293,8 @@ components:
       chartName: kyverno
       chartVersion: "3.6.2"
       chartRepository: kyverno
+      release:
+        timeout: 10m
       values: {}
 
     falco:
@@ -267,6 +305,8 @@ components:
       chartVersion: "8.0.1"
       chartRepository: falcosecurity
       excludeFromBackup: true
+      release:
+        timeout: 10m
       values: {}
 
     trivy:
@@ -276,6 +316,8 @@ components:
       chartName: TODO
       chartVersion: "TODO"
       chartRepository: TODO
+      release:
+        timeout: 10m
       values: {}
 
   audit:
@@ -302,6 +344,8 @@ components:
       chartName: cloudnative-pg
       chartVersion: "0.27.1"
       chartRepository: cnpg
+      release:
+        timeout: 5m
       values: {}
 
     cnpgPluginBarmanCloud:
@@ -310,6 +354,8 @@ components:
       chartName: plugin-barman-cloud
       chartVersion: "0.5.0"
       chartRepository: cnpg
+      release:
+        timeout: 5m
       values: {}
 
 

@@ -14,7 +14,7 @@ spec:
   #  - name: prometheus
   #    namespace: infra-prometheus
   interval: 1h
-  timeout: 5m
+  timeout: {{ $me.release.timeout }}
   install:
     crds: Create
   upgrade:

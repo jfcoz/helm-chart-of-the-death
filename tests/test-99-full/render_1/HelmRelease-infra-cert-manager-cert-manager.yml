@@ -17,6 +17,7 @@ spec:
         namespace: default
       version: "v1.19.4"
   interval: 1h
+  timeout: 5m
   values:
     installCRDs: true
     resources:

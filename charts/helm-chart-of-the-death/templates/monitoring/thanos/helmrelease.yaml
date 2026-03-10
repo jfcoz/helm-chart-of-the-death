@@ -15,7 +15,7 @@ spec:
   #  - name: prometheus
   #    namespace: {{ .Values.components.monitoring.kubePrometheusStack.namespace }}
   interval: 1h
-  timeout: 5m
+  timeout: {{ $me.release.timeout }}
   install:
     crds: Create
   upgrade:

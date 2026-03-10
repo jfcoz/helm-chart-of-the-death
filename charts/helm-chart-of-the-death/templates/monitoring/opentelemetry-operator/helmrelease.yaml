@@ -11,7 +11,7 @@ metadata:
     {{- end }}
 spec:
   interval: 1h
-  timeout: 2m
+  timeout: {{ $me.release.timeout }}
   install:
     crds: Create
     # temporaire pour featureGates string et map en cours de switch

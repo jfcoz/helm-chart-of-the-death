@@ -14,7 +14,7 @@ spec:
     - name: loki
       namespace: {{ .Values.components.monitoring.loki.namespace }}
   interval: 1h
-  timeout: 30m
+  timeout: {{ $me.release.timeout }}
   chart:
     spec:
       chart: {{ $me.chartName }}
