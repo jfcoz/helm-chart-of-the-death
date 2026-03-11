@@ -21,6 +21,7 @@ dryrun=client
 
 apiversions='--api-versions objectbucket.io/v1alpha1'
 
+helm lint $chart_dir
 
 # checking keep annotation. This prevent uninstall of all components in case of misused
 for manifest in $(find $chart_dir/templates -type f -not -name "_*" -a -not -name "NOTES.txt"); do

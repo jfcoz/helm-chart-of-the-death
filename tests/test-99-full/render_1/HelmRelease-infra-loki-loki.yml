@@ -11,25 +11,30 @@ spec:
   #dependsOn:
   #  - name: prometheus
   #    namespace: infra-prometheus
-  interval: 1h
-  timeout: 20m
+  # include common.fluxcd.release
   install:
     crds: Create
+    disableSchemaValidation: true
+    remediation:
+      retries: 10
+  interval: 1h
+  test:
+    enable: true
+  timeout: 20m
   upgrade:
     crds: CreateReplace
+    disableSchemaValidation: true
     remediation:
-      remediateLastFailure: true
+      retries: 3
   chart:
     spec:
       chart: loki
-      version: "6.53.0"
+      version: "6.54.0"
       sourceRef:
         kind: HelmRepository
         name: "grafana"
         namespace: default
       interval: 1h
-  test:
-    enable: true
   values:
     backend:
       replicas: 0

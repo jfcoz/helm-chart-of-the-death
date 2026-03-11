@@ -8,8 +8,19 @@ metadata:
   annotations:
     helm.sh/resource-policy: keep
 spec:
+  # include common.fluxcd.release
+  install:
+    crds: Create
+    remediation:
+      retries: 10
   interval: 1h
+  test:
+    enable: true
   timeout: 10m
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 3
   chart:
     spec:
       chart: x509-certificate-exporter
@@ -19,14 +30,6 @@ spec:
         name: "enix"
         namespace: default
       interval: 1h
-  install:
-    remediation:
-      retries: -1
-  upgrade:
-    remediation:
-      remediateLastFailure: true
-  test:
-    enable: true
   values:
     prometheusRules:
       create: false

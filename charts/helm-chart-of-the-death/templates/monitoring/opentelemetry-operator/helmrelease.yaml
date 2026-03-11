@@ -10,18 +10,8 @@ metadata:
     helm.sh/resource-policy: keep
     {{- end }}
 spec:
-  interval: 1h
-  timeout: {{ $me.release.timeout }}
-  install:
-    crds: Create
-    # temporaire pour featureGates string et map en cours de switch
-    disableSchemaValidation: true
-  upgrade:
-    crds: CreateReplace
-    remediation:
-      remediateLastFailure: true
-    # temporaire pour featureGates string et map en cours de switch
-    disableSchemaValidation: true
+  # include common.fluxcd.release
+  {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
   chart:
     spec:
       chart: {{ $me.chart.name }}
@@ -31,8 +21,6 @@ spec:
         name: {{ $me.chart.repository | quote }}
         namespace: {{ $.Release.Namespace }}
       interval: 1h
-  test:
-    enable: true
   values:
     admissionWebhooks:
       certManager:

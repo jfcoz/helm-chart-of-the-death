@@ -24,8 +24,8 @@ spec:
       namespace: {{ .Values.components.security.kyverno.namespace }}
     {{- end }}
   {{- end }}
-  interval: 1h
-  timeout: {{ $me.release.timeout }}
+  # include common.fluxcd.release
+  {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
   chart:
     spec:
       chart: {{ $me.chart.name }}
@@ -35,11 +35,6 @@ spec:
         name: {{ $me.chart.repository | quote }}
         namespace: {{ $.Release.Namespace }}
       interval: 1h
-  upgrade:
-    remediation:
-      remediateLastFailure: true
-  test:
-    enable: true
   values:
     {{- include "monitoring.k8sMonitoring.mergedValues" . | nindent 4 }}
 {{- end }}

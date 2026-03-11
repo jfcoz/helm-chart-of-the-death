@@ -11,8 +11,19 @@ spec:
   dependsOn:
     - name: loki
       namespace: infra-loki
+  # include common.fluxcd.release
+  install:
+    crds: Create
+    remediation:
+      retries: 10
   interval: 1h
+  test:
+    enable: true
   timeout: 5m
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 3
   chart:
     spec:
       chart: k8s-monitoring
@@ -22,11 +33,6 @@ spec:
         name: "grafana"
         namespace: default
       interval: 1h
-  upgrade:
-    remediation:
-      remediateLastFailure: true
-  test:
-    enable: true
   values:
     alloy-logs:
       alloy:

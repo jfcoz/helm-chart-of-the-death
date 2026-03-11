@@ -11,8 +11,21 @@ spec:
   dependsOn:
     - name: thanos
       namespace: infra-thanos
+  # include common.fluxcd.release
+  install:
+    crds: Create
+    disableSchemaValidation: true
+    remediation:
+      retries: 10
   interval: 1h
+  test:
+    enable: true
   timeout: 5m
+  upgrade:
+    crds: CreateReplace
+    disableSchemaValidation: true
+    remediation:
+      retries: 3
   chart:
     spec:
       chart: keda
@@ -22,14 +35,6 @@ spec:
         name: "kedacore"
         namespace: default
       interval: 1h
-  install:
-    crds: Create
-  upgrade:
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  test:
-    enable: true
   values:
     prometheus:
       metricServer:

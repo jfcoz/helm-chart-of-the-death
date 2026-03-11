@@ -13,14 +13,8 @@ spec:
   #dependsOn:
   #  - name: prometheus
   #    namespace: infra-prometheus
-  interval: 1h
-  timeout: {{ $me.release.timeout }}
-  install:
-    crds: Create
-  upgrade:
-    crds: CreateReplace
-    remediation:
-      remediateLastFailure: true
+  # include common.fluxcd.release
+  {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
   chart:
     spec:
       chart: {{ $me.chart.name }}
@@ -30,8 +24,6 @@ spec:
         name: {{ $me.chart.repository | quote }}
         namespace: {{ $.Release.Namespace }}
       interval: 1h
-  test:
-    enable: true
   values:
     {{- include "monitoring.loki.mergedValues" . | nindent 4 }}
 {{- end }}
