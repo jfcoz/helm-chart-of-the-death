@@ -10,6 +10,8 @@ metadata:
     helm.sh/resource-policy: keep
     {{- end }}
 spec:
+  # include common.fluxcd.release
+  {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
   chart:
     spec:
       chart: {{ $me.chart.name }}
@@ -18,8 +20,6 @@ spec:
         name: {{ $me.chart.repository | quote }}
         namespace: {{ $.Release.Namespace }}
       version: {{ $me.chart.version | quote }}
-  interval: 10m0s
-  timeout: {{ $me.release.timeout }}
   values:
     {{- include "cni.cilium.mergedValues" . | nindent 4 }}
 {{- end }}

@@ -11,8 +11,19 @@ spec:
   dependsOn:
     - name: kyverno
       namespace: infra-kyverno
+  # include common.fluxcd.release
+  install:
+    crds: Create
+    remediation:
+      retries: 10
   interval: 1h
+  test:
+    enable: true
   timeout: 10m
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 3
   chart:
     spec:
       chart: kyverno-policies
@@ -23,17 +34,8 @@ spec:
         name: "kyverno"
         namespace: default
       interval: 1h
-  install:
-    crds: Create
-  upgrade:
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  test:
-    enable: true
   values:
     debug:
-      - disallow-capabilities
       - disallow-host-namespaces
       - disallow-host-path
       - disallow-host-ports
@@ -41,6 +43,7 @@ spec:
       - disallow-selinux
       - restrict-seccomp
       - restrict-sysctls
+      - disallow-capabilities
       - other
     failurePolicy: Ignore
     policyExclude:

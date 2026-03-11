@@ -11,14 +11,19 @@ spec:
   #dependsOn:
   #  - name: prometheus
   #    namespace: infra-prometheus
-  interval: 1h
-  timeout: 5m
+  # include common.fluxcd.release
   install:
     crds: Create
+    remediation:
+      retries: 10
+  interval: 1h
+  test:
+    enable: true
+  timeout: 5m
   upgrade:
     crds: CreateReplace
     remediation:
-      remediateLastFailure: true
+      retries: 3
   chart:
     spec:
       chart: cloudnative-pg
@@ -28,8 +33,6 @@ spec:
         name: "cnpg"
         namespace: default
       interval: 1h
-  test:
-    enable: true
   values:
     config:
       data:

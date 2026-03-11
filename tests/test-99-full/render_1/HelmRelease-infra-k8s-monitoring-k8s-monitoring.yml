@@ -13,8 +13,21 @@ spec:
       namespace: infra-loki
     - name: kyverno
       namespace: infra-kyverno
+  # include common.fluxcd.release
+  install:
+    crds: Create
+    disableSchemaValidation: true
+    remediation:
+      retries: 10
   interval: 1h
+  test:
+    enable: true
   timeout: 5m
+  upgrade:
+    crds: CreateReplace
+    disableSchemaValidation: true
+    remediation:
+      retries: 3
   chart:
     spec:
       chart: k8s-monitoring
@@ -24,11 +37,6 @@ spec:
         name: "grafana"
         namespace: default
       interval: 1h
-  upgrade:
-    remediation:
-      remediateLastFailure: true
-  test:
-    enable: true
   values:
     alloy-logs:
       alloy:

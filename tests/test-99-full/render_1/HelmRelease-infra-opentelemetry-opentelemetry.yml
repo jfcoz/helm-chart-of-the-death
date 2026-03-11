@@ -8,18 +8,21 @@ metadata:
   annotations:
     helm.sh/resource-policy: keep
 spec:
-  interval: 1h
-  timeout: 5m
+  # include common.fluxcd.release
   install:
     crds: Create
-    # temporaire pour featureGates string et map en cours de switch
     disableSchemaValidation: true
+    remediation:
+      retries: 10
+  interval: 1h
+  test:
+    enable: true
+  timeout: 5m
   upgrade:
     crds: CreateReplace
-    remediation:
-      remediateLastFailure: true
-    # temporaire pour featureGates string et map en cours de switch
     disableSchemaValidation: true
+    remediation:
+      retries: 3
   chart:
     spec:
       chart: opentelemetry-operator
@@ -29,8 +32,6 @@ spec:
         name: "opentelemetry"
         namespace: default
       interval: 1h
-  test:
-    enable: true
   values:
     admissionWebhooks:
       certManager:

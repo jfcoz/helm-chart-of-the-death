@@ -11,9 +11,26 @@ general:
   # contactAddress: replaced.by.kustomization
   # grafanaAdminPassword: must.be.replaced.by.kustomization
   # clusterName: must.be.replaced.by.kustomization
+
   kubernetesApi:
     host: replaced.by.kustomization
     port: 6443
+
+  fluxcd:
+    release:
+      interval: 1h
+      timeout: 10m
+      install:
+        crds: Create
+        remediation:
+          retries: 10
+      upgrade:
+        crds: CreateReplace
+        remediation:
+          retries: 3
+      test:
+        enable: true
+
 
 repositories:
   - name: cnpg
@@ -190,6 +207,12 @@ components:
         repository: opentelemetry
       release:
         timeout: 5m
+        install:
+          # temporaire pour featureGates string et map en cours de switch
+          disableSchemaValidation: true
+        upgrade:
+          # temporaire pour featureGates string et map en cours de switch
+          disableSchemaValidation: true
       values: {}
 
     openTelemetryCollector:
@@ -327,6 +350,10 @@ components:
       excludeFromBackup: true
       release:
         timeout: 10m
+        test:
+          # test is using a very old mono arch image
+          # https://github.com/falcosecurity/charts/blob/master/charts/falcosidekick/templates/tests/test-connection.yaml#L16
+          enable: false
       values: {}
 
     trivy:

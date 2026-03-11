@@ -13,8 +13,8 @@ spec:
   dependsOn:
     - name: prometheus
       namespace: infra-prometheus
-  interval: 1h
-  timeout: {{ $me.release.timeout }}
+  # include common.fluxcd.release
+  {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
   chart:
     spec:
       chart: {{ $me.chart.name }}
@@ -25,14 +25,6 @@ spec:
         name: {{ $me.chart.repository | quote }}
         namespace: {{ $.Release.Namespace }}
       interval: 1h
-  install:
-    crds: Create
-  upgrade:
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  test:
-    enable: true
   values:
     resources:
       requests:
