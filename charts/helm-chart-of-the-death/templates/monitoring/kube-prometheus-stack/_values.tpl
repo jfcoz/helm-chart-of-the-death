@@ -273,10 +273,10 @@
 {{- define "monitoring.kubePrometheusStack.defaultValues" }}
 {{- $me := .Values.components.monitoring.kubePrometheusStack }}
 grafana:
-  adminPassword: {{ .Values.global.grafanaAdminPassword | required "global.grafanaAdminPassword is mandatory" | quote }}
+  adminPassword: {{ .Values.general.grafanaAdminPassword | required "general.grafanaAdminPassword is mandatory" | quote }}
   grafana.ini:
     server:
-      root_url: "https://grafana.{{ .Values.global.ingressWildcardSuffix }}"
+      root_url: "https://grafana.{{ .Values.general.ingressWildcardSuffix }}"
     database:
       # Workaround for database is locked error:  https://github.com/grafana/grafana/issues/65115
       wal: true
@@ -332,13 +332,13 @@ grafana:
     enabled: true
     ingressClassName: nginx
     hosts:
-      - grafana.{{ .Values.global.ingressWildcardSuffix }}
+      - grafana.{{ .Values.general.ingressWildcardSuffix }}
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
     tls:
     - secretName: grafana-general-tls
       hosts:
-        - grafana.{{ .Values.global.ingressWildcardSuffix }}
+        - grafana.{{ .Values.general.ingressWildcardSuffix }}
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
@@ -539,9 +539,9 @@ prometheus:
     probeSelectorNilUsesHelmValues: false
     ruleSelectorNilUsesHelmValues: false
     externalLabels:
-      cluster: {{ .Values.global.clusterName | default "Required global.clusterName" }}
+      cluster: {{ .Values.general.clusterName | default "Required general.clusterName" }}
     # ne marche pas, liens vers oncall mieux mais faux, et grafana ne peux plus afficher le detail des alertes
-    #externalUrl: https://grafana.{{ .Values.global.ingressWildcardSuffix }}
+    #externalUrl: https://grafana.{{ .Values.general.ingressWildcardSuffix }}
     replicas: 1
     resources:
       requests:
@@ -651,13 +651,13 @@ alertmanager:
   #  enabled: true
   #  ingressClassName: nginx
   #  hosts:
-  #    - alertmanager.{{ .Values.global.ingressWildcardSuffix }}
+  #    - alertmanager.{{ .Values.general.ingressWildcardSuffix }}
   #  annotations:
   #    cert-manager.io/cluster-issuer: letsencrypt-production
   #  tls:
   #  - secretName: alertmanager-general-tls
   #    hosts:
-  #      - alertmanager.{{ .Values.global.ingressWildcardSuffix }}
+  #      - alertmanager.{{ .Values.general.ingressWildcardSuffix }}
   config:
     inhibit_rules:
     - equal:

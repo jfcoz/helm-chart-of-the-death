@@ -5,7 +5,7 @@ multiZone: true
 # kind/k3s
 kubernetesDistribution: none
 
-global:
+general:
   # clusterName: change-me
   # ingressWildcardSuffix: replaced.by.kustomization
   # contactAddress: replaced.by.kustomization

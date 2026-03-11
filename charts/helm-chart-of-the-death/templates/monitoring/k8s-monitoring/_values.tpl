@@ -3,7 +3,7 @@
 {{- $me := .Values.components.monitoring.k8sMonitoring }}
 
 cluster:
-  name: {{ .Values.global.clusterName | required "missing global.clusterName" | quote }}
+  name: {{ .Values.general.clusterName | required "missing general.clusterName" | quote }}
 
 
 # Features
