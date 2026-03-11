@@ -35,6 +35,7 @@ spec:
     admissionController:
       replicas: 1
     debug:
+      - restrict-seccomp
       - restrict-sysctls
       - disallow-capabilities
       - disallow-host-namespaces
@@ -42,7 +43,6 @@ spec:
       - disallow-host-ports
       - disallow-privileged-containers
       - disallow-selinux
-      - restrict-seccomp
     failurePolicy: Ignore
     policyExclude:
       disallow-capabilities:

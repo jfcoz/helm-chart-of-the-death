@@ -15,8 +15,8 @@ metadata:
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    {{- if .Values.global.contactAddress }}
-    email: {{ .Values.global.contactAddress | quote }}
+    {{- if .Values.general.contactAddress }}
+    email: {{ .Values.general.contactAddress | quote }}
     {{- end }}
     privateKeySecretRef:
       name: letsencrypt-staging
@@ -37,8 +37,8 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    {{- if .Values.global.contactAddress }}
-    email: {{ .Values.global.contactAddress | quote }}
+    {{- if .Values.general.contactAddress }}
+    email: {{ .Values.general.contactAddress | quote }}
     {{- end }}
     privateKeySecretRef:
       name: letsencrypt-production

@@ -2,10 +2,10 @@
 {{- define "cni.cilium.defaultValues" }}
 {{- $me := .Values.components.cni.cilium }}
 cluster:
-  name: {{ .Values.global.clusterName }}
+  name: {{ .Values.general.clusterName }}
 
-k8sServiceHost: {{ .Values.global.kubernetesApi.host | required "missing global.kubernetesApi.host" }}
-k8sServicePort: {{ .Values.global.kubernetesApi.port }}
+k8sServiceHost: {{ .Values.general.kubernetesApi.host | required "missing general.kubernetesApi.host" }}
+k8sServicePort: {{ .Values.general.kubernetesApi.port }}
 
 updateStrategy:
   rollingUpdate:

@@ -2,7 +2,7 @@ cloudProvider: none
 
 kubernetesDistribution: k3s
 
-global:
+general:
   clusterName: change-me
   kubernetesApi:
     host: fake.domain.name

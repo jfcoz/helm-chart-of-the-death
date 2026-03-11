@@ -1,4 +1,4 @@
-global:
+general:
   clusterName: change-me
   ingressWildcardSuffix: replaced.by.kustomization
   grafanaAdminPassword: change_me
