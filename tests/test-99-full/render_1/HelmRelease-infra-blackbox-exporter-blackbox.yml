@@ -19,7 +19,7 @@ spec:
       retries: 10
   interval: 1h
   test:
-    enable: true
+    enable: false
   timeout: 5m
   upgrade:
     crds: CreateReplace

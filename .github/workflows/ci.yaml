@@ -19,6 +19,7 @@ jobs:
         - "test-06-cnpg"
         - "test-07-datadog"
         - "test-08-external-secrets"
+        - "test-10-argocd"
         runson:
         - ubuntu-24.04
         - ubuntu-24.04-arm

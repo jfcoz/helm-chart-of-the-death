@@ -475,7 +475,7 @@ spec:
       automountServiceAccountToken: true
       initContainers:
         - name: kubectl
-          image: "jfcoz/kubectl-deb12-basic:1.29"
+          image: "jfcoz/kubectl-deb12-basic:1.30"
           imagePullPolicy: IfNotPresent
           command:
             - /bin/sh
