@@ -1,6 +1,6 @@
 # Helm chart of the death
 
-![Helm chart of the death logo](docs/media/helm-chart-of-the-death.png)
+![Helm chart of the death logo](docs/media/helm-chart-of-the-death_256.png)
 
 _One chart to rule them all_
 
