@@ -1,0 +1,7 @@
+apiVersion: v2
+name: custom-objects-only
+description: "Only create objects passed in values"
+version: 0.0.1
+maintainers:
+- name: jfcoz
+  email: julien-helmchartofthedeath@francoz.net
