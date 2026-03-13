@@ -4,6 +4,10 @@ general:
   clusterName: change-me
   ingressWildcardSuffix: replaced.by.kustomization
   grafanaAdminPassword: change_me
+  fluxcd:
+    release:
+      # reduce interval to detect ClusterIssuer api capabilities after cert-manager installation
+      interval: 1m
 alerts:
   alertmanager_slack_webhook: https://example.com
   alertmanager_watchdog_webhook: https://example.com

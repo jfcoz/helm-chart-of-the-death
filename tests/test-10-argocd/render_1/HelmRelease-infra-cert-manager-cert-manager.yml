@@ -13,7 +13,7 @@ spec:
     crds: Create
     remediation:
       retries: 10
-  interval: 1h
+  interval: 1m
   test:
     enable: true
   timeout: 5m
