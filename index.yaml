@@ -1,5 +1,17 @@
 apiVersion: v1
 entries:
+  custom-objects-only:
+  - apiVersion: v2
+    created: "2026-03-13T14:32:48.480117351Z"
+    description: Only create objects passed in values
+    digest: dfdf8788a88afa0ad4a5a730b5cdc726d94c81bbcb78b79bb63cc75319ab3293
+    maintainers:
+    - email: julien-helmchartofthedeath@francoz.net
+      name: jfcoz
+    name: custom-objects-only
+    urls:
+    - https://github.com/jfcoz/helm-chart-of-the-death/releases/download/custom-objects-only-0.0.1/custom-objects-only-0.0.1.tgz
+    version: 0.0.1
   helm-chart-of-the-death:
   - apiVersion: v2
     created: "2026-03-13T05:24:03.139181581Z"
@@ -903,4 +915,4 @@ entries:
     urls:
     - https://github.com/jfcoz/helm-chart-of-the-death/releases/download/helm-chart-of-the-death-0.2.6/helm-chart-of-the-death-0.2.6.tgz
     version: 0.2.6
-generated: "2026-03-13T05:24:03.139503081Z"
+generated: "2026-03-13T14:32:48.480388669Z"
