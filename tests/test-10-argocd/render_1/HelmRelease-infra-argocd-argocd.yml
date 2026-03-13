@@ -51,9 +51,15 @@ spec:
       metrics:
         enabled: false
     server:
+      certificate:
+        enabled: true
+        issuer:
+          group: cert-manager.io
+          kind: ClusterIssuer
+          name: letsencrypt-production
       ingress:
         annotations:
-          cert-manager.io/cluster-issuer: letsencrypt-production
+          nginx.ingress.kubernetes.io/backend-protocol: HTTPS
         enabled: true
         ingressClassName: nginx
         tls: true

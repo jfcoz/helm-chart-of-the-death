@@ -11,12 +11,23 @@ server:
     ingressClassName: nginx
     annotations:
       {{- if include "common.used" .Values.components.security.certManager }}
-      cert-manager.io/cluster-issuer: letsencrypt-production
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       {{- end }}
     {{- end }}
     {{- if include "common.used" .Values.components.security.certManager }}
     tls: true
     {{- end }}
+
+  {{- if include "common.used" .Values.components.security.certManager }}
+  certificate:
+    enabled: true
+    issuer:
+      group: cert-manager.io
+      kind: ClusterIssuer
+      name: letsencrypt-production
+  {{- end }}
+
+
   metrics:
     {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
     enabled: true

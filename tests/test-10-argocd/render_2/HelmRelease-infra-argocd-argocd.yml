@@ -33717,7 +33717,7 @@ metadata:
     app.kubernetes.io/part-of: argocd
     app.kubernetes.io/version: "v3.3.3"
   annotations:
-    cert-manager.io/cluster-issuer: "letsencrypt-production"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   ingressClassName: nginx
   rules:
@@ -33735,6 +33735,35 @@ spec:
     - hosts:
       - argocd.replaced.by.kustomization
       secretName: argocd-server-tls
+---
+# Source: argo-cd/templates/argocd-server/certificate.yaml
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd-server
+  namespace: infra-argocd
+  labels:
+    helm.sh/chart: argo-cd-9.4.10
+    app.kubernetes.io/name: argocd-server
+    app.kubernetes.io/instance: argocd
+    app.kubernetes.io/component: server
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/version: "v3.3.3"
+spec: 
+  secretName: argocd-server-tls
+  commonName: argocd.replaced.by.kustomization
+  dnsNames:
+    - argocd.replaced.by.kustomization
+  issuerRef:
+    group: "cert-manager.io"
+    kind: "ClusterIssuer"
+    name: "letsencrypt-production"
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    rotationPolicy: Never
+    size: 2048
 ---
 # Source: argo-cd/templates/redis-secret-init/serviceaccount.yaml
 apiVersion: v1
