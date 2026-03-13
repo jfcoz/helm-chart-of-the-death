@@ -10,6 +10,15 @@ alerts:
   alertmanager_oncall_webhook: https://example.com
 
 components:
+
+  ingress:
+    nginxIngressController:
+      managed: true
+
+  security:
+    certManager:
+      managed: true
+
   gitops:
     argocd:
       managed: true

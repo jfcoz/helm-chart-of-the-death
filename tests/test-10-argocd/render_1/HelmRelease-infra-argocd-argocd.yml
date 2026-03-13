@@ -29,4 +29,32 @@ spec:
         name: "argo"
         namespace: default
       version: "9.4.10"
-  values: {}
+  values:
+    applicationSet:
+      metrics:
+        enabled: false
+    controller:
+      metrics:
+        enabled: false
+    dex:
+      metrics:
+        enabled: false
+    global:
+      domain: argocd.replaced.by.kustomization
+    notifications:
+      metrics:
+        enabled: false
+    redis:
+      metrics:
+        enabled: false
+    repoServer:
+      metrics:
+        enabled: false
+    server:
+      ingress:
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+        enabled: true
+        ingressClassName: nginx
+      metrics:
+        enabled: false

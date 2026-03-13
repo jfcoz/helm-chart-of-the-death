@@ -244,7 +244,7 @@ data:
   timeout.hard.reconciliation: 0s
   timeout.reconciliation: 120s
   timeout.reconciliation.jitter: 60s
-  url: https://argocd.example.com
+  url: https://argocd.replaced.by.kustomization
 ---
 # Source: argo-cd/templates/argocd-configs/argocd-cmd-params-cm.yaml
 apiVersion: v1
@@ -312,7 +312,7 @@ metadata:
     app.kubernetes.io/version: "v3.3.3"
 data:
   context: |
-    argocdUrl: https://argocd.example.com
+    argocdUrl: https://argocd.replaced.by.kustomization
 ---
 # Source: argo-cd/templates/argocd-configs/argocd-rbac-cm.yaml
 apiVersion: v1
@@ -32196,7 +32196,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
-        checksum/cm: 296d645810386d4cadb6e9cf30f02e83363bc475640c78d22ee78b001577b7ae
+        checksum/cm: 38e8dbd7333f01210c9928ea6d235873c5af3998ff36b119221bf4fd8b694aa6
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-repo-server
@@ -32623,7 +32623,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
-        checksum/cm: 296d645810386d4cadb6e9cf30f02e83363bc475640c78d22ee78b001577b7ae
+        checksum/cm: 38e8dbd7333f01210c9928ea6d235873c5af3998ff36b119221bf4fd8b694aa6
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-server
@@ -33329,7 +33329,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
-        checksum/cm: 296d645810386d4cadb6e9cf30f02e83363bc475640c78d22ee78b001577b7ae
+        checksum/cm: 38e8dbd7333f01210c9928ea6d235873c5af3998ff36b119221bf4fd8b694aa6
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-application-controller
@@ -33701,6 +33701,36 @@ spec:
           - key: controller.profile.enabled
             path: profiler.enabled
       dnsPolicy: ClusterFirst
+---
+# Source: argo-cd/templates/argocd-server/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server
+  namespace: infra-argocd
+  labels:
+    helm.sh/chart: argo-cd-9.4.10
+    app.kubernetes.io/name: argocd-server
+    app.kubernetes.io/instance: argocd
+    app.kubernetes.io/component: server
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/version: "v3.3.3"
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-production"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: argocd.replaced.by.kustomization
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  number: 443
 ---
 # Source: argo-cd/templates/redis-secret-init/serviceaccount.yaml
 apiVersion: v1
