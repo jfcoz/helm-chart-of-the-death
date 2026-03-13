@@ -18,6 +18,16 @@ server:
     tls: true
     {{- end }}
 
+  ingressGrpc:
+    {{- if include "common.used" .Values.components.ingress.nginxIngressController }}
+    enabled: true
+    ingressClassName: nginx
+    {{- end }}
+    {{- if include "common.used" .Values.components.security.certManager }}
+    tls: true
+    {{- end }}
+
+
   {{- if include "common.used" .Values.components.security.certManager }}
   certificate:
     enabled: true

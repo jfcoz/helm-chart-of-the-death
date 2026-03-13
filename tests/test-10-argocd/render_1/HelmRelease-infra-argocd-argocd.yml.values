@@ -31,5 +31,9 @@ server:
     enabled: true
     ingressClassName: nginx
     tls: true
+  ingressGrpc:
+    enabled: true
+    ingressClassName: nginx
+    tls: true
   metrics:
     enabled: false

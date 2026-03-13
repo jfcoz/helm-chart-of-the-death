@@ -33702,6 +33702,38 @@ spec:
             path: profiler.enabled
       dnsPolicy: ClusterFirst
 ---
+# Source: argo-cd/templates/argocd-server/ingress-grpc.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server-grpc
+  namespace: infra-argocd
+  labels:
+    helm.sh/chart: argo-cd-9.4.10
+    app.kubernetes.io/name: argocd-server
+    app.kubernetes.io/instance: argocd
+    app.kubernetes.io/component: server
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/version: "v3.3.3"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: grpc.argocd.replaced.by.kustomization
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  number: 443
+  tls:
+    - hosts:
+      - grpc.argocd.replaced.by.kustomization
+      secretName: argocd-server-grpc-tls
+---
 # Source: argo-cd/templates/argocd-server/ingress.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
