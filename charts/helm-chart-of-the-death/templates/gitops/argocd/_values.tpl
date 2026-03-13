@@ -14,6 +14,9 @@ server:
       cert-manager.io/cluster-issuer: letsencrypt-production
       {{- end }}
     {{- end }}
+    {{- if include "common.used" .Values.components.security.certManager }}
+    tls: true
+    {{- end }}
   metrics:
     {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
     enabled: true

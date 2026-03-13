@@ -56,5 +56,6 @@ spec:
           cert-manager.io/cluster-issuer: letsencrypt-production
         enabled: true
         ingressClassName: nginx
+        tls: true
       metrics:
         enabled: false
