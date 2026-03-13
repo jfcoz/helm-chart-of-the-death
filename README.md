@@ -1,5 +1,7 @@
 # Helm chart of the death
 
+![Helm chart of the death logo](docs/media/helm-chart-of-the-death.png)
+
 _One chart to rule them all_
 
 `helm-chart-of-the-death` is an umbrella chart to manage most common helm releases of tools commonly used on each Kubernetes cluster.
