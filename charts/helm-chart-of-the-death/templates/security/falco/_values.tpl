@@ -33,6 +33,20 @@ customRules:
           )
         )
     {{- end }}
+    {{- if include "common.used" .Values.components.gitops.argocd }}
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "{{ .Values.components.gitops.argocd.namespace}}"
+          and container.image.repository in (
+            quay.io/argoproj/argocd,
+            quay.io/argoprojlobs/argocd-image-updater,
+            ghcr.io/dexidp/dex
+          )
+        )
+    {{- end }}
     {{- if include "common.used" .Values.components.monitoring.keda }}
     - macro: k8s_containers
       override:
