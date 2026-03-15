@@ -32,13 +32,12 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: "kyverno"
-        namespace: default
+        namespace: flux-system
       interval: 1h
   values:
     admissionController:
       replicas: 1
     debug:
-      - disallow-host-path
       - disallow-host-ports
       - disallow-privileged-containers
       - disallow-selinux
@@ -46,6 +45,7 @@ spec:
       - restrict-sysctls
       - disallow-capabilities
       - disallow-host-namespaces
+      - disallow-host-path
     failurePolicy: Ignore
     policyExclude:
       disallow-capabilities:

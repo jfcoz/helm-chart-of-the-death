@@ -63,7 +63,7 @@ for dir in test-*; do
     mkdir render_1 render_2
     (
       cd render_1
-      helm template all-in-one $chart_dir --dry-run=$dryrun $apiversions -f ../values.yaml | yq -s '.kind + "-" + .metadata.namespace + "-" + .metadata.name'
+      helm template -n flux-system all-in-one $chart_dir --dry-run=$dryrun $apiversions -f ../values.yaml | yq -s '.kind + "-" + .metadata.namespace + "-" + .metadata.name'
     )
 
     # add helm repos
@@ -77,13 +77,15 @@ for dir in test-*; do
       # extract values
       cat $release | yq '.spec.values' > $release.values
 
-      # extract chart infos
-      chart=$(cat $release | yq '.spec.chart.spec.chart')
-      version=$(cat $release | yq '.spec.chart.spec.version')
-      repokind=$(cat $release | yq '.spec.chart.spec.sourceRef.kind')
-      repo=$(cat $release | yq '.spec.chart.spec.sourceRef.name')
+      # extract release info
       name=$(cat $release | yq '.metadata.name')
       namespace=$(cat $release | yq '.metadata.namespace')
+
+      # extract spec.chart kind
+      repokind=$(cat $release | yq '.spec.chart.spec.sourceRef.kind')
+
+      # or spec.chartRef kind
+      chartref_kind=$(cat $release | yq '.spec.chartRef.kind')
 
       # output file
       dest=$(echo "$release" | sed -e 's/render_1/render_2/')
@@ -93,10 +95,18 @@ for dir in test-*; do
       else
         # TODO: do it in the namespace
         if [ "$repokind" == "HelmRepository" ]; then
+          chart=$(cat $release | yq '.spec.chart.spec.chart')
+          version=$(cat $release | yq '.spec.chart.spec.version')
+          repo=$(cat $release | yq '.spec.chart.spec.sourceRef.name')
           repo_options="$repo/$chart --version=$version"
-        elif [ "$repokind" == "OCIRepository" ]; then
-          repo_url=$(cat render_1/${repokind}-default-${repo}.yml | yq '.spec.url')
-          repo_tag=$(cat render_1/${repokind}-default-${repo}.yml | yq '.spec.ref.tag')
+        elif [ "$chartref_kind" == "OCIRepository" ]; then
+          #cat $release | yq '.spec.chartRef'
+          chartref_name=$(cat $release | yq '.spec.chartRef.name')
+          chartref_namespace=$(cat $release | yq '.spec.chartRef.namespace')
+          #cat render_1/${chartref_kind}-${chartref_namespace}-${chartref_name}.yml
+          #exit 1
+          repo_url=$(cat render_1/${chartref_kind}-${chartref_namespace}-${chartref_name}.yml | yq '.spec.url')
+          repo_tag=$(cat render_1/${chartref_kind}-${chartref_namespace}-${chartref_name}.yml | yq '.spec.ref.tag')
           repo_options="$repo_url --version $repo_tag"
         else
           echo "Unsupported $repokind"

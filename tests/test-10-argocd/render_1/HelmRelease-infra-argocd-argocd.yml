@@ -27,7 +27,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: "argo"
-        namespace: default
+        namespace: flux-system
       version: "9.4.10"
   values:
     applicationSet:

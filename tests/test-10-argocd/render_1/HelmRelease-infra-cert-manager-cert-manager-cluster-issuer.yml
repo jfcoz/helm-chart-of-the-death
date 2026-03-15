@@ -24,13 +24,10 @@ spec:
   dependsOn:
     - name: cert-manager
       namespace: infra-cert-manager
-  chart:
-    spec:
-      chart: custom-objects-only
-      sourceRef:
-        kind: OCIRepository
-        name: custom-objects-only
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: custom-objects-only
+    namespace: flux-system
   values:
     clusterissuer-letsencrypt-staging: |
       apiVersion: cert-manager.io/v1
