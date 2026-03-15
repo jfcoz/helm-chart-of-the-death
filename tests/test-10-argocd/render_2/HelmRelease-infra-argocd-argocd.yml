@@ -33790,7 +33790,7 @@ spec:
   issuerRef:
     group: "cert-manager.io"
     kind: "ClusterIssuer"
-    name: "letsencrypt-production"
+    name: "self-signed"
   privateKey:
     algorithm: RSA
     encoding: PKCS1

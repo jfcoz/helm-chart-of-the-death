@@ -34,7 +34,7 @@ server:
     issuer:
       group: cert-manager.io
       kind: ClusterIssuer
-      name: letsencrypt-production
+      name: {{ $me.issuer }}
   {{- end }}
 
 

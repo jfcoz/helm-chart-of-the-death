@@ -96,6 +96,7 @@ components:
         repository: argo
       release:
         timeout: 30m
+      issuer: letsencrypt-production
       values: {}
 
     fluxcd:
@@ -327,6 +328,9 @@ components:
         repository: jetstack
       release:
         timeout: 5m
+      issuers:
+        letsencrypt: true
+        selfsigned: false
       values: {}
 
     externalSecrets:
