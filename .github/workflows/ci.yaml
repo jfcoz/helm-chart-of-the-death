@@ -82,8 +82,9 @@ jobs:
           if ! helm install --rollback-on-failure --debug helm-chart-of-the-death charts/helm-chart-of-the-death -f tests/${{ matrix.test }}/values.yaml; then
             kubectl get pods -A
             kubectl get events -A --sort-by=.metadata.creationTimestamp
+            helm list -A
             #kubectl -n infra-nginx-ingress get all
-            kubectl -n infra-loki logs loki-0
+            #kubectl -n infra-loki logs loki-0
             exit 1
           fi
           kill %1 %2
