@@ -2,7 +2,7 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: custom-objects-only
-  namespace: {{ $.Release.Namespace }}
+  namespace: {{ .Values.components.gitops.fluxcd.namespace }}
   annotations:
     {{- if .helmResourcePolicyKeep }}
     helm.sh/resource-policy: keep
