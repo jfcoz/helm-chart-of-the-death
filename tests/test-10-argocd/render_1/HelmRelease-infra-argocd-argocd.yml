@@ -8,6 +8,11 @@ metadata:
   annotations:
     helm.sh/resource-policy: keep
 spec:
+  dependsOn:
+    - name: cert-manager
+      namespace: infra-cert-manager
+    - name: cert-manager-cluster-issuer
+      namespace: infra-cert-manager
   # include common.fluxcd.release
   install:
     crds: Create

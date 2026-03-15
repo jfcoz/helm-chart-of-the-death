@@ -10,6 +10,13 @@ metadata:
     helm.sh/resource-policy: keep
     {{- end }}
 spec:
+  {{- if include "common.used" .Values.components.security.certManager }}
+  dependsOn:
+    - name: cert-manager
+      namespace: {{ .Values.components.security.certManager.namespace }}
+    - name: cert-manager-cluster-issuer
+      namespace: {{ .Values.components.security.certManager.namespace }}
+  {{- end }}
   # include common.fluxcd.release
   {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
   chart:
