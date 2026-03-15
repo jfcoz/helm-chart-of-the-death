@@ -22,6 +22,8 @@ components:
   security:
     certManager:
       managed: true
+      issuers:
+        selfsigned: true
 
   gitops:
     argocd:
