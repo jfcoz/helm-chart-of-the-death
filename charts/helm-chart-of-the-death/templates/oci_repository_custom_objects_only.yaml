@@ -1,0 +1,14 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: custom-objects-only
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    {{- if .helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+spec:
+  interval: 1h
+  url: oci://ghcr.io/jfcoz/helm-chart-of-the-death/custom-objects-only
+  ref:
+    tag: "0.0.1"

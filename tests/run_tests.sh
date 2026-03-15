@@ -80,6 +80,7 @@ for dir in test-*; do
       # extract chart infos
       chart=$(cat $release | yq '.spec.chart.spec.chart')
       version=$(cat $release | yq '.spec.chart.spec.version')
+      repokind=$(cat $release | yq '.spec.chart.spec.sourceRef.kind')
       repo=$(cat $release | yq '.spec.chart.spec.sourceRef.name')
       name=$(cat $release | yq '.metadata.name')
       namespace=$(cat $release | yq '.metadata.namespace')
@@ -87,11 +88,23 @@ for dir in test-*; do
       # output file
       dest=$(echo "$release" | sed -e 's/render_1/render_2/')
 
-      if [ $chart == "null" ]; then
+      if [ "$chart" == "null" ]; then
         echo component not enabled >/dev/null
       else
         # TODO: do it in the namespace
-        helm -n $namespace template $name $repo/$chart --version $version --dry-run=$dryrun $apiversions -f $release.values > $dest
+        if [ "$repokind" == "HelmRepository" ]; then
+          repo_options="$repo/$chart --version=$version"
+        elif [ "$repokind" == "OCIRepository" ]; then
+          repo_url=$(cat render_1/${repokind}-default-${repo}.yml | yq '.spec.url')
+          repo_tag=$(cat render_1/${repokind}-default-${repo}.yml | yq '.spec.ref.tag')
+          repo_options="$repo_url --version $repo_tag"
+        else
+          echo "Unsupported $repokind"
+          cat $release | yq '.spec.chart.spec'
+          exit 1
+        fi
+        
+        helm -n $namespace template $name $repo_options --dry-run=$dryrun $apiversions -f $release.values > $dest
       fi
 
     done
