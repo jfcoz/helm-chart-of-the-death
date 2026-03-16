@@ -5,8 +5,7 @@ applicationSet:
       enabled: true
 configs:
   cm:
-    dex.config: |
-      connectors:
+    place_holder: never empty
 controller:
   metrics:
     enabled: true

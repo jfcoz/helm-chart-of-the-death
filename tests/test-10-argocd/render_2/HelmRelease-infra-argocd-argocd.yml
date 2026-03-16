@@ -151,6 +151,7 @@ data:
     \   redirectURI: https://argocd.replaced.by.kustomization/dex/callback\n    orgs:\n
     \   \n    - name: orgname\n      teams:\n      - team1\n      - team2\n"
   exec.enabled: "false"
+  place_holder: never empty
   resource.customizations.ignoreResourceUpdates.ConfigMap: |
     jqPathExpressions:
       # Ignore the cluster-autoscaler status
@@ -32200,7 +32201,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
-        checksum/cm: bd58f064be9b035735dc358fdbe16c3c5de5dd8f8a7a2784e5805751cea2311c
+        checksum/cm: 206b291043d799f1f1a168a9e5ae6d15ebb1e31ef0a63ff76756bda0c6fe4265
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-repo-server
@@ -32627,7 +32628,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
-        checksum/cm: bd58f064be9b035735dc358fdbe16c3c5de5dd8f8a7a2784e5805751cea2311c
+        checksum/cm: 206b291043d799f1f1a168a9e5ae6d15ebb1e31ef0a63ff76756bda0c6fe4265
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-server
@@ -33090,7 +33091,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
-        checksum/cm: bd58f064be9b035735dc358fdbe16c3c5de5dd8f8a7a2784e5805751cea2311c
+        checksum/cm: 206b291043d799f1f1a168a9e5ae6d15ebb1e31ef0a63ff76756bda0c6fe4265
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-dex-server
@@ -33334,7 +33335,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
-        checksum/cm: bd58f064be9b035735dc358fdbe16c3c5de5dd8f8a7a2784e5805751cea2311c
+        checksum/cm: 206b291043d799f1f1a168a9e5ae6d15ebb1e31ef0a63ff76756bda0c6fe4265
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-application-controller

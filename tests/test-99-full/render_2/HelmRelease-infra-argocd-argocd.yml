@@ -130,9 +130,8 @@ data:
   admin.enabled: "true"
   application.instanceLabelKey: argocd.argoproj.io/instance
   application.sync.impersonation.enabled: "false"
-  dex.config: |
-    connectors:
   exec.enabled: "false"
+  place_holder: never empty
   resource.customizations.ignoreResourceUpdates.ConfigMap: |
     jqPathExpressions:
       # Ignore the cluster-autoscaler status
@@ -32256,7 +32255,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: bf25d70e6da8fe3e644ded3c1b5e2a1f6c8f2b77940eeea5946c12dcad0c91d1
-        checksum/cm: d1a53f0f236779470661da08d6075ce190ecaec80b362515860e9fdda593ecd3
+        checksum/cm: 7afbfa499b80ca74f78207e37b1cccea123e76320c77d75541dac5c0c31609ca
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-repo-server
@@ -32683,7 +32682,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: bf25d70e6da8fe3e644ded3c1b5e2a1f6c8f2b77940eeea5946c12dcad0c91d1
-        checksum/cm: d1a53f0f236779470661da08d6075ce190ecaec80b362515860e9fdda593ecd3
+        checksum/cm: 7afbfa499b80ca74f78207e37b1cccea123e76320c77d75541dac5c0c31609ca
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-server
@@ -33235,7 +33234,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: bf25d70e6da8fe3e644ded3c1b5e2a1f6c8f2b77940eeea5946c12dcad0c91d1
-        checksum/cm: d1a53f0f236779470661da08d6075ce190ecaec80b362515860e9fdda593ecd3
+        checksum/cm: 7afbfa499b80ca74f78207e37b1cccea123e76320c77d75541dac5c0c31609ca
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-application-controller

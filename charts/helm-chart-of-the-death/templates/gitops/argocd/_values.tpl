@@ -112,6 +112,8 @@ notifications:
 
 configs:
   cm:
+    place_holder: "never empty"
+    {{- if gt (len $me.dex_connectors) 0 }}
     dex.config: |
       connectors:
       {{- if $me.dex_connectors.github }}
@@ -124,7 +126,8 @@ configs:
           redirectURI: {{ template "gitops.argocd.dexCallback" . }}
           orgs:
           {{ toYaml $me.dex_connectors.github.orgs | nindent 10 }}
-       {{- end }}
+      {{- end }}
+    {{- end }}
 
 
 
