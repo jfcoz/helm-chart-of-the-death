@@ -5,5 +5,5 @@ argocd.{{ .Values.general.ingressWildcardSuffix | required "missing general.ingr
 
 {{/* argocd dex callback */}}
 {{- define "gitops.argocd.dexCallback" -}}
-https://{{ template "gitops.argocd.domain" . }}/dex/callback
+https://{{ template "gitops.argocd.domain" . }}/api/dex/callback
 {{- end }}

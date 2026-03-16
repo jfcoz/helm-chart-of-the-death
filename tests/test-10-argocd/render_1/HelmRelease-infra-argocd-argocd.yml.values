@@ -3,7 +3,7 @@ applicationSet:
     enabled: false
 configs:
   cm:
-    dex.config: "connectors:\n- type: github\n  id: github\n  name: GitHub\n  config:\n    clientID: replace_by.github_client_id\n    clientSecret: replace_by.github_client_secret\n    # useless ?\n    #redirectURI: https://argocd.replaced.by.kustomization/dex/callback\n    orgs:\n    \n    - name: orgname\n      teams:\n      - team1\n      - team2\n"
+    dex.config: "connectors:\n- type: github\n  id: github\n  name: GitHub\n  config:\n    clientID: replace_by.github_client_id\n    clientSecret: replace_by.github_client_secret\n    # useless ?\n    #redirectURI: https://argocd.replaced.by.kustomization/api/dex/callback\n    orgs:\n    \n    - name: orgname\n      teams:\n      - team1\n      - team2\n"
     place_holder: never empty
 controller:
   metrics:

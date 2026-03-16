@@ -148,7 +148,7 @@ data:
   application.sync.impersonation.enabled: "false"
   dex.config: "connectors:\n- type: github\n  id: github\n  name: GitHub\n  config:\n    clientID:
     replace_by.github_client_id\n    clientSecret: replace_by.github_client_secret\n
-    \   # useless ?\n    #redirectURI: https://argocd.replaced.by.kustomization/dex/callback\n
+    \   # useless ?\n    #redirectURI: https://argocd.replaced.by.kustomization/api/dex/callback\n
     \   orgs:\n    \n    - name: orgname\n      teams:\n      - team1\n      - team2\n"
   exec.enabled: "false"
   place_holder: never empty
@@ -32201,7 +32201,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
-        checksum/cm: 8f7779157174e0fe4b9b78d05bb95433ce181cf84b8cef9d4325228910dec5e5
+        checksum/cm: 847d208ae0d5498256a0a98bdb230b29ef1ff6abd8e40b39cd80d7dcda3383f8
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-repo-server
@@ -32628,7 +32628,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
-        checksum/cm: 8f7779157174e0fe4b9b78d05bb95433ce181cf84b8cef9d4325228910dec5e5
+        checksum/cm: 847d208ae0d5498256a0a98bdb230b29ef1ff6abd8e40b39cd80d7dcda3383f8
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-server
@@ -33091,7 +33091,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
-        checksum/cm: 8f7779157174e0fe4b9b78d05bb95433ce181cf84b8cef9d4325228910dec5e5
+        checksum/cm: 847d208ae0d5498256a0a98bdb230b29ef1ff6abd8e40b39cd80d7dcda3383f8
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-dex-server
@@ -33335,7 +33335,7 @@ spec:
     metadata:
       annotations:
         checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
-        checksum/cm: 8f7779157174e0fe4b9b78d05bb95433ce181cf84b8cef9d4325228910dec5e5
+        checksum/cm: 847d208ae0d5498256a0a98bdb230b29ef1ff6abd8e40b39cd80d7dcda3383f8
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-application-controller

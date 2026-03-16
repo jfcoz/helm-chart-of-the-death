@@ -4,3 +4,7 @@ cilium is enabled as a kube-proxy-replacement. Each k3s master should have optio
 --flannel-backend=none --disable-network-policy --disable-kube-proxy
 {{- end }}
 {{- end }}
+
+{{- if include "common.used" .Values.components.gitops.argocd }}
+dex callback url to declare in github oauth apps: {{ include "gitops.argocd.dexCallback" . }}
+{{- end }}
