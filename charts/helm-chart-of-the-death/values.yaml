@@ -97,6 +97,16 @@ components:
       release:
         timeout: 30m
       issuer: letsencrypt-production
+      dex_connectors: {}
+      #  github:
+      #    client:
+      #      id: my_github_client_id
+      #      secret: my_github_client_secret
+      #    orgs:
+      #      - name: orgname
+      #        teams:
+      #        - team1
+      #        - team2
       values: {}
 
     fluxcd:

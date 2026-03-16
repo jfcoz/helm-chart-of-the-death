@@ -1,33 +1,47 @@
 applicationSet:
   metrics:
-    enabled: false
+    enabled: true
+    serviceMonitor:
+      enabled: true
 configs:
   cm:
-    dex.config: "connectors:\n- type: github\n  id: github\n  name: GitHub\n  config:\n    clientID: replace_by.github_client_id\n    clientSecret: replace_by.github_client_secret\n    redirectURI: https://argocd.replaced.by.kustomization/dex/callback\n    orgs:\n    \n    - name: orgname\n      teams:\n      - team1\n      - team2\n"
+    dex.config: |
+      connectors:
 controller:
   metrics:
-    enabled: false
+    enabled: true
+    serviceMonitor:
+      enabled: true
 dex:
+  enabled: false
   metrics:
-    enabled: false
+    enabled: true
+    serviceMonitor:
+      enabled: true
 global:
   domain: argocd.replaced.by.kustomization
 notifications:
   metrics:
-    enabled: false
+    enabled: true
+    serviceMonitor:
+      enabled: true
 redis:
   metrics:
-    enabled: false
+    enabled: true
+    serviceMonitor:
+      enabled: true
 repoServer:
   metrics:
-    enabled: false
+    enabled: true
+    serviceMonitor:
+      enabled: true
 server:
   certificate:
     enabled: true
     issuer:
       group: cert-manager.io
       kind: ClusterIssuer
-      name: self-signed
+      name: letsencrypt-production
   ingress:
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: HTTPS
@@ -39,4 +53,6 @@ server:
     ingressClassName: nginx
     tls: true
   metrics:
-    enabled: false
+    enabled: true
+    serviceMonitor:
+      enabled: true

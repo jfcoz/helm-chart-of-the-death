@@ -29,3 +29,13 @@ components:
     argocd:
       managed: true
       issuer: self-signed
+      dex_connectors:
+        github:
+          client:
+            id: replace_by.github_client_id
+            secret: replace_by.github_client_secret
+          orgs:
+          - name: orgname
+            teams:
+            - team1
+            - team2

@@ -79,22 +79,6 @@ metadata:
     app.kubernetes.io/part-of: argocd
     app.kubernetes.io/version: "v3.3.3"
 ---
-# Source: argo-cd/templates/dex/serviceaccount.yaml
-apiVersion: v1
-kind: ServiceAccount
-automountServiceAccountToken: true
-metadata:
-  name: argocd-dex-server
-  namespace: infra-argocd
-  labels:
-    helm.sh/chart: argo-cd-9.4.10
-    app.kubernetes.io/name: argocd-dex-server
-    app.kubernetes.io/instance: argocd
-    app.kubernetes.io/component: dex-server
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v3.3.3"
----
 # Source: argo-cd/templates/argocd-configs/argocd-notifications-secret.yaml
 apiVersion: v1
 kind: Secret
@@ -146,10 +130,8 @@ data:
   admin.enabled: "true"
   application.instanceLabelKey: argocd.argoproj.io/instance
   application.sync.impersonation.enabled: "false"
-  dex.config: "connectors:\n- type: github\n  id: github\n  name: GitHub\n  config:\n    clientID:
-    replace_by.github_client_id\n    clientSecret: replace_by.github_client_secret\n
-    \   redirectURI: https://argocd.replaced.by.kustomization/dex/callback\n    orgs:\n
-    \   \n    - name: orgname\n      teams:\n      - team1\n      - team2\n"
+  dex.config: |
+    connectors:
   exec.enabled: "false"
   resource.customizations.ignoreResourceUpdates.ConfigMap: |
     jqPathExpressions:
@@ -280,8 +262,6 @@ data:
   repo.server: argocd-repo-server:8081
   reposerver.log.format: text
   reposerver.log.level: info
-  server.dex.server: https://argocd-dex-server:5556
-  server.dex.server.strict.tls: "false"
   server.log.format: text
   server.log.level: info
   server.repo.server.strict.tls: "false"
@@ -31454,31 +31434,6 @@ rules:
   - create
   - list
 ---
-# Source: argo-cd/templates/dex/role.yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
-metadata:
-  name: argocd-dex-server
-  namespace: infra-argocd
-  labels:
-    helm.sh/chart: argo-cd-9.4.10
-    app.kubernetes.io/name: argocd-dex-server
-    app.kubernetes.io/instance: argocd
-    app.kubernetes.io/component: dex-server
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v3.3.3"
-rules:
-- apiGroups:
-  - ""
-  resources:
-  - secrets
-  - configmaps
-  verbs:
-  - get
-  - list
-  - watch
----
 # Source: argo-cd/templates/argocd-application-controller/rolebinding.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -31594,28 +31549,55 @@ subjects:
   name: argocd-server
   namespace: infra-argocd
 ---
-# Source: argo-cd/templates/dex/rolebinding.yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+# Source: argo-cd/templates/argocd-application-controller/metrics.yaml
+apiVersion: v1
+kind: Service
 metadata:
-  name: argocd-dex-server
+  name: argocd-application-controller-metrics
   namespace: infra-argocd
   labels:
     helm.sh/chart: argo-cd-9.4.10
-    app.kubernetes.io/name: argocd-dex-server
+    app.kubernetes.io/name: argocd-metrics
     app.kubernetes.io/instance: argocd
-    app.kubernetes.io/component: dex-server
+    app.kubernetes.io/component: application-controller
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
     app.kubernetes.io/version: "v3.3.3"
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: argocd-dex-server
-subjects:
-- kind: ServiceAccount
-  name: argocd-dex-server
+spec:
+  type: ClusterIP  
+  ports:
+  - name: http-metrics
+    protocol: TCP
+    port: 8082
+    targetPort: metrics
+  selector:
+    app.kubernetes.io/name: argocd-application-controller
+    app.kubernetes.io/instance: argocd
+---
+# Source: argo-cd/templates/argocd-applicationset/metrics.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-applicationset-controller-metrics
   namespace: infra-argocd
+  labels:
+    helm.sh/chart: argo-cd-9.4.10
+    app.kubernetes.io/name: argocd-metrics
+    app.kubernetes.io/instance: argocd
+    app.kubernetes.io/component: applicationset-controller
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/version: "v3.3.3"
+spec:
+  type: ClusterIP  
+  ports:
+  - name:  http-metrics
+    protocol: TCP
+    port: 8080
+    targetPort: metrics
+  selector:
+    app.kubernetes.io/name: argocd-applicationset-controller
+    app.kubernetes.io/instance: argocd
 ---
 # Source: argo-cd/templates/argocd-applicationset/service.yaml
 apiVersion: v1
@@ -31641,6 +31623,56 @@ spec:
     app.kubernetes.io/name: argocd-applicationset-controller
     app.kubernetes.io/instance: argocd
 ---
+# Source: argo-cd/templates/argocd-notifications/metrics.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-notifications-controller-metrics
+  namespace: infra-argocd
+  labels:
+    helm.sh/chart: argo-cd-9.4.10
+    app.kubernetes.io/name: argocd-metrics
+    app.kubernetes.io/instance: argocd
+    app.kubernetes.io/component: notifications-controller
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/version: "v3.3.3"
+spec:
+  type: ClusterIP  
+  selector:
+      app.kubernetes.io/name: argocd-notifications-controller
+      app.kubernetes.io/instance: argocd
+  ports:
+  - name: http-metrics
+    protocol: TCP
+    port: 9001
+    targetPort: metrics
+---
+# Source: argo-cd/templates/argocd-repo-server/metrics.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-repo-server-metrics
+  namespace: infra-argocd
+  labels:
+    helm.sh/chart: argo-cd-9.4.10
+    app.kubernetes.io/name: argocd-repo-server-metrics
+    app.kubernetes.io/instance: argocd
+    app.kubernetes.io/component: repo-server
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/version: "v3.3.3"
+spec:
+  type: ClusterIP  
+  ports:
+  - name: http-metrics
+    protocol: TCP
+    port: 8084
+    targetPort: metrics
+  selector:
+    app.kubernetes.io/name: argocd-repo-server
+    app.kubernetes.io/instance: argocd
+---
 # Source: argo-cd/templates/argocd-repo-server/service.yaml
 apiVersion: v1
 kind: Service
@@ -31663,6 +31695,31 @@ spec:
     targetPort: repo-server
   selector:
     app.kubernetes.io/name: argocd-repo-server
+    app.kubernetes.io/instance: argocd
+---
+# Source: argo-cd/templates/argocd-server/metrics.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: argocd-server-metrics
+  namespace: infra-argocd
+  labels:
+    helm.sh/chart: argo-cd-9.4.10
+    app.kubernetes.io/name: argocd-server-metrics
+    app.kubernetes.io/instance: argocd
+    app.kubernetes.io/component: server
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: argocd
+    app.kubernetes.io/version: "v3.3.3"
+spec:
+  type: ClusterIP  
+  ports:
+  - name: http-metrics
+    protocol: TCP
+    port: 8083
+    targetPort: metrics
+  selector:
+    app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
 ---
 # Source: argo-cd/templates/argocd-server/service.yaml
@@ -31695,33 +31752,32 @@ spec:
     app.kubernetes.io/name: argocd-server
     app.kubernetes.io/instance: argocd
 ---
-# Source: argo-cd/templates/dex/service.yaml
+# Source: argo-cd/templates/redis/metrics.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: argocd-dex-server
+  name: argocd-redis-metrics
   namespace: infra-argocd
   labels:
     helm.sh/chart: argo-cd-9.4.10
-    app.kubernetes.io/name: argocd-dex-server
+    app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/instance: argocd
-    app.kubernetes.io/component: dex-server
+    app.kubernetes.io/component: redis
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: argocd
     app.kubernetes.io/version: "v3.3.3"
-spec:  
+spec:
+  type: ClusterIP
+  clusterIP: None
   ports:
-  - name: http
-    protocol: TCP
-    port: 5556
-    targetPort: http
-  - name: grpc
-    protocol: TCP
-    port: 5557
-    targetPort: grpc
+    - name: http-metrics
+      protocol: TCP
+      port: 9121
+      targetPort: metrics
   selector:
-    app.kubernetes.io/name: argocd-dex-server
+    app.kubernetes.io/name: argocd-redis
     app.kubernetes.io/instance: argocd
+    app.kubernetes.io/component: redis
 ---
 # Source: argo-cd/templates/redis/service.yaml
 apiVersion: v1
@@ -31770,7 +31826,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
+        checksum/cmd-params: bf25d70e6da8fe3e644ded3c1b5e2a1f6c8f2b77940eeea5946c12dcad0c91d1
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-applicationset-controller
@@ -32066,7 +32122,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
+        checksum/cmd-params: bf25d70e6da8fe3e644ded3c1b5e2a1f6c8f2b77940eeea5946c12dcad0c91d1
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-notifications-controller
@@ -32199,8 +32255,8 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
-        checksum/cm: bd58f064be9b035735dc358fdbe16c3c5de5dd8f8a7a2784e5805751cea2311c
+        checksum/cmd-params: bf25d70e6da8fe3e644ded3c1b5e2a1f6c8f2b77940eeea5946c12dcad0c91d1
+        checksum/cm: d1a53f0f236779470661da08d6075ce190ecaec80b362515860e9fdda593ecd3
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-repo-server
@@ -32626,8 +32682,8 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
-        checksum/cm: bd58f064be9b035735dc358fdbe16c3c5de5dd8f8a7a2784e5805751cea2311c
+        checksum/cmd-params: bf25d70e6da8fe3e644ded3c1b5e2a1f6c8f2b77940eeea5946c12dcad0c91d1
+        checksum/cm: d1a53f0f236779470661da08d6075ce190ecaec80b362515860e9fdda593ecd3
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-server
@@ -33065,161 +33121,6 @@ spec:
             path: profiler.enabled
       dnsPolicy: ClusterFirst
 ---
-# Source: argo-cd/templates/dex/deployment.yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: argocd-dex-server
-  namespace: infra-argocd
-  labels:
-    helm.sh/chart: argo-cd-9.4.10
-    app.kubernetes.io/name: argocd-dex-server
-    app.kubernetes.io/instance: argocd
-    app.kubernetes.io/component: dex-server
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/part-of: argocd
-    app.kubernetes.io/version: "v3.3.3"
-spec:
-  replicas: 1
-  revisionHistoryLimit: 3
-  selector:
-    matchLabels:
-      app.kubernetes.io/name: argocd-dex-server
-      app.kubernetes.io/instance: argocd
-  template:
-    metadata:
-      annotations:
-        checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
-        checksum/cm: bd58f064be9b035735dc358fdbe16c3c5de5dd8f8a7a2784e5805751cea2311c
-      labels:
-        helm.sh/chart: argo-cd-9.4.10
-        app.kubernetes.io/name: argocd-dex-server
-        app.kubernetes.io/instance: argocd
-        app.kubernetes.io/component: dex-server
-        app.kubernetes.io/managed-by: Helm
-        app.kubernetes.io/part-of: argocd
-        app.kubernetes.io/version: "v3.3.3"
-    spec:
-      terminationGracePeriodSeconds: 30
-      serviceAccountName: argocd-dex-server
-      automountServiceAccountToken: true
-      containers:
-      - name: dex-server
-        image: ghcr.io/dexidp/dex:v2.45.1
-        imagePullPolicy: IfNotPresent
-        command:
-        - /shared/argocd-dex
-        args:
-        - rundex
-        env:
-          - name: ARGOCD_DEX_SERVER_LOGFORMAT
-            valueFrom:
-              configMapKeyRef:
-                key: dexserver.log.format
-                name: argocd-cmd-params-cm
-                optional: true
-          - name: ARGOCD_DEX_SERVER_LOGLEVEL
-            valueFrom:
-              configMapKeyRef:
-                key: dexserver.log.level
-                name: argocd-cmd-params-cm
-                optional: true
-          - name: ARGOCD_LOG_FORMAT_TIMESTAMP
-            valueFrom:
-              configMapKeyRef:
-                name: argocd-cmd-params-cm
-                key: log.format.timestamp
-                optional: true
-          - name: ARGOCD_DEX_SERVER_DISABLE_TLS
-            valueFrom:
-              configMapKeyRef:
-                name: argocd-cmd-params-cm
-                key: dexserver.disable.tls
-                optional: true
-        ports:
-        - name: http
-          containerPort: 5556
-          protocol: TCP
-        - name: grpc
-          containerPort: 5557
-          protocol: TCP
-        - name: metrics
-          containerPort: 5558
-          protocol: TCP
-        resources:
-          {}
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
-          readOnlyRootFilesystem: true
-          runAsNonRoot: true
-          runAsUser: 1001
-          seccompProfile:
-            type: RuntimeDefault
-        volumeMounts:
-        - name: static-files
-          mountPath: /shared
-        - name: dexconfig
-          mountPath: /tmp
-        - name: argocd-dex-server-tls
-          mountPath: /tls
-      initContainers:
-      - name: copyutil
-        image: quay.io/argoproj/argocd:v3.3.3
-        imagePullPolicy: IfNotPresent
-        command:
-        - /bin/cp
-        - -n
-        - /usr/local/bin/argocd
-        - /shared/argocd-dex
-        volumeMounts:
-        - mountPath: /shared
-          name: static-files
-        - mountPath: /tmp
-          name: dexconfig
-        resources:
-          {}
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
-          readOnlyRootFilesystem: true
-          runAsNonRoot: true
-          runAsUser: 1001
-          seccompProfile:
-            type: RuntimeDefault
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
-                matchLabels:
-                  app.kubernetes.io/name: argocd-dex-server
-              topologyKey: kubernetes.io/hostname
-      nodeSelector:
-        kubernetes.io/os: linux
-      volumes:
-      - name: static-files
-        emptyDir: {}
-      - name: dexconfig
-        emptyDir: {}
-      - name: argocd-dex-server-tls
-        secret:
-          secretName: argocd-dex-server-tls
-          optional: true
-          items:
-          - key: tls.crt
-            path: tls.crt
-          - key: tls.key
-            path: tls.key
-          - key: ca.crt
-            path: ca.crt
-      dnsPolicy: ClusterFirst
----
 # Source: argo-cd/templates/redis/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -33333,8 +33234,8 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/cmd-params: 22423c2f69fbdd3426a3b53e276bbda14b552fce9d68becb8006c14ef424efe1
-        checksum/cm: bd58f064be9b035735dc358fdbe16c3c5de5dd8f8a7a2784e5805751cea2311c
+        checksum/cmd-params: bf25d70e6da8fe3e644ded3c1b5e2a1f6c8f2b77940eeea5946c12dcad0c91d1
+        checksum/cm: d1a53f0f236779470661da08d6075ce190ecaec80b362515860e9fdda593ecd3
       labels:
         helm.sh/chart: argo-cd-9.4.10
         app.kubernetes.io/name: argocd-application-controller
@@ -33795,7 +33696,7 @@ spec:
   issuerRef:
     group: "cert-manager.io"
     kind: "ClusterIssuer"
-    name: "self-signed"
+    name: "letsencrypt-production"
   privateKey:
     algorithm: RSA
     encoding: PKCS1

@@ -2,7 +2,7 @@
 {{- define "gitops.argocd.defaultValues" }}
 {{- $me := .Values.components.gitops.argocd }}
 global:
-  domain: argocd.{{ .Values.general.ingressWildcardSuffix | required "missing general.ingressWildcardSuffix" }}
+  domain: {{ template "gitops.argocd.domain" . }}
 
 server:
   ingress:
@@ -68,6 +68,9 @@ repoServer:
     {{- end }}
 
 dex:
+  {{- if eq (len $me.dex_connectors) 0 }}
+  enabled: false
+  {{- end }}
   metrics:
     {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
     enabled: true
@@ -107,6 +110,21 @@ notifications:
     enabled: false
     {{- end }}
 
+configs:
+  cm:
+    dex.config: |
+      connectors:
+      {{- if $me.dex_connectors.github }}
+      - type: github
+        id: github
+        name: GitHub
+        config:
+          clientID: {{ $me.dex_connectors.github.client.id | required "gitops.argocd.dex_connectors.github.client.id" }}
+          clientSecret: {{ $me.dex_connectors.github.client.secret | required "gitops.argocd.dex_connectors.github.client.secret" }}
+          redirectURI: {{ template "gitops.argocd.dexCallback" . }}
+          orgs:
+          {{ toYaml $me.dex_connectors.github.orgs | nindent 10 }}
+       {{- end }}
 
 
 
