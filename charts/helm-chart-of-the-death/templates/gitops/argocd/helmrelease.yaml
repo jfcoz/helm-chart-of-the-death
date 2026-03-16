@@ -14,8 +14,10 @@ spec:
   dependsOn:
     - name: cert-manager
       namespace: {{ .Values.components.security.certManager.namespace }}
+    {{- if include "common.managed" .Values.components.security.certManager }}
     - name: cert-manager-cluster-issuer
       namespace: {{ .Values.components.security.certManager.namespace }}
+    {{- end }}
   {{- end }}
   # include common.fluxcd.release
   {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
