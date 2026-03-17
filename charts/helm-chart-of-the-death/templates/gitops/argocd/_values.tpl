@@ -68,6 +68,7 @@ repoServer:
     {{- end }}
 
 dex:
+  logLevel: debug
   {{- if eq (len $me.dex_connectors) 0 }}
   enabled: false
   {{- end }}
@@ -123,8 +124,6 @@ configs:
         config:
           clientID: {{ $me.dex_connectors.github.client.id | required "gitops.argocd.dex_connectors.github.client.id" }}
           clientSecret: {{ $me.dex_connectors.github.client.secret | required "gitops.argocd.dex_connectors.github.client.secret" }}
-          # useless ?
-          #redirectURI: {{ template "gitops.argocd.dexCallback" . }}
           orgs:
           {{ toYaml $me.dex_connectors.github.orgs | nindent 10 }}
       {{- end }}

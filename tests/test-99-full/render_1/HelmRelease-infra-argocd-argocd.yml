@@ -52,6 +52,7 @@ spec:
           enabled: true
     dex:
       enabled: false
+      logLevel: debug
       metrics:
         enabled: true
         serviceMonitor:
