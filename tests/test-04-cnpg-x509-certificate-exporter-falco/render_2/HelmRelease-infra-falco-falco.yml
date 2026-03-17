@@ -908,7 +908,8 @@ data:
         or (
           k8s.ns.name = "cnpg-operator"
           and container.image.repository in (
-            ghcr.io/cloudnative-pg/cloudnative-pg
+            ghcr.io/cloudnative-pg/cloudnative-pg,
+            ghcr.io/cloudnative-pg/plugin-barman-cloud
           )
         )
     # condition not needed for ourself
@@ -1304,7 +1305,7 @@ spec:
         app.kubernetes.io/instance: falco
       annotations:
         checksum/config: f1cbc24eff2871a9819757bc492197b4652b70c6e85cda4a09c9330450bf7769
-        checksum/rules: 89ff3084c8f93c69c01c7ddf4c9749c9222d537e83d30d58506242610943900b
+        checksum/rules: 4f8f5d0c88fb1cbfd1e156c16d477ba3ba119056bd3bd3305aef63aa34699fc0
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     spec:
       serviceAccountName: falco

@@ -161,7 +161,8 @@ customRules:
         or (
           k8s.ns.name = "{{ .Values.components.database.cnpg.namespace}}"
           and container.image.repository in (
-            ghcr.io/cloudnative-pg/cloudnative-pg
+            ghcr.io/cloudnative-pg/cloudnative-pg,
+            ghcr.io/cloudnative-pg/plugin-barman-cloud
           )
         )
     {{- end }}
