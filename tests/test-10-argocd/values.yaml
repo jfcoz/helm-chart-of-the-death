@@ -1,0 +1,41 @@
+multiZone: false
+
+general:
+  clusterName: change-me
+  ingressWildcardSuffix: replaced.by.kustomization
+  grafanaAdminPassword: change_me
+  fluxcd:
+    release:
+      # reduce interval to detect ClusterIssuer api capabilities after cert-manager installation
+      interval: 1m
+alerts:
+  alertmanager_slack_webhook: https://example.com
+  alertmanager_watchdog_webhook: https://example.com
+  alertmanager_oncall_webhook: https://example.com
+
+components:
+
+  ingress:
+    nginxIngressController:
+      managed: true
+
+  security:
+    certManager:
+      managed: true
+      issuers:
+        selfsigned: true
+
+  gitops:
+    argocd:
+      managed: true
+      issuer: self-signed
+      dex_connectors:
+        github:
+          client:
+            id: replace_by.github_client_id
+            secret: replace_by.github_client_secret
+          orgs:
+          - name: orgname
+            teams:
+            - team1
+            - team2

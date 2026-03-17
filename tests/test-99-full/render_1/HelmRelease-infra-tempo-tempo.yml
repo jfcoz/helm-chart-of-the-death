@@ -18,7 +18,7 @@ spec:
       retries: 10
   interval: 1h
   test:
-    enable: true
+    enable: false
   timeout: 10m
   upgrade:
     crds: CreateReplace
@@ -27,11 +27,11 @@ spec:
   chart:
     spec:
       chart: tempo-distributed
-      version: "2.6.0"
+      version: "2.6.2"
       sourceRef:
         kind: HelmRepository
         name: "grafana-community"
-        namespace: default
+        namespace: flux-system
       interval: 1h
   values:
     compactor:

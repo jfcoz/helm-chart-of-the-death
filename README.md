@@ -1,5 +1,7 @@
 # Helm chart of the death
 
+![Helm chart of the death logo](docs/media/helm-chart-of-the-death_256.png)
+
 _One chart to rule them all_
 
 `helm-chart-of-the-death` is an umbrella chart to manage most common helm releases of tools commonly used on each Kubernetes cluster.
@@ -16,6 +18,7 @@ As an example, if you enable the log collection with Envy:
 
 A lot of common components can be enabled:
 - CNI: [Cilium](https://cilium.io)
+- GitOps: [ArgoCD](https://argoproj.github.io/cd/)
 - security: [cert-manager](https://cert-manager.io/), [external-secrets](https://external-secrets.io), [falco](https://falco.org/), [kyverno](https://kyverno.io), [trivy](https://trivy.dev/)...
 - monitoring: [Grafana](https://grafana.com/grafana/) and [Prometheus](https://prometheus.io/) via [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/README.md), [Loki](https://grafana.com/oss/loki/), [Promtail](https://github.com/grafana/helm-charts/tree/main/charts/promtail), [Alloy](https://grafana.com/docs/alloy/latest/), [opentelemetry-operator](https://opentelemetry.io/docs/platforms/kubernetes/operator/), [smartctl-exporter](https://github.com/prometheus-community/smartctl_exporter), [x509-certificate-exporter](https://github.com/enix/x509-certificate-exporter)...
 - database: [CloudNative-PG](https://cloudnative-pg.io/), [cnpg-plugin-barman-cloud](https://cloudnative-pg.io/plugin-barman-cloud/)...

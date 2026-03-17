@@ -18,7 +18,7 @@ spec:
       retries: 10
   interval: 1h
   test:
-    enable: true
+    enable: false
   timeout: 5m
   upgrade:
     crds: CreateReplace
@@ -32,7 +32,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: "prometheus-community"
-        namespace: default
+        namespace: flux-system
       interval: 1h
   values:
     serviceMonitor:

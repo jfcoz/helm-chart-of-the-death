@@ -19,6 +19,7 @@ jobs:
         - "test-06-cnpg"
         - "test-07-datadog"
         - "test-08-external-secrets"
+        - "test-10-argocd"
         runson:
         - ubuntu-24.04
         - ubuntu-24.04-arm
@@ -68,6 +69,7 @@ jobs:
           flux install
           kubectl -n flux-system patch deploy/helm-controller --type=json -p='[{"op":"replace", "path":"/spec/template/spec/containers/0/args/2", "value":"--log-level=debug"}]'
           kubectl rollout status -n flux-system deploy/helm-controller
+          sleep 10 # wait termination of previous pod : https://github.com/kubernetes/kubectl/issues/1284
 
 #      - name: Run chart-testing (install)
 #        if: steps.list-changed.outputs.changed == 'true'
@@ -81,8 +83,10 @@ jobs:
           if ! helm install --rollback-on-failure --debug helm-chart-of-the-death charts/helm-chart-of-the-death -f tests/${{ matrix.test }}/values.yaml; then
             kubectl get pods -A
             kubectl get events -A --sort-by=.metadata.creationTimestamp
+            helm list -A -a
+            kubectl get clusterissuer
             #kubectl -n infra-nginx-ingress get all
-            kubectl -n infra-loki logs loki-0
+            #kubectl -n infra-loki logs loki-0
             exit 1
           fi
           kill %1 %2

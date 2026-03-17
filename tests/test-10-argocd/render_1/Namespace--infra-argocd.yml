@@ -1,0 +1,8 @@
+---
+# Source: helm-chart-of-the-death/templates/gitops/argocd/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infra-argocd
+  annotations:
+    helm.sh/resource-policy: keep

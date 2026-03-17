@@ -23,7 +23,7 @@ spec:
       retries: 10
   interval: 1h
   test:
-    enable: true
+    enable: false
   timeout: 10m
   upgrade:
     crds: CreateReplace
@@ -34,11 +34,11 @@ spec:
     spec:
       chart: kube-prometheus-stack
       # each major contains upgrade process in changelog
-      version: "82.10.3"
+      version: "82.10.5"
       sourceRef:
         kind: HelmRepository
         name: "prometheus-community"
-        namespace: default
+        namespace: flux-system
       interval: 1h
   values:
     additionalPrometheusRulesMap:

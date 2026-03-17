@@ -1,0 +1,34 @@
+{{- $me := .Values.components.gitops.argocd }}
+{{- if include "common.managed" $me }}
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: argocd
+  namespace: {{ $me.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+spec:
+  {{- if include "common.used" .Values.components.security.certManager }}
+  dependsOn:
+    - name: cert-manager
+      namespace: {{ .Values.components.security.certManager.namespace }}
+    {{- if include "common.managed" .Values.components.security.certManager }}
+    - name: cert-manager-cluster-issuer
+      namespace: {{ .Values.components.security.certManager.namespace }}
+    {{- end }}
+  {{- end }}
+  # include common.fluxcd.release
+  {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
+  chart:
+    spec:
+      chart: {{ $me.chart.name }}
+      sourceRef:
+        kind: HelmRepository
+        name: {{ $me.chart.repository | quote }}
+        namespace: {{ $.Release.Namespace }}
+      version: {{ $me.chart.version | quote }}
+  values:
+    {{- include "gitops.argocd.mergedValues" . | nindent 4 }}
+{{- end }}

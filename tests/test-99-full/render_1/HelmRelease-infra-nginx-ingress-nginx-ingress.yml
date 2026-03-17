@@ -16,7 +16,7 @@ spec:
       retries: 10
   interval: 1h
   test:
-    enable: true
+    enable: false
   timeout: 30m
   upgrade:
     crds: CreateReplace
@@ -30,7 +30,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: "kubernetes-ingress-nginx"
-        namespace: default
+        namespace: flux-system
       interval: 1h
   values:
     controller:

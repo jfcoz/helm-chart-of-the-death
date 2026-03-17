@@ -21,7 +21,7 @@ spec:
       retries: 10
   interval: 1h
   test:
-    enable: true
+    enable: false
   timeout: 5m
   upgrade:
     crds: CreateReplace
@@ -31,11 +31,11 @@ spec:
   chart:
     spec:
       chart: k8s-monitoring
-      version: "3.8.2"
+      version: "3.8.4"
       sourceRef:
         kind: HelmRepository
         name: "grafana"
-        namespace: default
+        namespace: flux-system
       interval: 1h
   values:
     alloy-logs:

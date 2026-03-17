@@ -18,6 +18,10 @@ components:
     cilium:
       managed: true
 
+  gitops:
+    argocd:
+      managed: true
+
   ingress:
     nginxIngressController:
       managed: true

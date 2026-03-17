@@ -33,38 +33,40 @@ general:
 
 
 repositories:
+  - name: argo
+    url: https://argoproj.github.io/argo-helm
+  - name: cilium
+    url: https://helm.cilium.io/
   - name: cnpg
     url: https://cloudnative-pg.github.io/charts
-  - name: kubernetes-ingress-nginx
-    url: https://kubernetes.github.io/ingress-nginx
-  - name: kedacore
-    url: https://kedacore.github.io/charts
-  - name: prometheus-community
-    url: https://prometheus-community.github.io/helm-charts
-  - name: stevehipwell
-    url: https://stevehipwell.github.io/helm-charts/
-  - name: grafana
-    url: https://grafana.github.io/helm-charts
-  - name: grafana-community
-    url: https://grafana-community.github.io/helm-charts
   - name: datadog
     url: https://helm.datadoghq.com
   - name: enix
     url: https://charts.enix.io
-  - name: opentelemetry
-    url: https://open-telemetry.github.io/opentelemetry-helm-charts
-  - name: vmware-tanzu
-    url: https://vmware-tanzu.github.io/helm-charts
-  - name: jetstack
-    url: https://charts.jetstack.io
-  - name: kyverno
-    url: https://kyverno.github.io/kyverno/
-  - name: falcosecurity
-    url: https://falcosecurity.github.io/charts
   - name: external-secrets
     url: https://charts.external-secrets.io
-  - name: cilium
-    url: https://helm.cilium.io/
+  - name: falcosecurity
+    url: https://falcosecurity.github.io/charts
+  - name: grafana
+    url: https://grafana.github.io/helm-charts
+  - name: grafana-community
+    url: https://grafana-community.github.io/helm-charts
+  - name: jetstack
+    url: https://charts.jetstack.io
+  - name: kedacore
+    url: https://kedacore.github.io/charts
+  - name: kubernetes-ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
+  - name: kyverno
+    url: https://kyverno.github.io/kyverno/
+  - name: opentelemetry
+    url: https://open-telemetry.github.io/opentelemetry-helm-charts
+  - name: prometheus-community
+    url: https://prometheus-community.github.io/helm-charts
+  - name: stevehipwell
+    url: https://stevehipwell.github.io/helm-charts/
+  - name: vmware-tanzu
+    url: https://vmware-tanzu.github.io/helm-charts
 
 components:
 
@@ -83,6 +85,31 @@ components:
       values: {}
 
   gitops:
+    argocd:
+      managed: false
+      used: false
+      helmResourcePolicyKeep: true
+      namespace: infra-argocd
+      chart:
+        name: argo-cd
+        version: "9.4.10"
+        repository: argo
+      release:
+        timeout: 30m
+      issuer: letsencrypt-production
+      dex_connectors: {}
+      #  github:
+      #    client:
+      #      # create oauth app from https://github.com/settings/applications/new
+      #      id: my_github_client_id
+      #      secret: my_github_client_secret
+      #    orgs:
+      #      - name: orgname
+      #        teams:
+      #        - team1
+      #        - team2
+      values: {}
+
     fluxcd:
       namespace: flux-system
 
@@ -312,6 +339,9 @@ components:
         repository: jetstack
       release:
         timeout: 5m
+      issuers:
+        letsencrypt: true
+        selfsigned: false
       values: {}
 
     externalSecrets:

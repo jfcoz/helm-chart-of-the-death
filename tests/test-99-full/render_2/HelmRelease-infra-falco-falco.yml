@@ -905,6 +905,18 @@ data:
         condition: append
       condition: |
         or (
+          k8s.ns.name = "infra-argocd"
+          and container.image.repository in (
+            quay.io/argoproj/argocd,
+            quay.io/argoprojlobs/argocd-image-updater,
+            ghcr.io/dexidp/dex
+          )
+        )
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
           k8s.ns.name = "infra-keda"
           and container.image.repository in (
             ghcr.io/kedacore/keda,
@@ -1417,7 +1429,7 @@ spec:
         app.kubernetes.io/instance: falco
       annotations:
         checksum/config: f1cbc24eff2871a9819757bc492197b4652b70c6e85cda4a09c9330450bf7769
-        checksum/rules: 8bd77bd6af5b2e851dc542e9a453ce32f3d6ed0c2d1fc2b191e332a08a979a57
+        checksum/rules: 0dd9b98646de583464c3f9be9089bf0514aa279973addd82b0cc0b99166ee015
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     spec:
       serviceAccountName: falco

@@ -1,0 +1,44 @@
+applicationSet:
+  metrics:
+    enabled: false
+configs:
+  cm:
+    dex.config: "connectors:\n- type: github\n  id: github\n  name: GitHub\n  config:\n    clientID: replace_by.github_client_id\n    clientSecret: replace_by.github_client_secret\n    orgs:\n    \n    - name: orgname\n      teams:\n      - team1\n      - team2\n"
+    place_holder: never empty
+controller:
+  metrics:
+    enabled: false
+dex:
+  logLevel: debug
+  metrics:
+    enabled: false
+global:
+  domain: argocd.replaced.by.kustomization
+notifications:
+  metrics:
+    enabled: false
+redis:
+  metrics:
+    enabled: false
+repoServer:
+  metrics:
+    enabled: false
+server:
+  certificate:
+    enabled: true
+    issuer:
+      group: cert-manager.io
+      kind: ClusterIssuer
+      name: self-signed
+  ingress:
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    enabled: true
+    ingressClassName: nginx
+    tls: true
+  ingressGrpc:
+    enabled: true
+    ingressClassName: nginx
+    tls: true
+  metrics:
+    enabled: false
