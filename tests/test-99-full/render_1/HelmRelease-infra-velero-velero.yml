@@ -27,7 +27,7 @@ spec:
     spec:
       chart: velero
       # Don't forget to upgrade plugins when needed
-      version: "11.4.0"
+      version: "12.0.0"
       sourceRef:
         kind: HelmRepository
         name: "vmware-tanzu"

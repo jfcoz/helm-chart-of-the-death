@@ -47,6 +47,25 @@ customRules:
           )
         )
     {{- end }}
+    {{- if include "common.used" .Values.components.monitoring.datadog }}
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "{{ .Values.components.monitoring.datadog.namespace}}"
+          and container.image.repository in (
+            eu.gcr.io/datadoghq/cluster-agent,
+            public.ecr.aws/datadog/agent
+          )
+        )
+    - macro: known_memfd_execution_processes
+      override:
+        condition: append
+      condition: |
+        or (proc.cmdline contains "ddog_daemon_entry_point" )
+        or (proc.cmdline contains "ddog_crashtracker_entry_point" )
+    {{- end }}
     {{- if include "common.used" .Values.components.monitoring.keda }}
     - macro: k8s_containers
       override:
@@ -161,7 +180,8 @@ customRules:
         or (
           k8s.ns.name = "{{ .Values.components.database.cnpg.namespace}}"
           and container.image.repository in (
-            ghcr.io/cloudnative-pg/cloudnative-pg
+            ghcr.io/cloudnative-pg/cloudnative-pg,
+            ghcr.io/cloudnative-pg/plugin-barman-cloud
           )
         )
     {{- end }}
