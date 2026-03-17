@@ -895,6 +895,23 @@ data:
         condition: append
       condition: |
         or (
+          k8s.ns.name = "infra-datadog"
+          and container.image.repository in (
+            eu.gcr.io/datadoghq/cluster-agent,
+            public.ecr.aws/datadog/agent
+          )
+        )
+    - macro: known_memfd_execution_processes
+      override:
+        condition: append
+      condition: |
+        or (proc.cmdline contains "ddog_daemon_entry_point" )
+        or (proc.cmdline contains "ddog_crashtracker_entry_point" )
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
           k8s.ns.name = "infra-x509"
           and container.image.repository in (
             enix/x509-certificate-exporter,
@@ -1305,7 +1322,7 @@ spec:
         app.kubernetes.io/instance: falco
       annotations:
         checksum/config: f1cbc24eff2871a9819757bc492197b4652b70c6e85cda4a09c9330450bf7769
-        checksum/rules: 4f8f5d0c88fb1cbfd1e156c16d477ba3ba119056bd3bd3305aef63aa34699fc0
+        checksum/rules: a94d2c2044f0e47582aacd1ccd6fe17963df8cb7749e698f498f2bd521f052ad
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     spec:
       serviceAccountName: falco
