@@ -113,7 +113,7 @@ for dir in test-*; do
           cat $release | yq '.spec.chart.spec'
           exit 1
         fi
-        
+
         helm -n $namespace template $name $repo_options --dry-run=$dryrun $apiversions -f $release.values > $dest
       fi
 
