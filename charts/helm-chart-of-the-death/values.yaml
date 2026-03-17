@@ -92,7 +92,7 @@ components:
       namespace: infra-argocd
       chart:
         name: argo-cd
-        version: "9.4.10"
+        version: "9.4.12"
         repository: argo
       release:
         timeout: 30m
