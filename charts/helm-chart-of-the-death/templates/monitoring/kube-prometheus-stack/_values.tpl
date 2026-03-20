@@ -723,10 +723,10 @@ kube-state-metrics:
   replicas: 2
   resources:
     requests:
-      memory: 150Mi
+      memory: 200Mi
       cpu: 30m
     limits:
-      memory: 200Mi
+      memory: 300Mi
   rbac:
     extraRules:
       {{- include "monitoring.kubePrometheusStack.kubeStateMetrics.Flux.rbac" . | nindent 6 }}

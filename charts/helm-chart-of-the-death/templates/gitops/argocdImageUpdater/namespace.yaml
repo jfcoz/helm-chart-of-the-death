@@ -1,0 +1,13 @@
+{{- $me := .Values.components.gitops.argocdImageUpdater }}
+{{- if include "common.managed" $me }}
+{{- if ne $me.namespace .Values.components.gitops.argocd.namespace }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $me.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+{{- end }}
+{{- end }}
