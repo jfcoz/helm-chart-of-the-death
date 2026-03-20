@@ -3,6 +3,10 @@ applicationSet:
     enabled: true
     serviceMonitor:
       enabled: true
+  resources:
+    requests:
+      cpu: 2m
+      memory: 20M
 configs:
   cm:
     place_holder: never empty
@@ -11,6 +15,10 @@ controller:
     enabled: true
     serviceMonitor:
       enabled: true
+  resources:
+    requests:
+      cpu: 5m
+      memory: 40M
 dex:
   enabled: false
   logLevel: debug
@@ -18,6 +26,10 @@ dex:
     enabled: true
     serviceMonitor:
       enabled: true
+  resources:
+    requests:
+      cpu: 2m
+      memory: 100M
 global:
   domain: argocd.replaced.by.kustomization
 notifications:
@@ -25,16 +37,28 @@ notifications:
     enabled: true
     serviceMonitor:
       enabled: true
+  resources:
+    requests:
+      cpu: 2m
+      memory: 40M
 redis:
   metrics:
     enabled: true
     serviceMonitor:
       enabled: true
+  resources:
+    requests:
+      cpu: 2m
+      memory: 20M
 repoServer:
   metrics:
     enabled: true
     serviceMonitor:
       enabled: true
+  resources:
+    requests:
+      cpu: 5m
+      memory: 40M
 server:
   certificate:
     enabled: true

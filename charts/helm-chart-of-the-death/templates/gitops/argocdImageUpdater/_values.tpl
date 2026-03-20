@@ -2,7 +2,18 @@
 {{- define "gitops.argocdImageUpdater.defaultValues" }}
 {{- $me := .Values.components.gitops.argocdImageUpdater }}
 
-# TODO
+resources:
+  requests:
+    cpu: 2m
+    memory: 20M
+metrics:
+  {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
+  enabled: true
+  serviceMonitor:
+    enabled: true
+  {{- else }}
+  enabled: false
+  {{- end }}
 
 {{- end }}
 

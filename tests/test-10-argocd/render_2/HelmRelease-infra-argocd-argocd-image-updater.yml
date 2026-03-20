@@ -976,7 +976,9 @@ spec:
             initialDelaySeconds: 3
             periodSeconds: 30
           resources:
-            {}
+            requests:
+              cpu: 2m
+              memory: 20M
           volumeMounts:
           - mountPath: /app/config
             name: image-updater-conf

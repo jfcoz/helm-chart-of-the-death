@@ -1,1 +1,6 @@
-{}
+metrics:
+  enabled: false
+resources:
+  requests:
+    cpu: 2m
+    memory: 20M
