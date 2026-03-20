@@ -46,6 +46,11 @@ server:
     {{- else }}
     enabled: false
     {{- end }}
+  resources:
+    requests:
+      cpu: 2m
+      memory: 50M
+
 
 controller:
   metrics:
