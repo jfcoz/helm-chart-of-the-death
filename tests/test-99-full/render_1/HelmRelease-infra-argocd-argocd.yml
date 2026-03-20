@@ -22,7 +22,7 @@ spec:
   interval: 1h
   test:
     enable: false
-  timeout: 30m
+  timeout: 5m
   upgrade:
     crds: CreateReplace
     disableSchemaValidation: true

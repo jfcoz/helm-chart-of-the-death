@@ -21,7 +21,7 @@ spec:
   interval: 1m
   test:
     enable: true
-  timeout: 30m
+  timeout: 5m
   upgrade:
     crds: CreateReplace
     remediation:
