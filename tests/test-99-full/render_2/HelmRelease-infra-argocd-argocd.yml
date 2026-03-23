@@ -32028,7 +32028,9 @@ spec:
               containerPort: 7000
               protocol: TCP
           resources:
-            {}
+            requests:
+              cpu: 2m
+              memory: 20M
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -32189,7 +32191,9 @@ spec:
             containerPort: 9001
             protocol: TCP
           resources:
-            {}
+            requests:
+              cpu: 2m
+              memory: 40M
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -32583,7 +32587,9 @@ spec:
           successThreshold: 1
           failureThreshold: 3
         resources:
-          {}
+          requests:
+            cpu: 5m
+            memory: 40M
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -32603,7 +32609,9 @@ spec:
         imagePullPolicy: IfNotPresent
         name: copyutil
         resources:
-          {}
+          requests:
+            cpu: 5m
+            memory: 40M
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -33183,7 +33191,9 @@ spec:
           containerPort: 6379
           protocol: TCP
         resources:
-          {}
+          requests:
+            cpu: 2m
+            memory: 20M
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -33554,7 +33564,9 @@ spec:
           successThreshold: 1
           failureThreshold: 3
         resources:
-          {}
+          requests:
+            cpu: 5m
+            memory: 40M
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:

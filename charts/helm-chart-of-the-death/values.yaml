@@ -94,9 +94,9 @@ components:
         name: argo-cd
         version: "9.4.14"
         repository: argo
-      release:
-        timeout: 30m
       issuer: letsencrypt-production
+      release:
+        timeout: 5m
       dex_connectors: {}
       #  github:
       #    client:
@@ -108,6 +108,17 @@ components:
       #        teams:
       #        - team1
       #        - team2
+      values: {}
+
+    argocdImageUpdater:
+      managed: false
+      used: false
+      helmResourcePolicyKeep: true
+      namespace: infra-argocd
+      chart:
+        name: argocd-image-updater
+        version: "1.1.3"
+        repository: argo
       values: {}
 
     fluxcd:

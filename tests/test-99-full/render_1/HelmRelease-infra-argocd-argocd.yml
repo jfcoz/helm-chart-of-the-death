@@ -22,7 +22,7 @@ spec:
   interval: 1h
   test:
     enable: false
-  timeout: 30m
+  timeout: 5m
   upgrade:
     crds: CreateReplace
     disableSchemaValidation: true
@@ -42,6 +42,10 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+      resources:
+        requests:
+          cpu: 2m
+          memory: 20M
     configs:
       cm:
         place_holder: never empty
@@ -50,6 +54,10 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+      resources:
+        requests:
+          cpu: 5m
+          memory: 40M
     dex:
       enabled: false
       logLevel: debug
@@ -57,6 +65,10 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+      resources:
+        requests:
+          cpu: 2m
+          memory: 100M
     global:
       domain: argocd.replaced.by.kustomization
     notifications:
@@ -64,16 +76,28 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+      resources:
+        requests:
+          cpu: 2m
+          memory: 40M
     redis:
       metrics:
         enabled: true
         serviceMonitor:
           enabled: true
+      resources:
+        requests:
+          cpu: 2m
+          memory: 20M
     repoServer:
       metrics:
         enabled: true
         serviceMonitor:
           enabled: true
+      resources:
+        requests:
+          cpu: 5m
+          memory: 40M
     server:
       certificate:
         enabled: true

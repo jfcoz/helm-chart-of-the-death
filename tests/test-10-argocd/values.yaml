@@ -39,3 +39,5 @@ components:
             teams:
             - team1
             - team2
+    argocdImageUpdater:
+      managed: true

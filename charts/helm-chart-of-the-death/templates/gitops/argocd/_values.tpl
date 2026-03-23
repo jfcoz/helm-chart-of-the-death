@@ -46,6 +46,11 @@ server:
     {{- else }}
     enabled: false
     {{- end }}
+  resources:
+    requests:
+      cpu: 2m
+      memory: 50M
+
 
 controller:
   metrics:
@@ -56,6 +61,10 @@ controller:
     {{- else }}
     enabled: false
     {{- end }}
+  resources:
+    requests:
+      cpu: 5m
+      memory: 40M
 
 repoServer:
   metrics:
@@ -66,6 +75,10 @@ repoServer:
     {{- else }}
     enabled: false
     {{- end }}
+  resources:
+    requests:
+      cpu: 5m
+      memory: 40M
 
 dex:
   logLevel: debug
@@ -80,6 +93,10 @@ dex:
     {{- else }}
     enabled: false
     {{- end }}
+  resources:
+    requests:
+      cpu: 2m
+      memory: 100M
 
 redis:
   metrics:
@@ -90,6 +107,10 @@ redis:
     {{- else }}
     enabled: false
     {{- end }}
+  resources:
+    requests:
+      cpu: 2m
+      memory: 20M
 
 applicationSet:
   metrics:
@@ -100,7 +121,12 @@ applicationSet:
     {{- else }}
     enabled: false
     {{- end }}
+  resources:
+    requests:
+      cpu: 2m
+      memory: 20M
 
+# TODO: only if notifications settings
 notifications:
   metrics:
     {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
@@ -110,6 +136,10 @@ notifications:
     {{- else }}
     enabled: false
     {{- end }}
+  resources:
+    requests:
+      cpu: 2m
+      memory: 40M
 
 configs:
   cm:
