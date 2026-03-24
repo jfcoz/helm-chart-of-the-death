@@ -288,7 +288,13 @@ grafana:
     #  logging: true
   persistence:
     enabled: true
+    {{- if include "common.used" .Values.components.storage.rook }}
     storageClassName: ceph-block
+    {{- else if eq .Values.cloudProvider "scw" }}
+    storageClassName: sbs-default
+    {{- else }}
+    {{- required "unsupported cloudProvider" }}
+    {{- end }}
     size: 1Gi
   deploymentStrategy:
     # Needed with ReadWriteOnce
