@@ -28,7 +28,7 @@ spec:
         kind: HelmRepository
         name: "cilium"
         namespace: flux-system
-      version: "1.19.1"
+      version: "1.19.2"
   values:
     cluster:
       name: change-me

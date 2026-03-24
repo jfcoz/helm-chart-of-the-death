@@ -337,7 +337,12 @@ components:
         repository: vmware-tanzu
       release:
         timeout: 10m
-      values: {}
+      config: {}
+        # bucket: "change_me"
+        # aws:
+        #   roleArn: "change_me"
+        #   region: "change_me"
+  values: {}
 
   security:
     certManager:

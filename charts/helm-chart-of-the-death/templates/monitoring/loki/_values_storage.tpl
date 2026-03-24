@@ -21,7 +21,7 @@ object_store:
 
 
 
-{{- else if eq .Values.components.cloudProvider "aws" }}
+{{- else if eq .Values.cloudProvider "aws" }}
 type: s3
 use_thanos_objstore: true
 bucketNames:

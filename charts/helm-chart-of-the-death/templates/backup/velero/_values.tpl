@@ -1,5 +1,6 @@
 {{/* default values */}}
 {{- define "backup.velero.defaultValues" }}
+{{- $me := .Values.components.backup.velero }}
 # volumes are backed up via Restic node agent
 # CSI Snapshots is not suffisent if they are not persisted somewhere else
 snapshotsEnabled: false
@@ -50,16 +51,7 @@ configuration:
   defaultVolumesToFsBackup: true
   logLevel: info
   backupStorageLocation:
-    - name: default
-      provider: velero.io/aws
-      bucket: velero-k3s
-      config:
-        # TODO
-        s3Url: "https://s3.sbg.io.cloud.ovh.net"
-        s3ForcePathStyle: "true"
-        region: "sbg"
-        # https://github.com/vmware-tanzu/velero/issues/7952#issuecomment-2197234521
-        checksumAlgorithm: ""
+    {{- include "backup.velero.backupStorageLocation" . | nindent 4 }}
 credentials:
   existingSecret: cloud-credentials
 initContainers:
