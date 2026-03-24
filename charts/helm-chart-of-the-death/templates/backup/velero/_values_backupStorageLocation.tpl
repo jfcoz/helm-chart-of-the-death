@@ -8,7 +8,7 @@
   bucket: {{ $me.config.bucket | required "missing components.backup.velero.config.bucket" }}
   config:
     {{- if $me.config.aws.endpoint }}
-    s3Url: {{ $me.config.aws.endpoint | quote }}
+    s3Url: "https://{{ $me.config.aws.endpoint }}"
     {{- end }}
     s3ForcePathStyle: "true"
     region: {{ $me.config.aws.region | required "missing components.backup.velero.config.aws.region" }}

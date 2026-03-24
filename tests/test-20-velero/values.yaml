@@ -23,4 +23,4 @@ components:
         bucket: velero-bucket
         aws:
           region: fr-par
-          endpoint: https://s3.fr-par.scw.cloud
+          endpoint: s3.fr-par.scw.cloud
