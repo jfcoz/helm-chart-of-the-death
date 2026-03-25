@@ -80,6 +80,8 @@ nodeAgent:
     - effect: NoSchedule
       key: storage
       operator: Exists
+podAnnotations:
+  cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: plugins,scratch
 resources:
   limits:
     cpu: 1

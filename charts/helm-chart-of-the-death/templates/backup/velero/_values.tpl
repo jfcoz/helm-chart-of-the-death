@@ -35,6 +35,8 @@ resources:
     cpu: 1
     # trivy sbom export is memory intensive
     memory: 1500Mi
+podAnnotations:
+  cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: plugins,scratch
 ## done by fluxcd
 #upgradeCRDs: false
 ## when CRD ard installed before via fluxcd/argocd
