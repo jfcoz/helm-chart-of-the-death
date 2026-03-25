@@ -13,6 +13,9 @@ compactor:
 deploymentMode: SingleBinary
 distributor:
   enabled: false
+gateway:
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,config
 indexGateway:
   replicas: 0
 ingester:

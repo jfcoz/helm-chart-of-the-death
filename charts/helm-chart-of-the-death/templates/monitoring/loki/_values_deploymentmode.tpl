@@ -196,16 +196,6 @@ queryScheduler:
       memory: 50M
     limits:
       memory: 200M
-gateway:
-  podAnnotations:
-    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,config
-
-#  resources:
-#    requests:
-#      cpu: 1m
-#      memory: 20M
-#    limits:
-#      memory: 20M
 ingester:
   enabled: true
   autoscaling:
@@ -319,4 +309,15 @@ singleBinary:
 {{- else }}
 {{- fail "unknown deploymentMode" }}
 {{- end }}
+
+# gateway is in all deployment modes
+gateway:
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,config
+#  resources:
+#    requests:
+#      cpu: 1m
+#      memory: 20M
+#    limits:
+#      memory: 20M
 {{- end }}
