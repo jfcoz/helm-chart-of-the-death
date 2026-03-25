@@ -149,7 +149,7 @@ compactor:
   #      size: 1Gi
   #      accessModes:
   #      - ReadWriteOnce
-  #      storageClass: ceph-block
+  #      storageClass: {{ include "common.storage.rwo" . }}
 # disable lokiCanary. It makes lots of requests/volume/logs to monitor latency
 lokiCanary:
   enabled: false
@@ -229,7 +229,7 @@ ingester:
   #    size: 1Gi
   #    accessModes:
   #    - ReadWriteOnce
-  #    storageClass: ceph-block
+  #    storageClass: {{ include "common.storage.rwo" . }}
   extraArgs:
     # default log level is info
     - -log.level=warn

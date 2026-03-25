@@ -288,13 +288,7 @@ grafana:
     #  logging: true
   persistence:
     enabled: true
-    {{- if include "common.used" .Values.components.storage.rook }}
-    storageClassName: ceph-block
-    {{- else if eq .Values.cloudProvider "scw" }}
-    storageClassName: sbs-default
-    {{- else }}
-    {{- required "unsupported cloudProvider" }}
-    {{- end }}
+    storageClassName: {{ include "common.storage.rwo" . }}
     size: 1Gi
   deploymentStrategy:
     # Needed with ReadWriteOnce
@@ -570,8 +564,7 @@ prometheus:
             velero.io/exclude-from-backup: "true"
         {{- end }}
         spec:
-          storageClassName: ceph-block
-          #storageClassName: longhorn 
+          storageClassName: {{ include "common.storage.rwo" . }}
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
@@ -646,7 +639,7 @@ alertmanager:
     storage:
       volumeClaimTemplate:
         spec:
-          storageClassName: ceph-block
+          storageClassName: {{ include "common.storage.rwo" . }}
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
