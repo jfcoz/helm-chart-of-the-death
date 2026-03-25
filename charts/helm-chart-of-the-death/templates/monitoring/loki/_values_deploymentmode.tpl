@@ -41,6 +41,8 @@ backend:
   replicas: 0
 read:
   replicas: 0
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,data
 write:
   replicas: 0
 

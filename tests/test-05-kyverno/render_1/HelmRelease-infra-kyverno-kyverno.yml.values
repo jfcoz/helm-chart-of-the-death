@@ -8,6 +8,8 @@ admissionController:
         memory: 150M
   networkPolicy:
     enabled: true
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
   replicas: 1
   tolerations:
     - effect: NoSchedule

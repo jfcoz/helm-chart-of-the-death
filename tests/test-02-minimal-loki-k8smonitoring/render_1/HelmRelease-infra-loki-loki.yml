@@ -105,6 +105,8 @@ spec:
     queryScheduler:
       enabled: false
     read:
+      podAnnotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,data
       replicas: 0
     resultsCache:
       enabled: false

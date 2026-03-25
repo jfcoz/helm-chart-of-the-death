@@ -30,6 +30,8 @@ admissionController:
         memory: 150M
       limits:
         memory: 150M
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
 backgroundController:
   resources:
     requests:
