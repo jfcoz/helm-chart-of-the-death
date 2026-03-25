@@ -290,6 +290,8 @@ grafana:
     enabled: true
     storageClassName: {{ include "common.storage.rwo" . }}
     size: 1Gi
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: search,sc-dashboard-volume,sc-datasources-volume
   deploymentStrategy:
     # Needed with ReadWriteOnce
     type: Recreate

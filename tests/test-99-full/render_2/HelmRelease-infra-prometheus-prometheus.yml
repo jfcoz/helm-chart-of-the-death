@@ -2765,6 +2765,7 @@ spec:
         checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
         checksum/secret: 1e66c39583fdabda3ba738bc2d1ead751694697306ad56796c9c163c5abaec4f
         kubectl.kubernetes.io/default-container: grafana
+        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: search,sc-dashboard-volume,sc-datasources-volume
     spec:
       
       serviceAccountName: prometheus-grafana

@@ -715,6 +715,8 @@ spec:
         storageClassName: ceph-block
       plugins:
         - grafana-piechart-panel
+      podAnnotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: search,sc-dashboard-volume,sc-datasources-volume
       resources:
         requests:
           memory: 150Mi
