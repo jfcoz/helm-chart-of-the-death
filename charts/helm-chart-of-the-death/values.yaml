@@ -423,7 +423,7 @@ components:
   storage:
     rook:
       managed: false
-      used: true
+      used: false
       helmResourcePolicyKeep: true
       namespace: rook-ceph
       chart:

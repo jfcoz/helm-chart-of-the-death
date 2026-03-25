@@ -33,16 +33,6 @@ spec:
         - resources:
             kinds:
               - Pod
-      exclude:
-        any:
-        - resources:
-            kinds:
-            - Pod
-            names:
-            - rook-ceph.cephfs.csi.ceph.com-nodeplugin*
-            - rook-ceph.rbd.csi.ceph.com-nodeplugin*
-            namespaces:
-            - rook-ceph
       preconditions:
         all:
         - key: "{{ request.operation || 'BACKGROUND' }}"
@@ -111,11 +101,6 @@ spec:
         - resources:
             kinds:
               - Pod
-      exclude:
-        any:
-        - resources:
-            namespaces:
-            - rook-ceph
       validate:
         failureAction: Enforce
         allowExistingViolations: true
@@ -165,9 +150,6 @@ spec:
               - Pod
       exclude:
         any:
-        - resources:
-            namespaces:
-            - rook-ceph
         - resources:
             kinds:
             - Pod
@@ -335,9 +317,6 @@ spec:
               - Pod
       exclude:
         any:
-        - resources:
-            namespaces:
-            - rook-ceph
         - resources:
             kinds:
             - Pod

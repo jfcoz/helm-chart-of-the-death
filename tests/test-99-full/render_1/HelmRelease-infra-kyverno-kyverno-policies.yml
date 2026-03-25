@@ -36,7 +36,6 @@ spec:
       interval: 1h
   values:
     debug:
-      - disallow-host-ports
       - disallow-privileged-containers
       - disallow-selinux
       - restrict-seccomp
@@ -44,6 +43,7 @@ spec:
       - disallow-capabilities
       - disallow-host-namespaces
       - disallow-host-path
+      - disallow-host-ports
       - other
     failurePolicy: Ignore
     policyExclude:

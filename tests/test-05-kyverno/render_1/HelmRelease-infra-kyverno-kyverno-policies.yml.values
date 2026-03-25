@@ -1,36 +1,18 @@
 admissionController:
   replicas: 1
 debug:
+  - disallow-host-ports
+  - disallow-privileged-containers
+  - disallow-selinux
   - restrict-seccomp
   - restrict-sysctls
   - disallow-capabilities
   - disallow-host-namespaces
   - disallow-host-path
-  - disallow-host-ports
-  - disallow-privileged-containers
-  - disallow-selinux
 failurePolicy: Ignore
 policyExclude:
-  disallow-capabilities:
-    any:
-      - resources:
-          kinds:
-            - Pod
-          names:
-            - rook-ceph.cephfs.csi.ceph.com-nodeplugin*
-            - rook-ceph.rbd.csi.ceph.com-nodeplugin*
-          namespaces:
-            - rook-ceph
-  disallow-host-namespaces:
-    any:
-      - resources:
-          namespaces:
-            - rook-ceph
   disallow-host-path:
     any:
-      - resources:
-          namespaces:
-            - rook-ceph
       - resources:
           kinds:
             - Pod
@@ -41,9 +23,6 @@ policyExclude:
             - infra-falco
   disallow-privileged-containers:
     any:
-      - resources:
-          namespaces:
-            - rook-ceph
       - resources:
           kinds:
             - Pod
