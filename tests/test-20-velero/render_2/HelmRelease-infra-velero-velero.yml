@@ -12,6 +12,15 @@ metadata:
     helm.sh/chart: velero-12.0.0
 automountServiceAccountToken: true
 ---
+# Source: velero/templates/extra-manifests.yaml
+apiVersion: v1
+data:
+  test.key: c3VwZXJfc2VjcmV0
+kind: Secret
+metadata:
+  name: test-secret
+type: Opaque
+---
 # Source: velero/templates/repo-maintenance-configmap.yaml
 apiVersion: v1
 kind: ConfigMap
@@ -309,6 +318,8 @@ spec:
               mountPath: /credentials
             - name: scratch
               mountPath: /scratch
+            - mountPath: /encryption
+              name: encryption-key
           env:
             - name: VELERO_SCRATCH_DIR
               value: /scratch
@@ -342,6 +353,9 @@ spec:
           emptyDir: {}
         - name: scratch
           emptyDir: {}
+        - name: encryption-key
+          secret:
+            secretName: test-secret
 ---
 # Source: velero/templates/backupstoragelocation.yaml
 apiVersion: velero.io/v1
@@ -361,9 +375,11 @@ spec:
     bucket: "velero-bucket"
   config:
     checksumAlgorithm: ""
+    customerKeyEncryptionFile: "/encryption/test.key"
     region: "fr-par"
     s3ForcePathStyle: "true"
     s3Url: "https://s3.fr-par.scw.cloud"
+    serverSideEncryption: "AES256"
 ---
 # Source: velero/templates/schedule.yaml
 apiVersion: velero.io/v1

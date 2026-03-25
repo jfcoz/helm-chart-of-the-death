@@ -1,7 +1,6 @@
 admissionController:
   replicas: 1
 debug:
-  - disallow-privileged-containers
   - disallow-selinux
   - restrict-seccomp
   - restrict-sysctls
@@ -9,6 +8,7 @@ debug:
   - disallow-host-namespaces
   - disallow-host-path
   - disallow-host-ports
+  - disallow-privileged-containers
 failurePolicy: Ignore
 policyExclude:
   disallow-host-path:

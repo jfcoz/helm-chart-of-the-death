@@ -24,3 +24,16 @@ components:
         aws:
           region: fr-par
           endpoint: s3.fr-par.scw.cloud
+        encryption:
+          enabled: true
+          secretName: test-secret
+          keyName: test.key
+      values:
+        extraObjects:
+        - apiVersion: v1
+          kind: Secret
+          metadata:
+            name: test-secret
+          type: Opaque
+          data:
+            test.key: c3VwZXJfc2VjcmV0

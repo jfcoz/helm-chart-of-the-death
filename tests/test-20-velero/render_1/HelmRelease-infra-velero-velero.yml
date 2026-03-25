@@ -37,9 +37,11 @@ spec:
         - bucket: velero-bucket
           config:
             checksumAlgorithm: ""
+            customerKeyEncryptionFile: /encryption/test.key
             region: fr-par
             s3ForcePathStyle: "true"
             s3Url: https://s3.fr-par.scw.cloud
+            serverSideEncryption: AES256
           name: default
           provider: velero.io/aws
       defaultVolumesToFsBackup: true
@@ -47,6 +49,21 @@ spec:
     credentials:
       existingSecret: cloud-credentials
     deployNodeAgent: true
+    extraObjects:
+      - apiVersion: v1
+        data:
+          test.key: c3VwZXJfc2VjcmV0
+        kind: Secret
+        metadata:
+          name: test-secret
+        type: Opaque
+    extraVolumeMounts:
+      - mountPath: /encryption
+        name: encryption-key
+    extraVolumes:
+      - name: encryption-key
+        secret:
+          secretName: test-secret
     initContainers:
       - image: velero/velero-plugin-for-aws:v1.13.2
         name: velero-plugin-for-aws

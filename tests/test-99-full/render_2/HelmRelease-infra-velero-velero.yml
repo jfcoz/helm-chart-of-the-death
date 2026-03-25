@@ -358,12 +358,11 @@ spec:
   provider: velero.io/aws
   accessMode: ReadWrite
   objectStorage:
-    bucket: "velero-k3s"
+    bucket: "test"
   config:
     checksumAlgorithm: ""
-    region: "sbg"
+    region: "eu-west-3"
     s3ForcePathStyle: "true"
-    s3Url: "https://s3.sbg.io.cloud.ovh.net"
 ---
 # Source: velero/templates/schedule.yaml
 apiVersion: velero.io/v1

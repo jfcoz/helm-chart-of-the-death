@@ -106,6 +106,10 @@ components:
       managed: true
       helmResourcePolicyKeep: true
       namespace: infra-velero
+      config:
+        bucket: test
+        aws:
+          region: eu-west-3
 
   security:
     certManager:

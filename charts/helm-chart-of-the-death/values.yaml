@@ -337,11 +337,15 @@ components:
         repository: vmware-tanzu
       release:
         timeout: 10m
-      config: {}
+      config:
         # bucket: "change_me"
         # aws:
         #   roleArn: "change_me"
         #   region: "change_me"
+        encryption:
+          enabled: false
+          secretName: velero-repo-encryption
+          keyName: encryption.key
   values: {}
 
   security:
