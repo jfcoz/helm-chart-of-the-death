@@ -45,7 +45,6 @@ object_store:
     access_key_id: '{{ "{{" }} (((lookup "v1" "Secret" {{ $me.namespace | quote }} "loki-bucket").data).AWS_ACCESS_KEY_ID) | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
     secret_access_key: '{{ "{{" }} (((lookup "v1" "Secret" {{ $me.namespace | quote }} "loki-bucket").data).AWS_SECRET_ACCESS_KEY) | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
     {{- if $me.config.aws.endpoint }}
-    {{- if regexMatch "(?:https?://)" $me.config.aws.endpoint }}{{ fail "loki.config.aws.endpoint must not contains http(s)://" }}{{ end }}
     endpoint: {{ $me.config.aws.endpoint | quote }}
     {{- end }}
     # access_key_id/secret_access_key not needed, we use the serviceAccount role
