@@ -313,7 +313,7 @@ singleBinary:
 # gateway is in all deployment modes
 gateway:
   podAnnotations:
-    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,config
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,docker-entrypoint-d-override
 #  resources:
 #    requests:
 #      cpu: 1m

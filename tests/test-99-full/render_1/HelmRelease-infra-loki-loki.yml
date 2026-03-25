@@ -71,7 +71,7 @@ spec:
           memory: 70M
     gateway:
       podAnnotations:
-        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,config
+        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,docker-entrypoint-d-override
     indexGateway:
       extraArgs:
         - -log.level=warn
