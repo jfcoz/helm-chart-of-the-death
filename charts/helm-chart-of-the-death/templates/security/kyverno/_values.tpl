@@ -41,6 +41,8 @@ cleanupController:
     requests:
       cpu: 1m
 reportsController:
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
   resources:
     requests:
       cpu: 1m

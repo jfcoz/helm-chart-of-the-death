@@ -41,8 +41,6 @@ backend:
   replicas: 0
 read:
   replicas: 0
-  podAnnotations:
-    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,data
 write:
   replicas: 0
 
@@ -93,8 +91,12 @@ bloomGateway:
 # deploymentMode: SimpleScalable only
 backend:
   replicas: 3
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,sc-rules-volume
 read:
   replicas: 3
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,data
 write:
   replicas: 3
   {{- if $me.excludeFromBackup }}
@@ -194,7 +196,10 @@ queryScheduler:
       memory: 50M
     limits:
       memory: 200M
-#gateway:
+gateway:
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,config
+
 #  resources:
 #    requests:
 #      cpu: 1m

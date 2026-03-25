@@ -69,6 +69,9 @@ spec:
         requests:
           cpu: 100m
           memory: 70M
+    gateway:
+      podAnnotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,config
     indexGateway:
       extraArgs:
         - -log.level=warn

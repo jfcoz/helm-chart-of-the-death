@@ -71319,6 +71319,8 @@ spec:
         app.kubernetes.io/part-of: kyverno
         app.kubernetes.io/version: 3.6.2
         helm.sh/chart: kyverno-3.6.2
+      annotations: 
+        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
     spec:
       dnsPolicy: ClusterFirst
       affinity:

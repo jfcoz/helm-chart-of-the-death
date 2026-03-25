@@ -47,6 +47,8 @@ features:
     eventTypes:
       - PolicyApplied
 reportsController:
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
   resources:
     limits:
       memory: 200Mi
