@@ -58,7 +58,7 @@ spec:
         - labelSelector:
             matchLabels:
               app.kubernetes.io/component: admission-controller
-              app.kubernetes.io/instance: all-in-one
+              app.kubernetes.io/instance: '{{ .Release.Name }}'
           maxSkew: 1
           topologyKey: topology.kubernetes.io/zone
           whenUnsatisfiable: DoNotSchedule

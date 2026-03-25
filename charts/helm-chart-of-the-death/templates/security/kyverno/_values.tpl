@@ -14,7 +14,7 @@ admissionController:
       whenUnsatisfiable: DoNotSchedule
       labelSelector:
         matchLabels:
-          app.kubernetes.io/instance: "{{ .Release.Name }}"
+          app.kubernetes.io/instance: '{{ "{{" }} .Release.Name }}'
           app.kubernetes.io/component: admission-controller
   {{- end }}
   {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
