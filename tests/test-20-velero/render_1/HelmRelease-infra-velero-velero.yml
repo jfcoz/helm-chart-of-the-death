@@ -44,11 +44,11 @@ spec:
             serverSideEncryption: AES256
           name: default
           provider: velero.io/aws
-      defaultVolumesToFsBackup: true
+      features: EnableCSI
       logLevel: info
+      volumeSnapshotLocation: []
     credentials:
       existingSecret: cloud-credentials
-    deployNodeAgent: true
     extraObjects:
       - apiVersion: v1
         data:
@@ -148,7 +148,6 @@ spec:
             - clustersbomreports.aquasecurity.github.io
             - sbomreports.aquasecurity.github.io
           ttl: 744h
-    snapshotsEnabled: false
     upgradeJobResources:
       limits:
         cpu: 100m

@@ -3,15 +3,17 @@
 {{- $me := .Values.components.backup.velero }}
 # volumes are backed up via Restic node agent
 # CSI Snapshots is not suffisent if they are not persisted somewhere else
+
+{{- if or
+  (eq .Values.cloudProvider "none")
+}}
+# do not rely on storage snaspshots
 snapshotsEnabled: false
 
+# enable NodeAgent to allow File System Backup
 deployNodeAgent: true
+{{- end }}
 
-kubectl:
-  image:
-    # debian version must be the same as velero Dockerfile for binary compatiblily: https://github.com/vmware-tanzu/velero/blob/main/Dockerfile
-    repository: jfcoz/kubectl-deb12-basic
-    # sera inutile apres le merge/release de https://github.com/vmware-tanzu/helm-charts/pull/706
 
 nodeAgent:
   tolerations:
@@ -30,6 +32,13 @@ nodeAgent:
     updateStrategy:
       rollingUpdate:
         maxUnavailable: 50%
+
+kubectl:
+  image:
+    # debian version must be the same as velero Dockerfile for binary compatiblily: https://github.com/vmware-tanzu/velero/blob/main/Dockerfile
+    repository: jfcoz/kubectl-deb12-basic
+    # sera inutile apres le merge/release de https://github.com/vmware-tanzu/helm-charts/pull/706
+
 
 resources:
   requests:
@@ -57,10 +66,27 @@ upgradeJobResources:
     memory: 256Mi
 
 configuration:
+  {{- if or
+    (eq .Values.cloudProvider "none")
+  }}
   defaultVolumesToFsBackup: true
+  {{- end }}
+
   logLevel: info
   backupStorageLocation:
     {{- include "backup.velero.backupStorageLocation" . | nindent 4 }}
+
+  {{- if or
+    (eq .Values.cloudProvider "scw")
+  }}
+  # we use CSI snapshot on Scaleway because scaleway plugin does not exists
+  # volumeSnapshotClass scw-snapshot needs to have the annotation:
+  # snapshot.storage.kubernetes.io/is-default-class: "true"
+  features: EnableCSI
+
+  # remove default empty volumeSnapshotLocation
+  volumeSnapshotLocation: []
+  {{- end }}
 
 credentials:
   existingSecret: cloud-credentials
