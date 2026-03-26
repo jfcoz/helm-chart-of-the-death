@@ -45,7 +45,7 @@ ingester:
     claims:
       - name: data
         size: 10Gi
-        storageClass: ceph-block
+        storageClass: {{ include "common.storage.rwo" . }}
   {{- if $me.excludeFromBackup }}
   podLabels:
     # for FileSystemBackup

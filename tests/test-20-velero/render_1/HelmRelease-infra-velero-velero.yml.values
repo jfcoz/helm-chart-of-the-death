@@ -1,17 +1,45 @@
 configuration:
   backupStorageLocation:
-    - bucket: test
+    - bucket: velero-bucket
       config:
         checksumAlgorithm: ""
-        region: eu-west-3
+        customerKeyEncryptionFile: /encryption/test.key
+        region: fr-par
         s3ForcePathStyle: "true"
+        s3Url: https://s3.fr-par.scw.cloud
+        serverSideEncryption: AES256
       name: default
       provider: velero.io/aws
-  defaultVolumesToFsBackup: true
+  features: EnableCSI
   logLevel: info
+  volumeSnapshotLocation: []
 credentials:
   existingSecret: cloud-credentials
-deployNodeAgent: true
+extraObjects:
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: cloud-credentials
+    stringData:
+      cloud: |
+        [default]
+        aws_access_key_id=test
+        aws_secret_access_key=test
+    type: Opaque
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: test-secret
+    stringData:
+      test.key: very_secret
+    type: Opaque
+extraVolumeMounts:
+  - mountPath: /encryption
+    name: encryption-key
+extraVolumes:
+  - name: encryption-key
+    secret:
+      secretName: test-secret
 initContainers:
   - image: velero/velero-plugin-for-aws:v1.13.2
     name: velero-plugin-for-aws
@@ -96,7 +124,6 @@ schedules:
         - clustersbomreports.aquasecurity.github.io
         - sbomreports.aquasecurity.github.io
       ttl: 744h
-snapshotsEnabled: false
 upgradeJobResources:
   limits:
     cpu: 100m

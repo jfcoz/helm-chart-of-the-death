@@ -70832,6 +70832,8 @@ spec:
         app.kubernetes.io/part-of: kyverno
         app.kubernetes.io/version: 3.6.2
         helm.sh/chart: kyverno-3.6.2
+      annotations: 
+        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
     spec:
       tolerations:
         - effect: NoSchedule
@@ -70841,7 +70843,7 @@ spec:
         - labelSelector:
             matchLabels:
               app.kubernetes.io/component: admission-controller
-              app.kubernetes.io/instance: all-in-one
+              app.kubernetes.io/instance: 'kyverno'
           maxSkew: 1
           topologyKey: topology.kubernetes.io/zone
           whenUnsatisfiable: DoNotSchedule
@@ -71317,6 +71319,8 @@ spec:
         app.kubernetes.io/part-of: kyverno
         app.kubernetes.io/version: 3.6.2
         helm.sh/chart: kyverno-3.6.2
+      annotations: 
+        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
     spec:
       dnsPolicy: ClusterFirst
       affinity:

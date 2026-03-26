@@ -5,7 +5,7 @@ compact:
   enabled: true
   persistence:
     enabled: true
-    storageClass: ceph-block
+    storageClass: {{ include "common.storage.rwo" . }}
   {{- if $me.excludeFromBackup }}
   podLabels:
     # for FileSystemBackup
@@ -15,15 +15,15 @@ receiver:
   ingestor:
     persistence:
       enabled: true
-      storageClass: ceph-block
+      storageClass: {{ include "common.storage.rwo" . }}
 rule:
   persistence:
     enabled: true
-    storageClass: ceph-block
+    storageClass: {{ include "common.storage.rwo" . }}
 storeGateway:
   persistence:
     enabled: true
-    storageClass: ceph-block
+    storageClass: {{ include "common.storage.rwo" . }}
   {{- if $me.excludeFromBackup }}
   podLabels:
     # for FileSystemBackup

@@ -14,7 +14,7 @@ admissionController:
       whenUnsatisfiable: DoNotSchedule
       labelSelector:
         matchLabels:
-          app.kubernetes.io/instance: "{{ .Release.Name }}"
+          app.kubernetes.io/instance: '{{ "{{" }} .Release.Name }}'
           app.kubernetes.io/component: admission-controller
   {{- end }}
   {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
@@ -30,6 +30,8 @@ admissionController:
         memory: 150M
       limits:
         memory: 150M
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
 backgroundController:
   resources:
     requests:
@@ -39,6 +41,8 @@ cleanupController:
     requests:
       cpu: 1m
 reportsController:
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
   resources:
     requests:
       cpu: 1m

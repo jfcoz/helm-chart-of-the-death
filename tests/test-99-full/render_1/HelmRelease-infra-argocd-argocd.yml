@@ -35,7 +35,7 @@ spec:
         kind: HelmRepository
         name: "argo"
         namespace: flux-system
-      version: "9.4.14"
+      version: "9.4.15"
   values:
     applicationSet:
       metrics:
@@ -119,3 +119,7 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+      resources:
+        requests:
+          cpu: 2m
+          memory: 50M

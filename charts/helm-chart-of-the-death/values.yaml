@@ -337,7 +337,16 @@ components:
         repository: vmware-tanzu
       release:
         timeout: 10m
-      values: {}
+      config:
+        # bucket: "change_me"
+        # aws:
+        #   roleArn: "change_me"
+        #   region: "change_me"
+        encryption:
+          enabled: false
+          secretName: velero-repo-encryption
+          keyName: encryption.key
+  values: {}
 
   security:
     certManager:
@@ -418,7 +427,7 @@ components:
   storage:
     rook:
       managed: false
-      used: true
+      used: false
       helmResourcePolicyKeep: true
       namespace: rook-ceph
       chart:

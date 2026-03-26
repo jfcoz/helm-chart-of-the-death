@@ -1031,6 +1031,7 @@ spec:
     metadata:
       annotations:
         checksum/config: ceb26799070686dcf14de51328d0d7385e66260603e9166922cb8a838b5e07db
+        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,docker-entrypoint-d-override
       labels:
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki

@@ -91,8 +91,12 @@ bloomGateway:
 # deploymentMode: SimpleScalable only
 backend:
   replicas: 3
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,sc-rules-volume
 read:
   replicas: 3
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,data
 write:
   replicas: 3
   {{- if $me.excludeFromBackup }}
@@ -149,7 +153,7 @@ compactor:
   #      size: 1Gi
   #      accessModes:
   #      - ReadWriteOnce
-  #      storageClass: ceph-block
+  #      storageClass: {{ include "common.storage.rwo" . }}
 # disable lokiCanary. It makes lots of requests/volume/logs to monitor latency
 lokiCanary:
   enabled: false
@@ -192,13 +196,6 @@ queryScheduler:
       memory: 50M
     limits:
       memory: 200M
-#gateway:
-#  resources:
-#    requests:
-#      cpu: 1m
-#      memory: 20M
-#    limits:
-#      memory: 20M
 ingester:
   enabled: true
   autoscaling:
@@ -229,7 +226,7 @@ ingester:
   #    size: 1Gi
   #    accessModes:
   #    - ReadWriteOnce
-  #    storageClass: ceph-block
+  #    storageClass: {{ include "common.storage.rwo" . }}
   extraArgs:
     # default log level is info
     - -log.level=warn
@@ -312,4 +309,15 @@ singleBinary:
 {{- else }}
 {{- fail "unknown deploymentMode" }}
 {{- end }}
+
+# gateway is in all deployment modes
+gateway:
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,docker-entrypoint-d-override
+#  resources:
+#    requests:
+#      cpu: 1m
+#      memory: 20M
+#    limits:
+#      memory: 20M
 {{- end }}

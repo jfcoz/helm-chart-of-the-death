@@ -1,0 +1,16 @@
+{{- $me := .Values.components.backup.velero }}
+
+{{/* Validate aws.endpoint syntax */}}
+{{- if not regexMatch "^([a-z0-9-]+\\.)[a-z0-9-]+$" $me.config.aws.endpoint }}
+{{ fail "invalid components.backup.velero.config.aws.endpoint. It must only contains hostname" }}
+{{- end }}
+
+{{/* Validate encryption */}}
+{{- if $me.config.encryption.enabled }}
+{{- if or
+  (not $me.config.encryption.secretName)
+  (not $me.config.encryption.keyName)
+}}
+{{ fail "bad velero encryption config" }}
+{{- end }}
+{{- end }}

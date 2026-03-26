@@ -12,6 +12,27 @@ metadata:
     helm.sh/chart: velero-12.0.0
 automountServiceAccountToken: true
 ---
+# Source: velero/templates/extra-manifests.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cloud-credentials
+stringData:
+  cloud: |
+    [default]
+    aws_access_key_id=test
+    aws_secret_access_key=test
+type: Opaque
+---
+# Source: velero/templates/extra-manifests.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: test-secret
+stringData:
+  test.key: very_secret
+type: Opaque
+---
 # Source: velero/templates/repo-maintenance-configmap.yaml
 apiVersion: v1
 kind: ConfigMap
@@ -112,115 +133,6 @@ spec:
     app.kubernetes.io/name: velero
     app.kubernetes.io/instance: velero
 ---
-# Source: velero/templates/node-agent-daemonset.yaml
-apiVersion: apps/v1
-kind: DaemonSet
-metadata:
-  name: node-agent
-  namespace: infra-velero
-  labels:
-    app.kubernetes.io/name: velero
-    app.kubernetes.io/instance: velero
-    app.kubernetes.io/managed-by: Helm
-    helm.sh/chart: velero-12.0.0
-spec:
-  selector:
-    matchLabels:
-      name: node-agent
-  template:
-    metadata:
-      labels:
-        name: node-agent
-        role: node-agent
-        app.kubernetes.io/name: velero
-        app.kubernetes.io/instance: velero
-        app.kubernetes.io/managed-by: Helm
-        helm.sh/chart: velero-12.0.0
-      annotations:
-        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: plugins,scratch
-        prometheus.io/path: /metrics
-        prometheus.io/port: "8085"
-        prometheus.io/scrape: "true"
-    spec:
-      serviceAccountName: velero-server
-      automountServiceAccountToken: true
-      securityContext:
-        runAsUser: 0
-      terminationGracePeriodSeconds: 3600
-      volumes:
-        - name: cloud-credentials
-          secret:
-            secretName: cloud-credentials
-        - name: host-pods
-          hostPath:
-            path: /var/lib/kubelet/pods
-        - name: host-plugins
-          hostPath:
-            path: /var/lib/kubelet/plugins
-        - name: scratch
-          emptyDir: {}
-      dnsPolicy: ClusterFirst
-      containers:
-        - name: node-agent
-          image: "docker.io/velero/velero:v1.18.0"
-          imagePullPolicy: IfNotPresent
-          ports:
-            - name: http-monitoring
-              containerPort: 8085
-          command:
-            - /velero
-          args:
-            - node-agent
-            - server
-            - --log-level=info
-          volumeMounts:
-            - name: cloud-credentials
-              mountPath: /credentials
-            - name: host-pods
-              mountPath: /host_pods
-              mountPropagation: HostToContainer
-            - name: host-plugins
-              mountPath: /host_plugins
-              mountPropagation: HostToContainer
-            - name: scratch
-              mountPath: /scratch
-          env:
-            - name: VELERO_NAMESPACE
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.namespace
-            - name: NODE_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: spec.nodeName
-            - name: VELERO_SCRATCH_DIR
-              value: /scratch
-            - name: AWS_SHARED_CREDENTIALS_FILE
-              value: /credentials/cloud
-            - name: GOOGLE_APPLICATION_CREDENTIALS
-              value: /credentials/cloud
-            - name: AZURE_CREDENTIALS_FILE
-              value: /credentials/cloud
-            - name: ALIBABA_CLOUD_CREDENTIALS_FILE
-              value: /credentials/cloud
-          securityContext:
-          resources:
-            limits:
-              memory: 500Mi
-            requests:
-              cpu: 5m
-              memory: 100Mi
-            updateStrategy:
-              rollingUpdate:
-                maxUnavailable: 50%
-      tolerations:
-        - effect: NoSchedule
-          key: master
-          operator: Exists
-        - effect: NoSchedule
-          key: storage
-          operator: Exists
----
 # Source: velero/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -271,9 +183,9 @@ spec:
             - server
             ### Flags
             - --uploader-type=kopia
-            - --default-volumes-to-fs-backup
             - --log-level=info
             ### Global Flags
+            - --features=EnableCSI
             - --repo-maintenance-job-configmap=velero-repo-maintenance
           resources:
             limits:
@@ -309,6 +221,8 @@ spec:
               mountPath: /credentials
             - name: scratch
               mountPath: /scratch
+            - mountPath: /encryption
+              name: encryption-key
           env:
             - name: VELERO_SCRATCH_DIR
               value: /scratch
@@ -342,6 +256,9 @@ spec:
           emptyDir: {}
         - name: scratch
           emptyDir: {}
+        - name: encryption-key
+          secret:
+            secretName: test-secret
 ---
 # Source: velero/templates/backupstoragelocation.yaml
 apiVersion: velero.io/v1
@@ -358,11 +275,14 @@ spec:
   provider: velero.io/aws
   accessMode: ReadWrite
   objectStorage:
-    bucket: "test"
+    bucket: "velero-bucket"
   config:
     checksumAlgorithm: ""
-    region: "eu-west-3"
+    customerKeyEncryptionFile: "/encryption/test.key"
+    region: "fr-par"
     s3ForcePathStyle: "true"
+    s3Url: "https://s3.fr-par.scw.cloud"
+    serverSideEncryption: "AES256"
 ---
 # Source: velero/templates/schedule.yaml
 apiVersion: velero.io/v1

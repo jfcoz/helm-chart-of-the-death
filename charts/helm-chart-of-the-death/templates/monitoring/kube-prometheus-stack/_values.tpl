@@ -288,8 +288,10 @@ grafana:
     #  logging: true
   persistence:
     enabled: true
-    storageClassName: ceph-block
+    storageClassName: {{ include "common.storage.rwo" . }}
     size: 1Gi
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: search,sc-dashboard-volume,sc-datasources-volume
   deploymentStrategy:
     # Needed with ReadWriteOnce
     type: Recreate
@@ -564,8 +566,7 @@ prometheus:
             velero.io/exclude-from-backup: "true"
         {{- end }}
         spec:
-          storageClassName: ceph-block
-          #storageClassName: longhorn 
+          storageClassName: {{ include "common.storage.rwo" . }}
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:
@@ -640,7 +641,7 @@ alertmanager:
     storage:
       volumeClaimTemplate:
         spec:
-          storageClassName: ceph-block
+          storageClassName: {{ include "common.storage.rwo" . }}
           accessModes: ["ReadWriteOnce"]
           resources:
             requests:

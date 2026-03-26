@@ -941,30 +941,10 @@ data:
             docker.io/falcosecurity/k8s-metacollector
           )
         )
-    - macro: k8s_containers
-      override:
-        condition: append
-      condition: |
-        or (
-          k8s.ns.name = "rook-ceph"
-          and container.image.repository in (
-            quay.io/cephcsi/cephcsi,
-            quay.io/cephcsi/ceph-csi-operator,
-            registry.k8s.io/sig-storage/csi-snapshotter,
-            registry.k8s.io/sig-storage/csi-attacher,
-            registry.k8s.io/sig-storage/csi-provisioner,
-            registry.k8s.io/sig-storage/csi-resizer
-          )
-        )
     
     
     
     # list allowed_container_images_loading_kernel_module
-    - list: allowed_container_images_loading_kernel_module
-      override:
-        items: append
-      items:
-        - quay.io/cephcsi/cephcsi
 ---
 # Source: falco/charts/k8s-metacollector/templates/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -1322,7 +1302,7 @@ spec:
         app.kubernetes.io/instance: falco
       annotations:
         checksum/config: f1cbc24eff2871a9819757bc492197b4652b70c6e85cda4a09c9330450bf7769
-        checksum/rules: a94d2c2044f0e47582aacd1ccd6fe17963df8cb7749e698f498f2bd521f052ad
+        checksum/rules: 2e4c2b0a7c24b501a893051bec8bc99afd7778bbb5cce9e4b4c43eec39672630
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     spec:
       serviceAccountName: falco

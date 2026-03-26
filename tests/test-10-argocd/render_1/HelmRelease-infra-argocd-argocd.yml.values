@@ -66,3 +66,7 @@ server:
     tls: true
   metrics:
     enabled: false
+  resources:
+    requests:
+      cpu: 2m
+      memory: 50M

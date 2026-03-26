@@ -1,6 +1,13 @@
 {{/* values */}}
 {{- define "monitoring.loki.defaultValues" }}
 {{- $me := .Values.components.monitoring.loki }}
+
+{{- if eq .Values.cloudProvider "scw" }}
+global:
+  # Scaleway uses coredns but loki uses kube-dns by default: https://github.com/grafana/loki/issues/7287
+  dnsService: coredns
+{{- end }}
+
 loki:
   commonConfig:
     {{- if eq $me.config.deploymentMode "SingleBinary" }}

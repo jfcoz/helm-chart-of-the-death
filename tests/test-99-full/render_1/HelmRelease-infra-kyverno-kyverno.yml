@@ -47,6 +47,8 @@ spec:
             memory: 150M
       networkPolicy:
         enabled: true
+      podAnnotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
       replicas: 3
       serviceMonitor:
         enabled: true
@@ -58,7 +60,7 @@ spec:
         - labelSelector:
             matchLabels:
               app.kubernetes.io/component: admission-controller
-              app.kubernetes.io/instance: all-in-one
+              app.kubernetes.io/instance: '{{ .Release.Name }}'
           maxSkew: 1
           topologyKey: topology.kubernetes.io/zone
           whenUnsatisfiable: DoNotSchedule
@@ -84,6 +86,8 @@ spec:
         eventTypes:
           - PolicyApplied
     reportsController:
+      podAnnotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
       resources:
         limits:
           memory: 200Mi
