@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: k8s-monitoring
+  name: datadog
   namespace: {{ $me.namespace }}
   annotations:
     {{- if $me.helmResourcePolicyKeep }}

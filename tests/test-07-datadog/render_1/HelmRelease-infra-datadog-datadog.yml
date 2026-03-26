@@ -3,29 +3,22 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: k8s-monitoring
+  name: datadog
   namespace: infra-datadog
   annotations:
     helm.sh/resource-policy: keep
 spec:
-  dependsOn:
-    - name: loki
-      namespace: infra-loki
-    - name: kyverno
-      namespace: infra-kyverno
   # include common.fluxcd.release
   install:
     crds: Create
-    disableSchemaValidation: true
     remediation:
       retries: 10
   interval: 1h
   test:
-    enable: false
+    enable: true
   timeout: 5m
   upgrade:
     crds: CreateReplace
-    disableSchemaValidation: true
     remediation:
       retries: 3
   chart:
@@ -58,7 +51,7 @@ spec:
         rollingUpdate:
           maxUnavailable: 50%
     datadog:
-      apiKey:
+      apiKey: 0123456789abcdef0123456789abcdef
       clusterName: change-me
       containerExcludeLogs: image:gke.gcr.io/event-exporter
       logLevel: ERROR
