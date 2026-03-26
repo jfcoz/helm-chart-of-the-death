@@ -14,11 +14,23 @@ automountServiceAccountToken: true
 ---
 # Source: velero/templates/extra-manifests.yaml
 apiVersion: v1
-data:
-  test.key: c3VwZXJfc2VjcmV0
+kind: Secret
+metadata:
+  name: cloud-credentials
+stringData:
+  cloud: |
+    [default]
+    aws_access_key_id=test
+    aws_secret_access_key=test
+type: Opaque
+---
+# Source: velero/templates/extra-manifests.yaml
+apiVersion: v1
 kind: Secret
 metadata:
   name: test-secret
+stringData:
+  test.key: very_secret
 type: Opaque
 ---
 # Source: velero/templates/repo-maintenance-configmap.yaml

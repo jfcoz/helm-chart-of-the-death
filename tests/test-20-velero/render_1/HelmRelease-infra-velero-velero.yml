@@ -51,11 +51,21 @@ spec:
       existingSecret: cloud-credentials
     extraObjects:
       - apiVersion: v1
-        data:
-          test.key: c3VwZXJfc2VjcmV0
+        kind: Secret
+        metadata:
+          name: cloud-credentials
+        stringData:
+          cloud: |
+            [default]
+            aws_access_key_id=test
+            aws_secret_access_key=test
+        type: Opaque
+      - apiVersion: v1
         kind: Secret
         metadata:
           name: test-secret
+        stringData:
+          test.key: very_secret
         type: Opaque
     extraVolumeMounts:
       - mountPath: /encryption

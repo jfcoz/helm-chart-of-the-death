@@ -33,7 +33,17 @@ components:
         - apiVersion: v1
           kind: Secret
           metadata:
+            name: cloud-credentials
+          type: Opaque
+          stringData:
+            cloud: |
+              [default]
+              aws_access_key_id=test
+              aws_secret_access_key=test
+        - apiVersion: v1
+          kind: Secret
+          metadata:
             name: test-secret
           type: Opaque
-          data:
-            test.key: c3VwZXJfc2VjcmV0
+          stringData:
+            test.key: very_secret
