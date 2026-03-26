@@ -1,0 +1,32 @@
+agents:
+  containers:
+    agent:
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+    processAgent:
+      resources:
+        requests:
+          cpu: 10m
+          memory: 64Mi
+  priorityClassCreate: true
+  priorityClassName: datadog
+  tolerations:
+    - operator: Exists
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 50%
+datadog:
+  apiKey:
+  clusterName: change-me
+  containerExcludeLogs: image:gke.gcr.io/event-exporter
+  logLevel: ERROR
+  logs:
+    containerCollectAll: false
+    enabled: false
+  networkPolicy:
+    create: true
+  operator:
+    enabled: false
+  site: datadoghq.eu

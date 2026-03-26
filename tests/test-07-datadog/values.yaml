@@ -13,3 +13,6 @@ components:
   monitoring:
     datadog:
       managed: true
+      config:
+        # fake api key for test
+        apiKey: 0123456789abcdef0123456789abcdef

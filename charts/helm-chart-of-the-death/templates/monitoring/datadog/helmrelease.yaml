@@ -1,0 +1,40 @@
+{{- $me := .Values.components.monitoring.datadog }}
+{{- if include "common.managed" $me }}
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: k8s-monitoring
+  namespace: {{ $me.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+spec:
+  {{- if or
+           (include "common.used" .Values.components.monitoring.loki)
+           (include "common.used" .Values.components.security.kyverno)
+  }}
+  dependsOn:
+    {{- if include "common.used" .Values.components.monitoring.loki }}
+    - name: loki
+      namespace: {{ .Values.components.monitoring.loki.namespace }}
+    {{- end }}
+    {{- if include "common.used" .Values.components.security.kyverno }}
+    - name: kyverno
+      namespace: {{ .Values.components.security.kyverno.namespace }}
+    {{- end }}
+  {{- end }}
+  # include common.fluxcd.release
+  {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
+  chart:
+    spec:
+      chart: {{ $me.chart.name }}
+      version: {{ $me.chart.version | quote }}
+      sourceRef:
+        kind: HelmRepository
+        name: {{ $me.chart.repository | quote }}
+        namespace: {{ $.Release.Namespace }}
+      interval: 1h
+  values:
+    {{- include "monitoring.datadog.mergedValues" . | nindent 4 }}
+{{- end }}

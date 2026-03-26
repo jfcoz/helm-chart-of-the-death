@@ -1,0 +1,65 @@
+---
+# Source: helm-chart-of-the-death/templates/monitoring/datadog/helmrelease.yaml
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: k8s-monitoring
+  namespace: infra-datadog
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  # include common.fluxcd.release
+  install:
+    crds: Create
+    remediation:
+      retries: 10
+  interval: 1h
+  test:
+    enable: true
+  timeout: 5m
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  chart:
+    spec:
+      chart: datadog
+      version: "3.193.0"
+      sourceRef:
+        kind: HelmRepository
+        name: "datadog"
+        namespace: flux-system
+      interval: 1h
+  values:
+    agents:
+      containers:
+        agent:
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+        processAgent:
+          resources:
+            requests:
+              cpu: 10m
+              memory: 64Mi
+      priorityClassCreate: true
+      priorityClassName: datadog
+      tolerations:
+        - operator: Exists
+      updateStrategy:
+        rollingUpdate:
+          maxUnavailable: 50%
+    datadog:
+      apiKey: 0123456789abcdef0123456789abcdef
+      clusterName: change-me
+      containerExcludeLogs: image:gke.gcr.io/event-exporter
+      logLevel: ERROR
+      logs:
+        containerCollectAll: false
+        enabled: false
+      networkPolicy:
+        create: true
+      operator:
+        enabled: false
+      site: datadoghq.eu

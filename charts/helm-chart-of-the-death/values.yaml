@@ -147,6 +147,9 @@ components:
         repository: datadog
       release:
         timeout: 5m
+      config: {}
+        # https://app.datadoghq.eu/organization-settings/api-keys
+        # apiKey: change_me
       values: {}
 
     keda:

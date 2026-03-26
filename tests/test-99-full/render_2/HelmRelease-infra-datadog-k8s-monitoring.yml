@@ -1,0 +1,1270 @@
+---
+# Source: datadog/templates/agent-priorityclass.yaml
+apiVersion: scheduling.k8s.io/v1
+description: Used for Datadog Agent Components to be scheduled with higher priority.
+kind: PriorityClass
+metadata:
+  name: datadog
+preemptionPolicy: PreemptLowerPriority
+value: 1e+09
+---
+# Source: datadog/templates/agent-clusterchecks-network-policy.yaml
+apiVersion: "networking.k8s.io/v1"
+kind: NetworkPolicy
+metadata:
+  name: k8s-monitoring-datadog-clusterchecks
+  namespace: infra-datadog
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+spec:
+  podSelector:
+    matchLabels:
+      app: k8s-monitoring-datadog-clusterchecks
+  policyTypes:
+    - Ingress
+    - Egress
+  egress:
+    - # Egress to
+      # * Datadog intake
+      # * Kube API server
+      ports:
+        - port: 443
+    - # Egress to cluster agent
+      ports:
+        - port: 5005
+      to:
+        - podSelector:
+            matchLabels:
+              app: k8s-monitoring-datadog-cluster-agent
+
+# The cluster check runners are susceptible to an issue connecting to
+# any service that is annotated with auto-discovery annotations.
+#
+# When a user wants to add a check on such a service, they need to
+# * annotate the service
+# * add an ingress policy from the CLC on its own pod
+# In order to not ask end-users to inject NetworkPolicy on the agent in
+# the agent namespace, the agent must be allowed to probe any service.
+    - {} # Egress to anything for service checks
+---
+# Source: datadog/templates/agent-network-policy.yaml
+apiVersion: "networking.k8s.io/v1"
+kind: NetworkPolicy
+metadata:
+  name: k8s-monitoring-datadog
+  namespace: infra-datadog
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+spec:
+  podSelector:
+    matchLabels:
+      app: k8s-monitoring-datadog
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - # Ingress for dogstatsd
+      ports:
+        - port: 8125
+          protocol: UDP
+  egress:
+    - # Egress to
+      # * Datadog intake
+      # * Kube API server
+      ports:
+        - port: 443
+# The agents are susceptible to an issue connecting to any pod that
+# is annotated with auto-discovery annotations.
+#
+# When a user wants to add a check to such a pod, they need to
+# * annotate the pod
+# * add an ingress policy from the agent on its own pod
+# In order to not ask end-users to inject NetworkPolicy on the agent in
+# the agent namespace, the agent must be allowed to probe any pod.
+    - {} # Egress to anything for checks
+---
+# Source: datadog/templates/cluster-agent-network-policy.yaml
+apiVersion: "networking.k8s.io/v1"
+kind: NetworkPolicy
+metadata:
+  name: k8s-monitoring-datadog-cluster-agent
+  namespace: infra-datadog
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+spec:
+  podSelector:
+    matchLabels:
+      app: k8s-monitoring-datadog-cluster-agent
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - # Ingress from the node agents (for the prometheus check)
+      ports:
+        - port: 5000
+      from:
+        - podSelector:
+            matchLabels:
+              app: k8s-monitoring-datadog
+    - # Ingress from node agents (for the metadata provider), other cluster agents and from cluster checks runner
+      ports:
+        - port: 5005
+      from:
+        - podSelector:
+            matchLabels:
+              app: k8s-monitoring-datadog
+        - podSelector:
+            matchLabels:
+              app: k8s-monitoring-datadog-cluster-agent
+    - ports:
+        - port: 8000
+  egress:
+    - # Egress to other cluster agents
+      ports:
+        - port: 5005
+      to:
+        - podSelector:
+            matchLabels:
+              app: k8s-monitoring-datadog-cluster-agent
+    - # Egress to
+      # * Datadog intake
+      # * Kube API server
+      # * DNS
+      ports:
+        - port: 443
+        - port: 6443
+        - port: 53
+          protocol: UDP
+---
+# Source: datadog/templates/cluster-agent-rbac.yaml
+apiVersion: v1
+kind: ServiceAccount
+automountServiceAccountToken: true
+metadata:
+  labels:
+    app: "k8s-monitoring-datadog"
+    chart: "datadog-3.193.0"
+    heritage: "Helm"
+    release: "k8s-monitoring"
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+  name: k8s-monitoring-datadog-cluster-agent
+  namespace: infra-datadog
+---
+# Source: datadog/templates/rbac.yaml
+apiVersion: v1
+kind: ServiceAccount
+automountServiceAccountToken: true
+metadata:
+  name: k8s-monitoring-datadog
+  namespace: infra-datadog
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7" # end range $role := .Values.datadog.secretBackend.roles
+---
+# Source: datadog/templates/secret-api-key.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: k8s-monitoring-datadog
+  namespace: infra-datadog
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+type: Opaque
+data:
+  api-key: "TUlTU0lORw=="
+---
+# Source: datadog/templates/secret-cluster-agent-token.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: k8s-monitoring-datadog-cluster-agent
+  namespace: infra-datadog
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+type: Opaque
+data:
+  token: "eVk1cGR0a3JCdGtLTVc0NUR1eEFsRk9TbkV6ZVBsTmc="
+---
+# Source: datadog/templates/cluster-agent-confd-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k8s-monitoring-datadog-cluster-agent-confd
+  namespace: infra-datadog
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+  annotations:
+    checksum/confd-config: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
+data:
+  kubernetes_state_core.yaml.default: |-
+    init_config:
+    instances:
+      - collectors:
+        - secrets
+        - configmaps
+        - nodes
+        - pods
+        - services
+        - resourcequotas
+        - replicationcontrollers
+        - limitranges
+        - persistentvolumeclaims
+        - persistentvolumes
+        - namespaces
+        - endpoints
+        - daemonsets
+        - deployments
+        - replicasets
+        - statefulsets
+        - controllerrevisions
+        - cronjobs
+        - jobs
+        - horizontalpodautoscalers
+        - poddisruptionbudgets
+        - storageclasses
+        - volumeattachments
+        - ingresses
+        labels_as_tags:
+          {}
+        annotations_as_tags:
+          {}
+  
+  kubernetes_apiserver.yaml: |-
+    init_config:
+    instances:
+      -
+        filtering_enabled: false
+        unbundle_events: false
+---
+# Source: datadog/templates/datadog-endpoint-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k8s-monitoring-endpoint-config
+  namespace: infra-datadog
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+    datadoghq.com/component: endpoint-config
+data:
+  api-key-secret-name: "k8s-monitoring-datadog"
+  dd-site: "datadoghq.eu"
+---
+# Source: datadog/templates/install_info-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k8s-monitoring-datadog-installinfo
+  namespace: infra-datadog
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+  annotations:
+    checksum/install_info: 26ce4a6cb22ca13e2e995cfd5ac067379e202e3420f967d589d210ca60a50e02
+data:
+  install_info: |
+    ---
+    install_method:
+      tool: helm
+      tool_version: Helm
+      installer_version: datadog-3.193.0
+---
+# Source: datadog/templates/kpi-telemetry-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: k8s-monitoring-datadog-kpi-telemetry-configmap
+  namespace: infra-datadog
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+data:
+  install_type: k8s_manual
+  install_id: "25ce0d36-6d83-49c3-8b7e-0b1747ea4e3e"
+  install_time: "1774905558"
+---
+# Source: datadog/templates/cluster-agent-rbac.yaml
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: ClusterRole
+metadata:
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+  name: k8s-monitoring-datadog-cluster-agent
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - services
+  - endpoints
+  - pods
+  - nodes
+  - namespaces
+  - componentstatuses
+  - limitranges
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+- apiGroups:
+  - "discovery.k8s.io"
+  resources:
+  - endpointslices
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups: ["quota.openshift.io"]
+  resources:
+  - clusterresourcequotas
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - "autoscaling"
+  resources:
+  - horizontalpodautoscalers
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  resourceNames:
+  - k8s-monitoring-datadogtoken  # Kubernetes event collection state
+  - datadogtoken  # Kept for backward compatibility with agent <7.37.0
+  verbs:
+  - get
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  resourceNames:
+  - k8s-monitoring-datadog-leader-election  # Leader election token
+  - datadog-leader-election  # Kept for backward compatibility with agent <7.37.0
+  verbs:
+  - get
+  - update
+- apiGroups:
+  - "coordination.k8s.io"
+  resources:
+  - leases
+  resourceNames:
+  - k8s-monitoring-datadog-leader-election  # Leader election token
+  verbs:
+  - get
+  - update
+- apiGroups:
+  - "coordination.k8s.io"
+  resources:
+  - leases
+  verbs:
+  - create
+- apiGroups:  # To create the leader election token and hpa events
+  - ""
+  resources:
+  - configmaps
+  - events
+  verbs:
+  - create
+- nonResourceURLs:
+  - "/version"
+  - "/healthz"
+  - "/metrics"
+  verbs:
+  - get
+- apiGroups:  # to get the kube-system namespace UID and generate a cluster ID
+  - ""
+  resources:
+  - namespaces
+  resourceNames:
+  - "kube-system"
+  verbs:
+  - get
+- apiGroups:  # To create the cluster-id configmap
+  - ""
+  resources:
+  - configmaps
+  resourceNames:
+  - "datadog-cluster-id"
+  verbs:
+  - create
+  - get
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumes
+  - persistentvolumeclaims
+  - serviceaccounts
+  verbs:
+  - list
+  - get
+  - watch
+- apiGroups:
+  - "apps"
+  resources:
+  - deployments
+  - replicasets
+  - daemonsets
+  - statefulsets
+  verbs:
+  - list
+  - get
+  - watch
+- apiGroups:
+  - "batch"
+  resources:
+  - cronjobs
+  - jobs
+  verbs:
+  - list
+  - get
+  - watch
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - ingresses
+  - networkpolicies
+  verbs:
+  - list
+  - get
+  - watch
+- apiGroups:
+  - "rbac.authorization.k8s.io"
+  resources:
+  - roles
+  - rolebindings
+  - clusterroles
+  - clusterrolebindings
+  verbs:
+  - list
+  - get
+  - watch
+- apiGroups:
+  - "storage.k8s.io"
+  resources:
+  - storageclasses
+  verbs:
+  - list
+  - get
+  - watch
+- apiGroups:
+  - autoscaling.k8s.io
+  resources:
+  - verticalpodautoscalers
+  verbs:
+  - list
+  - get
+  - watch
+- apiGroups:
+    - apiextensions.k8s.io
+  resources:
+    - customresourcedefinitions
+  verbs:
+    - list
+    - get
+    - watch
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - validatingwebhookconfigurations
+  - mutatingwebhookconfigurations
+  resourceNames:
+    - "datadog-webhook"
+  verbs: ["get", "list", "watch", "update", "delete"]
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - validatingwebhookconfigurations
+  - mutatingwebhookconfigurations
+  verbs: ["create"]
+- apiGroups: ["batch"]
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get"]
+- apiGroups: ["apps"]
+  resources: ["statefulsets", "replicasets", "deployments", "daemonsets"]
+  verbs: ["get"]
+- apiGroups: [""]
+  resources: ["replicationcontrollers"]
+  verbs: ["get"]
+- apiGroups:
+  - "security.openshift.io"
+  resources:
+  - securitycontextconstraints
+  verbs:
+  - use
+  resourceNames:
+  - k8s-monitoring-datadog-cluster-agent
+  - hostnetwork
+- apiGroups:
+  - "policy"
+  resources:
+  - poddisruptionbudgets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - "datadoghq.com"
+  - eks.amazonaws.com
+  - karpenter.azure.com
+  - karpenter.k8s.aws
+  - karpenter.sh
+  resources:
+  - "*"
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - rollouts
+  - applications
+  - applicationsets
+  verbs:
+  - list
+  - watch
+  - get
+- apiGroups:
+  - source.toolkit.fluxcd.io
+  resources:
+  - buckets
+  - helmcharts
+  - externalartifacts
+  - gitrepositories
+  - helmrepositories
+  - ocirepositories
+  verbs:
+  - list
+  - watch
+  - get
+- apiGroups:
+  - kustomize.toolkit.fluxcd.io
+  resources:
+  - kustomizations
+  verbs:
+  - list
+  - watch
+  - get
+---
+# Source: datadog/templates/kube-state-metrics-core-rbac.yaml
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: ClusterRole
+metadata:
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+  name: k8s-monitoring-datadog-ksm-core
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  - configmaps
+  - nodes
+  - pods
+  - services
+  - resourcequotas
+  - replicationcontrollers
+  - limitranges
+  - persistentvolumeclaims
+  - persistentvolumes
+  - namespaces
+  - endpoints
+  - events
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - extensions
+  resources:
+  - daemonsets
+  - deployments
+  - replicasets
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - statefulsets
+  - daemonsets
+  - deployments
+  - replicasets
+  - controllerrevisions
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs
+  - jobs
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - autoscaling
+  resources:
+  - horizontalpodautoscalers
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  - volumeattachments
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - ingresses
+  verbs:
+  - list
+  - watch
+- apiGroups:
+    - apiextensions.k8s.io
+  resources:
+    - customresourcedefinitions
+  verbs:
+    - list
+    - watch
+---
+# Source: datadog/templates/rbac.yaml
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: ClusterRole
+metadata:
+  name: k8s-monitoring-datadog
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+rules:
+- nonResourceURLs:
+  - "/metrics"
+  - "/metrics/slis"
+  verbs:
+  - get
+- apiGroups:  # Kubelet connectivity
+  - ""
+  resources:
+  - nodes/metrics
+  - nodes/spec
+  
+  - nodes/proxy
+  
+  - nodes/stats
+  verbs:
+  - get
+- apiGroups:  # leader election check
+  - ""
+  resources:
+  - endpoints
+  verbs:
+  - get
+- apiGroups:
+  - "security.openshift.io"
+  resources:
+  - securitycontextconstraints
+  verbs:
+  - use
+  resourceNames:
+  - k8s-monitoring-datadog
+  - hostaccess
+  - privileged
+- apiGroups:  # leader election check
+  - "coordination.k8s.io"
+  resources:
+  - leases
+  verbs:
+  - get
+- apiGroups:  # EKS kube_scheduler and kube_controller_manager control plane metrics
+  - "metrics.eks.amazonaws.com"
+  resources:
+  - kcm/metrics
+  - ksh/metrics
+  verbs:
+  - get
+---
+# Source: datadog/templates/cluster-agent-rbac.yaml
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+  name: k8s-monitoring-datadog-cluster-agent
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: k8s-monitoring-datadog-cluster-agent
+subjects:
+  - kind: ServiceAccount
+    name: k8s-monitoring-datadog-cluster-agent
+    namespace: infra-datadog
+---
+# Source: datadog/templates/kube-state-metrics-core-rbac.yaml
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+  name: k8s-monitoring-datadog-ksm-core
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: k8s-monitoring-datadog-ksm-core
+subjects:
+  - kind: ServiceAccount
+    name: k8s-monitoring-datadog-cluster-agent
+    namespace: infra-datadog
+---
+# Source: datadog/templates/rbac.yaml
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: ClusterRoleBinding
+metadata:
+  name: k8s-monitoring-datadog
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: k8s-monitoring-datadog
+subjects:
+  - kind: ServiceAccount
+    name: k8s-monitoring-datadog
+    namespace: infra-datadog
+---
+# Source: datadog/templates/cluster-agent-rbac.yaml
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: Role
+metadata:
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+  name: k8s-monitoring-datadog-cluster-agent-main
+  namespace: infra-datadog
+rules:
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list", "watch", "update", "create"]
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "update", "create"]
+---
+# Source: datadog/templates/dca-helm-values-rbac.yaml
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: Role
+metadata:
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+  name: k8s-monitoring-datadog-dca-flare
+  namespace: infra-datadog
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  - configmaps
+  verbs:
+  - get
+  - list
+---
+# Source: datadog/templates/cluster-agent-rbac.yaml
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: RoleBinding
+metadata:
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+  name: "k8s-monitoring-datadog-cluster-agent-main"
+  namespace: infra-datadog
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: k8s-monitoring-datadog-cluster-agent-main
+subjects:
+  - kind: ServiceAccount
+    name: k8s-monitoring-datadog-cluster-agent
+    namespace: infra-datadog
+---
+# Source: datadog/templates/dca-helm-values-rbac.yaml
+apiVersion: "rbac.authorization.k8s.io/v1"
+kind: RoleBinding
+metadata:
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+  name: k8s-monitoring-datadog-dca-flare
+  namespace: infra-datadog
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: k8s-monitoring-datadog-dca-flare
+subjects:
+  - kind: ServiceAccount
+    name: k8s-monitoring-datadog-cluster-agent
+    namespace: infra-datadog
+---
+# Source: datadog/templates/agent-services.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-monitoring-datadog-cluster-agent
+  namespace: infra-datadog
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+spec:
+  type: ClusterIP
+  selector:
+    app: k8s-monitoring-datadog-cluster-agent
+  ports:
+  - port: 5005
+    name: agentport
+    protocol: TCP
+---
+# Source: datadog/templates/agent-services.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-monitoring-datadog-cluster-agent-admission-controller
+  namespace: infra-datadog
+  labels:
+    app: "k8s-monitoring-datadog"
+    chart: "datadog-3.193.0"
+    release: "k8s-monitoring"
+    heritage: "Helm"
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+spec:
+  selector:
+    app: k8s-monitoring-datadog-cluster-agent
+  ports:
+  - port: 443
+    targetPort: 8000
+    name: datadog-webhook
+    protocol: TCP
+---
+# Source: datadog/templates/agent-services.yaml
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: k8s-monitoring-datadog
+  namespace: infra-datadog
+  labels:
+    app: "k8s-monitoring-datadog"
+    chart: "datadog-3.193.0"
+    release: "k8s-monitoring"
+    heritage: "Helm"
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: "k8s-monitoring"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: "7"
+spec:
+  selector:
+    app: k8s-monitoring-datadog
+  ports:
+    - protocol: UDP
+      port: 8125
+      targetPort: 8125
+      name: dogstatsdport
+    - protocol: TCP
+      port: 8126
+      targetPort: 8126
+      name: traceport
+  internalTrafficPolicy: Local
+---
+# Source: datadog/templates/cluster-agent-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-monitoring-datadog-cluster-agent
+  namespace: infra-datadog
+  labels:
+    helm.sh/chart: 'datadog-3.193.0'
+    app.kubernetes.io/name: "k8s-monitoring-datadog"
+    app.kubernetes.io/instance: k8s-monitoring-datadog-cluster-agent
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: infra--datadog-k8s--monitoring--datadog
+    app.kubernetes.io/version: "7"
+    app.kubernetes.io/component: cluster-agent
+    agent.datadoghq.com/component: cluster-agent
+    
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: k8s-monitoring-datadog-cluster-agent
+  template:
+    metadata:
+      labels:
+        
+        app.kubernetes.io/name: "k8s-monitoring-datadog"
+        app.kubernetes.io/instance: k8s-monitoring-datadog-cluster-agent
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/part-of: infra--datadog-k8s--monitoring--datadog
+        app.kubernetes.io/component: cluster-agent
+        admission.datadoghq.com/enabled: "false"
+        app: k8s-monitoring-datadog-cluster-agent
+        agent.datadoghq.com/component: cluster-agent
+        
+      name: k8s-monitoring-datadog-cluster-agent
+      annotations:
+        checksum/clusteragent_token: 65eb2ae33a2fe4ae869990d62b0a1687a4fd49a471e496a9002fe597e53c6dac
+        checksum/clusteragent-configmap: c70a1ec6a016353cab7591bfd4a867793e03f486f56eb2a3f9769f913fa909d7
+        checksum/api_key: ebf95cc887d2186679399f4b162c9fb7daec84619e417c71ef323595412deac8
+        checksum/application_key: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+        checksum/install_info: 26ce4a6cb22ca13e2e995cfd5ac067379e202e3420f967d589d210ca60a50e02
+    spec:
+      serviceAccountName: k8s-monitoring-datadog-cluster-agent
+      automountServiceAccountToken: true
+      initContainers:
+      - name: init-volume
+        image: "registry.datadoghq.com/cluster-agent:7.76.1"
+        imagePullPolicy: IfNotPresent
+        command:
+          - cp
+          - -r
+        args:
+          - /etc/datadog-agent
+          - /opt
+        volumeMounts:
+          - name: config
+            mountPath: /opt/datadog-agent
+      containers:
+      - name: cluster-agent
+        image: "registry.datadoghq.com/cluster-agent:7.76.1"
+        imagePullPolicy: IfNotPresent
+        resources:
+          {}
+        ports:
+        - containerPort: 5005
+          name: agentport
+          protocol: TCP
+        - containerPort: 5000
+          name: agentmetrics
+          protocol: TCP
+        - containerPort: 8000
+          name: datadog-webhook
+          protocol: TCP
+        env:
+          - name: DD_POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: DD_CLUSTER_AGENT_SERVICE_ACCOUNT_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.serviceAccountName
+          - name: DD_HEALTH_PORT
+            value: "5556"
+          - name: DD_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: "k8s-monitoring-datadog"
+                key: api-key
+                optional: true
+          
+          - name: DD_CLUSTER_NAME
+            value: "change-me"
+          - name: KUBERNETES
+            value: "yes"
+          - name: DD_SITE
+            value: "datadoghq.eu"
+          - name: DD_CSI_ENABLED
+            value: "false"
+          - name: DD_LANGUAGE_DETECTION_ENABLED
+            value: "false"
+          - name: DD_LANGUAGE_DETECTION_REPORTING_ENABLED
+            value: "false"
+          - name: DD_ADMISSION_CONTROLLER_ENABLED
+            value: "true"
+          - name: DD_ADMISSION_CONTROLLER_VALIDATION_ENABLED
+            value: "true"
+          - name: DD_ADMISSION_CONTROLLER_MUTATION_ENABLED
+            value: "true"
+          - name: DD_TRACE_AGENT_HOST_SOCKET_PATH
+            value: "/var/run/datadog"
+          - name: DD_DOGSTATSD_HOST_SOCKET_PATH
+            value: "/var/run/datadog"
+          - name: DD_DOGSTATSD_SOCKET
+            value: "/var/run/datadog/dsd.socket"
+          - name: DD_APM_RECEIVER_SOCKET
+            value: "/var/run/datadog/apm.socket"
+          - name: DD_ADMISSION_CONTROLLER_WEBHOOK_NAME
+            value: "datadog-webhook"
+          - name: DD_ADMISSION_CONTROLLER_MUTATE_UNLABELLED
+            value: "false"
+          - name: DD_ADMISSION_CONTROLLER_SERVICE_NAME
+            value: k8s-monitoring-datadog-cluster-agent-admission-controller
+          - name: DD_ADMISSION_CONTROLLER_INJECT_CONFIG_MODE
+            value: socket
+          - name: DD_ADMISSION_CONTROLLER_INJECT_CONFIG_LOCAL_SERVICE_NAME
+            value: k8s-monitoring-datadog
+          - name: DD_ADMISSION_CONTROLLER_FAILURE_POLICY
+            value: "Ignore"
+          - name: DD_ADMISSION_CONTROLLER_PORT
+            value: "8000"
+          - name: DD_ADMISSION_CONTROLLER_CONTAINER_REGISTRY
+            value: "registry.datadoghq.com"
+          
+          
+          - name: DD_REMOTE_CONFIGURATION_ENABLED
+            value: "false"
+          - name: DD_CLUSTER_CHECKS_ENABLED
+            value: "true"
+          - name: DD_EXTRA_CONFIG_PROVIDERS
+            value: "kube_endpoints kube_services"
+          - name: DD_EXTRA_LISTENERS
+            value: "kube_endpoints kube_services"
+          - name: DD_LOG_LEVEL
+            value: "ERROR"
+          - name: DD_LEADER_ELECTION
+            value: "true"
+          - name: DD_LEADER_ELECTION_DEFAULT_RESOURCE
+            value: "configmap"
+          - name: DD_LEADER_LEASE_NAME
+            value: k8s-monitoring-datadog-leader-election
+          - name: DD_CLUSTER_AGENT_TOKEN_NAME
+            value: k8s-monitoring-datadogtoken
+          - name: DD_COLLECT_KUBERNETES_EVENTS
+            value: "true"
+          - name: DD_KUBERNETES_USE_ENDPOINT_SLICES
+            value: "false"
+          - name: DD_KUBERNETES_KUBE_SERVICE_IGNORE_READINESS
+            value: "false"
+          - name: DD_KUBERNETES_EVENTS_SOURCE_DETECTION_ENABLED
+            value: "false"
+          - name: DD_CLUSTER_AGENT_KUBERNETES_SERVICE_NAME
+            value: k8s-monitoring-datadog-cluster-agent
+          - name: DD_CLUSTER_AGENT_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: k8s-monitoring-datadog-cluster-agent
+                key: token
+          - name: DD_CLUSTER_AGENT_COLLECT_KUBERNETES_TAGS
+            value: "false"
+          - name: DD_KUBE_RESOURCES_NAMESPACE
+            value: infra-datadog
+          - name: CHART_RELEASE_NAME
+            value: "k8s-monitoring"
+          - name: AGENT_DAEMONSET
+            value: k8s-monitoring-datadog
+          - name: CLUSTER_AGENT_DEPLOYMENT
+            value: k8s-monitoring-datadog-cluster-agent
+          - name: DD_ORCHESTRATOR_EXPLORER_ENABLED
+            value: "true"
+          - name: DD_ORCHESTRATOR_EXPLORER_CONTAINER_SCRUBBING_ENABLED
+            value: "true"
+          - name: DD_CLUSTER_AGENT_LANGUAGE_DETECTION_PATCHER_ENABLED
+            value: "false"
+          - name: DD_INSTRUMENTATION_INSTALL_TIME
+            valueFrom:
+              configMapKeyRef:
+                name: k8s-monitoring-datadog-kpi-telemetry-configmap
+                key: install_time
+          - name: DD_INSTRUMENTATION_INSTALL_ID
+            valueFrom:
+              configMapKeyRef:
+                name: k8s-monitoring-datadog-kpi-telemetry-configmap
+                key: install_id
+          - name: DD_INSTRUMENTATION_INSTALL_TYPE
+            valueFrom:
+              configMapKeyRef:
+                name: k8s-monitoring-datadog-kpi-telemetry-configmap
+                key: install_type
+                              
+        livenessProbe:
+          failureThreshold: 6
+          httpGet:
+            path: /live
+            port: 5556
+            scheme: HTTP
+          initialDelaySeconds: 15
+          periodSeconds: 15
+          successThreshold: 1
+          timeoutSeconds: 5
+        readinessProbe:
+          failureThreshold: 6
+          httpGet:
+            path: /ready
+            port: 5556
+            scheme: HTTP
+          initialDelaySeconds: 15
+          periodSeconds: 15
+          successThreshold: 1
+          timeoutSeconds: 5
+        startupProbe:
+          failureThreshold: 6
+          httpGet:
+            path: /startup
+            port: 5556
+            scheme: HTTP
+          initialDelaySeconds: 15
+          periodSeconds: 15
+          successThreshold: 1
+          timeoutSeconds: 5
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
+        volumeMounts:
+          - name: datadogrun
+            mountPath: /opt/datadog-agent/run
+            readOnly: false
+          - name: varlog
+            mountPath: /var/log/datadog
+            readOnly: false
+          - name: tmpdir
+            mountPath: /tmp
+            readOnly: false
+          - name: installinfo
+            subPath: install_info
+            mountPath: /etc/datadog-agent/install_info
+            readOnly: true
+          - name: confd
+            mountPath: /conf.d
+            readOnly: true
+          - name: config
+            mountPath: /etc/datadog-agent
+      volumes:
+        - name: datadogrun
+          emptyDir: {}
+        - name: varlog
+          emptyDir: {}
+        - name: tmpdir
+          emptyDir: {}
+        - name: installinfo
+          configMap:
+            name: k8s-monitoring-datadog-installinfo
+        - name: confd
+          configMap:
+            name: k8s-monitoring-datadog-cluster-agent-confd
+            items:
+            - key: kubernetes_state_core.yaml.default
+              path: kubernetes_state_core.d/kubernetes_state_core.yaml.default
+            - key: kubernetes_apiserver.yaml
+              path: kubernetes_apiserver.d/kubernetes_apiserver.yaml
+        - name: config
+          emptyDir: {}
+      affinity:
+        # Prefer scheduling the cluster agents on different nodes
+        # to guarantee that the standby instance can immediately take the lead from a leader running of a faulty node.
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 50
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: k8s-monitoring-datadog-cluster-agent
+              topologyKey: kubernetes.io/hostname
+      nodeSelector:
+        kubernetes.io/os: linux
