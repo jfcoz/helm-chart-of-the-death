@@ -210,7 +210,7 @@ metadata:
     app.kubernetes.io/version: "7"
 type: Opaque
 data:
-  token: "VEFudHIwQTFPclFJekZMa0JWZzloUjRTNVZ4UjhxaWk="
+  token: "TTZWR2tXZWVZZHRrMTUyclNwOG1GZVJrWDgyQUV4MjQ="
 ---
 # Source: datadog/templates/cluster-agent-confd-configmap.yaml
 apiVersion: v1
@@ -320,8 +320,8 @@ metadata:
     app.kubernetes.io/version: "7"
 data:
   install_type: k8s_manual
-  install_id: "00197d90-d605-42a1-9f84-f65f92b409cb"
-  install_time: "1774905744"
+  install_id: "3b48801c-e624-4616-a917-510c242d2f62"
+  install_time: "1774905846"
 ---
 # Source: datadog/templates/cluster-agent-rbac.yaml
 apiVersion: "rbac.authorization.k8s.io/v1"
@@ -1013,7 +1013,7 @@ spec:
         
       name: datadog
       annotations:
-        checksum/clusteragent_token: 0ababd08cd8b60147c09512452d73433241f20c178305a32f2899e716096f80d
+        checksum/clusteragent_token: a679240635a36f1cdb9989fede7c8ff461e752877527636fae298d75e4728870
         checksum/api_key: cec22ed35dd3762b12b042263528827d5f0cb5e5256771cb158ef8c4f450a9f5
         checksum/install_info: 26ce4a6cb22ca13e2e995cfd5ac067379e202e3420f967d589d210ca60a50e02
         checksum/autoconf-config: 74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b
@@ -1520,7 +1520,7 @@ spec:
         
       name: datadog-cluster-agent
       annotations:
-        checksum/clusteragent_token: c7de3e26faba88d374f65a55c228f18d04bb8c49f7ba48df98e7f96a10a86109
+        checksum/clusteragent_token: 96b6a35618255ebdbbbdbe1f1a436e80c68fa8f47fe48e40ed6b051f34739304
         checksum/clusteragent-configmap: ee7668990c4e510f99a9227c8f4897c688c9faf6dfcc33042a094020e5d8dbad
         checksum/api_key: cec22ed35dd3762b12b042263528827d5f0cb5e5256771cb158ef8c4f450a9f5
         checksum/application_key: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
