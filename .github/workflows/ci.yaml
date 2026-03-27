@@ -82,12 +82,16 @@ jobs:
           kubectl get events -A -w &
           kubectl -n flux-system logs -f deploy/helm-controller &
           if ! helm install --rollback-on-failure --debug helm-chart-of-the-death charts/helm-chart-of-the-death -f tests/${{ matrix.test }}/values.yaml; then
-            kubectl get pods -A
-            kubectl get events -A --sort-by=.metadata.creationTimestamp
-            helm list -A -a
-            kubectl get clusterissuer
-            #kubectl -n infra-nginx-ingress get all
-            #kubectl -n infra-loki logs loki-0
+            (
+              set +e
+              kubectl get pods -A
+              kubectl -n infra-datadog logs deploy/datadog-cluster-agent
+              kubectl get events -A --sort-by=.metadata.creationTimestamp
+              helm list -A -a
+              kubectl get clusterissuer
+              #kubectl -n infra-nginx-ingress get all
+              #kubectl -n infra-loki logs loki-0
+            )
             exit 1
           fi
           kill %1 %2
