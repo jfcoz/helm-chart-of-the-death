@@ -59,6 +59,15 @@ disallow-host-namespaces:
       - {{ .Values.components.storage.rook.namespace }}
       # TODO: split more specific component
   {{- end }}
+  {{- if include "common.used" .Values.components.monitoring.datadog }}
+  - resources:
+      namespaces:
+      - {{ .Values.components.monitoring.datadog.namespace }}
+      kinds:
+      - DaemonSet
+      names:
+      - "datadog"
+  {{- end }}
   {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
   - resources:
       namespaces:
@@ -96,6 +105,15 @@ disallow-host-path:
   - resources:
       namespaces:
       - {{ .Values.components.storage.rook.namespace }}
+  {{- end }}
+  {{- if include "common.used" .Values.components.monitoring.datadog }}
+  - resources:
+      namespaces:
+      - {{ .Values.components.monitoring.datadog.namespace }}
+      kinds:
+      - DaemonSet
+      names:
+      - "datadog"
   {{- end }}
   {{- if include "common.used" .Values.components.monitoring.promtail }}
   - resources:
