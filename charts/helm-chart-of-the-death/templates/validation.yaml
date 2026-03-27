@@ -1,0 +1,10 @@
+{{/* Validate general.clusterName */}}
+
+{{- if not .Values.general.clusterName }}
+{{ fail "missing general.clusterName" }}
+{{- end }}
+
+{{- if not (regexMatch "^[a-z0-9-]+$" (toString .Values.general.clusterName)) }}
+{{ fail "invalid general.clusterName" }}
+{{ end }}
+

@@ -58,7 +58,7 @@ spec:
         rollingUpdate:
           maxUnavailable: 50%
     datadog:
-      apiKey:
+      apiKey: 0123456789abcdef0123456789abcdef
       clusterName: change-me
       containerExcludeLogs: image:gke.gcr.io/event-exporter
       logLevel: ERROR

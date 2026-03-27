@@ -1,0 +1,10 @@
+{{/* Validate datadog config */}}
+{{- $me := .Values.components.monitoring.datadog }}
+
+{{- if include "common.managed" $me }}
+
+{{- if not (regexMatch "^([a-f0-9-]{32})$" ($me.config).apiKey) }}
+{{- fail "invalid components.monitoring.datadog.config.apiKey. See https://app.datadoghq.eu/organization-settings/api-keys" }}
+{{- end }}
+
+{{- end }}
