@@ -36,14 +36,14 @@ spec:
       interval: 1h
   values:
     debug:
+      - disallow-host-ports
+      - disallow-privileged-containers
+      - disallow-selinux
       - restrict-seccomp
       - restrict-sysctls
       - disallow-capabilities
       - disallow-host-namespaces
       - disallow-host-path
-      - disallow-host-ports
-      - disallow-privileged-containers
-      - disallow-selinux
       - other
     failurePolicy: Ignore
     policyExclude:
@@ -94,8 +94,10 @@ spec:
           - resources:
               kinds:
                 - DaemonSet
+                - Pod
               names:
                 - datadog
+                - datadog-*
               namespaces:
                 - infra-datadog
           - resources:
@@ -128,6 +130,15 @@ spec:
                 - DaemonSet
               names:
                 - datadog
+              namespaces:
+                - infra-datadog
+          - resources:
+              kinds:
+                - DaemonSet
+                - Pod
+              names:
+                - datadog
+                - datadog-*
               namespaces:
                 - infra-datadog
           - resources:

@@ -65,8 +65,10 @@ disallow-host-namespaces:
       - {{ .Values.components.monitoring.datadog.namespace }}
       kinds:
       - DaemonSet
+      - Pod
       names:
       - "datadog"
+      - "datadog-*"
   {{- end }}
   {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
   - resources:
@@ -114,6 +116,17 @@ disallow-host-path:
       - DaemonSet
       names:
       - "datadog"
+  {{- end }}
+  {{- if include "common.used" .Values.components.monitoring.datadog }}
+  - resources:
+      namespaces:
+      - {{ .Values.components.monitoring.datadog.namespace }}
+      kinds:
+      - DaemonSet
+      - Pod
+      names:
+      - "datadog"
+      - "datadog-*"
   {{- end }}
   {{- if include "common.used" .Values.components.monitoring.promtail }}
   - resources:

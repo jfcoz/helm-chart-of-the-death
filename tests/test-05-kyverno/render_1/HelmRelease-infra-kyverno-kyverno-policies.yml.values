@@ -16,8 +16,10 @@ policyExclude:
       - resources:
           kinds:
             - DaemonSet
+            - Pod
           names:
             - datadog
+            - datadog-*
           namespaces:
             - infra-datadog
   disallow-host-path:
@@ -27,6 +29,15 @@ policyExclude:
             - DaemonSet
           names:
             - datadog
+          namespaces:
+            - infra-datadog
+      - resources:
+          kinds:
+            - DaemonSet
+            - Pod
+          names:
+            - datadog
+            - datadog-*
           namespaces:
             - infra-datadog
       - resources:

@@ -53,8 +53,10 @@ spec:
           - resources:
               kinds:
                 - DaemonSet
+                - Pod
               names:
                 - datadog
+                - datadog-*
               namespaces:
                 - infra-datadog
       disallow-host-path:
@@ -64,6 +66,15 @@ spec:
                 - DaemonSet
               names:
                 - datadog
+              namespaces:
+                - infra-datadog
+          - resources:
+              kinds:
+                - DaemonSet
+                - Pod
+              names:
+                - datadog
+                - datadog-*
               namespaces:
                 - infra-datadog
           - resources:
