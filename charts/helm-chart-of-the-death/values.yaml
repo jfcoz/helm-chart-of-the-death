@@ -98,7 +98,14 @@ components:
       dex_connectors: {}
       #  github:
       #    client:
-      #      # create oauth app from https://github.com/settings/applications/new
+      #      # create oauth app from:
+      #      # organization app: https://github.com/organizations/$org_name/settings/applications
+      #      # personal app: https://github.com/settings/applications/new
+      #      # recommended setup:
+      #      #   application name: ${cluster_name}-argocd
+      #      #   homepage url: https://argocd.{ingressWildcardSuffix}/
+      #      #   application description: ArgoCD on ${cluster_name} cluster
+      #      #   authorization callback url: https://argocd.{ingressWildcardSuffix}/api/dex/callback
       #      id: my_github_client_id
       #      secret: my_github_client_secret
       #    orgs:
