@@ -101,17 +101,6 @@ spec:
         - resources:
             kinds:
               - Pod
-      exclude:
-        any:
-        - resources:
-            kinds:
-            - DaemonSet
-            - Pod
-            names:
-            - datadog
-            - datadog-*
-            namespaces:
-            - infra-datadog
       validate:
         failureAction: Enforce
         allowExistingViolations: true
@@ -161,22 +150,6 @@ spec:
               - Pod
       exclude:
         any:
-        - resources:
-            kinds:
-            - DaemonSet
-            names:
-            - datadog
-            namespaces:
-            - infra-datadog
-        - resources:
-            kinds:
-            - DaemonSet
-            - Pod
-            names:
-            - datadog
-            - datadog-*
-            namespaces:
-            - infra-datadog
         - resources:
             kinds:
             - Pod

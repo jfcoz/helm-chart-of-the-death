@@ -64,23 +64,6 @@ spec:
             condition: append
           condition: |
             or (
-              k8s.ns.name = "infra-datadog"
-              and container.image.repository in (
-                eu.gcr.io/datadoghq/cluster-agent,
-                public.ecr.aws/datadog/agent
-              )
-            )
-        - macro: known_memfd_execution_processes
-          override:
-            condition: append
-          condition: |
-            or (proc.cmdline contains "ddog_daemon_entry_point" )
-            or (proc.cmdline contains "ddog_crashtracker_entry_point" )
-        - macro: k8s_containers
-          override:
-            condition: append
-          condition: |
-            or (
               k8s.ns.name = "infra-x509"
               and container.image.repository in (
                 enix/x509-certificate-exporter,
@@ -139,17 +122,6 @@ spec:
           minimumpriority: notice
         customfields: cluster_name:change-me
       enabled: true
-      podAnnotations:
-        ad.datadoghq.com/falcosidekick.logs: |-
-          [{
-            "log_processing_rules": [
-              {
-                "type": "exclude_at_match",
-                "name": "exclude_info_level",
-                "pattern" : "[INFO]"
-              }
-            ]
-          }]
       resources:
         requests:
           cpu: 2m

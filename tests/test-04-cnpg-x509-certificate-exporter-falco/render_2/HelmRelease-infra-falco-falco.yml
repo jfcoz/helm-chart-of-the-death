@@ -895,23 +895,6 @@ data:
         condition: append
       condition: |
         or (
-          k8s.ns.name = "infra-datadog"
-          and container.image.repository in (
-            eu.gcr.io/datadoghq/cluster-agent,
-            public.ecr.aws/datadog/agent
-          )
-        )
-    - macro: known_memfd_execution_processes
-      override:
-        condition: append
-      condition: |
-        or (proc.cmdline contains "ddog_daemon_entry_point" )
-        or (proc.cmdline contains "ddog_crashtracker_entry_point" )
-    - macro: k8s_containers
-      override:
-        condition: append
-      condition: |
-        or (
           k8s.ns.name = "infra-x509"
           and container.image.repository in (
             enix/x509-certificate-exporter,
@@ -1302,7 +1285,7 @@ spec:
         app.kubernetes.io/instance: falco
       annotations:
         checksum/config: f1cbc24eff2871a9819757bc492197b4652b70c6e85cda4a09c9330450bf7769
-        checksum/rules: 2e4c2b0a7c24b501a893051bec8bc99afd7778bbb5cce9e4b4c43eec39672630
+        checksum/rules: 0875b223a9747787bfcd4714fab2e2c341b71e703e73e06208f7bb5deebecf8b
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     spec:
       serviceAccountName: falco
@@ -1692,17 +1675,6 @@ spec:
         app.kubernetes.io/component: core
       annotations:
         checksum/config: 591ca2ab2df715d4e5ef3e634645a87e13128c4b489017af89be46618581b2bf
-        
-        ad.datadoghq.com/falcosidekick.logs: |-
-          [{
-            "log_processing_rules": [
-              {
-                "type": "exclude_at_match",
-                "name": "exclude_info_level",
-                "pattern" : "[INFO]"
-              }
-            ]
-          }]
     spec:
       serviceAccountName: falco-falcosidekick
       securityContext:

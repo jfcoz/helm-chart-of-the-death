@@ -38,7 +38,6 @@ spec:
     admissionController:
       replicas: 1
     debug:
-      - disallow-host-path
       - disallow-host-ports
       - disallow-privileged-containers
       - disallow-selinux
@@ -46,37 +45,11 @@ spec:
       - restrict-sysctls
       - disallow-capabilities
       - disallow-host-namespaces
+      - disallow-host-path
     failurePolicy: Ignore
     policyExclude:
-      disallow-host-namespaces:
-        any:
-          - resources:
-              kinds:
-                - DaemonSet
-                - Pod
-              names:
-                - datadog
-                - datadog-*
-              namespaces:
-                - infra-datadog
       disallow-host-path:
         any:
-          - resources:
-              kinds:
-                - DaemonSet
-              names:
-                - datadog
-              namespaces:
-                - infra-datadog
-          - resources:
-              kinds:
-                - DaemonSet
-                - Pod
-              names:
-                - datadog
-                - datadog-*
-              namespaces:
-                - infra-datadog
           - resources:
               kinds:
                 - Pod

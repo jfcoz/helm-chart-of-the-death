@@ -132,6 +132,7 @@ components:
   ingress:
     nginxIngressController:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: infra-nginx-ingress
       chart:
@@ -146,7 +147,7 @@ components:
     datadog:
       namespace: infra-datadog
       managed: false
-      used: true
+      used: false
       helmResourcePolicyKeep: true
       chart:
         name: datadog
@@ -162,6 +163,7 @@ components:
     keda:
       namespace: infra-keda
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       chart:
         name: keda
@@ -174,6 +176,7 @@ components:
     kubePrometheusStack:
       namespace: infra-prometheus
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       chart:
         name: kube-prometheus-stack
@@ -187,6 +190,7 @@ components:
     thanos:
       namespace: infra-thanos
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       chart:
         name: thanos
@@ -200,6 +204,7 @@ components:
     loki:
       namespace: infra-loki
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       chart:
         name: loki
@@ -221,6 +226,7 @@ components:
     promtail:
       namespace: infra-promtail
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       chart:
         name: promtail
@@ -233,6 +239,7 @@ components:
     k8sMonitoring:
       namespace: infra-k8s-monitoring
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       chart:
         name: k8s-monitoring
@@ -245,6 +252,7 @@ components:
 
     openTelemetryOperator:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: infra-opentelemetry
       chart:
@@ -263,12 +271,14 @@ components:
 
     openTelemetryCollector:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: infra-opentelemetry
       values: {}
 
     x509CertificateExporter:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: infra-x509
       chart:
@@ -281,6 +291,7 @@ components:
 
     pushGateway:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: infra-push-gateway
       chart:
@@ -293,6 +304,7 @@ components:
 
     tempo:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: infra-tempo
       chart:
@@ -306,6 +318,7 @@ components:
 
     smartctlExporter:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: infra-smartctl-exporter
       chart:
@@ -318,12 +331,14 @@ components:
 
     eventRouter:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: infra-event-router
       values: {}
 
     blackboxExporter:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: infra-blackbox-exporter
       chart:
@@ -337,6 +352,7 @@ components:
   backup:
     velero:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: infra-velero
       chart:
@@ -359,6 +375,7 @@ components:
   security:
     certManager:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: infra-cert-manager
       chart:
@@ -374,6 +391,7 @@ components:
 
     externalSecrets:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: infra-external-secrets
       chart:
@@ -387,6 +405,7 @@ components:
 
     kyverno:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: infra-kyverno
       chart:
@@ -399,6 +418,7 @@ components:
 
     falco:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: infra-falco
       chart:
@@ -416,6 +436,7 @@ components:
 
     trivy:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: infra-trivy
       chart:
@@ -429,6 +450,7 @@ components:
   audit:
     popeye:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: infra-popeye
 
@@ -446,6 +468,7 @@ components:
   database:
     cnpg:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       namespace: cnpg-operator
       chart:
@@ -458,6 +481,7 @@ components:
 
     cnpgPluginBarmanCloud:
       managed: false
+      used: false
       helmResourcePolicyKeep: true
       chart:
         name: plugin-barman-cloud
