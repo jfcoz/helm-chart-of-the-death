@@ -21,6 +21,8 @@ datadog:
   apiKey: 0123456789abcdef0123456789abcdef
   clusterName: change-me
   containerExcludeLogs: image:gke.gcr.io/event-exporter
+  kubelet:
+    tlsVerify: true
   logLevel: ERROR
   logs:
     containerCollectAll: false

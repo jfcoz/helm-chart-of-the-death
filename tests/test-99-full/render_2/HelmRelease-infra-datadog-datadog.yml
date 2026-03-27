@@ -210,7 +210,7 @@ metadata:
     app.kubernetes.io/version: "7"
 type: Opaque
 data:
-  token: "c1poQUlwRGVGcEt3bE9yUmIzTlp3UW50OXdUNmlTd1g="
+  token: "endMTlBIdThxVElST2tWZTM5clI2VGpiQ1NMVmZUSFc="
 ---
 # Source: datadog/templates/cluster-agent-confd-configmap.yaml
 apiVersion: v1
@@ -320,8 +320,8 @@ metadata:
     app.kubernetes.io/version: "7"
 data:
   install_type: k8s_manual
-  install_id: "0fc885e9-f17b-4a67-affd-c12484604090"
-  install_time: "1774906057"
+  install_id: "fdd383b1-bcf0-4ea9-9256-5275572756ed"
+  install_time: "1774906272"
 ---
 # Source: datadog/templates/cluster-agent-rbac.yaml
 apiVersion: "rbac.authorization.k8s.io/v1"
@@ -1013,7 +1013,7 @@ spec:
         
       name: datadog
       annotations:
-        checksum/clusteragent_token: 007b321d1f2f55ebc1b66b6a4ee5e27e50854eaa12e0e32faa8e6fec5be02516
+        checksum/clusteragent_token: ea8595164102450d9bfd0639e92711fa75197642bc55eeb589fc290ed14c667e
         checksum/api_key: cec22ed35dd3762b12b042263528827d5f0cb5e5256771cb158ef8c4f450a9f5
         checksum/install_info: 26ce4a6cb22ca13e2e995cfd5ac067379e202e3420f967d589d210ca60a50e02
         checksum/autoconf-config: 74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b
@@ -1066,6 +1066,8 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: status.hostIP
+          - name: DD_KUBELET_TLS_VERIFY
+            value: "true"
           - name: DD_KUBELET_USE_API_SERVER
             value: "false"
           - name: DD_CONTAINER_EXCLUDE_LOGS
@@ -1270,6 +1272,8 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: status.hostIP
+          - name: DD_KUBELET_TLS_VERIFY
+            value: "true"
           - name: DD_KUBELET_USE_API_SERVER
             value: "false"
           - name: DD_CONTAINER_EXCLUDE_LOGS
@@ -1416,6 +1420,8 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: status.hostIP
+          - name: DD_KUBELET_TLS_VERIFY
+            value: "true"
           - name: DD_KUBELET_USE_API_SERVER
             value: "false"
           - name: DD_CONTAINER_EXCLUDE_LOGS
@@ -1520,7 +1526,7 @@ spec:
         
       name: datadog-cluster-agent
       annotations:
-        checksum/clusteragent_token: 7ffbe7cca51dd22aa889c7d642ebb9dba36d84756a1711504812e9535165a4e4
+        checksum/clusteragent_token: 7f82e88bba0f62b5c7d0cf6fab13ffdaa53e843549b4bec8efebc5cc083c19d6
         checksum/clusteragent-configmap: ee7668990c4e510f99a9227c8f4897c688c9faf6dfcc33042a094020e5d8dbad
         checksum/api_key: cec22ed35dd3762b12b042263528827d5f0cb5e5256771cb158ef8c4f450a9f5
         checksum/application_key: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b

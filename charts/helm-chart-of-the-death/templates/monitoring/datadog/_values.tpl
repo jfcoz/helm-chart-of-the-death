@@ -10,6 +10,15 @@ datadog:
   clusterName: {{ .Values.general.clusterName | quote }}
   apiKey: {{ $me.config.apiKey }}
 
+  kubelet:
+    {{- if or
+            (eq .Values.cloudProvider "scw")
+    }}
+    tlsVerify: false
+    {{- else }}
+    tlsVerify: true
+    {{- end }}
+
   # Uncomment this only if needed, this will cost the log volume
   logs:
     enabled: false
