@@ -33,6 +33,22 @@ datadog:
   operator:
     enabled: false
 
+  env:
+
+  - name: DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION
+    # needed for short live cronjob with tags from namespaces
+    # For DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION please see our docs here: https://docs.datadoghq.com/containers/kubernetes/log/?tab=datadogoperator#missing-tags-on-new-containers-or-pods
+    value: 60
+
+  - name: DD_KUBERNETES_METADATA_TAG_UPDATE_FREQ
+    # For DD_KUBERNETES_METADATA_TAG_UPDATE_FREQ you can refer to  https://github.com/DataDog/datadog-agent/blob/main/pkg/config/config_template.yaml#L3492-L3496
+    value: 10
+
+  - name: DD_TRACE_ENABLED
+    # disable Tracing by default to reduce costs
+    value: 0
+
+
 agents:
   priorityClassCreate: true
   priorityClassName: datadog
@@ -54,6 +70,13 @@ agents:
           cpu: 10m
           memory: 64Mi
 
+    traceAgent:
+      resources:
+        requests:
+          cpu: 30m
+          memory: 100Mi
+
+
   updateStrategy:
     rollingUpdate:
       maxUnavailable: "50%"
@@ -65,5 +88,12 @@ agents:
 {{- $me := .Values.components.monitoring.datadog }}
 {{- $defaultValues := include "monitoring.datadog.defaultValues" . | fromYaml }}
 {{- $customValues := $me.values | default dict }}
-{{- mergeOverwrite $defaultValues $customValues | toYaml }}
+{{- /*
+We need to use common.merge for a deep merge of datadog.env vars array, with higher priority for user value for each uniq name
+*/}}
+{{- include "common.merge" (list
+$defaultValues
+$customValues
+(fromYaml "datadog:\n  env:\n    strategy: merge\n    mergeKey: name")
+) }}
 {{- end }}

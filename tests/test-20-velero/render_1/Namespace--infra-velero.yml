@@ -6,3 +6,5 @@ metadata:
   name: infra-velero
   annotations:
     helm.sh/resource-policy: keep
+# Source: helm-chart-of-the-death/templates/validation_common_merge.yaml
+# test 0 OK

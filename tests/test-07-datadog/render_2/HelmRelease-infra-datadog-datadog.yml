@@ -210,7 +210,7 @@ metadata:
     app.kubernetes.io/version: "7"
 type: Opaque
 data:
-  token: "dm90UTVPUGlJNnlHcks3amp6UHpOS0M5MmVCNnc2Wng="
+  token: "Q1JrdjlpUjRpRmM1emd4MExPaXVKaDdSc1hVdHRBR2w="
 ---
 # Source: datadog/templates/cluster-agent-confd-configmap.yaml
 apiVersion: v1
@@ -320,8 +320,8 @@ metadata:
     app.kubernetes.io/version: "7"
 data:
   install_type: k8s_manual
-  install_id: "6f10e5c2-3a52-410c-a60f-1a123abb457a"
-  install_time: "1774906358"
+  install_id: "d117d4e5-b654-4860-882e-2368a4bc6ef3"
+  install_time: "1774906474"
 ---
 # Source: datadog/templates/cluster-agent-rbac.yaml
 apiVersion: "rbac.authorization.k8s.io/v1"
@@ -1013,7 +1013,7 @@ spec:
         
       name: datadog
       annotations:
-        checksum/clusteragent_token: c4b572e5f34bf08c05755c2c99475e2e9d1e4bc47352dd9474df72d81a058b06
+        checksum/clusteragent_token: 9268b096a8dfe8ef76eb398572210f165374bf668dd4aeb97722c2b03a681b0f
         checksum/api_key: cec22ed35dd3762b12b042263528827d5f0cb5e5256771cb158ef8c4f450a9f5
         checksum/install_info: 26ce4a6cb22ca13e2e995cfd5ac067379e202e3420f967d589d210ca60a50e02
         checksum/autoconf-config: 74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b
@@ -1052,6 +1052,10 @@ spec:
           
           - name: DD_CLUSTER_NAME
             value: "change-me"
+          - name: DD_KUBERNETES_POD_LABELS_AS_TAGS
+            value: '{"app.kubernetes.io/name":"app"}'
+          - name: DD_KUBERNETES_NAMESPACE_LABELS_AS_TAGS
+            value: '{"environment":"env"}'
           - name: KUBERNETES
             value: "yes"
           - name: DD_SITE
@@ -1070,6 +1074,17 @@ spec:
             value: "true"
           - name: DD_KUBELET_USE_API_SERVER
             value: "false"
+          - name: DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION
+            value: "60"
+          - name: DD_KUBERNETES_METADATA_TAG_UPDATE_FREQ
+            value: "10"
+          - name: DD_TRACE_ENABLED
+            valueFrom:
+              null
+          - name: DD_CONTAINER_INCLUDE
+            value: "image:^bitnami/redis:.* image:^bitnami/rabbitmq:.*"
+          - name: DD_CONTAINER_EXCLUDE
+            value: "image:.* kube_namespace:.*"
           - name: DD_CONTAINER_EXCLUDE_LOGS
             value: "image:gke.gcr.io/event-exporter"
           - name: DD_OTLP_CONFIG_LOGS_ENABLED
@@ -1131,9 +1146,11 @@ spec:
                 name: datadog-kpi-telemetry-configmap
                 key: install_type
           - name: DD_LOGS_ENABLED
-            value: "false"
+            value: "true"
           - name: DD_LOGS_CONFIG_CONTAINER_COLLECT_ALL
-            value: "false"
+            value: "true"
+          - name: DD_LOGS_CONFIG_K8S_CONTAINER_USE_FILE
+            value: "true"
           - name: DD_LOGS_CONFIG_AUTO_MULTI_LINE_DETECTION
             value: "false"
           - name: DD_HEALTH_PORT
@@ -1201,8 +1218,22 @@ spec:
           - name: passwd
             mountPath: /etc/passwd
             readOnly: true
-          - name: datadogrun
+          - name: pointerdir
             mountPath: /opt/datadog-agent/run
+            mountPropagation: None
+            readOnly: false # Need RW for logs pointer
+          - name: logpodpath
+            mountPath: /var/log/pods
+            mountPropagation: None
+            readOnly: true
+          - name: logscontainerspath
+            mountPath: /var/log/containers
+            mountPropagation: None
+            readOnly: true
+          - name: logdockercontainerpath
+            mountPath: /var/lib/docker/containers
+            mountPropagation: None
+            readOnly: true
         livenessProbe:
           failureThreshold: 6
           httpGet:
@@ -1240,7 +1271,9 @@ spec:
         securityContext:
           readOnlyRootFilesystem: true
         resources:
-          {}
+          requests:
+            cpu: 30m
+            memory: 100Mi
         ports:
         - containerPort: 8126
           name: traceport
@@ -1258,6 +1291,10 @@ spec:
           
           - name: DD_CLUSTER_NAME
             value: "change-me"
+          - name: DD_KUBERNETES_POD_LABELS_AS_TAGS
+            value: '{"app.kubernetes.io/name":"app"}'
+          - name: DD_KUBERNETES_NAMESPACE_LABELS_AS_TAGS
+            value: '{"environment":"env"}'
           - name: KUBERNETES
             value: "yes"
           - name: DD_SITE
@@ -1276,6 +1313,17 @@ spec:
             value: "true"
           - name: DD_KUBELET_USE_API_SERVER
             value: "false"
+          - name: DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION
+            value: "60"
+          - name: DD_KUBERNETES_METADATA_TAG_UPDATE_FREQ
+            value: "10"
+          - name: DD_TRACE_ENABLED
+            valueFrom:
+              null
+          - name: DD_CONTAINER_INCLUDE
+            value: "image:^bitnami/redis:.* image:^bitnami/rabbitmq:.*"
+          - name: DD_CONTAINER_EXCLUDE
+            value: "image:.* kube_namespace:.*"
           - name: DD_CONTAINER_EXCLUDE_LOGS
             value: "image:gke.gcr.io/event-exporter"
           - name: DD_OTLP_CONFIG_LOGS_ENABLED
@@ -1406,6 +1454,10 @@ spec:
           
           - name: DD_CLUSTER_NAME
             value: "change-me"
+          - name: DD_KUBERNETES_POD_LABELS_AS_TAGS
+            value: '{"app.kubernetes.io/name":"app"}'
+          - name: DD_KUBERNETES_NAMESPACE_LABELS_AS_TAGS
+            value: '{"environment":"env"}'
           - name: KUBERNETES
             value: "yes"
           - name: DD_SITE
@@ -1424,6 +1476,17 @@ spec:
             value: "true"
           - name: DD_KUBELET_USE_API_SERVER
             value: "false"
+          - name: DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION
+            value: "60"
+          - name: DD_KUBERNETES_METADATA_TAG_UPDATE_FREQ
+            value: "10"
+          - name: DD_TRACE_ENABLED
+            valueFrom:
+              null
+          - name: DD_CONTAINER_INCLUDE
+            value: "image:^bitnami/redis:.* image:^bitnami/rabbitmq:.*"
+          - name: DD_CONTAINER_EXCLUDE
+            value: "image:.* kube_namespace:.*"
           - name: DD_CONTAINER_EXCLUDE_LOGS
             value: "image:gke.gcr.io/event-exporter"
           - name: DD_OTLP_CONFIG_LOGS_ENABLED
@@ -1469,10 +1532,19 @@ spec:
       - hostPath:
           path: /var/run
         name: runtimesocketdir
-      - name: datadogrun
-        emptyDir: {}
+      - hostPath:
+          path: /var/log/pods
+        name: logpodpath
+      - hostPath:
+          path: /var/log/containers
+        name: logscontainerspath
+      - hostPath:
+          path: /var/lib/docker/containers
+        name: logdockercontainerpath
+      - hostPath:
+          path: /var/lib/datadog-agent/logs
+        name: pointerdir
       tolerations:
-      - operator: Exists
       affinity:
         {}
       serviceAccountName: "datadog"
@@ -1526,7 +1598,7 @@ spec:
         
       name: datadog-cluster-agent
       annotations:
-        checksum/clusteragent_token: 1c9a6e9aaad4678ce5c0fffc288bd227d1005a0a53a607cfcbcf8bd4fd46e33f
+        checksum/clusteragent_token: 6ba9e7dfcb55bbdfb02c49d80567f43cc7824b85345351876c7415d4b3080c48
         checksum/clusteragent-configmap: ee7668990c4e510f99a9227c8f4897c688c9faf6dfcc33042a094020e5d8dbad
         checksum/api_key: cec22ed35dd3762b12b042263528827d5f0cb5e5256771cb158ef8c4f450a9f5
         checksum/application_key: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
@@ -1583,6 +1655,10 @@ spec:
           
           - name: DD_CLUSTER_NAME
             value: "change-me"
+          - name: DD_KUBERNETES_POD_LABELS_AS_TAGS
+            value: '{"app.kubernetes.io/name":"app"}'
+          - name: DD_KUBERNETES_NAMESPACE_LABELS_AS_TAGS
+            value: '{"environment":"env"}'
           - name: KUBERNETES
             value: "yes"
           - name: DD_SITE

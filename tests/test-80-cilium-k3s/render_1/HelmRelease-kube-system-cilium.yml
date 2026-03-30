@@ -1,4 +1,18 @@
 ---
+# Source: helm-chart-of-the-death/templates/validation_common_merge.yaml
+# test 0 OK
+
+# test 0 bis OK
+
+
+# test 1 OK
+
+# test 2 OK
+
+# test 3 OK
+
+# test 4 OK
+---
 # Source: helm-chart-of-the-death/templates/cni/cilium/helmrelease.yaml
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease

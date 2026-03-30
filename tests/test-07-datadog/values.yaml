@@ -16,3 +16,17 @@ components:
       config:
         # fake api key for test
         apiKey: 0123456789abcdef0123456789abcdef
+      values:
+        datadog:
+          env:
+          - name: DD_CONTAINER_INCLUDE
+            value: "image:^bitnami/redis:.* image:^bitnami/rabbitmq:.*"
+          - name: DD_CONTAINER_EXCLUDE
+            value: "image:.* kube_namespace:.*"
+          logs:
+            containerCollectAll: true
+            enabled: true
+          namespaceLabelsAsTags:
+            environment: env
+          podLabelsAsTags:
+            app.kubernetes.io/name: app

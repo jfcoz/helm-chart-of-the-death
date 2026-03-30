@@ -210,7 +210,7 @@ metadata:
     app.kubernetes.io/version: "7"
 type: Opaque
 data:
-  token: "VHg3Y2RBZWFKaVJtajZWV0xURDVCT1AyNXJUMGVHcVM="
+  token: "UGhBVXltTW1yY01ZWTZZMDlTZDhPaEtMTm51b1l5NWE="
 ---
 # Source: datadog/templates/cluster-agent-confd-configmap.yaml
 apiVersion: v1
@@ -320,8 +320,8 @@ metadata:
     app.kubernetes.io/version: "7"
 data:
   install_type: k8s_manual
-  install_id: "80df9d99-6ec8-472e-bfcb-018e8eb58bf0"
-  install_time: "1774906370"
+  install_id: "96bb39ab-d578-4048-8e6f-ed42b6734d6e"
+  install_time: "1774906487"
 ---
 # Source: datadog/templates/cluster-agent-rbac.yaml
 apiVersion: "rbac.authorization.k8s.io/v1"
@@ -1013,7 +1013,7 @@ spec:
         
       name: datadog
       annotations:
-        checksum/clusteragent_token: 89d2634c92b3956f03bcf5226820a6a0b3009b2b3d3a626ef15443c64e9a018c
+        checksum/clusteragent_token: 1910ce0334370a801335bfc3bd56c0ca221473fe031f197f1424d6dbfa2cc206
         checksum/api_key: cec22ed35dd3762b12b042263528827d5f0cb5e5256771cb158ef8c4f450a9f5
         checksum/install_info: 26ce4a6cb22ca13e2e995cfd5ac067379e202e3420f967d589d210ca60a50e02
         checksum/autoconf-config: 74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b
@@ -1070,6 +1070,13 @@ spec:
             value: "true"
           - name: DD_KUBELET_USE_API_SERVER
             value: "false"
+          - name: DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION
+            value: "60"
+          - name: DD_KUBERNETES_METADATA_TAG_UPDATE_FREQ
+            value: "10"
+          - name: DD_TRACE_ENABLED
+            valueFrom:
+              null
           - name: DD_CONTAINER_EXCLUDE_LOGS
             value: "image:gke.gcr.io/event-exporter"
           - name: DD_OTLP_CONFIG_LOGS_ENABLED
@@ -1240,7 +1247,9 @@ spec:
         securityContext:
           readOnlyRootFilesystem: true
         resources:
-          {}
+          requests:
+            cpu: 30m
+            memory: 100Mi
         ports:
         - containerPort: 8126
           name: traceport
@@ -1276,6 +1285,13 @@ spec:
             value: "true"
           - name: DD_KUBELET_USE_API_SERVER
             value: "false"
+          - name: DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION
+            value: "60"
+          - name: DD_KUBERNETES_METADATA_TAG_UPDATE_FREQ
+            value: "10"
+          - name: DD_TRACE_ENABLED
+            valueFrom:
+              null
           - name: DD_CONTAINER_EXCLUDE_LOGS
             value: "image:gke.gcr.io/event-exporter"
           - name: DD_OTLP_CONFIG_LOGS_ENABLED
@@ -1424,6 +1440,13 @@ spec:
             value: "true"
           - name: DD_KUBELET_USE_API_SERVER
             value: "false"
+          - name: DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION
+            value: "60"
+          - name: DD_KUBERNETES_METADATA_TAG_UPDATE_FREQ
+            value: "10"
+          - name: DD_TRACE_ENABLED
+            valueFrom:
+              null
           - name: DD_CONTAINER_EXCLUDE_LOGS
             value: "image:gke.gcr.io/event-exporter"
           - name: DD_OTLP_CONFIG_LOGS_ENABLED
@@ -1472,7 +1495,6 @@ spec:
       - name: datadogrun
         emptyDir: {}
       tolerations:
-      - operator: Exists
       affinity:
         {}
       serviceAccountName: "datadog"
@@ -1526,7 +1548,7 @@ spec:
         
       name: datadog-cluster-agent
       annotations:
-        checksum/clusteragent_token: 13f23fa7751ecb7756676bfcf8b715a50543b3c724aef4948e3d73a98c50434a
+        checksum/clusteragent_token: b9c0f6ed9d262a0c573b21c4e94fa941920d290c9adaadaf7d3ed9c2db5f1f48
         checksum/clusteragent-configmap: ee7668990c4e510f99a9227c8f4897c688c9faf6dfcc33042a094020e5d8dbad
         checksum/api_key: cec22ed35dd3762b12b042263528827d5f0cb5e5256771cb158ef8c4f450a9f5
         checksum/application_key: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b

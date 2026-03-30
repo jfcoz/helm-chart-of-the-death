@@ -1,5 +1,4 @@
 debug:
-  - restrict-sysctls
   - disallow-capabilities
   - disallow-host-namespaces
   - disallow-host-path
@@ -7,6 +6,7 @@ debug:
   - disallow-privileged-containers
   - disallow-selinux
   - restrict-seccomp
+  - restrict-sysctls
   - other
 failurePolicy: Ignore
 policyExclude:
