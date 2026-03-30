@@ -265,7 +265,7 @@ components:
       namespace: infra-x509
       chart:
         name: x509-certificate-exporter
-        version: "3.19.1"
+        version: "3.20.0"
         repository: enix
       release:
         timeout: 10m
