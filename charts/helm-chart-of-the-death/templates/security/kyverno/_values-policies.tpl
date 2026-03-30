@@ -363,8 +363,6 @@ policyExclude:
       {{- end }}
   {{- end }}
 {{- end }}
-debug:
-{{ $policyList | toYaml | nindent 2 }}
 {{- end }}
 
 
