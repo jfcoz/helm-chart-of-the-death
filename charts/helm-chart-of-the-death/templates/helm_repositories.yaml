@@ -23,6 +23,7 @@
 
 {{- if $needed }}
 
+{{- if (regexMatch "^https://" .url) }}
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
@@ -36,5 +37,6 @@ spec:
   interval: 1h
   url: {{ .url }}
 ---
+{{- end }}
 {{- end }}
 {{- end }}

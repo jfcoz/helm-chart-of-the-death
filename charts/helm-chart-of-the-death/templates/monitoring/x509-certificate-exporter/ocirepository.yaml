@@ -1,0 +1,17 @@
+{{- $me := .Values.components.monitoring.x509CertificateExporter }}
+{{- if include "common.managed" $me }}
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: {{ $me.chart.name }}
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+spec:
+  interval: 1h
+  url: {{ $me.chart.ociRepository }}
+  ref:
+    tag: {{ $me.chart.version }}
+{{- end }}

@@ -6,10 +6,10 @@ metadata:
   name: x509-x509-certificate-exporter
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.19.1
+    helm.sh/chart: x509-certificate-exporter-3.20.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.19.1"
+    app.kubernetes.io/version: "3.20.0"
     app.kubernetes.io/managed-by: Helm
 ---
 # Source: x509-certificate-exporter/templates/serviceaccount.yaml
@@ -19,10 +19,10 @@ metadata:
   name: x509-x509-certificate-exporter-node
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.19.1
+    helm.sh/chart: x509-certificate-exporter-3.20.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.19.1"
+    app.kubernetes.io/version: "3.20.0"
     app.kubernetes.io/managed-by: Helm
 ---
 # Source: x509-certificate-exporter/templates/clusterrole.yaml
@@ -31,10 +31,10 @@ kind: ClusterRole
 metadata:
   name: x509-x509-certificate-exporter
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.19.1
+    helm.sh/chart: x509-certificate-exporter-3.20.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.19.1"
+    app.kubernetes.io/version: "3.20.0"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups:
@@ -60,10 +60,10 @@ kind: ClusterRole
 metadata:
   name: x509-x509-certificate-exporter-node
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.19.1
+    helm.sh/chart: x509-certificate-exporter-3.20.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.19.1"
+    app.kubernetes.io/version: "3.20.0"
     app.kubernetes.io/managed-by: Helm
 rules:
 ---
@@ -73,10 +73,10 @@ kind: ClusterRoleBinding
 metadata:
   name: x509-x509-certificate-exporter
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.19.1
+    helm.sh/chart: x509-certificate-exporter-3.20.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.19.1"
+    app.kubernetes.io/version: "3.20.0"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -93,10 +93,10 @@ kind: ClusterRoleBinding
 metadata:
   name: x509-x509-certificate-exporter-node
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.19.1
+    helm.sh/chart: x509-certificate-exporter-3.20.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.19.1"
+    app.kubernetes.io/version: "3.20.0"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -114,10 +114,10 @@ metadata:
   name: x509-x509-certificate-exporter
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.19.1
+    helm.sh/chart: x509-certificate-exporter-3.20.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.19.1"
+    app.kubernetes.io/version: "3.20.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
@@ -136,24 +136,27 @@ metadata:
   name: x509-x509-certificate-exporter-masters
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.19.1
+    helm.sh/chart: x509-certificate-exporter-3.20.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.19.1"
+    app.kubernetes.io/version: "3.20.0"
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: host-masters
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: x509-certificate-exporter
       app.kubernetes.io/instance: x509
+      app.kubernetes.io/component: host-masters
   template:
     metadata:
       labels:
-        helm.sh/chart: x509-certificate-exporter-3.19.1
+        helm.sh/chart: x509-certificate-exporter-3.20.0
         app.kubernetes.io/name: x509-certificate-exporter
         app.kubernetes.io/instance: x509
-        app.kubernetes.io/version: "3.19.1"
+        app.kubernetes.io/version: "3.20.0"
         app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/component: host-masters
     spec:
       serviceAccountName: x509-x509-certificate-exporter-node
       affinity:
@@ -186,7 +189,7 @@ spec:
           requests:
             cpu: 1m
             memory: 30M
-        image: docker.io/enix/x509-certificate-exporter:3.19.1
+        image: docker.io/enix/x509-certificate-exporter:3.20.0
         imagePullPolicy: IfNotPresent
         args:
         - --listen-address=:9793
@@ -234,24 +237,27 @@ metadata:
   name: x509-x509-certificate-exporter-nodes
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.19.1
+    helm.sh/chart: x509-certificate-exporter-3.20.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.19.1"
+    app.kubernetes.io/version: "3.20.0"
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: host-nodes
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: x509-certificate-exporter
       app.kubernetes.io/instance: x509
+      app.kubernetes.io/component: host-nodes
   template:
     metadata:
       labels:
-        helm.sh/chart: x509-certificate-exporter-3.19.1
+        helm.sh/chart: x509-certificate-exporter-3.20.0
         app.kubernetes.io/name: x509-certificate-exporter
         app.kubernetes.io/instance: x509
-        app.kubernetes.io/version: "3.19.1"
+        app.kubernetes.io/version: "3.20.0"
         app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/component: host-nodes
     spec:
       serviceAccountName: x509-x509-certificate-exporter-node
       affinity:
@@ -284,7 +290,7 @@ spec:
           requests:
             cpu: 1m
             memory: 30M
-        image: docker.io/enix/x509-certificate-exporter:3.19.1
+        image: docker.io/enix/x509-certificate-exporter:3.20.0
         imagePullPolicy: IfNotPresent
         args:
         - --listen-address=:9793
@@ -324,25 +330,28 @@ metadata:
   name: x509-x509-certificate-exporter
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.19.1
+    helm.sh/chart: x509-certificate-exporter-3.20.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.19.1"
+    app.kubernetes.io/version: "3.20.0"
     app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: secrets
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: x509-certificate-exporter
       app.kubernetes.io/instance: x509
+      app.kubernetes.io/component: secrets
   replicas: 1
   template:
     metadata:
       labels:
-        helm.sh/chart: x509-certificate-exporter-3.19.1
+        helm.sh/chart: x509-certificate-exporter-3.20.0
         app.kubernetes.io/name: x509-certificate-exporter
         app.kubernetes.io/instance: x509
-        app.kubernetes.io/version: "3.19.1"
+        app.kubernetes.io/version: "3.20.0"
         app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/component: secrets
     spec:
       securityContext:
         runAsNonRoot: true
@@ -364,7 +373,7 @@ spec:
           requests:
             cpu: 20m
             memory: 20Mi
-        image: docker.io/enix/x509-certificate-exporter:3.19.1
+        image: docker.io/enix/x509-certificate-exporter:3.20.0
         imagePullPolicy: IfNotPresent
         args:
         - --watch-kube-secrets
@@ -394,10 +403,10 @@ metadata:
   name: x509-x509-certificate-exporter
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.19.1
+    helm.sh/chart: x509-certificate-exporter-3.20.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.19.1"
+    app.kubernetes.io/version: "3.20.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   groups:
@@ -426,7 +435,7 @@ spec:
         severity: warning
       annotations:
         summary: Certificate should be renewed
-        description: Certificate for "{{ $labels.subject_CN }}" should be renewed as it expires after {{ humanizeDuration $value }} {{if $labels.secret_name }}in Kubernetes secret "{{ $labels.secret_namespace }}/{{ $labels.secret_name }}"{{else}}at location "{{ $labels.filepath }}"{{end}}
+        description: Certificate for "{{ $labels.subject_CN }}" should be renewed as it expires in {{ humanizeDuration $value }} {{if $labels.secret_name }}in Kubernetes secret "{{ $labels.secret_namespace }}/{{ $labels.secret_name }}"{{else}}at location "{{ $labels.filepath }}"{{end}}
     - alert: 'CertificateExpiration'
       expr: (x509_cert_not_after - time()) < (14 * 86400)
       for: 15m
@@ -434,7 +443,7 @@ spec:
         severity: critical
       annotations:
         summary: Certificate is about to expire
-        description: Certificate for "{{ $labels.subject_CN }}" is about to expire after {{ humanizeDuration $value }} {{if $labels.secret_name }}in Kubernetes secret "{{ $labels.secret_namespace }}/{{ $labels.secret_name }}"{{else}}at location "{{ $labels.filepath }}"{{end}}
+        description: Certificate for "{{ $labels.subject_CN }}" is about to expire in {{ humanizeDuration $value }} {{if $labels.secret_name }}in Kubernetes secret "{{ $labels.secret_namespace }}/{{ $labels.secret_name }}"{{else}}at location "{{ $labels.filepath }}"{{end}}
 ---
 # Source: x509-certificate-exporter/templates/servicemonitor.yaml
 apiVersion: monitoring.coreos.com/v1
@@ -443,12 +452,11 @@ metadata:
   name: x509-x509-certificate-exporter
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.19.1
+    helm.sh/chart: x509-certificate-exporter-3.20.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.19.1"
+    app.kubernetes.io/version: "3.20.0"
     app.kubernetes.io/managed-by: Helm
-  annotations:
 spec:
   selector:
     matchLabels:
