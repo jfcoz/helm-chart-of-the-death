@@ -32,6 +32,8 @@ datadog:
       value: 10
     - name: DD_TRACE_ENABLED
       value: 0
+  kubelet:
+    tlsVerify: true
   logLevel: ERROR
   logs:
     containerCollectAll: false
