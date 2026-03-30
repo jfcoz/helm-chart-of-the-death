@@ -12,6 +12,8 @@
 # test 3 OK
 
 # test 4 OK
+
+# test 5 OK
 ---
 # Source: helm-chart-of-the-death/templates/cni/cilium/helmrelease.yaml
 apiVersion: helm.toolkit.fluxcd.io/v2

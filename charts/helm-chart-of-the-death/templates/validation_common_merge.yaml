@@ -64,3 +64,15 @@ list
 ) | fromYaml | toJson
 }}
 {{- if ne $test $test_expected }}{{ fail "test 0 fail" }}{{ else }} OK{{ end }}
+
+# test 5
+{{- $test_expected := "{\"datadog\":{\"agents\":{\"tolerations\":[{\"operator\":\"Exists\"}]},\"cluster_name\":\"test\"}}" }}
+{{- $test := include "common.merge" (
+list
+(fromYaml "datadog:\n  agents:\n    tolerations:\n      - operator: \"Exists\"")
+(fromYaml "datadog:\n  cluster_name: test")
+(fromYaml "")
+) | fromYaml | toJson
+}}
+{{- if ne $test $test_expected }}{{ fail "test 0 fail" }}{{ else }} OK{{ end }}
+

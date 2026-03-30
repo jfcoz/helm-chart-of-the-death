@@ -50,7 +50,8 @@ spec:
               memory: 100Mi
       priorityClassCreate: true
       priorityClassName: datadog
-      tolerations: []
+      tolerations:
+        - operator: Exists
       updateStrategy:
         rollingUpdate:
           maxUnavailable: 50%

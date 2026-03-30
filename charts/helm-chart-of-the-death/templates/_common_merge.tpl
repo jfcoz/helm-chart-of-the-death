@@ -19,9 +19,10 @@ args: $obj1 $obj2 $conf
   {{- $obj2 := (index . 1) }}
   {{- $conf := (index . 2) }}
 
-  {{- $strategy := "overwrite" }}
+
+  {{- $strategy := "append" }}
   {{- if (kindIs "map" $conf) }}
-    {{- $strategy = $conf.strategy | default "overwrite" }}
+    {{- $strategy = $conf.strategy | default "append" }}
   {{- end }}
   
   {{- if or 
@@ -30,7 +31,6 @@ args: $obj1 $obj2 $conf
          (kindIs "string" $obj1)
   }}
     {{- fail "Deprecated" }}
-  
   
   
   {{- else if (kindIs "map" $obj1) }}
