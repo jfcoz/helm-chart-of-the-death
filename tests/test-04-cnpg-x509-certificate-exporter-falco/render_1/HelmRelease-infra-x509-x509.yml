@@ -21,15 +21,10 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
-  chart:
-    spec:
-      chart: x509-certificate-exporter
-      version: "3.19.1"
-      sourceRef:
-        kind: HelmRepository
-        name: "enix"
-        namespace: flux-system
-      interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: x509-certificate-exporter
+    namespace: flux-system
   values:
     prometheusRules:
       create: false
