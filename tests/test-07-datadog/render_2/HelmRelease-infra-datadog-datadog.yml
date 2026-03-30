@@ -210,7 +210,7 @@ metadata:
     app.kubernetes.io/version: "7"
 type: Opaque
 data:
-  token: "Q1JrdjlpUjRpRmM1emd4MExPaXVKaDdSc1hVdHRBR2w="
+  token: "ZFVETlhBZDNDV2R0R2ljd1Q4QUxmSnlHb2pjUHp0VGU="
 ---
 # Source: datadog/templates/cluster-agent-confd-configmap.yaml
 apiVersion: v1
@@ -320,8 +320,8 @@ metadata:
     app.kubernetes.io/version: "7"
 data:
   install_type: k8s_manual
-  install_id: "d117d4e5-b654-4860-882e-2368a4bc6ef3"
-  install_time: "1774906474"
+  install_id: "ebef66aa-d3fc-43bf-a9c3-acd5aff3e3e4"
+  install_time: "1774906576"
 ---
 # Source: datadog/templates/cluster-agent-rbac.yaml
 apiVersion: "rbac.authorization.k8s.io/v1"
@@ -1013,7 +1013,7 @@ spec:
         
       name: datadog
       annotations:
-        checksum/clusteragent_token: 9268b096a8dfe8ef76eb398572210f165374bf668dd4aeb97722c2b03a681b0f
+        checksum/clusteragent_token: 3f99891198590365bb37579e0000a54f3d21030e1de0871c5dcac32a34b077ef
         checksum/api_key: cec22ed35dd3762b12b042263528827d5f0cb5e5256771cb158ef8c4f450a9f5
         checksum/install_info: 26ce4a6cb22ca13e2e995cfd5ac067379e202e3420f967d589d210ca60a50e02
         checksum/autoconf-config: 74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b
@@ -1070,8 +1070,6 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: status.hostIP
-          - name: DD_KUBELET_TLS_VERIFY
-            value: "true"
           - name: DD_KUBELET_USE_API_SERVER
             value: "false"
           - name: DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION
@@ -1309,8 +1307,6 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: status.hostIP
-          - name: DD_KUBELET_TLS_VERIFY
-            value: "true"
           - name: DD_KUBELET_USE_API_SERVER
             value: "false"
           - name: DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION
@@ -1472,8 +1468,6 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: status.hostIP
-          - name: DD_KUBELET_TLS_VERIFY
-            value: "true"
           - name: DD_KUBELET_USE_API_SERVER
             value: "false"
           - name: DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION
@@ -1598,7 +1592,7 @@ spec:
         
       name: datadog-cluster-agent
       annotations:
-        checksum/clusteragent_token: 6ba9e7dfcb55bbdfb02c49d80567f43cc7824b85345351876c7415d4b3080c48
+        checksum/clusteragent_token: 8ec524a49838a632590ed2588f32a8a34c978fc4bf8c9c2b9a4333bd2c10a529
         checksum/clusteragent-configmap: ee7668990c4e510f99a9227c8f4897c688c9faf6dfcc33042a094020e5d8dbad
         checksum/api_key: cec22ed35dd3762b12b042263528827d5f0cb5e5256771cb158ef8c4f450a9f5
         checksum/application_key: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b

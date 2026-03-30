@@ -36,8 +36,6 @@ datadog:
       value: image:^bitnami/redis:.* image:^bitnami/rabbitmq:.*
     - name: DD_CONTAINER_EXCLUDE
       value: image:.* kube_namespace:.*
-  kubelet:
-    tlsVerify: true
   logLevel: ERROR
   logs:
     containerCollectAll: true

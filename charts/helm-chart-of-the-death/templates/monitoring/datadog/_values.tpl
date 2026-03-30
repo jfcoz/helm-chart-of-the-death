@@ -10,15 +10,6 @@ datadog:
   clusterName: {{ .Values.general.clusterName | quote }}
   apiKey: {{ $me.config.apiKey }}
 
-  kubelet:
-    {{- if or
-            (eq .Values.cloudProvider "scw")
-    }}
-    tlsVerify: false
-    {{- else }}
-    tlsVerify: true
-    {{- end }}
-
   # Uncomment this only if needed, this will cost the log volume
   logs:
     enabled: false
@@ -34,6 +25,16 @@ datadog:
     enabled: false
 
   env:
+
+  {{- if or
+          (eq .Values.cloudProvider "scw")
+  }}
+  {{/* can help in case of tls error on kubelet */}}
+  - name: DD_HOSTNAME
+    valueFrom:
+      fieldRef:
+        fieldPath: spec.nodeName
+  {{- end }}
 
   - name: DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION
     # needed for short live cronjob with tags from namespaces
