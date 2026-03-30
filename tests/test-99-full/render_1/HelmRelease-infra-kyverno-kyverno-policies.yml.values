@@ -1,12 +1,12 @@
 debug:
+  - disallow-host-path
+  - disallow-host-ports
+  - disallow-privileged-containers
   - disallow-selinux
   - restrict-seccomp
   - restrict-sysctls
   - disallow-capabilities
   - disallow-host-namespaces
-  - disallow-host-path
-  - disallow-host-ports
-  - disallow-privileged-containers
   - other
 failurePolicy: Ignore
 policyExclude:
@@ -55,6 +55,15 @@ policyExclude:
           namespaces:
             - rook-ceph
       - resources:
+          kinds:
+            - DaemonSet
+            - Pod
+          names:
+            - datadog
+            - datadog-*
+          namespaces:
+            - infra-datadog
+      - resources:
           namespaces:
             - infra-prometheus
       - resources:
@@ -79,6 +88,22 @@ policyExclude:
       - resources:
           namespaces:
             - rook-ceph
+      - resources:
+          kinds:
+            - DaemonSet
+          names:
+            - datadog
+          namespaces:
+            - infra-datadog
+      - resources:
+          kinds:
+            - DaemonSet
+            - Pod
+          names:
+            - datadog
+            - datadog-*
+          namespaces:
+            - infra-datadog
       - resources:
           kinds:
             - Pod

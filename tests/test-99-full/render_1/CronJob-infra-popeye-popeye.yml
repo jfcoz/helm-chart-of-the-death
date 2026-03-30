@@ -32,3 +32,5 @@ spec:
                 limits:
                   cpu: 500m
                   memory: 1000Mi
+# Source: helm-chart-of-the-death/templates/validation_common_merge.yaml
+# test 0 OK

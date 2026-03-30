@@ -1,0 +1,14 @@
+{{- $me := .Values.components.monitoring.loki }}
+
+{{- if include "common.managed" $me }}
+
+  {{- if $me.config.aws }}
+    {{- if $me.config.aws.endpoint }}
+      {{/* Validate aws.endpoint syntax */}}
+      {{- if not (regexMatch "^([a-z0-9-]+\\.)+[a-z0-9-]+$" $me.config.aws.endpoint) }}
+        {{- fail "invalid components.monitoring.loki.config.aws.endpoint. It must only contains hostname" }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+
+{{- end }}

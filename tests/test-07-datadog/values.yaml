@@ -13,3 +13,27 @@ components:
   monitoring:
     datadog:
       managed: true
+      config:
+        # fake api key for test
+        apiKey: 0123456789abcdef0123456789abcdef
+      values:
+        clusterAgent:
+          # fix token in ci manifests
+          token: 4uftrVcbSdZL47LdGBvVNMO9G7xDoCAa
+        datadog:
+          env:
+          - name: DD_CONTAINER_INCLUDE
+            value: "image:^bitnami/redis:.* image:^bitnami/rabbitmq:.*"
+          - name: DD_CONTAINER_EXCLUDE
+            value: "image:.* kube_namespace:.*"
+          logs:
+            containerCollectAll: true
+            enabled: true
+          namespaceLabelsAsTags:
+            environment: env
+          podLabelsAsTags:
+            app.kubernetes.io/name: app
+          apm:
+            instrumentation:
+              # static install_id / install_time in ci manifests
+              skipKPITelemetry: true

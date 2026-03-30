@@ -1,4 +1,20 @@
 ---
+# Source: helm-chart-of-the-death/templates/validation_common_merge.yaml
+# test 0 OK
+
+# test 0 bis OK
+
+
+# test 1 OK
+
+# test 2 OK
+
+# test 3 OK
+
+# test 4 OK
+
+# test 5 OK
+---
 # Source: helm-chart-of-the-death/templates/oci_repository_custom_objects_only.yaml
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository

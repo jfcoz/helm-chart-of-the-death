@@ -378,7 +378,7 @@ falcosidekick:
         - maxmemory-policy allkeys-lfu
         - maxmemory 30mb
   config:
-    customfields: "cluster_name:{{ .Values.general.clusterName | required "missing general.clusterName" }}"
+    customfields: "cluster_name:{{ .Values.general.clusterName }}"
     alertmanager:
       hostport: {{ template "monitoring.kubePrometheusStack.alertManagerEndpoint" . }}
       minimumpriority: "notice"

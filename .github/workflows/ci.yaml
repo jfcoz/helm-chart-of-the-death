@@ -17,7 +17,8 @@ jobs:
         - "test-04-cnpg-x509-certificate-exporter-falco"
         - "test-05-kyverno"
         - "test-06-cnpg"
-        - "test-07-datadog"
+        # disabled: needs a valid api key
+        #- "test-07-datadog"
         - "test-08-external-secrets"
         - "test-10-argocd"
         - "test-20-velero"
@@ -82,12 +83,24 @@ jobs:
           kubectl get events -A -w &
           kubectl -n flux-system logs -f deploy/helm-controller &
           if ! helm install --rollback-on-failure --debug helm-chart-of-the-death charts/helm-chart-of-the-death -f tests/${{ matrix.test }}/values.yaml; then
-            kubectl get pods -A
-            kubectl get events -A --sort-by=.metadata.creationTimestamp
-            helm list -A -a
-            kubectl get clusterissuer
-            #kubectl -n infra-nginx-ingress get all
-            #kubectl -n infra-loki logs loki-0
+            (
+              set +e
+              kubectl get pods -A
+              helm list -A
+              case "${{ matrix.test }}" in
+                test-07-datadog)
+                  kubectl -n infra-datadog logs deploy/datadog-cluster-agent
+                  ;;
+                test-03-nginx-cert-manager)
+                  kubectl get clusterissuer
+                  kubectl -n infra-nginx-ingress get all
+                  ;;
+                test-*-loki-*)
+                  kubectl -n infra-loki logs loki-0
+                  ;;
+              esac
+              kubectl get events -A --sort-by=.metadata.creationTimestamp
+            )
             exit 1
           fi
           kill %1 %2

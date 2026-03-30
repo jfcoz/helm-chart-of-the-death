@@ -146,6 +146,15 @@ spec:
             namespaces:
             - rook-ceph
         - resources:
+            kinds:
+            - DaemonSet
+            - Pod
+            names:
+            - datadog
+            - datadog-*
+            namespaces:
+            - infra-datadog
+        - resources:
             namespaces:
             - infra-prometheus
         - resources:
@@ -217,6 +226,22 @@ spec:
         - resources:
             namespaces:
             - rook-ceph
+        - resources:
+            kinds:
+            - DaemonSet
+            names:
+            - datadog
+            namespaces:
+            - infra-datadog
+        - resources:
+            kinds:
+            - DaemonSet
+            - Pod
+            names:
+            - datadog
+            - datadog-*
+            namespaces:
+            - infra-datadog
         - resources:
             kinds:
             - Pod

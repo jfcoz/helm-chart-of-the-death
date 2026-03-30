@@ -1,0 +1,78 @@
+# test 0
+{{- $test_expected := "{\"enabled\":false}" }}
+{{- $test := include "common.merge" (
+list
+(fromYaml "enabled: true")
+(fromYaml "enabled: false")
+(fromYaml "")
+) | fromYaml | toJson
+}}
+{{- if ne $test $test_expected }}{{ fail "test 0 fail" }}{{ else }} OK{{ end }}
+
+# test 0 bis
+{{- $test_expected := "{\"enabled\":true}" }}
+{{- $test := include "common.merge" (
+list
+(fromYaml "enabled: true")
+(fromYaml "")
+(fromYaml "")
+) | fromYaml | toJson
+}}
+{{- if ne $test $test_expected }}{{ fail "test 0 fail" }}{{ else }} OK{{ end }}
+
+
+# test 1
+{{- $test_expected := "{\"value\":2}" }}
+{{- $test := include "common.merge" (
+list
+(fromYaml "value: 1")
+(fromYaml "value: 2")
+(fromYaml "")
+) | fromYaml | toJson
+}}
+{{- if ne $test $test_expected }}{{ fail "test 0 fail" }}{{ else }} OK{{ end }}
+
+# test 2
+{{- $test_expected := "{\"datadog\":{\"env\":[{\"name\":\"DD_TEST1\",\"value\":\"value_test1\"},{\"name\":\"DD_TEST2\",\"value\":\"value_test2\"},{\"name\":\"DD_TEST3\",\"value\":\"value_test2\"}]},\"useless\":\"other\"}" }}
+{{- $test := include "common.merge" (
+list
+(fromYaml "useless: test\ndatadog:\n  env:\n    - name: DD_TEST1\n      value: value_test1\n    - name: DD_TEST2\n      value: value_test1")
+(fromYaml "useless: other\ndatadog:\n  env:\n    - name: DD_TEST2\n      value: value_test2\n    - name: DD_TEST3\n      value: value_test2")
+(fromYaml "datadog:\n  env:\n      strategy: merge\n      mergeKey: name")
+) | fromYaml | toJson
+}}
+{{- if ne $test $test_expected }}{{ fail "test 0 fail" }}{{ else }} OK{{ end }}
+
+# test 3
+{{- $test_expected := "{\"container\":{\"args\":[\"--log-level=debug\",\"--verbose\"]}}" }}
+{{- $test := include "common.merge" (
+list
+(fromYaml "container:\n  args:\n    - --log-level=debug")
+(fromYaml "container:\n  args:\n    - --verbose")
+(fromYaml "container:\n  args:\n    strategy: append")
+) | fromYaml | toJson
+}}
+{{- if ne $test $test_expected }}{{ fail "test 0 fail" }}{{ else }} OK{{ end }}
+
+# test 4
+{{- $test_expected := "{\"datadog\":{\"env\":[{\"name\":\"DD_TEST1\",\"value\":\"value_test1\"},{\"name\":\"DD_TEST2\",\"value\":\"value_test1\"}],\"other\":\"truc\"},\"useless\":\"test\"}" }}
+{{- $test := include "common.merge" (
+list
+(fromYaml "useless: test\ndatadog:\n  env:\n    - name: DD_TEST1\n      value: value_test1\n    - name: DD_TEST2\n      value: value_test1")
+(fromYaml "datadog:\n  other: truc")
+(fromYaml "datadog:\n  env:\n      strategy: merge\n      mergeKey: name")
+) | fromYaml | toJson
+}}
+{{- if ne $test $test_expected }}{{ fail "test 0 fail" }}{{ else }} OK{{ end }}
+
+# test 5
+{{- $test_expected := "{\"datadog\":{\"agents\":{\"tolerations\":[{\"operator\":\"Exists\"}]},\"cluster_name\":\"test\"}}" }}
+{{- $test := include "common.merge" (
+list
+(fromYaml "datadog:\n  agents:\n    tolerations:\n      - operator: \"Exists\"")
+(fromYaml "datadog:\n  cluster_name: test")
+(fromYaml "")
+) | fromYaml | toJson
+}}
+{{- if ne $test $test_expected }}{{ fail "test 0 fail" }}{{ else }} OK{{ end }}
+
