@@ -17,6 +17,9 @@ components:
         # fake api key for test
         apiKey: 0123456789abcdef0123456789abcdef
       values:
+        clusterAgent:
+          # fix token in ci manifests
+          token: 4uftrVcbSdZL47LdGBvVNMO9G7xDoCAa
         datadog:
           env:
           - name: DD_CONTAINER_INCLUDE
@@ -30,3 +33,7 @@ components:
             environment: env
           podLabelsAsTags:
             app.kubernetes.io/name: app
+          apm:
+            instrumentation:
+              # static install_id / install_time in ci manifests
+              skipKPITelemetry: true

@@ -40,6 +40,16 @@ components:
       managed: true
       config:
         apiKey: 0123456789abcdef0123456789abcdef
+      values:
+        clusterAgent:
+          # fix token in ci manifests
+          token: 4uftrVcbSdZL47LdGBvVNMO9G7xDoCAa
+        datadog:
+          apm:
+            instrumentation:
+              # static install_id / install_time in ci manifests
+              skipKPITelemetry: true
+
     keda:
       namespace: infra-keda
       managed: true

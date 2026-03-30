@@ -55,8 +55,13 @@ spec:
       updateStrategy:
         rollingUpdate:
           maxUnavailable: 50%
+    clusterAgent:
+      token: 4uftrVcbSdZL47LdGBvVNMO9G7xDoCAa
     datadog:
       apiKey: 0123456789abcdef0123456789abcdef
+      apm:
+        instrumentation:
+          skipKPITelemetry: true
       clusterName: change-me
       containerExcludeLogs: image:gke.gcr.io/event-exporter
       env:
