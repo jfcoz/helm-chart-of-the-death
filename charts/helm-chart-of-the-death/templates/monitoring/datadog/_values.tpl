@@ -81,6 +81,10 @@ agents:
     rollingUpdate:
       maxUnavailable: "50%"
 
+clusterAgent:
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: datadogrun,varlog,tmpdir,config
+
 {{- end }}
 
 {{/* merged values : default + user  */}}

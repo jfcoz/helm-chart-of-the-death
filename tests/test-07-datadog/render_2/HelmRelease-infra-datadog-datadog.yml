@@ -1604,6 +1604,7 @@ spec:
         checksum/api_key: f2380c8fbee7264af69db5852dd14ff1f87589a9d476e631872f053e42c808a9
         checksum/application_key: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
         checksum/install_info: 16505f3a9e216f7d8d40d498206b47f4f0cf41687cf4365cf758119ce4a6c05b
+        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: datadogrun,varlog,tmpdir,config
     spec:
       serviceAccountName: datadog-cluster-agent
       automountServiceAccountToken: true
