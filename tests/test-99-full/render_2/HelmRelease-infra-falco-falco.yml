@@ -962,6 +962,7 @@ data:
           k8s.ns.name = "infra-prometheus"
           and container.image.repository in (
             quay.io/kiwigrid/k8s-sidecar,
+            docker.io/kiwigrid/k8s-sidecar,
             quay.io/prometheus/prometheus,
             registry.k8s.io/kube-state-metrics/kube-state-metrics,
             ghcr.io/jkroepke/kube-webhook-certgen
@@ -1446,7 +1447,7 @@ spec:
         app.kubernetes.io/instance: falco
       annotations:
         checksum/config: f1cbc24eff2871a9819757bc492197b4652b70c6e85cda4a09c9330450bf7769
-        checksum/rules: 44f8668cbef570d9d68a141e5954f40accb5ddf2756365708af81470d012ef15
+        checksum/rules: 51e59927ec7063986dfe7d554fe15194ac989cab20ea1ca379d3afe641faa61c
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     spec:
       serviceAccountName: falco

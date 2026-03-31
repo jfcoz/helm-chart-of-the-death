@@ -104,6 +104,7 @@ customRules:
           k8s.ns.name = "{{ .Values.components.monitoring.kubePrometheusStack.namespace}}"
           and container.image.repository in (
             quay.io/kiwigrid/k8s-sidecar,
+            docker.io/kiwigrid/k8s-sidecar,
             quay.io/prometheus/prometheus,
             registry.k8s.io/kube-state-metrics/kube-state-metrics,
             ghcr.io/jkroepke/kube-webhook-certgen
