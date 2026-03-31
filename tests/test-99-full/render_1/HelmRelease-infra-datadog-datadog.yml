@@ -63,6 +63,8 @@ spec:
         rollingUpdate:
           maxUnavailable: 50%
     clusterAgent:
+      podAnnotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: datadogrun,varlog,tmpdir,config
       token: 4uftrVcbSdZL47LdGBvVNMO9G7xDoCAa
     datadog:
       apiKey: 0123456789abcdef0123456789abcdef
