@@ -361,6 +361,16 @@ grafana:
         editable: false
         options:
           path: /var/lib/grafana/dashboards/fluxcd
+      {{- if include "common.used" .Values.components.database.cnpg }}
+      - name: 'CNPG'
+        orgId: 1
+        folder: 'CNPG'
+        type: file
+        disableDeletion: true
+        editable: false
+        options:
+          path: /var/lib/grafana/dashboards/cnpg
+      {{- end }}
       {{- if include "common.used" .Values.components.monitoring.x509CertificateExporter }}
       - name: 'x509-certificate-exporter'
         orgId: 1
@@ -414,6 +424,12 @@ grafana:
         url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/refs/heads/main/monitoring/configs/dashboards/logs.json
         datasource: Loki
       {{- end }}
+    {{- if include "common.used" .Values.components.database.cnpg }}
+    cnpg:
+      cloudnativepg:
+        url: https://raw.githubusercontent.com/cloudnative-pg/grafana-dashboards/refs/heads/main/charts/cluster/grafana-dashboard.json
+        datasource: Prometheus
+    {{- end }}
     {{- if include "common.used" .Values.components.security.falco }}
     falco:
       falco-dashboard:
