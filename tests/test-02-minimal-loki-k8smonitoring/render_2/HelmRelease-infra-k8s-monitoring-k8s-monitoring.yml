@@ -6,10 +6,10 @@ metadata:
   name: k8s-monitoring-alloy-operator
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: alloy-operator-0.5.2
+    helm.sh/chart: alloy-operator-0.5.3
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.6.2"
+    app.kubernetes.io/version: "1.7.0"
     app.kubernetes.io/managed-by: Helm
 automountServiceAccountToken: true
 ---
@@ -19,13 +19,13 @@ kind: ServiceAccount
 automountServiceAccountToken: true
 metadata:
   labels:    
-    helm.sh/chart: kube-state-metrics-6.4.2
+    helm.sh/chart: kube-state-metrics-7.2.2
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "2.17.0"
+    app.kubernetes.io/version: "2.18.0"
     release: k8s-monitoring
   name: k8s-monitoring-kube-state-metrics
   namespace: infra-k8s-monitoring
@@ -37,13 +37,13 @@ metadata:
   name: k8s-monitoring-node-exporter
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: node-exporter-4.52.1
+    helm.sh/chart: node-exporter-4.53.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: node-exporter
     app.kubernetes.io/name: node-exporter
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.10.2"
+    app.kubernetes.io/version: "1.11.0"
     release: k8s-monitoring
 automountServiceAccountToken: false
 ---
@@ -54,13 +54,13 @@ metadata:
   name: k8s-monitoring-windows-exporter
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: windows-exporter-0.12.5
+    helm.sh/chart: windows-exporter-0.12.6
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: windows-exporter
     app.kubernetes.io/name: windows-exporter
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "0.31.5"
+    app.kubernetes.io/version: "0.31.6"
     release: k8s-monitoring
 ---
 # Source: k8s-monitoring/charts/clusterMetrics/charts/windows-exporter/templates/config.yaml
@@ -70,13 +70,13 @@ metadata:
   name: k8s-monitoring-windows-exporter
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: windows-exporter-0.12.5
+    helm.sh/chart: windows-exporter-0.12.6
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: windows-exporter
     app.kubernetes.io/name: windows-exporter
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "0.31.5"
+    app.kubernetes.io/version: "0.31.6"
     release: k8s-monitoring
 data:
   config.yml: |
@@ -847,7 +847,7 @@ data:
   self-reporting-metric.prom: |
     # HELP grafana_kubernetes_monitoring_build_info A metric to report the version of the Kubernetes Monitoring Helm chart
     # TYPE grafana_kubernetes_monitoring_build_info gauge
-    grafana_kubernetes_monitoring_build_info{version="3.8.5", namespace="infra-k8s-monitoring"} 1
+    grafana_kubernetes_monitoring_build_info{version="3.8.6", namespace="infra-k8s-monitoring"} 1
     # HELP grafana_kubernetes_monitoring_feature_info A metric to report the enabled features of the Kubernetes Monitoring Helm chart
     # TYPE grafana_kubernetes_monitoring_feature_info gauge
     grafana_kubernetes_monitoring_feature_info{deployments="kube-state-metrics,node-exporter,windows-exporter", feature="clusterMetrics", sources="kubelet,kubeletResource,cadvisor,kube-state-metrics,node-exporter,windows-exporter", version="1.0.0"} 1
@@ -1272,10 +1272,10 @@ kind: ClusterRole
 metadata:
   name: k8s-monitoring-alloy-operator-alloy-manager
   labels:
-    helm.sh/chart: alloy-operator-0.5.2
+    helm.sh/chart: alloy-operator-0.5.3
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.6.2"
+    app.kubernetes.io/version: "1.7.0"
     app.kubernetes.io/managed-by: Helm
 rules:
   - apiGroups:
@@ -1329,13 +1329,13 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:    
-    helm.sh/chart: kube-state-metrics-6.4.2
+    helm.sh/chart: kube-state-metrics-7.2.2
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "2.17.0"
+    app.kubernetes.io/version: "2.18.0"
     release: k8s-monitoring
   name: k8s-monitoring-kube-state-metrics
 rules:
@@ -1365,9 +1365,9 @@ rules:
   - deployments
   verbs: ["list", "watch"]
 
-- apiGroups: [""]
+- apiGroups: ["discovery.k8s.io"]
   resources:
-  - endpoints
+  - endpointslices
   verbs: ["list", "watch"]
 
 - apiGroups: ["autoscaling"]
@@ -1486,10 +1486,10 @@ kind: ClusterRoleBinding
 metadata:
   name: k8s-monitoring-alloy-operator-alloy-manager
   labels:
-    helm.sh/chart: alloy-operator-0.5.2
+    helm.sh/chart: alloy-operator-0.5.3
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.6.2"
+    app.kubernetes.io/version: "1.7.0"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -1506,10 +1506,10 @@ kind: ClusterRoleBinding
 metadata:
   name: k8s-monitoring-alloy-operator
   labels:
-    helm.sh/chart: alloy-operator-0.5.2
+    helm.sh/chart: alloy-operator-0.5.3
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.6.2"
+    app.kubernetes.io/version: "1.7.0"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -1525,13 +1525,13 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:    
-    helm.sh/chart: kube-state-metrics-6.4.2
+    helm.sh/chart: kube-state-metrics-7.2.2
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "2.17.0"
+    app.kubernetes.io/version: "2.18.0"
     release: k8s-monitoring
   name: k8s-monitoring-kube-state-metrics
 roleRef:
@@ -1550,10 +1550,10 @@ metadata:
   name: k8s-monitoring-alloy-operator-leader-election-role
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: alloy-operator-0.5.2
+    helm.sh/chart: alloy-operator-0.5.3
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.6.2"
+    app.kubernetes.io/version: "1.7.0"
     app.kubernetes.io/managed-by: Helm
 rules:
   - apiGroups:
@@ -1595,10 +1595,10 @@ metadata:
   name: k8s-monitoring-alloy-operator-leader-election-rolebinding
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: alloy-operator-0.5.2
+    helm.sh/chart: alloy-operator-0.5.3
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.6.2"
+    app.kubernetes.io/version: "1.7.0"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -1616,10 +1616,10 @@ metadata:
   name: k8s-monitoring-alloy-operator
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: alloy-operator-0.5.2
+    helm.sh/chart: alloy-operator-0.5.3
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.6.2"
+    app.kubernetes.io/version: "1.7.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
@@ -1643,13 +1643,13 @@ metadata:
   name: k8s-monitoring-kube-state-metrics
   namespace: infra-k8s-monitoring
   labels:    
-    helm.sh/chart: kube-state-metrics-6.4.2
+    helm.sh/chart: kube-state-metrics-7.2.2
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "2.17.0"
+    app.kubernetes.io/version: "2.18.0"
     release: k8s-monitoring
   annotations:
 spec:
@@ -1671,13 +1671,13 @@ metadata:
   name: k8s-monitoring-node-exporter
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: node-exporter-4.52.1
+    helm.sh/chart: node-exporter-4.53.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: node-exporter
     app.kubernetes.io/name: node-exporter
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.10.2"
+    app.kubernetes.io/version: "1.11.0"
     release: k8s-monitoring
   annotations:
     prometheus.io/scrape: "false"
@@ -1699,13 +1699,13 @@ metadata:
   name: k8s-monitoring-windows-exporter
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: windows-exporter-0.12.5
+    helm.sh/chart: windows-exporter-0.12.6
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: windows-exporter
     app.kubernetes.io/name: windows-exporter
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "0.31.5"
+    app.kubernetes.io/version: "0.31.6"
     release: k8s-monitoring
 spec:
   type: ClusterIP
@@ -1726,13 +1726,13 @@ metadata:
   name: k8s-monitoring-node-exporter
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: node-exporter-4.52.1
+    helm.sh/chart: node-exporter-4.53.0
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: node-exporter
     app.kubernetes.io/name: node-exporter
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.10.2"
+    app.kubernetes.io/version: "1.11.0"
     release: k8s-monitoring
 spec:
   selector:
@@ -1750,13 +1750,13 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
         k8s.grafana.com/logs.job: integrations/node_exporter
       labels:
-        helm.sh/chart: node-exporter-4.52.1
+        helm.sh/chart: node-exporter-4.53.0
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: metrics
         app.kubernetes.io/part-of: node-exporter
         app.kubernetes.io/name: node-exporter
         app.kubernetes.io/instance: k8s-monitoring
-        app.kubernetes.io/version: "1.10.2"
+        app.kubernetes.io/version: "1.11.0"
         release: k8s-monitoring
     spec:
       automountServiceAccountToken: false
@@ -1768,7 +1768,7 @@ spec:
       serviceAccountName: k8s-monitoring-node-exporter
       containers:
         - name: node-exporter
-          image: quay.io/prometheus/node-exporter:v1.10.2
+          image: quay.io/prometheus/node-exporter:v1.11.0
           imagePullPolicy: IfNotPresent
           args:
             - --path.procfs=/host/proc
@@ -1854,13 +1854,13 @@ metadata:
   name: k8s-monitoring-windows-exporter
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: windows-exporter-0.12.5
+    helm.sh/chart: windows-exporter-0.12.6
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: windows-exporter
     app.kubernetes.io/name: windows-exporter
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "0.31.5"
+    app.kubernetes.io/version: "0.31.6"
     release: k8s-monitoring
 spec:
   selector:
@@ -1877,13 +1877,13 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
         k8s.grafana.com/logs.job: integrations/windows_exporter
       labels:
-        helm.sh/chart: windows-exporter-0.12.5
+        helm.sh/chart: windows-exporter-0.12.6
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: metrics
         app.kubernetes.io/part-of: windows-exporter
         app.kubernetes.io/name: windows-exporter
         app.kubernetes.io/instance: k8s-monitoring
-        app.kubernetes.io/version: "0.31.5"
+        app.kubernetes.io/version: "0.31.6"
         release: k8s-monitoring
     spec:
       automountServiceAccountToken: false
@@ -1893,13 +1893,13 @@ spec:
           runAsUserName: NT AUTHORITY\system
       initContainers:
         - name: configure-firewall
-          image: ghcr.io/prometheus-community/windows-exporter:0.31.5
+          image: ghcr.io/prometheus-community/windows-exporter:0.31.6
           command: [ "powershell" ]
           args: [ "New-NetFirewallRule", "-DisplayName", "'windows-exporter'", "-Direction", "inbound", "-Profile", "Any", "-Action", "Allow", "-LocalPort", "9182", "-Protocol", "TCP" ]
       serviceAccountName: k8s-monitoring-windows-exporter
       containers:
         - name: windows-exporter
-          image: ghcr.io/prometheus-community/windows-exporter:0.31.5
+          image: ghcr.io/prometheus-community/windows-exporter:0.31.6
           imagePullPolicy: IfNotPresent
           args:
             - --config.file=%CONTAINER_SANDBOX_MOUNT_POINT%/config.yml
@@ -1955,10 +1955,10 @@ metadata:
   name: k8s-monitoring-alloy-operator
   namespace: infra-k8s-monitoring
   labels:
-    helm.sh/chart: alloy-operator-0.5.2
+    helm.sh/chart: alloy-operator-0.5.3
     app.kubernetes.io/name: alloy-operator
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "1.6.2"
+    app.kubernetes.io/version: "1.7.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   replicas: 1
@@ -1969,10 +1969,10 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: alloy-operator-0.5.2
+        helm.sh/chart: alloy-operator-0.5.3
         app.kubernetes.io/name: alloy-operator
         app.kubernetes.io/instance: k8s-monitoring
-        app.kubernetes.io/version: "1.6.2"
+        app.kubernetes.io/version: "1.7.0"
         app.kubernetes.io/managed-by: Helm
     spec:
       serviceAccountName: k8s-monitoring-alloy-operator
@@ -1980,7 +1980,7 @@ spec:
         runAsNonRoot: true
       containers:
         - name: alloy-operator
-          image: "ghcr.io/grafana/alloy-operator:1.6.2"
+          image: "ghcr.io/grafana/alloy-operator:1.7.0"
           imagePullPolicy: IfNotPresent
           args:
             - --health-probe-bind-address=:8081
@@ -2026,13 +2026,13 @@ metadata:
   name: k8s-monitoring-kube-state-metrics
   namespace: infra-k8s-monitoring
   labels:    
-    helm.sh/chart: kube-state-metrics-6.4.2
+    helm.sh/chart: kube-state-metrics-7.2.2
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/instance: k8s-monitoring
-    app.kubernetes.io/version: "2.17.0"
+    app.kubernetes.io/version: "2.18.0"
     release: k8s-monitoring
 spec:
   selector:
@@ -2046,13 +2046,13 @@ spec:
   template:
     metadata:
       labels:        
-        helm.sh/chart: kube-state-metrics-6.4.2
+        helm.sh/chart: kube-state-metrics-7.2.2
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: metrics
         app.kubernetes.io/part-of: kube-state-metrics
         app.kubernetes.io/name: kube-state-metrics
         app.kubernetes.io/instance: k8s-monitoring
-        app.kubernetes.io/version: "2.17.0"
+        app.kubernetes.io/version: "2.18.0"
         release: k8s-monitoring
       annotations:
       
@@ -2073,19 +2073,21 @@ spec:
       - name: kube-state-metrics
         args:
         - --port=8080
-        - --resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpoints,horizontalpodautoscalers,ingresses,jobs,leases,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments
+        - --resources=certificatesigningrequests,configmaps,cronjobs,daemonsets,deployments,endpointslices,horizontalpodautoscalers,ingresses,jobs,leases,limitranges,mutatingwebhookconfigurations,namespaces,networkpolicies,nodes,persistentvolumeclaims,persistentvolumes,poddisruptionbudgets,pods,replicasets,replicationcontrollers,resourcequotas,secrets,services,statefulsets,storageclasses,validatingwebhookconfigurations,volumeattachments
         - --metric-labels-allowlist=nodes=[agentpool,alpha.eksctl.io/cluster-name,alpha.eksctl.io/nodegroup-name,beta.kubernetes.io/instance-type,cloud.google.com/gke-nodepool,cluster-name,ec2.amazonaws.com/Name,ec2.amazonaws.com/aws-autoscaling-groupName,ec2.amazonaws.com/aws-autoscaling-group-name,ec2.amazonaws.com/name,eks.amazonaws.com/nodegroup,k8s.io/cloud-provider-aws,karpenter.sh/nodepool,kubernetes.azure.com/cluster,kubernetes.io/arch,kubernetes.io/hostname,kubernetes.io/os,node.kubernetes.io/instance-type,topology.kubernetes.io/region,topology.kubernetes.io/zone]
         imagePullPolicy: IfNotPresent
-        image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.17.0
+        image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.18.0
         ports:
         - containerPort: 8080
           name: http
+        - containerPort: 8081
+          name: metrics
         livenessProbe:
           failureThreshold: 3
           httpGet:
             httpHeaders:
             path: /livez
-            port: 8080
+            port: http
             scheme: HTTP
           initialDelaySeconds: 5
           periodSeconds: 10
@@ -2096,7 +2098,7 @@ spec:
           httpGet:
             httpHeaders:
             path: /readyz
-            port: 8081
+            port: metrics
             scheme: HTTP
           initialDelaySeconds: 5
           periodSeconds: 10
@@ -2181,6 +2183,7 @@ spec:
     enabled: true
     image:
       digest: ""
+      pullPolicy: IfNotPresent
       registry: quay.io
       repository: prometheus-operator/prometheus-config-reloader
       tag: v0.81.0
@@ -2253,6 +2256,7 @@ spec:
     podLabels: {}
     priorityClassName: ""
     replicas: 1
+    revisionHistoryLimit: 10
     terminationGracePeriodSeconds: null
     tolerations: []
     topologySpreadConstraints: []
@@ -2491,6 +2495,7 @@ spec:
     enabled: true
     image:
       digest: ""
+      pullPolicy: IfNotPresent
       registry: quay.io
       repository: prometheus-operator/prometheus-config-reloader
       tag: v0.81.0
@@ -2563,6 +2568,7 @@ spec:
     podLabels: {}
     priorityClassName: ""
     replicas: 1
+    revisionHistoryLimit: 10
     terminationGracePeriodSeconds: null
     tolerations: []
     topologySpreadConstraints: []
@@ -2801,6 +2807,7 @@ spec:
     enabled: true
     image:
       digest: ""
+      pullPolicy: IfNotPresent
       registry: quay.io
       repository: prometheus-operator/prometheus-config-reloader
       tag: v0.81.0
@@ -2873,6 +2880,7 @@ spec:
     podLabels: {}
     priorityClassName: ""
     replicas: 1
+    revisionHistoryLimit: 10
     terminationGracePeriodSeconds: null
     tolerations:
     - effect: NoSchedule
@@ -3158,7 +3166,7 @@ metadata:
   labels:
     app.kubernetes.io/name: k8s-monitoring-add-finalizer
     app.kubernetes.io/instance: k8s-monitoring
-    helm.sh/chart: k8s-monitoring-3.8.5
+    helm.sh/chart: k8s-monitoring-3.8.6
   annotations:
     helm.sh/hook: post-install,post-upgrade
     helm.sh/hook-weight: "15"
@@ -3211,7 +3219,7 @@ metadata:
   labels:
     app.kubernetes.io/name: k8s-monitoring-remove-alloy-and-finalizer
     app.kubernetes.io/instance: k8s-monitoring
-    helm.sh/chart: k8s-monitoring-3.8.5
+    helm.sh/chart: k8s-monitoring-3.8.6
   annotations:
     helm.sh/hook: pre-delete
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded

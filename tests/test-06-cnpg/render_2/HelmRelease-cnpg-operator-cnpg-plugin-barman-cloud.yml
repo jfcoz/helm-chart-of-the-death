@@ -4,10 +4,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    helm.sh/chart: plugin-barman-cloud-0.5.0
+    helm.sh/chart: plugin-barman-cloud-0.6.0
     app.kubernetes.io/name: plugin-barman-cloud
     app.kubernetes.io/instance: cnpg-plugin-barman-cloud
-    app.kubernetes.io/version: "v0.11.0"
+    app.kubernetes.io/version: "v0.12.0"
     app.kubernetes.io/managed-by: Helm
   name: cnpg-plugin-barman-cloud
   namespace: cnpg-operator
@@ -15,7 +15,7 @@ metadata:
 # Source: plugin-barman-cloud/templates/configmap.yaml
 apiVersion: v1
 data:
-  SIDECAR_IMAGE: "ghcr.io/cloudnative-pg/plugin-barman-cloud-sidecar:v0.11.0"
+  SIDECAR_IMAGE: "ghcr.io/cloudnative-pg/plugin-barman-cloud-sidecar:v0.12.0"
 kind: ConfigMap
 metadata:
   name: plugin-barman-cloud-config
@@ -26,7 +26,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.19.0
+    controller-gen.kubebuilder.io/version: v0.20.1
     helm.sh/resource-policy: keep
   name: objectstores.barmancloud.cnpg.io
 spec:
@@ -796,10 +796,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
-    helm.sh/chart: plugin-barman-cloud-0.5.0
+    helm.sh/chart: plugin-barman-cloud-0.6.0
     app.kubernetes.io/name: plugin-barman-cloud
     app.kubernetes.io/instance: cnpg-plugin-barman-cloud
-    app.kubernetes.io/version: "v0.11.0"
+    app.kubernetes.io/version: "v0.12.0"
     app.kubernetes.io/managed-by: Helm
   name: cnpg-plugin-barman-cloud-binding
 roleRef:
@@ -816,10 +816,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   labels:
-    helm.sh/chart: plugin-barman-cloud-0.5.0
+    helm.sh/chart: plugin-barman-cloud-0.6.0
     app.kubernetes.io/name: plugin-barman-cloud
     app.kubernetes.io/instance: cnpg-plugin-barman-cloud
-    app.kubernetes.io/version: "v0.11.0"
+    app.kubernetes.io/version: "v0.12.0"
     app.kubernetes.io/managed-by: Helm
   name: cnpg-plugin-barman-cloud-leader-election-role
   namespace: cnpg-operator
@@ -861,10 +861,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
-    helm.sh/chart: plugin-barman-cloud-0.5.0
+    helm.sh/chart: plugin-barman-cloud-0.6.0
     app.kubernetes.io/name: plugin-barman-cloud
     app.kubernetes.io/instance: cnpg-plugin-barman-cloud
-    app.kubernetes.io/version: "v0.11.0"
+    app.kubernetes.io/version: "v0.12.0"
     app.kubernetes.io/managed-by: Helm
   name: cnpg-plugin-barman-cloud-leader-election-rolebinding
   namespace: cnpg-operator
@@ -882,10 +882,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    helm.sh/chart: plugin-barman-cloud-0.5.0
+    helm.sh/chart: plugin-barman-cloud-0.6.0
     app.kubernetes.io/name: plugin-barman-cloud
     app.kubernetes.io/instance: cnpg-plugin-barman-cloud
-    app.kubernetes.io/version: "v0.11.0"
+    app.kubernetes.io/version: "v0.12.0"
     app.kubernetes.io/managed-by: Helm
     cnpg.io/pluginName: barman-cloud.cloudnative-pg.io
   annotations:
@@ -908,10 +908,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    helm.sh/chart: plugin-barman-cloud-0.5.0
+    helm.sh/chart: plugin-barman-cloud-0.6.0
     app.kubernetes.io/name: plugin-barman-cloud
     app.kubernetes.io/instance: cnpg-plugin-barman-cloud
-    app.kubernetes.io/version: "v0.11.0"
+    app.kubernetes.io/version: "v0.12.0"
     app.kubernetes.io/managed-by: Helm
   name: cnpg-plugin-barman-cloud
   namespace: cnpg-operator
@@ -945,7 +945,7 @@ spec:
             configMapKeyRef:
               key: SIDECAR_IMAGE
               name: plugin-barman-cloud-config
-        image: "ghcr.io/cloudnative-pg/plugin-barman-cloud:v0.11.0"
+        image: "ghcr.io/cloudnative-pg/plugin-barman-cloud:v0.12.0"
         name: barman-cloud
         ports:
         - containerPort: 9090

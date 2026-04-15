@@ -6,7 +6,7 @@ metadata:
   name: argocd-image-updater
   namespace: "infra-argocd"
   labels:
-    helm.sh/chart: argocd-image-updater-1.1.4
+    helm.sh/chart: argocd-image-updater-1.1.5
     app.kubernetes.io/name: argocd-image-updater
     app.kubernetes.io/instance: argocd-image-updater
     app.kubernetes.io/version: "v1.1.1"
@@ -18,7 +18,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
-    helm.sh/chart: argocd-image-updater-1.1.4
+    helm.sh/chart: argocd-image-updater-1.1.5
     app.kubernetes.io/name: argocd-image-updater
     app.kubernetes.io/instance: argocd-image-updater
     app.kubernetes.io/version: "v1.1.1"
@@ -32,7 +32,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
-    helm.sh/chart: argocd-image-updater-1.1.4
+    helm.sh/chart: argocd-image-updater-1.1.5
     app.kubernetes.io/name: argocd-image-updater
     app.kubernetes.io/instance: argocd-image-updater
     app.kubernetes.io/version: "v1.1.1"
@@ -607,7 +607,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    helm.sh/chart: argocd-image-updater-1.1.4
+    helm.sh/chart: argocd-image-updater-1.1.5
     app.kubernetes.io/name: argocd-image-updater
     app.kubernetes.io/instance: argocd-image-updater
     app.kubernetes.io/version: "v1.1.1"
@@ -663,7 +663,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
-    helm.sh/chart: argocd-image-updater-1.1.4
+    helm.sh/chart: argocd-image-updater-1.1.5
     app.kubernetes.io/name: argocd-image-updater
     app.kubernetes.io/instance: argocd-image-updater
     app.kubernetes.io/version: "v1.1.1"
@@ -684,7 +684,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   labels:
-    helm.sh/chart: argocd-image-updater-1.1.4
+    helm.sh/chart: argocd-image-updater-1.1.5
     app.kubernetes.io/name: argocd-image-updater
     app.kubernetes.io/instance: argocd-image-updater
     app.kubernetes.io/version: "v1.1.1"
@@ -730,7 +730,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   labels:
-    helm.sh/chart: argocd-image-updater-1.1.4
+    helm.sh/chart: argocd-image-updater-1.1.5
     app.kubernetes.io/name: argocd-image-updater
     app.kubernetes.io/instance: argocd-image-updater
     app.kubernetes.io/version: "v1.1.1"
@@ -754,7 +754,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
-    helm.sh/chart: argocd-image-updater-1.1.4
+    helm.sh/chart: argocd-image-updater-1.1.5
     app.kubernetes.io/name: argocd-image-updater
     app.kubernetes.io/instance: argocd-image-updater
     app.kubernetes.io/version: "v1.1.1"
@@ -776,7 +776,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
-    helm.sh/chart: argocd-image-updater-1.1.4
+    helm.sh/chart: argocd-image-updater-1.1.5
     app.kubernetes.io/name: argocd-image-updater
     app.kubernetes.io/instance: argocd-image-updater
     app.kubernetes.io/version: "v1.1.1"
@@ -800,7 +800,7 @@ metadata:
   name: argocd-image-updater-controller
   namespace: "infra-argocd"
   labels:
-    helm.sh/chart: argocd-image-updater-1.1.4
+    helm.sh/chart: argocd-image-updater-1.1.5
     app.kubernetes.io/name: argocd-image-updater
     app.kubernetes.io/instance: argocd-image-updater
     app.kubernetes.io/version: "v1.1.1"
@@ -817,7 +817,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: cd29ade7d7ee8fac7cc73fb8f8e6ed73a6f880fb5f26b7c846020fc22980330d
+        checksum/config: 730747d424df93684d4d3effc619865b4b3cda53a9df2fa0f6f16213f4b5e486
       labels:
         app.kubernetes.io/name: argocd-image-updater
         app.kubernetes.io/instance: argocd-image-updater
