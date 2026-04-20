@@ -76,7 +76,7 @@ components:
       namespace: kube-system
       chart:
         name: cilium
-        version: "1.19.2"
+        version: "1.19.3"
         repository: cilium
       release:
         timeout: 30m
