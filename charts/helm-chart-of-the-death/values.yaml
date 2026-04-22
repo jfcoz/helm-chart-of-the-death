@@ -90,7 +90,7 @@ components:
       namespace: infra-argocd
       chart:
         name: argo-cd
-        version: "9.5.2"
+        version: "9.5.4"
         repository: argo
       issuer: letsencrypt-production
       release:
