@@ -30,10 +30,11 @@ spec:
         kind: HelmRepository
         name: "cilium"
         namespace: flux-system
-      version: "1.19.2"
+      version: "1.19.3"
   values:
     cluster:
       name: change-me
+    defaultLBServiceIPAM: none
     envoy:
       updateStrategy:
         rollingUpdate:

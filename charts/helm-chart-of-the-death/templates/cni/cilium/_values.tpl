@@ -16,6 +16,15 @@ envoy:
     rollingUpdate:
       maxUnavailable: 33%
 
+
+{{- if and
+  (eq .Values.kubernetesDistribution "k3s")
+  (semverCompare ">=1.19.0" $me.chart.version)
+}}
+# until fix for https://github.com/cilium/cilium/issues/44430
+defaultLBServiceIPAM: none
+{{- end }}
+
 {{- if semverCompare ">=1.19.0" $me.chart.version }}
 # Configure what the response should be to pod egress traffic denied by network policy : icmp instead of none
 policyDenyResponse: icmp
