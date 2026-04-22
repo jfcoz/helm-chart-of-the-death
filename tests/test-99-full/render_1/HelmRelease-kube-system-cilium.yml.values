@@ -1,5 +1,6 @@
 cluster:
   name: change-me
+defaultLBServiceIPAM: none
 envoy:
   updateStrategy:
     rollingUpdate:
