@@ -272,6 +272,7 @@
 {{/* values */}}
 {{- define "monitoring.kubePrometheusStack.defaultValues" }}
 {{- $me := .Values.components.monitoring.kubePrometheusStack }}
+{{- $falco := .Values.components.security.falco }}
 grafana:
   adminPassword: {{ .Values.general.grafanaAdminPassword | required "general.grafanaAdminPassword is mandatory" | quote }}
   grafana.ini:
@@ -697,41 +698,142 @@ alertmanager:
       - "alertname = InfoInhibitor"
       target_matchers:
       - "severity = info"
+
     route:
       group_by:
       - namespace
+      - pod
       # default receiver
-      #receiver: Slack
       receiver: 'null'
+      group_wait: 30s
+      group_interval: 5m
+      repeat_interval: 10m
+
       routes:
       - matchers:
         - alertname = "InfoInhibitor"
         receiver: 'null'
+
       - matchers:
         - alertname = "Watchdog"
-        receiver: Watchdog
-        repeat_interval: 1m
-        group_wait: 0s
+        receiver: watchdog
         group_interval: 1m
+        repeat_interval: 2m
+
+      {{- if include "common.used" .Values.components.security.falco }}
+      #Matcher falco
+      # Falco priority list : emergency|alert|critical|error|warning|notice|informational|debug
+      #docs :https://github.com/falcosecurity/falcosidekick/blob/master/docs/outputs/alertmanager.md
       - matchers:
-        - severity =~ "warning|info"
-        receiver: 'null'
+          - source = "falco"
+        routes:
+          {{- with (($falco.config).alerts).critical }}
+          - matchers:
+              - priority = "Critical"
+            routes:
+              - receiver: {{ . }}
+          {{- end }}
+
+          {{- with (($falco.config).alerts).emergency }}
+          - matchers:
+              - priority = "Emergency"
+            routes:
+              - receiver: {{ . }}
+          {{- end }}
+
+          {{- with (($falco.config).alerts).others }}
+          - routes:
+              - receiver: {{ . }}
+          {{- end }}
+      {{- end }}
+
       - matchers:
-        - severity = "critical"
-        receiver: OnCall
+          - severity="critical"
+        routes:
+          # TODO: with custom critical routes
+          #- matchers:
+          #    - label_les_tilleuls_coop_servicelevel="7h_5d"
+          #  routes:
+          #    - receiver: grafana_oncall_7h_5d
+          #      #active_time_intervals:
+          #      #  - "7h_5d"
+
+          #- matchers:
+          #    - label_les_tilleuls_coop_servicelevel="24h_7d"
+          #  routes:
+          #    - receiver: grafana_oncall_24h_7d
+          #      #active_time_intervals:
+          #      #  - "24h_7d"
+
+          #- matchers:
+          #    - label_les_tilleuls_coop_servicelevel="0h_0d"
+          #  routes:
+          #    - receiver: grafana_oncall_0h_0d
+          #      #active_time_intervals:
+          #      #  - "7h_5d"
+
+          - routes:
+              - receiver: critical_wakeup_oncall
+                #active_time_intervals:
+                #  - "${cluster_default_servicelevel}"
+
+      - matchers:
+          - severity="critical_tomorrow"
+        routes:
+          - receiver: critical_tomorrow_oncall
+            #active_time_intervals:
+            #  - "7h_5d"
+
+      - matchers:
+          - severity="warning"
+        routes:
+          # if alerts have duplicates thresholds, send first threshold alerts to day only oncall
+          - routes:
+              - receiver: critical_tomorrow_oncall
+            matchers:
+            - alertname =~ "KubePersistentVolumeFillingUp|KubePersistentVolumeInodesFillingUp|CertificateRenewal|CertificateExpiration"
+
+          - routes:
+            - receiver: warning_oncall
+
+      - matchers:
+          - severity="info"
+        receiver: info_slack
+
     receivers:
       - name: 'null'
-      - name: Slack
+
+      {{- with (($me.config).alerts).watchdog }}
+      - name: watchdog
+        webhook_configs:
+          - url: {{ . }}
+      {{- end }}
+
+      {{- with (($me.config).alerts).critical_wakeup_oncall }}
+      - name: critical_wakeup_oncall
+        webhook_configs:
+          - url: {{ . }}
+      {{- end }}
+
+      {{- with (($me.config).alerts).critical_tomorrow_oncall }}
+      - name: critical_tomorrow_oncall
+        webhook_configs:
+          - url: {{ . }}
+      {{- end }}
+
+      {{- with (($me.config).alerts).warning_oncall }}
+      - name: warning_oncall
+        webhook_configs:
+          - url: {{ . }}
+      {{- end }}
+
+      {{- with (($me.config).alerts).info_slack }}
+      - name: info_slack
         slack_configs:
-          - api_url: {{ .Values.alerts.alertmanager_slack_webhook | required "missing alerts.alertmanager_slack_webhook" }}
+          - api_url: {{ . }}
             send_resolved: true
-      - name: Watchdog
-        webhook_configs:
-          - url: {{ .Values.alerts.alertmanager_watchdog_webhook | required "missing alerts.alertmanager_watchdog_webhook" }}
-      - name: OnCall
-        webhook_configs:
-          - url: {{ .Values.alerts.alertmanager_oncall_webhook | required "missing alerts.alertmanager_oncall_webhook" }}
-            send_resolved: true
+      {{- end }}
+
 kubeControllerManager:
   enabled: false
 kube-state-metrics:

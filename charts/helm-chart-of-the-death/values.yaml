@@ -185,6 +185,13 @@ components:
       excludeFromBackup: true
       release:
         timeout: 10m
+      config:
+        alerts:
+          watchdog: https://replace_with_webhook.example.com
+          critical_wakeup_oncall: https://replace_with_webhook.example.com
+          critical_tomorrow_oncall: https://replace_with_webhook.example.com
+          warning_oncall: https://replace_with_webhook.example.com
+          info_slack: https://replace_with_webhook.example.com
       values: {}
 
     thanos:
@@ -370,7 +377,7 @@ components:
           enabled: false
           secretName: velero-repo-encryption
           keyName: encryption.key
-  values: {}
+      values: {}
 
   security:
     certManager:
@@ -432,6 +439,12 @@ components:
           # test is using a very old mono arch image
           # https://github.com/falcosecurity/charts/blob/master/charts/falcosidekick/templates/tests/test-connection.yaml#L16
           enable: false
+      config:
+        alerts:
+          # where to route falco alerts by priority
+          emergency: critical_wakeup_oncall
+          critical: critical_tomorrow_oncall
+          others: info_slack
       values: {}
 
     trivy:

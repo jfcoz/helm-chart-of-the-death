@@ -12,7 +12,7 @@ metadata:
   name: loki
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -443,7 +443,7 @@ metadata:
   name: loki
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -544,7 +544,7 @@ metadata:
   name: loki-gateway
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -756,7 +756,7 @@ metadata:
   name: loki-runtime
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -769,7 +769,7 @@ kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -785,7 +785,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: loki-clusterrolebinding
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -870,7 +870,7 @@ metadata:
   name: loki-gateway
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -896,7 +896,7 @@ metadata:
   name: loki-memberlist
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -921,7 +921,7 @@ metadata:
   name: loki-headless
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -946,7 +946,7 @@ metadata:
   name: loki
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -974,7 +974,7 @@ metadata:
   name: loki-gateway
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -1093,7 +1093,7 @@ spec:
       serviceAccountName: minio-sa
       containers:
         - name: minio
-          image: quay.io/minio/minio:RELEASE.2024-12-18T13-15-44Z
+          image: docker.io/pgsty/minio:RELEASE.2026-03-14T12-00-00Z
           imagePullPolicy: IfNotPresent
           command: [
             "/bin/sh",
@@ -1160,7 +1160,7 @@ metadata:
   name: loki
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -1351,7 +1351,7 @@ spec:
       serviceAccountName: minio-sa
       containers:
         - name: minio-make-bucket
-          image: "quay.io/minio/mc:RELEASE.2024-11-21T17-21-54Z"
+          image: "docker.io/pgsty/mc:RELEASE.2026-03-13T08-57-32Z"
           imagePullPolicy: IfNotPresent
           command: [ "/bin/sh", "/config/initialize" ]
           env:
@@ -1370,7 +1370,7 @@ spec:
             requests:
               memory: 128Mi
         - name: minio-make-user
-          image: "quay.io/minio/mc:RELEASE.2024-11-21T17-21-54Z"
+          image: "docker.io/pgsty/mc:RELEASE.2026-03-13T08-57-32Z"
           imagePullPolicy: IfNotPresent
           command: [ "/bin/sh", "/config/add-user" ]
           env:

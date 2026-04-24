@@ -33,7 +33,7 @@ spec:
         kind: HelmRepository
         name: "argo"
         namespace: flux-system
-      version: "9.5.2"
+      version: "9.5.4"
   values:
     applicationSet:
       metrics:
