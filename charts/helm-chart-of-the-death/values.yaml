@@ -151,7 +151,7 @@ components:
       helmResourcePolicyKeep: true
       chart:
         name: datadog
-        version: "3.201.7"
+        version: "3.201.8"
         repository: datadog
       release:
         timeout: 5m
