@@ -24,7 +24,7 @@ apiversions='--api-versions objectbucket.io/v1alpha1'
 helm lint $chart_dir
 
 # checking keep annotation. This prevent uninstall of all components in case of misused
-for manifest in $(find $chart_dir/templates -type f -not -name "_*" -a -not -name "NOTES.txt" -a -not -name "validation*.yaml"); do
+for manifest in $(find $chart_dir/templates -type f -not -name "_*" -a -not -name "NOTES.txt" -a -not -name "validation*.yaml" -not -name "*.swp"); do
   if ! grep "helm.sh/resource-policy: keep" $manifest >/dev/null; then
     echo "missing keep annotation in $manifest"
     exit 1

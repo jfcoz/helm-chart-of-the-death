@@ -428,20 +428,20 @@ alertmanager:
       - name: "null"
       - name: watchdog
         webhook_configs:
-          - url: replace_with_webhook
+          - url: https://replace_with_webhook.example.com
       - name: critical_wakeup_oncall
         webhook_configs:
-          - url: replace_with_webhook
+          - url: https://replace_with_webhook.example.com
       - name: critical_tomorrow_oncall
         webhook_configs:
-          - url: replace_with_webhook
+          - url: https://replace_with_webhook.example.com
       - name: warning_oncall
         webhook_configs:
-          - url: replace_with_webhook
+          - url: https://replace_with_webhook.example.com
       - name: info_slack
         slack_configs:
-          - api_url: replace_with_webhook
-            send_resolve: true
+          - api_url: https://replace_with_webhook.example.com
+            send_resolved: true
     route:
       group_by:
         - namespace
@@ -469,34 +469,14 @@ alertmanager:
             - matchers:
                 - priority = "Emergency"
               routes:
-                - receiver: grafana_oncall_${cluster_default_servicelevel}
+                - receiver: critical_wakeup_oncall
             - routes:
                 - receiver: info_slack
         - matchers:
             - severity="critical"
           routes:
-            - matchers:
-                - label_les_tilleuls_coop_servicelevel="7h_5d"
-              routes:
-                - active_time_intervals:
-                    - 7h_5d
-                  receiver: grafana_oncall_7h_5d
-            - matchers:
-                - label_les_tilleuls_coop_servicelevel="24h_7d"
-              routes:
-                - active_time_intervals:
-                    - 24h_7d
-                  receiver: grafana_oncall_24h_7d
-            - matchers:
-                - label_les_tilleuls_coop_servicelevel="0h_0d"
-              routes:
-                - active_time_intervals:
-                    - 7h_5d
-                  receiver: grafana_oncall_0h_0d
             - routes:
-                - active_time_intervals:
-                    - ${cluster_default_servicelevel}
-                  receiver: grafana_oncall_${cluster_default_servicelevel}
+                - receiver: critical_wakeup_oncall
         - matchers:
             - severity="critical_tomorrow"
           routes:
