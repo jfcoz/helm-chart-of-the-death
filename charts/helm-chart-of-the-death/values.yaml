@@ -194,18 +194,18 @@ components:
           info_slack: https://replace_with_webhook.example.com
         customRoutes:
           severityCritical: {}
-          #- matchers:
-          #    - label_servicelevel="7h_5d"
-          #  routes:
-          #    - receiver: critical_tomorrow_oncall
-          #- matchers:
-          #    - label_servicelevel="24h_7d"
-          #  routes:
-          #    - receiver: critical_wakeup_oncall
-          #- matchers:
-          #    - label_servicelevel="0h_0d"
-          #  routes:
-          #    - receiver: info_slack
+          # - matchers:
+          #     - label_servicelevel="7h_5d"
+          #   routes:
+          #     - receiver: critical_tomorrow_oncall
+          # - matchers:
+          #     - label_servicelevel="24h_7d"
+          #   routes:
+          #     - receiver: critical_wakeup_oncall
+          # - matchers:
+          #     - label_servicelevel="0h_0d"
+          #   routes:
+          #     - receiver: info_slack
           severityCriticalTomorrow: {}
           # - matchers:
           #     - label_servicelevel="7h_5d"
@@ -220,18 +220,18 @@ components:
           #   routes:
           #     - receiver: info_slack
           severityWarning: {}
-          #- matchers:
-          #    - label_servicelevel="7h_5d"
-          #  routes:
-          #    - receiver: info_slack
-          #- matchers:
-          #    - label_servicelevel="24h_7d"
-          #  routes:
-          #    - receiver: info_slack
-          #- matchers:
-          #    - label_servicelevel="0h_0d"
-          #  routes:
-          #    - receiver: "null"
+          # - matchers:
+          #     - label_servicelevel="7h_5d"
+          #   routes:
+          #     - receiver: info_slack
+          # - matchers:
+          #     - label_servicelevel="24h_7d"
+          #   routes:
+          #     - receiver: info_slack
+          # - matchers:
+          #     - label_servicelevel="0h_0d"
+          #   routes:
+          #     - receiver: "null"
       values: {}
         # alertmanager:
         #   config:
