@@ -655,6 +655,7 @@ alertmanager:
       requests:
         memory: 80M
         cpu: 20m
+    logLevel: debug
     storage:
       volumeClaimTemplate:
         spec:
@@ -676,6 +677,7 @@ alertmanager:
   #  - secretName: alertmanager-general-tls
   #    hosts:
   #      - alertmanager.{{ .Values.general.ingressWildcardSuffix }}
+  {{- if not (($me.values).alertmanager).config }}
   config:
     inhibit_rules:
     - equal:
@@ -749,37 +751,23 @@ alertmanager:
 
       - matchers:
           - severity="critical"
+
         routes:
-          # TODO: with custom critical routes
-          #- matchers:
-          #    - label_les_tilleuls_coop_servicelevel="7h_5d"
-          #  routes:
-          #    - receiver: grafana_oncall_7h_5d
-          #      #active_time_intervals:
-          #      #  - "7h_5d"
+          {{- with (($me.config).customRoutes).severityCritical }}
+          {{ toYaml . | nindent 10 }}
+          {{- end }}
 
-          #- matchers:
-          #    - label_les_tilleuls_coop_servicelevel="24h_7d"
-          #  routes:
-          #    - receiver: grafana_oncall_24h_7d
-          #      #active_time_intervals:
-          #      #  - "24h_7d"
-
-          #- matchers:
-          #    - label_les_tilleuls_coop_servicelevel="0h_0d"
-          #  routes:
-          #    - receiver: grafana_oncall_0h_0d
-          #      #active_time_intervals:
-          #      #  - "7h_5d"
-
-          - routes:
-              - receiver: critical_wakeup_oncall
-                #active_time_intervals:
-                #  - "${cluster_default_servicelevel}"
+          - receiver: critical_wakeup_oncall
+            #active_time_intervals:
+            #  - "${cluster_default_servicelevel}"
 
       - matchers:
           - severity="critical_tomorrow"
         routes:
+          {{- with (($me.config).customRoutes).severityCriticalTomorrow }}
+          {{ toYaml . | nindent 10 }}
+          {{- end }}
+
           - receiver: critical_tomorrow_oncall
             #active_time_intervals:
             #  - "7h_5d"
@@ -792,6 +780,10 @@ alertmanager:
               - receiver: critical_tomorrow_oncall
             matchers:
             - alertname =~ "KubePersistentVolumeFillingUp|KubePersistentVolumeInodesFillingUp|CertificateRenewal|CertificateExpiration"
+
+          {{- with (($me.config).customRoutes).severityWarning }}
+          {{ toYaml . | nindent 10 }}
+          {{- end }}
 
           - routes:
             - receiver: warning_oncall
@@ -833,6 +825,7 @@ alertmanager:
           - api_url: {{ . }}
             send_resolved: true
       {{- end }}
+  {{- end }}
 
 kubeControllerManager:
   enabled: false

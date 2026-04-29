@@ -381,6 +381,7 @@ additionalPrometheusRulesMap:
               severity: warning
 alertmanager:
   alertmanagerSpec:
+    logLevel: debug
     replicas: 2
     resources:
       requests:
@@ -475,11 +476,34 @@ alertmanager:
         - matchers:
             - severity="critical"
           routes:
-            - routes:
+            - matchers:
+                - label_servicelevel="7h_5d"
+              routes:
+                - receiver: critical_tomorrow_oncall
+            - matchers:
+                - label_servicelevel="24h_7d"
+              routes:
                 - receiver: critical_wakeup_oncall
+            - matchers:
+                - label_servicelevel="0h_0d"
+              routes:
+                - receiver: info_slack
+            - receiver: critical_wakeup_oncall
         - matchers:
             - severity="critical_tomorrow"
           routes:
+            - matchers:
+                - label_servicelevel="7h_5d"
+              routes:
+                - receiver: critical_tomorrow_oncall
+            - matchers:
+                - label_servicelevel="24h_7d"
+              routes:
+                - receiver: critical_tomorrow_oncall
+            - matchers:
+                - label_servicelevel="0h_0d"
+              routes:
+                - receiver: info_slack
             - receiver: critical_tomorrow_oncall
         - matchers:
             - severity="warning"
@@ -488,6 +512,18 @@ alertmanager:
                 - alertname =~ "KubePersistentVolumeFillingUp|KubePersistentVolumeInodesFillingUp|CertificateRenewal|CertificateExpiration"
               routes:
                 - receiver: critical_tomorrow_oncall
+            - matchers:
+                - label_servicelevel="7h_5d"
+              routes:
+                - receiver: info_slack
+            - matchers:
+                - label_servicelevel="24h_7d"
+              routes:
+                - receiver: info_slack
+            - matchers:
+                - label_servicelevel="0h_0d"
+              routes:
+                - receiver: "null"
             - routes:
                 - receiver: warning_oncall
         - matchers:
