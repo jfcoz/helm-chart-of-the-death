@@ -30,7 +30,7 @@ spec:
     spec:
       chart: kyverno
       # each major contains upgrade process in changelog
-      version: "3.6.2"
+      version: "3.8.0"
       sourceRef:
         kind: HelmRepository
         name: "kyverno"
