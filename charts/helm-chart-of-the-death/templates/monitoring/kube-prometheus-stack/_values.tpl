@@ -862,6 +862,8 @@ customRules:
     severity: info
   KubeCPUOvercommit:
     severity: info
+  PrometheusRuleFailures:
+    severity: info
 
 additionalPrometheusRulesMap: 
   rule-name:

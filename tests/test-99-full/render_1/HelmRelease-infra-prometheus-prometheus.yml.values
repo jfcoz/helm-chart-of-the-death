@@ -534,6 +534,8 @@ customRules:
     severity: info
   KubeMemoryOvercommit:
     severity: info
+  PrometheusRuleFailures:
+    severity: info
 defaultRules:
   rules:
     kubeProxy: false
