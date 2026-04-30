@@ -786,11 +786,20 @@ alertmanager:
           {{- end }}
 
           - routes:
+            {{- if (($me.config).alerts).warning_oncall }}
             - receiver: warning_oncall
+            {{- end }}
+
+            - receiver: 'null'
 
       - matchers:
           - severity="info"
-        receiver: info_slack
+        routes:
+            {{- if (($me.config).alerts).info_slack }}
+            - receiver: info_slack
+            {{- end }}
+
+            - receiver: 'null'
 
     receivers:
       - name: 'null'
@@ -821,6 +830,13 @@ alertmanager:
 
       {{- with (($me.config).alerts).info_slack }}
       - name: info_slack
+        slack_configs:
+          - api_url: {{ . }}
+            send_resolved: true
+      {{- end }}
+
+      {{- with (($me.config).alerts).falco_slack }}
+      - name: falco_slack
         slack_configs:
           - api_url: {{ . }}
             send_resolved: true
@@ -1017,7 +1033,7 @@ additionalPrometheusRulesMap:
               ) > 16
             for: 5m
             labels:
-              severity: critical
+              severity: warning
             annotations:
               summary: 'Load per core > 16 for 5m on {{ "{{" }} $labels.node }}'
               description: "The load average on node {{ "{{" }} $labels.node }} is too high since too long"
@@ -1028,7 +1044,7 @@ additionalPrometheusRulesMap:
               ) > 8
             for: 15m
             labels:
-              severity: critical
+              severity: warning
             annotations:
               summary: 'Load per core > 8 for 15m on {{ "{{" }} $labels.node }}'
               description: "The load average on node {{ "{{" }} $labels.node }} is too high since too long"
@@ -1039,7 +1055,7 @@ additionalPrometheusRulesMap:
               ) > 4
             for: 30m
             labels:
-              severity: critical
+              severity: warning
             annotations:
               summary: 'Load per core > 4 for 30m on {{ "{{" }} $labels.node }}'
               description: "The load average on node {{ "{{" }} $labels.node }} is too high since too long"
@@ -1074,7 +1090,7 @@ additionalPrometheusRulesMap:
               < 0.1
             for: 3m
             labels:
-              severity: critical
+              severity: warning
             annotations:
               summary: 'Memory high on {{ "{{" }} $labels.node }}'
               description: "The memory usage on node {{ "{{" }} $labels.node }} is too high. Free+cache is less than 10%"
@@ -1098,7 +1114,7 @@ additionalPrometheusRulesMap:
               < 3600
             for: 3m
             labels:
-              severity: critical
+              severity: warning
             annotations:
               summary: 'Node {{ "{{" }} $labels.node }} has rebooted'
               description: "Node uptime on {{ "{{" }} $labels.node }} is less than one hour. Investigate reboot reason"
@@ -1122,7 +1138,7 @@ additionalPrometheusRulesMap:
               > 0.8
             for: 3m
             labels:
-              severity: warning
+              severity: info
             annotations:
               summary: 'Node CPU temperature warning on{{ "{{" }} $labels.node }}'
               description: "Node CPU temperature on {{ "{{" }} $labels.node }} is more than 80% of limit"
@@ -1146,7 +1162,7 @@ additionalPrometheusRulesMap:
               > 0.9
             for: 1m
             labels:
-              severity: critical
+              severity: warning
             annotations:
               summary: 'Node CPU temperature warning on{{ "{{" }} $labels.node }}'
               description: "Node CPU temperature on {{ "{{" }} $labels.node }} is more than 90% of limit"
@@ -1161,7 +1177,7 @@ additionalPrometheusRulesMap:
               ) > 1
             for: 30m
             labels:
-              severity: warning
+              severity: capacity
             annotations:
               summary: 'Memory working set vs request is too high'
               description: 'container {{ "{{" }} $labels.container }} of pod {{ "{{" }} $labels.pod }} in namespace{{ "{{" }} $labels.namespace }} have a memory working set (resident size, mapped files) upper to its memory request for too long. Please increase the memory request to avoir OOm killer in case of memory contention'
@@ -1182,7 +1198,7 @@ additionalPrometheusRulesMap:
               )
             for: 24h
             labels:
-              severity: warning
+              severity: capacity
             annotations:
               summary: 'Memory usage vs request is too high'
               description: 'container {{ "{{" }} $labels.container }} of pod {{ "{{" }} $labels.pod }} in namespace{{ "{{" }} $labels.namespace }} have a memory RSS (resident size) 2 times upper to its memory request in last day. Please increase the memory request to avoir OOm killer in case of memory contention'
@@ -1195,7 +1211,7 @@ additionalPrometheusRulesMap:
               )
             for: 30m
             labels:
-              severity: warning
+              severity: capacity
             annotations:
               summary: 'Memory request is missing'
               description: 'container {{ "{{" }} $labels.container }} of pod {{ "{{" }} $labels.pod }} in namespace{{ "{{" }} $labels.namespace }} is missing a memory request. Please add the memory request to avoir OOm killer in case of memory contention'
@@ -1216,7 +1232,7 @@ additionalPrometheusRulesMap:
               )
             for: 24h
             labels:
-              severity: warning
+              severity: capacity
             annotations:
               summary: 'CPU is over requested'
               description: 'container {{ "{{" }} $labels.container }} of pod {{ "{{" }} $labels.pod }} in namespace{{ "{{" }} $labels.namespace }} is requesting 2 times more CPU than it\\s maximum usage in last day. Please reduce the cpu request to allow a better resource sharing'
@@ -1228,7 +1244,7 @@ additionalPrometheusRulesMap:
               < 1
             for: 10m
             labels:
-              severity: warning
+              severity: capacity
             annotations:
               summary: 'CPU is under requested'
               description: 'container {{ "{{" }} $labels.container }} of pod {{ "{{" }} $labels.pod }} in namespace{{ "{{" }} $labels.namespace }} is requesting less CPU than it\\s maximum usage in last 24 hours. Please increase the cpu request to garantee resources allocation'

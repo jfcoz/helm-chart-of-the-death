@@ -8,10 +8,6 @@ general:
   grafanaAdminPassword: change_me
   kubernetesApi:
     host: fake.domain.name
-alerts:
-  alertmanager_slack_webhook: https://example.com
-  alertmanager_watchdog_webhook: https://example.com
-  alertmanager_oncall_webhook: https://example.com
 
 components:
   cni:
@@ -60,6 +56,12 @@ components:
       managed: true
       helmResourcePolicyKeep: true
       config:
+        alerts:
+          watchdog: https://replace_with_webhook.example.com
+          critical_wakeup_oncall: https://replace_with_webhook.example.com
+          critical_tomorrow_oncall: https://replace_with_webhook.example.com
+          warning_oncall: https://replace_with_webhook.example.com
+          info_slack: https://replace_with_webhook.example.com
         customRoutes:
           severityCritical:
           - matchers:

@@ -139,7 +139,7 @@ additionalPrometheusRulesMap:
               ) > 16
             for: 5m
             labels:
-              severity: critical
+              severity: warning
           - alert: NodeLoadHigh15m
             annotations:
               description: The load average on node {{ $labels.node }} is too high since too long
@@ -150,7 +150,7 @@ additionalPrometheusRulesMap:
               ) > 8
             for: 15m
             labels:
-              severity: critical
+              severity: warning
           - alert: NodeLoadHigh30m
             annotations:
               description: The load average on node {{ $labels.node }} is too high since too long
@@ -161,7 +161,7 @@ additionalPrometheusRulesMap:
               ) > 4
             for: 30m
             labels:
-              severity: critical
+              severity: warning
           - alert: NodeLoadHigh120m
             annotations:
               description: The load average on node {{ $labels.node }} is too high since too long
@@ -196,7 +196,7 @@ additionalPrometheusRulesMap:
               < 0.1
             for: 3m
             labels:
-              severity: critical
+              severity: warning
           - alert: NodeReboot
             annotations:
               description: Node uptime on {{ $labels.node }} is less than one hour. Investigate reboot reason
@@ -220,7 +220,7 @@ additionalPrometheusRulesMap:
               < 3600
             for: 3m
             labels:
-              severity: critical
+              severity: warning
           - alert: CpuTemperatureWarning
             annotations:
               description: Node CPU temperature on {{ $labels.node }} is more than 80% of limit
@@ -244,7 +244,7 @@ additionalPrometheusRulesMap:
               > 0.8
             for: 3m
             labels:
-              severity: warning
+              severity: info
           - alert: CpuTemperatureCritical
             annotations:
               description: Node CPU temperature on {{ $labels.node }} is more than 90% of limit
@@ -268,7 +268,7 @@ additionalPrometheusRulesMap:
               > 0.9
             for: 1m
             labels:
-              severity: critical
+              severity: warning
       - name: Resources
         rules:
           - alert: MemoryWorkingSetOverRequest
@@ -283,7 +283,7 @@ additionalPrometheusRulesMap:
               ) > 1
             for: 30m
             labels:
-              severity: warning
+              severity: capacity
           - alert: MemoryRssOverRequest
             annotations:
               description: container {{ $labels.container }} of pod {{ $labels.pod }} in namespace{{ $labels.namespace }} have a memory RSS (resident size) 2 times upper to its memory request in last day. Please increase the memory request to avoir OOm killer in case of memory contention
@@ -304,7 +304,7 @@ additionalPrometheusRulesMap:
               )
             for: 24h
             labels:
-              severity: warning
+              severity: capacity
           - alert: MissingMemoryRequest
             annotations:
               description: container {{ $labels.container }} of pod {{ $labels.pod }} in namespace{{ $labels.namespace }} is missing a memory request. Please add the memory request to avoir OOm killer in case of memory contention
@@ -317,7 +317,7 @@ additionalPrometheusRulesMap:
               )
             for: 30m
             labels:
-              severity: warning
+              severity: capacity
           - alert: CpuOverReservation
             annotations:
               description: container {{ $labels.container }} of pod {{ $labels.pod }} in namespace{{ $labels.namespace }} is requesting 2 times more CPU than it\\s maximum usage in last day. Please reduce the cpu request to allow a better resource sharing
@@ -338,7 +338,7 @@ additionalPrometheusRulesMap:
               )
             for: 24h
             labels:
-              severity: warning
+              severity: capacity
           - alert: CpuUnderReservation
             annotations:
               description: container {{ $labels.container }} of pod {{ $labels.pod }} in namespace{{ $labels.namespace }} is requesting less CPU than it\\s maximum usage in last 24 hours. Please increase the cpu request to garantee resources allocation
@@ -350,7 +350,7 @@ additionalPrometheusRulesMap:
               < 1
             for: 10m
             labels:
-              severity: warning
+              severity: capacity
       - name: Upgrades
         rules:
           - alert: ApiserverRequestedDeprecatedApis
@@ -472,7 +472,7 @@ alertmanager:
               routes:
                 - receiver: critical_wakeup_oncall
             - routes:
-                - receiver: info_slack
+                - receiver: falco_slack
         - matchers:
             - severity="critical"
           routes:
@@ -526,9 +526,12 @@ alertmanager:
                 - receiver: "null"
             - routes:
                 - receiver: warning_oncall
+                - receiver: "null"
         - matchers:
             - severity="info"
-          receiver: info_slack
+          routes:
+            - receiver: info_slack
+            - receiver: "null"
 customRules:
   KubeCPUOvercommit:
     severity: info

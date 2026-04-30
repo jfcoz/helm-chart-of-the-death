@@ -111,6 +111,19 @@ customRules:
           )
         )
     {{- end }}
+    {{- if include "common.used" .Values.components.monitoring.loki }}
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "{{ .Values.components.monitoring.loki.namespace}}"
+          and container.image.repository in (
+            quay.io/kiwigrid/k8s-sidecar,
+            docker.io/kiwigrid/k8s-sidecar
+          )
+        )
+    {{- end }}
     {{- if include "common.used" .Values.components.monitoring.openTelemetryOperator }}
     - macro: k8s_containers
       override:

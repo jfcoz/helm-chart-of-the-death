@@ -973,6 +973,17 @@ data:
         condition: append
       condition: |
         or (
+          k8s.ns.name = "infra-loki"
+          and container.image.repository in (
+            quay.io/kiwigrid/k8s-sidecar,
+            docker.io/kiwigrid/k8s-sidecar
+          )
+        )
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
           k8s.ns.name = "infra-opentelemetry"
           and container.image.repository in (
             ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator
@@ -1447,7 +1458,7 @@ spec:
         app.kubernetes.io/instance: falco
       annotations:
         checksum/config: 63ad30ebc3abf021ec9e7fb63ce622685e80e9226d055d2603e68951938a1fb6
-        checksum/rules: fcd3c17dc060aadae1969939cdb40a60fb53bc2c25f7f786dd9a866ceb9cdd5a
+        checksum/rules: 02f5dc6bae3684f0c47897d38f3e126ea68685fe341603c56a831f09bfd2f038
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     spec:
       serviceAccountName: falco
