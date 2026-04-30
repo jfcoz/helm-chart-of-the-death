@@ -308,7 +308,7 @@ components:
       namespace: infra-opentelemetry
       chart:
         name: opentelemetry-operator
-        version: "0.110.0"
+        version: "0.111.0"
         repository: opentelemetry
       release:
         timeout: 5m
