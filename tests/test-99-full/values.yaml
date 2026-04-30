@@ -59,6 +59,48 @@ components:
       namespace: infra-prometheus
       managed: true
       helmResourcePolicyKeep: true
+      config:
+        customRoutes:
+          severityCritical:
+          - matchers:
+              - label_servicelevel="7h_5d"
+            routes:
+              - receiver: critical_tomorrow_oncall
+          - matchers:
+              - label_servicelevel="24h_7d"
+            routes:
+              - receiver: critical_wakeup_oncall
+          - matchers:
+              - label_servicelevel="0h_0d"
+            routes:
+              - receiver: info_slack
+          severityCriticalTomorrow:
+           - matchers:
+               - label_servicelevel="7h_5d"
+             routes:
+               - receiver: critical_tomorrow_oncall
+           - matchers:
+               - label_servicelevel="24h_7d"
+             routes:
+               - receiver: critical_tomorrow_oncall
+           - matchers:
+               - label_servicelevel="0h_0d"
+             routes:
+               - receiver: info_slack
+          severityWarning:
+          - matchers:
+              - label_servicelevel="7h_5d"
+            routes:
+              - receiver: info_slack
+          - matchers:
+              - label_servicelevel="24h_7d"
+            routes:
+              - receiver: info_slack
+          - matchers:
+              - label_servicelevel="0h_0d"
+            routes:
+              - receiver: "null"
+
       values: {}
     thanos:
       namespace: infra-thanos

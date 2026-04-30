@@ -34,7 +34,7 @@ spec:
     spec:
       chart: kube-prometheus-stack
       # each major contains upgrade process in changelog
-      version: "83.7.0"
+      version: "84.3.0"
       sourceRef:
         kind: HelmRepository
         name: "prometheus-community"
@@ -424,6 +424,7 @@ spec:
                   severity: warning
     alertmanager:
       alertmanagerSpec:
+        logLevel: debug
         replicas: 2
         resources:
           requests:
@@ -469,37 +470,108 @@ spec:
               - severity = info
         receivers:
           - name: "null"
-          - name: Slack
+          - name: watchdog
+            webhook_configs:
+              - url: https://replace_with_webhook.example.com
+          - name: critical_wakeup_oncall
+            webhook_configs:
+              - url: https://replace_with_webhook.example.com
+          - name: critical_tomorrow_oncall
+            webhook_configs:
+              - url: https://replace_with_webhook.example.com
+          - name: warning_oncall
+            webhook_configs:
+              - url: https://replace_with_webhook.example.com
+          - name: info_slack
             slack_configs:
-              - api_url: https://example.com
+              - api_url: https://replace_with_webhook.example.com
                 send_resolved: true
-          - name: Watchdog
-            webhook_configs:
-              - url: https://example.com
-          - name: OnCall
-            webhook_configs:
-              - send_resolved: true
-                url: https://example.com
         route:
           group_by:
             - namespace
+            - pod
+          group_interval: 5m
+          group_wait: 30s
           receiver: "null"
+          repeat_interval: 10m
           routes:
             - matchers:
                 - alertname = "InfoInhibitor"
               receiver: "null"
             - group_interval: 1m
-              group_wait: 0s
               matchers:
                 - alertname = "Watchdog"
-              receiver: Watchdog
-              repeat_interval: 1m
+              receiver: watchdog
+              repeat_interval: 2m
             - matchers:
-                - severity =~ "warning|info"
-              receiver: "null"
+                - source = "falco"
+              routes:
+                - matchers:
+                    - priority = "Critical"
+                  routes:
+                    - receiver: critical_tomorrow_oncall
+                - matchers:
+                    - priority = "Emergency"
+                  routes:
+                    - receiver: critical_wakeup_oncall
+                - routes:
+                    - receiver: info_slack
             - matchers:
-                - severity = "critical"
-              receiver: OnCall
+                - severity="critical"
+              routes:
+                - matchers:
+                    - label_servicelevel="7h_5d"
+                  routes:
+                    - receiver: critical_tomorrow_oncall
+                - matchers:
+                    - label_servicelevel="24h_7d"
+                  routes:
+                    - receiver: critical_wakeup_oncall
+                - matchers:
+                    - label_servicelevel="0h_0d"
+                  routes:
+                    - receiver: info_slack
+                - receiver: critical_wakeup_oncall
+            - matchers:
+                - severity="critical_tomorrow"
+              routes:
+                - matchers:
+                    - label_servicelevel="7h_5d"
+                  routes:
+                    - receiver: critical_tomorrow_oncall
+                - matchers:
+                    - label_servicelevel="24h_7d"
+                  routes:
+                    - receiver: critical_tomorrow_oncall
+                - matchers:
+                    - label_servicelevel="0h_0d"
+                  routes:
+                    - receiver: info_slack
+                - receiver: critical_tomorrow_oncall
+            - matchers:
+                - severity="warning"
+              routes:
+                - matchers:
+                    - alertname =~ "KubePersistentVolumeFillingUp|KubePersistentVolumeInodesFillingUp|CertificateRenewal|CertificateExpiration"
+                  routes:
+                    - receiver: critical_tomorrow_oncall
+                - matchers:
+                    - label_servicelevel="7h_5d"
+                  routes:
+                    - receiver: info_slack
+                - matchers:
+                    - label_servicelevel="24h_7d"
+                  routes:
+                    - receiver: info_slack
+                - matchers:
+                    - label_servicelevel="0h_0d"
+                  routes:
+                    - receiver: "null"
+                - routes:
+                    - receiver: warning_oncall
+            - matchers:
+                - severity="info"
+              receiver: info_slack
     customRules:
       KubeCPUOvercommit:
         severity: info

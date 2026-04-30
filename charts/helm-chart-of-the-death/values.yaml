@@ -185,7 +185,57 @@ components:
       excludeFromBackup: true
       release:
         timeout: 10m
+      config:
+        alerts:
+          watchdog: https://replace_with_webhook.example.com
+          critical_wakeup_oncall: https://replace_with_webhook.example.com
+          critical_tomorrow_oncall: https://replace_with_webhook.example.com
+          warning_oncall: https://replace_with_webhook.example.com
+          info_slack: https://replace_with_webhook.example.com
+        customRoutes:
+          severityCritical: {}
+          # - matchers:
+          #     - label_servicelevel="7h_5d"
+          #   routes:
+          #     - receiver: critical_tomorrow_oncall
+          # - matchers:
+          #     - label_servicelevel="24h_7d"
+          #   routes:
+          #     - receiver: critical_wakeup_oncall
+          # - matchers:
+          #     - label_servicelevel="0h_0d"
+          #   routes:
+          #     - receiver: info_slack
+          severityCriticalTomorrow: {}
+          # - matchers:
+          #     - label_servicelevel="7h_5d"
+          #   routes:
+          #     - receiver: critical_tomorrow_oncall
+          # - matchers:
+          #     - label_servicelevel="24h_7d"
+          #   routes:
+          #     - receiver: critical_tomorrow_oncall
+          # - matchers:
+          #     - label_servicelevel="0h_0d"
+          #   routes:
+          #     - receiver: info_slack
+          severityWarning: {}
+          # - matchers:
+          #     - label_servicelevel="7h_5d"
+          #   routes:
+          #     - receiver: info_slack
+          # - matchers:
+          #     - label_servicelevel="24h_7d"
+          #   routes:
+          #     - receiver: info_slack
+          # - matchers:
+          #     - label_servicelevel="0h_0d"
+          #   routes:
+          #     - receiver: "null"
       values: {}
+        # alertmanager:
+        #   config:
+        #     # setting anything here overwrite all default helm-chart-of-the-death configuration
 
     thanos:
       namespace: infra-thanos
@@ -370,7 +420,7 @@ components:
           enabled: false
           secretName: velero-repo-encryption
           keyName: encryption.key
-  values: {}
+      values: {}
 
   security:
     certManager:
@@ -432,6 +482,12 @@ components:
           # test is using a very old mono arch image
           # https://github.com/falcosecurity/charts/blob/master/charts/falcosidekick/templates/tests/test-connection.yaml#L16
           enable: false
+      config:
+        alerts:
+          # where to route falco alerts by priority
+          emergency: critical_wakeup_oncall
+          critical: critical_tomorrow_oncall
+          others: info_slack
       values: {}
 
     trivy:

@@ -6,7 +6,7 @@ metadata:
   name: loki
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -19,7 +19,7 @@ metadata:
   name: loki
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -170,7 +170,7 @@ metadata:
   name: loki-gateway
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -382,7 +382,7 @@ metadata:
   name: loki-runtime
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -395,7 +395,7 @@ kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -411,7 +411,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: loki-clusterrolebinding
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -430,7 +430,7 @@ kind: Service
 metadata:
   name: loki-chunks-cache
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -461,7 +461,7 @@ metadata:
   name: loki-compactor
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -520,7 +520,7 @@ metadata:
   name: loki-distributor
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -549,7 +549,7 @@ metadata:
   name: loki-gateway
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -604,7 +604,7 @@ metadata:
   name: loki-index-gateway
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -662,7 +662,7 @@ metadata:
   name: loki-ingester
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -691,7 +691,7 @@ metadata:
   name: loki-querier
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -720,7 +720,7 @@ metadata:
   name: loki-query-frontend-headless
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -756,7 +756,7 @@ metadata:
   name: loki-query-frontend
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -790,7 +790,7 @@ metadata:
   name: loki-query-scheduler
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -820,7 +820,7 @@ kind: Service
 metadata:
   name: loki-results-cache
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -879,7 +879,7 @@ metadata:
   name: loki-memberlist
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -904,7 +904,7 @@ metadata:
   name: loki-distributor
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -926,7 +926,7 @@ spec:
       annotations:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
       labels:
-        helm.sh/chart: loki-6.55.0
+        helm.sh/chart: loki-7.0.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
         app.kubernetes.io/version: "3.6.7"
@@ -1012,7 +1012,7 @@ metadata:
   name: loki-gateway
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -1100,7 +1100,7 @@ metadata:
   name: loki-querier
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -1122,7 +1122,7 @@ spec:
       annotations:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
       labels:
-        helm.sh/chart: loki-6.55.0
+        helm.sh/chart: loki-7.0.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
         app.kubernetes.io/version: "3.6.7"
@@ -1219,7 +1219,7 @@ metadata:
   name: loki-query-frontend
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -1240,7 +1240,7 @@ spec:
       annotations:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
       labels:
-        helm.sh/chart: loki-6.55.0
+        helm.sh/chart: loki-7.0.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
         app.kubernetes.io/version: "3.6.7"
@@ -1326,7 +1326,7 @@ metadata:
   name: loki-query-scheduler
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -1348,7 +1348,7 @@ spec:
       annotations:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
       labels:
-        helm.sh/chart: loki-6.55.0
+        helm.sh/chart: loki-7.0.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
         app.kubernetes.io/version: "3.6.7"
@@ -1434,7 +1434,7 @@ metadata:
   name: loki-distributor
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -1461,7 +1461,7 @@ metadata:
   name: loki-ingester
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -1488,7 +1488,7 @@ metadata:
   name: loki-querier
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -1515,7 +1515,7 @@ metadata:
   name: loki-query-frontend
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -1541,7 +1541,7 @@ kind: StatefulSet
 metadata:
   name: loki-chunks-cache
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -1670,7 +1670,7 @@ metadata:
   name: loki-compactor
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -1694,7 +1694,7 @@ spec:
       annotations:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
       labels:
-        helm.sh/chart: loki-6.55.0
+        helm.sh/chart: loki-7.0.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
         app.kubernetes.io/version: "3.6.7"
@@ -1791,7 +1791,7 @@ metadata:
   name: loki-index-gateway
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -1812,7 +1812,7 @@ spec:
       annotations:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
       labels:
-        helm.sh/chart: loki-6.55.0
+        helm.sh/chart: loki-7.0.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
         app.kubernetes.io/version: "3.6.7"
@@ -1903,7 +1903,7 @@ metadata:
   name: loki-ingester
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -1925,7 +1925,7 @@ spec:
       annotations:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
       labels:
-        helm.sh/chart: loki-6.55.0
+        helm.sh/chart: loki-7.0.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
         app.kubernetes.io/version: "3.6.7"
@@ -2029,7 +2029,7 @@ metadata:
   name: loki-pattern-ingester
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -2052,7 +2052,7 @@ spec:
       annotations:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
       labels:
-        helm.sh/chart: loki-6.55.0
+        helm.sh/chart: loki-7.0.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
         app.kubernetes.io/version: "3.6.7"
@@ -2147,7 +2147,7 @@ kind: StatefulSet
 metadata:
   name: loki-results-cache
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -2276,7 +2276,7 @@ metadata:
   name: loki-ruler
   namespace: infra-loki
   labels:
-    helm.sh/chart: loki-6.55.0
+    helm.sh/chart: loki-7.0.0
     app.kubernetes.io/name: loki
     app.kubernetes.io/instance: loki
     app.kubernetes.io/version: "3.6.7"
@@ -2297,7 +2297,7 @@ spec:
         checksum/config: 63e30003a80055deac902f83b5b8c1ded09cb0a8e59d0a105ef83a771beadaec
         kubectl.kubernetes.io/default-container: "ruler"
       labels:
-        helm.sh/chart: loki-6.55.0
+        helm.sh/chart: loki-7.0.0
         app.kubernetes.io/name: loki
         app.kubernetes.io/instance: loki
         app.kubernetes.io/version: "3.6.7"
