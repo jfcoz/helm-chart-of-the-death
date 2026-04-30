@@ -515,7 +515,7 @@ spec:
                   routes:
                     - receiver: critical_wakeup_oncall
                 - routes:
-                    - receiver: info_slack
+                    - receiver: falco_slack
             - matchers:
                 - severity="critical"
               routes:
@@ -569,9 +569,12 @@ spec:
                     - receiver: "null"
                 - routes:
                     - receiver: warning_oncall
+                    - receiver: "null"
             - matchers:
                 - severity="info"
-              receiver: info_slack
+              routes:
+                - receiver: info_slack
+                - receiver: "null"
     customRules:
       KubeCPUOvercommit:
         severity: info

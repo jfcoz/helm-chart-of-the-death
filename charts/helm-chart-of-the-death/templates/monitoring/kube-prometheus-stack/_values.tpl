@@ -786,11 +786,20 @@ alertmanager:
           {{- end }}
 
           - routes:
+            {{- if (($me.config).alerts).warning_oncall }}
             - receiver: warning_oncall
+            {{- end }}
+
+            - receiver: 'null'
 
       - matchers:
           - severity="info"
-        receiver: info_slack
+        routes:
+            {{- if (($me.config).alerts).info_slack }}
+            - receiver: info_slack
+            {{- end }}
+
+            - receiver: 'null'
 
     receivers:
       - name: 'null'
@@ -821,6 +830,13 @@ alertmanager:
 
       {{- with (($me.config).alerts).info_slack }}
       - name: info_slack
+        slack_configs:
+          - api_url: {{ . }}
+            send_resolved: true
+      {{- end }}
+
+      {{- with (($me.config).alerts).falco_slack }}
+      - name: falco_slack
         slack_configs:
           - api_url: {{ . }}
             send_resolved: true

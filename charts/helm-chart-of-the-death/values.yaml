@@ -186,14 +186,15 @@ components:
       release:
         timeout: 10m
       config:
-        alerts:
-          watchdog: https://replace_with_webhook.example.com
-          critical_wakeup_oncall: https://replace_with_webhook.example.com
-          critical_tomorrow_oncall: https://replace_with_webhook.example.com
-          warning_oncall: https://replace_with_webhook.example.com
-          info_slack: https://replace_with_webhook.example.com
+        alerts: {}
+          # watchdog: https://replace_with_webhook.example.com
+          # critical_wakeup_oncall: https://replace_with_webhook.example.com
+          # critical_tomorrow_oncall: https://replace_with_webhook.example.com
+          # warning_oncall: https://replace_with_webhook.example.com
+          # info_slack: https://replace_with_webhook.example.com
+          # falco_slack: https://replace_with_webhook.example.com
         customRoutes:
-          severityCritical: {}
+          severityCritical: []
           # - matchers:
           #     - label_servicelevel="7h_5d"
           #   routes:
@@ -206,7 +207,7 @@ components:
           #     - label_servicelevel="0h_0d"
           #   routes:
           #     - receiver: info_slack
-          severityCriticalTomorrow: {}
+          severityCriticalTomorrow: []
           # - matchers:
           #     - label_servicelevel="7h_5d"
           #   routes:
@@ -219,7 +220,7 @@ components:
           #     - label_servicelevel="0h_0d"
           #   routes:
           #     - receiver: info_slack
-          severityWarning: {}
+          severityWarning: []
           # - matchers:
           #     - label_servicelevel="7h_5d"
           #   routes:
@@ -487,7 +488,7 @@ components:
           # where to route falco alerts by priority
           emergency: critical_wakeup_oncall
           critical: critical_tomorrow_oncall
-          others: info_slack
+          others: falco_slack
       values: {}
 
     trivy:
