@@ -180,7 +180,7 @@ components:
       helmResourcePolicyKeep: true
       chart:
         name: kube-prometheus-stack
-        version: "84.4.0"
+        version: "84.5.0"
         repository: prometheus-community
       excludeFromBackup: true
       release:
