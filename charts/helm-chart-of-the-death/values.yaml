@@ -294,7 +294,7 @@ components:
       helmResourcePolicyKeep: true
       chart:
         name: k8s-monitoring
-        version: "3.8.7"
+        version: "4.0.4"
         repository: grafana
       release:
         timeout: 5m

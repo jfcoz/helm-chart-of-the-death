@@ -48,7 +48,7 @@ metaMonitoring:
 metricsGenerator:
   enabled: true
   remote_write:
-    - url: http://http://prometheus-kube-prometheus-prometheus.infra-prometheus:9090/api/v1/write
+    - url: http://prometheus-kube-prometheus-prometheus.infra-prometheus:9090/api/v1/write
 prometheusRule:
   enabled: true
 querier:

@@ -1,33 +1,55 @@
-alloy-logs:
-  alloy:
-    securityContext:
-      capabilities:
-        add: []
-  enabled: true
-alloy-metrics:
-  enabled: false
-alloy-singleton:
-  alloy:
-    securityContext:
-      capabilities:
-        add: []
-  enabled: true
 cluster:
   name: change-me
 clusterEvents:
+  collector: alloy-singleton
   enabled: true
 clusterMetrics:
+  collector: alloy-metrics
   enabled: false
-destinationsMap:
+  kube-state-metrics:
+    labelMatchers:
+      app.kubernetes.io/name: kube-state-metrics
+    namespace: infra-prometheus
+collectors:
+  alloy-logs:
+    alloy:
+      mounts:
+        varlog: true
+      securityContext:
+        capabilities:
+          add: []
+    controller:
+      tolerations:
+        - operator: Exists
+      type: daemonset
+    enabled: true
+  alloy-metrics:
+    alloy:
+      clustering:
+        enabled: true
+    controller:
+      type: deployment
+    enabled: false
+  alloy-singleton:
+    alloy:
+      securityContext:
+        capabilities:
+          add: []
+    controller:
+      type: deployment
+    enabled: true
+destinations:
   localLogs:
     type: loki
     url: http://loki-distributor.infra-loki:3100/loki/api/v1/push
   localPrometheus:
     type: prometheus
-    url: http://prometheus-kube-prometheus-prometheus.infra-prometheus:9090
+    url: http://prometheus-kube-prometheus-prometheus.infra-prometheus:9090/api/v1/write
 nodeLogs:
+  collector: alloy-logs
   enabled: true
-podLogs:
+podLogsViaLoki:
+  collector: alloy-logs
   enabled: true
 serviceMonitor:
   enabled: true
