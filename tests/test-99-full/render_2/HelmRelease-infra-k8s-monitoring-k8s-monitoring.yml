@@ -906,6 +906,8 @@ spec:
       kubernetes.io/os: linux
     podAnnotations:
       k8s.grafana.com/logs.job: integrations/alloy
+    tolerations:
+    - operator: Exists
     type: daemonset
     volumes:
       extra:

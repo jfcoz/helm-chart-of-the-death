@@ -69,6 +69,8 @@ collectors:
     enabled: true
     controller:
       type: daemonset
+      tolerations:
+      - operator: Exists
 
     # https://github.com/grafana/k8s-monitoring-helm/blob/ea357b0204031a05adc478f4778875c6122b0a98/charts/k8s-monitoring/collectors/alloy-values.yaml
     # we remove useless capabilities

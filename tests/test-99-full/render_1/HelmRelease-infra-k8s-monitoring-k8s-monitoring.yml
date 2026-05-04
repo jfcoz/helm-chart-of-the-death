@@ -59,6 +59,8 @@ spec:
             capabilities:
               add: []
         controller:
+          tolerations:
+            - operator: Exists
           type: daemonset
         enabled: true
       alloy-metrics:
