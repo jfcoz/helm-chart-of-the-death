@@ -848,7 +848,6 @@ kubeControllerManager:
 kube-state-metrics:
   metricLabelsAllowlist:
     - nodes=[topology.kubernetes.io/region,topology.kubernetes.io/zone]
-  replicas: 2
   resources:
     requests:
       memory: 200Mi
