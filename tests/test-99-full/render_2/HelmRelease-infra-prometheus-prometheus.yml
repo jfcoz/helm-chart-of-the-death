@@ -3045,7 +3045,7 @@ spec:
     matchLabels:      
       app.kubernetes.io/name: kube-state-metrics
       app.kubernetes.io/instance: prometheus
-  replicas: 2
+  replicas: 1
   strategy:
     type: RollingUpdate
   revisionHistoryLimit: 10

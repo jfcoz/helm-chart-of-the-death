@@ -1180,7 +1180,6 @@ spec:
             verbs:
               - list
               - watch
-      replicas: 2
       resources:
         limits:
           memory: 300Mi
