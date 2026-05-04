@@ -61,12 +61,16 @@ spec:
         alloy:
           clustering:
             enabled: true
+        controller:
+          type: deployment
         enabled: true
       alloy-singleton:
         alloy:
           securityContext:
             capabilities:
               add: []
+        controller:
+          type: deployment
         enabled: true
     destinations:
       localLogs:
@@ -74,7 +78,7 @@ spec:
         url: http://loki.infra-loki:3100/loki/api/v1/push
       localPrometheus:
         type: prometheus
-        url: http://prometheus-kube-prometheus-prometheus.infra-prometheus:9090
+        url: http://prometheus-kube-prometheus-prometheus.infra-prometheus:9090/api/v1/write
     nodeLogs:
       collector: alloy-logs
       enabled: true

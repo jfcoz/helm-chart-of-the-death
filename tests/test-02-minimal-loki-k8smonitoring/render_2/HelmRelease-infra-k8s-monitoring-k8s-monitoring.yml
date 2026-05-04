@@ -720,7 +720,7 @@ data:
     
     prometheus.remote_write "localprometheus" {
       endpoint {
-        url = "http://prometheus-kube-prometheus-prometheus.infra-prometheus:9090"
+        url = "http://prometheus-kube-prometheus-prometheus.infra-prometheus:9090/api/v1/write"
         headers = {
         }
         tls_config {
@@ -1243,6 +1243,7 @@ spec:
       kubernetes.io/os: linux
     podAnnotations:
       k8s.grafana.com/logs.job: integrations/alloy
+    type: deployment
     volumes:
       extra:
       - configMap:
@@ -1278,6 +1279,7 @@ spec:
       kubernetes.io/os: linux
     podAnnotations:
       k8s.grafana.com/logs.job: integrations/alloy
+    type: deployment
   crds:
     create: false
   nameOverride: alloy-singleton
