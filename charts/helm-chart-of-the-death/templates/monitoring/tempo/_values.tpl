@@ -87,7 +87,7 @@ prometheusRule:
 metricsGenerator:
   enabled: true
   remote_write:
-    - url: http://{{ template "monitoring.kubePrometheusStack.prometheusWriteEndpoint" . }}/api/v1/write
+    - url: {{ template "monitoring.kubePrometheusStack.prometheusWriteEndpoint" . }}
 {{- end }}
 
 {{/* merged values : default + user  */}}

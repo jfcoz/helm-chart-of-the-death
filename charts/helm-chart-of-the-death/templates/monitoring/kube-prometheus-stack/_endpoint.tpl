@@ -5,5 +5,5 @@ http://prometheus-kube-prometheus-alertmanager.{{ .Values.components.monitoring.
 
 {{/* prometheus write endpoint */}}
 {{- define "monitoring.kubePrometheusStack.prometheusWriteEndpoint" -}}
-http://prometheus-kube-prometheus-prometheus.{{ .Values.components.monitoring.kubePrometheusStack.namespace}}:9090
+http://prometheus-kube-prometheus-prometheus.{{ .Values.components.monitoring.kubePrometheusStack.namespace}}:9090/api/v1/write
 {{- end }}

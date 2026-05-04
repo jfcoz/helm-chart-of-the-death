@@ -46,7 +46,7 @@ spec:
 
       {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
       #prometheusremotewrite/prometheus:
-      #  endpoint: http://{{ template "monitoring.kubePrometheusStack.prometheusWriteEndpoint" . }}/api/v1/writedd
+      #  endpoint: {{ template "monitoring.kubePrometheusStack.prometheusWriteEndpoint" . }}
       #  tls:
       #    insecure: true
       {{- end }}
