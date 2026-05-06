@@ -341,11 +341,11 @@ spec:
       containers:
       - name: x509-certificate-exporter
         securityContext:
-          allowPrivilegeEscalation: true
+          allowPrivilegeEscalation: false
           capabilities:
             drop:
             - ALL
-          privileged: true
+          privileged: false
           readOnlyRootFilesystem: true
           runAsGroup: 0
           runAsUser: 0
@@ -451,11 +451,11 @@ spec:
       containers:
       - name: x509-certificate-exporter
         securityContext:
-          allowPrivilegeEscalation: true
+          allowPrivilegeEscalation: false
           capabilities:
             drop:
             - ALL
-          privileged: true
+          privileged: false
           readOnlyRootFilesystem: true
           runAsGroup: 0
           runAsUser: 0

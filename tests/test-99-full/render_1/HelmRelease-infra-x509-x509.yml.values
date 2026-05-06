@@ -40,6 +40,9 @@ hostPathsExporter:
     requests:
       cpu: 1m
       memory: 30M
+  securityContext:
+    allowPrivilegeEscalation: false
+    privileged: false
 prometheusRules:
   create: true
 prometheusServiceMonitor:
