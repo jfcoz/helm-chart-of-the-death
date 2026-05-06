@@ -1,0 +1,12 @@
+---
+# Source: helm-chart-of-the-death/templates/helm_repositories.yaml
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: enix
+  namespace: flux-system
+  annotations:
+spec:
+  interval: 1h
+  url: oci://quay.io/enix/charts
+  type: oci

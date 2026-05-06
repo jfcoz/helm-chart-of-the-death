@@ -21,10 +21,16 @@ spec:
   {{- end }}
   # include common.fluxcd.release
   {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
-  chartRef:
-    kind: OCIRepository
-    name: {{ $me.chart.name }}
-    namespace: {{ $.Release.Namespace }}
+  chart:
+    spec:
+      chart: {{ $me.chart.name }}
+      # each major contains upgrade process in changelog
+      version: {{ $me.chart.version | quote }}
+      sourceRef:
+        kind: HelmRepository
+        name: {{ $me.chart.repository | quote }}
+        namespace: {{ $.Release.Namespace }}
+      interval: 1h
   values:
     {{- include "monitoring.x509CertificateExporter.mergedValues" . | nindent 4 }}
 {{- end }}
