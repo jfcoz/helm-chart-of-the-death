@@ -485,8 +485,7 @@ grafana:
     {{- if include "common.used" .Values.components.monitoring.x509CertificateExporter }}
     x509-certificate-exporter:
       x509-certificate-exporter:
-        gnetId: 13922
-        revision: 3
+        url: https://raw.githubusercontent.com/enix/x509-certificate-exporter/refs/heads/main/chart/grafana-dashboards/x509-certificate-exporter.json
         datasource: Prometheus
     {{- end }}
     {{- if include "common.used" .Values.components.security.trivy }}

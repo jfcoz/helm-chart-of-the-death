@@ -6,10 +6,10 @@ metadata:
   name: x509-x509-certificate-exporter
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.20.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.20.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
 ---
 # Source: x509-certificate-exporter/templates/serviceaccount.yaml
@@ -19,11 +19,170 @@ metadata:
   name: x509-x509-certificate-exporter-node
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.20.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.20.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
+---
+# Source: x509-certificate-exporter/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: x509-x509-certificate-exporter-secrets
+  namespace: infra-x509
+  labels:
+    helm.sh/chart: x509-certificate-exporter-4.1.0
+    app.kubernetes.io/name: x509-certificate-exporter
+    app.kubernetes.io/instance: x509
+    app.kubernetes.io/version: "4.1.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  config.yaml: |
+    web:
+      enableStats: true
+
+    server:
+      listen: ":9793"
+
+    log:
+      level: info
+      format: text
+
+    metrics:
+      exposeRelative: false
+      exposePerCertError: false
+      exposeNotBefore: false
+      exposeExpired: true
+      exposeDiagnostics: false
+
+    sources:
+      - kind: kubernetes
+        name: cluster-secrets
+        namespaces:
+          include: ["*"]
+          exclude: []
+          includeLabels: []
+          excludeLabels: []
+        secrets:
+          include: ["*"]
+          exclude: []
+          includeLabels: []
+          excludeLabels: []
+          types:
+            - type: "kubernetes.io/tls"
+              keyPatterns: ["^tls\\.crt$"]
+              format: pem
+          exposeLabels: []
+---
+# Source: x509-certificate-exporter/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: x509-x509-certificate-exporter-masters
+  namespace: infra-x509
+  labels:
+    helm.sh/chart: x509-certificate-exporter-4.1.0
+    app.kubernetes.io/name: x509-certificate-exporter
+    app.kubernetes.io/instance: x509
+    app.kubernetes.io/version: "4.1.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  config.yaml: |
+    web:
+      enableStats: true
+
+    server:
+      listen: ":9793"
+
+    log:
+      level: info
+      format: text
+
+    metrics:
+      exposeRelative: false
+      exposePerCertError: false
+      exposeNotBefore: false
+      exposeExpired: true
+      exposeDiagnostics: false
+      trimPathComponents: 3
+
+    cache:
+      filePoll:
+        interval: 300s
+        skipUnchanged: true
+
+    sources:
+      - kind: file
+        name: host-paths-masters
+        followSymlinks: true
+        paths:
+          - /mnt/watch/dir-3c26293a2009dafb0ad1629cc8fe885f0d9ed8b5/var/lib/rancher/k3s/server/tls/*
+          - /mnt/watch/dir-63e274bef665e51104dab74e3e841f70f88a68da/var/lib/rancher/k3s/agent/*
+        # Map host-namespace path prefixes (where symlink targets are
+        # recorded) to the paths the exporter actually sees inside the pod.
+        # Mirrors the volume mounts generated in daemonset.yaml. A non-empty
+        # list also confines symlink resolution to these scopes — anything
+        # that escapes raises x509_source_errors_total{reason="out_of_scope_symlink"}.
+        pathMappings:
+          - from: "/var/lib/rancher/k3s/server/tls"
+            to: "/mnt/watch/dir-3c26293a2009dafb0ad1629cc8fe885f0d9ed8b5/var/lib/rancher/k3s/server/tls"
+          - from: "/var/lib/rancher/k3s/agent"
+            to: "/mnt/watch/dir-63e274bef665e51104dab74e3e841f70f88a68da/var/lib/rancher/k3s/agent"
+        formats: [pem]
+---
+# Source: x509-certificate-exporter/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: x509-x509-certificate-exporter-nodes
+  namespace: infra-x509
+  labels:
+    helm.sh/chart: x509-certificate-exporter-4.1.0
+    app.kubernetes.io/name: x509-certificate-exporter
+    app.kubernetes.io/instance: x509
+    app.kubernetes.io/version: "4.1.0"
+    app.kubernetes.io/managed-by: Helm
+data:
+  config.yaml: |
+    web:
+      enableStats: true
+
+    server:
+      listen: ":9793"
+
+    log:
+      level: info
+      format: text
+
+    metrics:
+      exposeRelative: false
+      exposePerCertError: false
+      exposeNotBefore: false
+      exposeExpired: true
+      exposeDiagnostics: false
+      trimPathComponents: 3
+
+    cache:
+      filePoll:
+        interval: 300s
+        skipUnchanged: true
+
+    sources:
+      - kind: file
+        name: host-paths-nodes
+        followSymlinks: true
+        paths:
+          - /mnt/watch/dir-63e274bef665e51104dab74e3e841f70f88a68da/var/lib/rancher/k3s/agent/*
+        # Map host-namespace path prefixes (where symlink targets are
+        # recorded) to the paths the exporter actually sees inside the pod.
+        # Mirrors the volume mounts generated in daemonset.yaml. A non-empty
+        # list also confines symlink resolution to these scopes — anything
+        # that escapes raises x509_source_errors_total{reason="out_of_scope_symlink"}.
+        pathMappings:
+          - from: "/var/lib/rancher/k3s/agent"
+            to: "/mnt/watch/dir-63e274bef665e51104dab74e3e841f70f88a68da/var/lib/rancher/k3s/agent"
+        formats: [pem]
 ---
 # Source: x509-certificate-exporter/templates/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -31,10 +190,10 @@ kind: ClusterRole
 metadata:
   name: x509-x509-certificate-exporter
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.20.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.20.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups:
@@ -60,10 +219,10 @@ kind: ClusterRole
 metadata:
   name: x509-x509-certificate-exporter-node
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.20.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.20.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
 rules:
 ---
@@ -73,10 +232,10 @@ kind: ClusterRoleBinding
 metadata:
   name: x509-x509-certificate-exporter
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.20.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.20.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -93,10 +252,10 @@ kind: ClusterRoleBinding
 metadata:
   name: x509-x509-certificate-exporter-node
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.20.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.20.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -114,13 +273,14 @@ metadata:
   name: x509-x509-certificate-exporter
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.20.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.20.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
+  clusterIP: None
   ports:
   - name: metrics
     port: 9793
@@ -136,10 +296,10 @@ metadata:
   name: x509-x509-certificate-exporter-masters
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.20.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.20.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: host-masters
 spec:
@@ -151,12 +311,14 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: x509-certificate-exporter-3.20.0
+        helm.sh/chart: x509-certificate-exporter-4.1.0
         app.kubernetes.io/name: x509-certificate-exporter
         app.kubernetes.io/instance: x509
-        app.kubernetes.io/version: "3.20.0"
+        app.kubernetes.io/version: "4.1.0"
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: host-masters
+      annotations:
+        checksum/config: b9dbbeba4e3d0b8d19a366ec957446e0640f9f4728420b6484ab871ada5ae49c
     spec:
       serviceAccountName: x509-x509-certificate-exporter-node
       affinity:
@@ -172,10 +334,14 @@ spec:
       - effect: NoSchedule
         key: master
         operator: Exists
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       restartPolicy: Always
       containers:
       - name: x509-certificate-exporter
         securityContext:
+          allowPrivilegeEscalation: false
           capabilities:
             drop:
             - ALL
@@ -189,15 +355,14 @@ spec:
           requests:
             cpu: 1m
             memory: 30M
-        image: docker.io/enix/x509-certificate-exporter:3.20.0
+        image: quay.io/enix/x509-certificate-exporter:4.1.0
         imagePullPolicy: IfNotPresent
         args:
-        - --listen-address=:9793
-        - --trim-path-components=3
-        - --watch-dir=/mnt/watch/dir-3c26293a2009dafb0ad1629cc8fe885f0d9ed8b5//var/lib/rancher/k3s/server/tls
-        - --watch-dir=/mnt/watch/dir-63e274bef665e51104dab74e3e841f70f88a68da//var/lib/rancher/k3s/agent
-        - --max-cache-duration=600s
+        - --config=/etc/x509-certificate-exporter/config.yaml
         volumeMounts:
+        - name: config
+          mountPath: /etc/x509-certificate-exporter
+          readOnly: true
         - name: dir-3c26293a2009dafb0ad1629cc8fe885f0d9ed8b5
           mountPath: /mnt/watch/dir-3c26293a2009dafb0ad1629cc8fe885f0d9ed8b5//var/lib/rancher/k3s/server/tls
           readOnly: true
@@ -221,6 +386,9 @@ spec:
             port: metrics
       hostNetwork: false
       volumes:
+      - name: config
+        configMap:
+          name: x509-x509-certificate-exporter-masters
       - name: dir-3c26293a2009dafb0ad1629cc8fe885f0d9ed8b5
         hostPath:
           path: /var/lib/rancher/k3s/server/tls
@@ -237,10 +405,10 @@ metadata:
   name: x509-x509-certificate-exporter-nodes
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.20.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.20.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: host-nodes
 spec:
@@ -252,12 +420,14 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: x509-certificate-exporter-3.20.0
+        helm.sh/chart: x509-certificate-exporter-4.1.0
         app.kubernetes.io/name: x509-certificate-exporter
         app.kubernetes.io/instance: x509
-        app.kubernetes.io/version: "3.20.0"
+        app.kubernetes.io/version: "4.1.0"
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: host-nodes
+      annotations:
+        checksum/config: b9dbbeba4e3d0b8d19a366ec957446e0640f9f4728420b6484ab871ada5ae49c
     spec:
       serviceAccountName: x509-x509-certificate-exporter-node
       affinity:
@@ -273,10 +443,14 @@ spec:
       - effect: NoSchedule
         key: storage
         operator: Exists
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
       restartPolicy: Always
       containers:
       - name: x509-certificate-exporter
         securityContext:
+          allowPrivilegeEscalation: false
           capabilities:
             drop:
             - ALL
@@ -290,14 +464,14 @@ spec:
           requests:
             cpu: 1m
             memory: 30M
-        image: docker.io/enix/x509-certificate-exporter:3.20.0
+        image: quay.io/enix/x509-certificate-exporter:4.1.0
         imagePullPolicy: IfNotPresent
         args:
-        - --listen-address=:9793
-        - --trim-path-components=3
-        - --watch-dir=/mnt/watch/dir-63e274bef665e51104dab74e3e841f70f88a68da//var/lib/rancher/k3s/agent
-        - --max-cache-duration=600s
+        - --config=/etc/x509-certificate-exporter/config.yaml
         volumeMounts:
+        - name: config
+          mountPath: /etc/x509-certificate-exporter
+          readOnly: true
         - name: dir-63e274bef665e51104dab74e3e841f70f88a68da
           mountPath: /mnt/watch/dir-63e274bef665e51104dab74e3e841f70f88a68da//var/lib/rancher/k3s/agent
           readOnly: true
@@ -318,6 +492,9 @@ spec:
             port: metrics
       hostNetwork: false
       volumes:
+      - name: config
+        configMap:
+          name: x509-x509-certificate-exporter-nodes
       - name: dir-63e274bef665e51104dab74e3e841f70f88a68da
         hostPath:
           path: /var/lib/rancher/k3s/agent
@@ -330,10 +507,10 @@ metadata:
   name: x509-x509-certificate-exporter
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.20.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.20.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: secrets
 spec:
@@ -346,20 +523,25 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: x509-certificate-exporter-3.20.0
+        helm.sh/chart: x509-certificate-exporter-4.1.0
         app.kubernetes.io/name: x509-certificate-exporter
         app.kubernetes.io/instance: x509
-        app.kubernetes.io/version: "3.20.0"
+        app.kubernetes.io/version: "4.1.0"
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: secrets
+      annotations:
+        checksum/config: b9dbbeba4e3d0b8d19a366ec957446e0640f9f4728420b6484ab871ada5ae49c
     spec:
       securityContext:
         runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault
       restartPolicy: Always
       serviceAccountName: x509-x509-certificate-exporter
       containers:
       - name: x509-certificate-exporter
         securityContext:
+          allowPrivilegeEscalation: false
           capabilities:
             drop:
             - ALL
@@ -373,13 +555,14 @@ spec:
           requests:
             cpu: 20m
             memory: 20Mi
-        image: docker.io/enix/x509-certificate-exporter:3.20.0
+        image: quay.io/enix/x509-certificate-exporter:4.1.0
         imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: config
+          mountPath: /etc/x509-certificate-exporter
+          readOnly: true
         args:
-        - --watch-kube-secrets
-        - --secret-type=kubernetes.io/tls:tls.crt
-        - --max-cache-duration=600s
-        - --listen-address=:9793
+        - --config=/etc/x509-certificate-exporter/config.yaml
         ports:
         - name: metrics
           containerPort: 9793
@@ -395,6 +578,10 @@ spec:
           httpGet:
             path: /healthz
             port: metrics
+      volumes:
+      - name: config
+        configMap:
+          name: x509-x509-certificate-exporter-secrets
 ---
 # Source: x509-certificate-exporter/templates/prometheusrule.yaml
 apiVersion: monitoring.coreos.com/v1
@@ -403,10 +590,10 @@ metadata:
   name: x509-x509-certificate-exporter
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.20.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.20.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   groups:
@@ -452,10 +639,10 @@ metadata:
   name: x509-x509-certificate-exporter
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-3.20.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "3.20.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   selector:

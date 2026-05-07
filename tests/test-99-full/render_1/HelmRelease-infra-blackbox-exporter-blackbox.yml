@@ -30,7 +30,7 @@ spec:
     spec:
       chart: prometheus-blackbox-exporter
       # each major contains upgrade process in changelog
-      version: "11.9.2"
+      version: "11.10.0"
       sourceRef:
         kind: HelmRepository
         name: "prometheus-community"

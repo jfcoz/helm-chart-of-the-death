@@ -24,10 +24,16 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
-  chartRef:
-    kind: OCIRepository
-    name: x509-certificate-exporter
-    namespace: flux-system
+  chart:
+    spec:
+      chart: x509-certificate-exporter
+      # each major contains upgrade process in changelog
+      version: "4.1.0"
+      sourceRef:
+        kind: HelmRepository
+        name: "enix"
+        namespace: flux-system
+      interval: 1h
   values:
     hostPathsExporter:
       daemonSets:

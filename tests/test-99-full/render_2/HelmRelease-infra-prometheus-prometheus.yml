@@ -539,7 +539,7 @@ data:
     --max-time 60 \
     -H "Accept: application/json" \
     -H "Content-Type: application/json;charset=UTF-8" \
-      "https://grafana.com/api/dashboards/13922/revisions/3/download" \
+      "https://raw.githubusercontent.com/enix/x509-certificate-exporter/refs/heads/main/chart/grafana-dashboards/x509-certificate-exporter.json" \
       | sed '/-- .* --/! s/"datasource":.*,/"datasource": "Prometheus",/g' \
     > "/var/lib/grafana/dashboards/x509-certificate-exporter/x509-certificate-exporter.json"
 ---
@@ -2760,7 +2760,7 @@ spec:
         app.kubernetes.io/instance: prometheus
         app.kubernetes.io/version: "13.0.1"
       annotations:
-        checksum/config: 1c70d34e66c503d401a30dd6dec6c70f91668fd314838301ca9f67e0cc331484
+        checksum/config: dc144f227341d480e799aa94c0808cfd5194321fd3ec3e7ef1767e903fb0876b
         checksum/dashboards-json-config: 6fb410ad629377ffec464ff3e95a904147827996d9aebc36f53b42a2f695f46f
         checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
         checksum/secret: 1e66c39583fdabda3ba738bc2d1ead751694697306ad56796c9c163c5abaec4f
