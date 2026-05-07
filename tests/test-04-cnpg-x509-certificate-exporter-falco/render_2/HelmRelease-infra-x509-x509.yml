@@ -6,10 +6,10 @@ metadata:
   name: x509-x509-certificate-exporter
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-4.0.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "4.0.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
 ---
 # Source: x509-certificate-exporter/templates/configmap.yaml
@@ -19,10 +19,10 @@ metadata:
   name: x509-x509-certificate-exporter-secrets
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-4.0.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "4.0.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
 data:
   config.yaml: |
@@ -68,10 +68,10 @@ kind: ClusterRole
 metadata:
   name: x509-x509-certificate-exporter
   labels:
-    helm.sh/chart: x509-certificate-exporter-4.0.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "4.0.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
 rules:
 - apiGroups:
@@ -97,10 +97,10 @@ kind: ClusterRoleBinding
 metadata:
   name: x509-x509-certificate-exporter
   labels:
-    helm.sh/chart: x509-certificate-exporter-4.0.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "4.0.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -118,10 +118,10 @@ metadata:
   name: x509-x509-certificate-exporter
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-4.0.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "4.0.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   type: ClusterIP
@@ -141,10 +141,10 @@ metadata:
   name: x509-x509-certificate-exporter
   namespace: infra-x509
   labels:
-    helm.sh/chart: x509-certificate-exporter-4.0.0
+    helm.sh/chart: x509-certificate-exporter-4.1.0
     app.kubernetes.io/name: x509-certificate-exporter
     app.kubernetes.io/instance: x509
-    app.kubernetes.io/version: "4.0.0"
+    app.kubernetes.io/version: "4.1.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: secrets
 spec:
@@ -157,14 +157,14 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: x509-certificate-exporter-4.0.0
+        helm.sh/chart: x509-certificate-exporter-4.1.0
         app.kubernetes.io/name: x509-certificate-exporter
         app.kubernetes.io/instance: x509
-        app.kubernetes.io/version: "4.0.0"
+        app.kubernetes.io/version: "4.1.0"
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: secrets
       annotations:
-        checksum/config: 8929fc0332422459a414b32519a60770bb5ada42860db3c9a9732285bba5caa6
+        checksum/config: da1bb48b0b5a09e3d3aea13ab9d6afe0f5fcf3bfeb78814d1ffd912f43a8d184
     spec:
       securityContext:
         runAsNonRoot: true
@@ -189,7 +189,7 @@ spec:
           requests:
             cpu: 20m
             memory: 20Mi
-        image: quay.io/enix/x509-certificate-exporter:4.0.0
+        image: quay.io/enix/x509-certificate-exporter:4.1.0
         imagePullPolicy: IfNotPresent
         volumeMounts:
         - name: config

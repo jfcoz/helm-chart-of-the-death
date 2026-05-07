@@ -336,7 +336,7 @@ components:
       namespace: infra-x509
       chart:
         name: x509-certificate-exporter
-        version: "4.0.0"
+        version: "4.1.0"
         repository: enix
       release:
         timeout: 10m

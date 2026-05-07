@@ -18,9 +18,6 @@ prometheusServiceMonitor:
 
 {{- if eq .Values.kubernetesDistribution "k3s" }}
 hostPathsExporter:
-  securityContext:
-    privileged: false
-    allowPrivilegeEscalation: false
   daemonSets:
     masters:
       tolerations:
