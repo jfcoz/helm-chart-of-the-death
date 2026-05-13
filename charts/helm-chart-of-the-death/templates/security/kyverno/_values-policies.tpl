@@ -303,7 +303,7 @@ disallow-selinux:
 
 restrict-seccomp:
   any:
-  {{- if eq .Values.kubernetesDistribution "k3s" }}
+  {{- if include "common.used" .Values.components.cni.cilium }}
   - resources:
       namespaces:
       - {{ .Values.components.cni.cilium.namespace }}
