@@ -71,7 +71,7 @@ jobs:
           flux install
           kubectl -n flux-system patch deploy/helm-controller --type=json -p='[{"op":"replace", "path":"/spec/template/spec/containers/0/args/2", "value":"--log-level=debug"}]'
           kubectl rollout status -n flux-system deploy/helm-controller
-          sleep 10 # wait termination of previous pod : https://github.com/kubernetes/kubectl/issues/1284
+          sleep 10 # wait termination of previous pod : https://github.com/kubernetes/kubectl/issues/1284
 
 #      - name: Run chart-testing (install)
 #        if: steps.list-changed.outputs.changed == 'true'
