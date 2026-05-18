@@ -39,6 +39,7 @@ spec:
         kind: HelmRepository
         name: "prometheus-community"
         namespace: flux-system
+      interval: 1h
   values:
     additionalPrometheusRulesMap:
       rule-name:

@@ -37,6 +37,7 @@ spec:
         kind: HelmRepository
         name: "argo"
         namespace: flux-system
+      interval: 1h
   values:
     applicationSet:
       metrics:

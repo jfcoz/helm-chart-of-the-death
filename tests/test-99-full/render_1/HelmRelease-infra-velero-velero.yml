@@ -32,6 +32,7 @@ spec:
         kind: HelmRepository
         name: "vmware-tanzu"
         namespace: flux-system
+      interval: 1h
   values:
     configuration:
       backupStorageLocation:

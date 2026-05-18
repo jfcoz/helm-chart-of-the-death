@@ -35,6 +35,7 @@ spec:
         kind: HelmRepository
         name: "kedacore"
         namespace: flux-system
+      interval: 1h
   values:
     prometheus:
       metricServer:

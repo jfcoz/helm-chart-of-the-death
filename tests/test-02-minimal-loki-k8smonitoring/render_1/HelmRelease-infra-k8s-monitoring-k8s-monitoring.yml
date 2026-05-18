@@ -33,6 +33,7 @@ spec:
         kind: HelmRepository
         name: "grafana"
         namespace: flux-system
+      interval: 1h
   values:
     cluster:
       name: change-me

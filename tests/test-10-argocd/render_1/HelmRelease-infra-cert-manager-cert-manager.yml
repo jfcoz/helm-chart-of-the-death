@@ -30,6 +30,7 @@ spec:
         kind: HelmRepository
         name: "jetstack"
         namespace: flux-system
+      interval: 1h
   values:
     installCRDs: true
     resources:

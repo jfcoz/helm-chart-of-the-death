@@ -35,6 +35,7 @@ spec:
         kind: HelmRepository
         name: "kyverno"
         namespace: flux-system
+      interval: 1h
   values:
     admissionController:
       container:
