@@ -30,9 +30,8 @@
       "fileFormat": "yaml",
       "managerFilePatterns": ["/(^|/)charts/.*/values.yaml$/"],
       "matchStrings": [
-        "$map(components[].*[].*, function($c,$r) {{ \"depName\": $c.chart.name, \"currentValue\": $c.chart.version, \"registryUrl\": repositories[name=$c.chart.repository].url }})"
-      ],
-      "datasourceTemplate": "helm"
+        "$map(components[].*[].*, function($c,$r) { $match(repositories[name=$c.chart.repository].url,/^oci:/) ? { \"datasource\": \"docker\", \"depName\": $replace(repositories[name=$c.chart.repository].url,/^oci:\\/\\//,\"\") & \"/\" & $c.chart.name, \"currentValue\": $c.chart.version } : { \"datasource\": \"helm\", \"depName\": $c.chart.name, \"currentValue\": $c.chart.version, \"registryUrl\": repositories[name=$c.chart.repository].url }})"
+      ]
     }
   ]
 }
