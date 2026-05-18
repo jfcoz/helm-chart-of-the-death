@@ -42,7 +42,7 @@ repositories:
   - name: datadog
     url: https://helm.datadoghq.com
   - name: enix
-    url: oci://quay.io/enix/charts
+    url: https://charts.enix.io/
   - name: external-secrets
     url: https://charts.external-secrets.io
   - name: falcosecurity
