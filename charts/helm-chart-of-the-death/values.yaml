@@ -532,7 +532,7 @@ components:
       namespace: cnpg-operator
       chart:
         name: cloudnative-pg
-        version: "0.28.0"
+        version: "0.28.2"
         repository: cnpg
       release:
         timeout: 5m
