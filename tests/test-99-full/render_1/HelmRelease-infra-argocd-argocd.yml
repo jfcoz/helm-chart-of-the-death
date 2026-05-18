@@ -31,11 +31,13 @@ spec:
   chart:
     spec:
       chart: argo-cd
+      # each major contains upgrade process in changelog
+      version: "9.5.14"
       sourceRef:
         kind: HelmRepository
         name: "argo"
         namespace: flux-system
-      version: "9.5.14"
+      interval: 1h
   values:
     applicationSet:
       metrics:

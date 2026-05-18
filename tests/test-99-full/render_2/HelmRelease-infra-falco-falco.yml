@@ -43,7 +43,7 @@ metadata:
   name: falco
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.3
+    helm.sh/chart: falco-8.0.5
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
     app.kubernetes.io/version: "0.43.1"
@@ -646,7 +646,7 @@ metadata:
   name: falco
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.3
+    helm.sh/chart: falco-8.0.5
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
     app.kubernetes.io/version: "0.43.1"
@@ -828,7 +828,7 @@ metadata:
   name: falco-falcoctl
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.3
+    helm.sh/chart: falco-8.0.5
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
     app.kubernetes.io/version: "0.43.1"
@@ -867,7 +867,7 @@ metadata:
   name: falco-rules
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.3
+    helm.sh/chart: falco-8.0.5
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
     app.kubernetes.io/version: "0.43.1"
@@ -1214,7 +1214,7 @@ metadata:
   name: falco
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.3
+    helm.sh/chart: falco-8.0.5
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
     app.kubernetes.io/version: "0.43.1"
@@ -1280,7 +1280,7 @@ metadata:
   name: falco
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.3
+    helm.sh/chart: falco-8.0.5
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
     app.kubernetes.io/version: "0.43.1"
@@ -1418,7 +1418,7 @@ metadata:
   name: falco-metrics
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.3
+    helm.sh/chart: falco-8.0.5
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
     app.kubernetes.io/version: "0.43.1"
@@ -1442,7 +1442,7 @@ metadata:
   name: falco
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.3
+    helm.sh/chart: falco-8.0.5
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
     app.kubernetes.io/version: "0.43.1"
@@ -1459,8 +1459,8 @@ spec:
         app.kubernetes.io/name: falco
         app.kubernetes.io/instance: falco
       annotations:
-        checksum/config: 81a9eb477f776d3b0eecd5a606c6d4aa627652ccc1d88680a0ee7c033d0e865d
-        checksum/rules: 7cbe22e658f53aae666652da8e8c376630f05c08dca293dd1a1615b257a492d5
+        checksum/config: e76853bac2e512ebc7a04e1583a6c2777df52222b6a0170097ed4812bbd1010a
+        checksum/rules: 941f1a2150332d294aefa42071d0a1906c5e0decfbef1616d12b400d3284d440
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     spec:
       serviceAccountName: falco
@@ -2089,7 +2089,7 @@ metadata:
   name: falco
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.3
+    helm.sh/chart: falco-8.0.5
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
     app.kubernetes.io/version: "0.43.1"

@@ -27,6 +27,7 @@ spec:
   chart:
     spec:
       chart: promtail
+      # each major contains upgrade process in changelog
       version: "6.17.1"
       sourceRef:
         kind: HelmRepository

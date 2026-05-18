@@ -28,6 +28,7 @@ spec:
   chart:
     spec:
       chart: plugin-barman-cloud
+      # each major contains upgrade process in changelog
       version: "0.6.0"
       sourceRef:
         kind: HelmRepository

@@ -24,11 +24,13 @@ spec:
   chart:
     spec:
       chart: falco
+      # each major contains upgrade process in changelog
+      version: "8.0.5"
       sourceRef:
         kind: HelmRepository
         name: "falcosecurity"
         namespace: flux-system
-      version: "8.0.3"
+      interval: 1h
   values:
     collectors:
       containerd:

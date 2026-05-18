@@ -26,7 +26,8 @@ spec:
   chart:
     spec:
       chart: opentelemetry-operator
-      version: "0.112.1"
+      # each major contains upgrade process in changelog
+      version: "0.113.1"
       sourceRef:
         kind: HelmRepository
         name: "opentelemetry"

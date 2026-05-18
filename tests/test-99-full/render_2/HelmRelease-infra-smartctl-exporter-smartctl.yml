@@ -5,7 +5,7 @@ kind: ServiceAccount
 metadata:
   name: smartctl-prometheus-smartctl-exporter
   labels:
-    helm.sh/chart: prometheus-smartctl-exporter-0.16.0
+    helm.sh/chart: prometheus-smartctl-exporter-0.16.1
     app.kubernetes.io/name: prometheus-smartctl-exporter
     app.kubernetes.io/instance: smartctl
     app.kubernetes.io/version: "v0.14.0"
@@ -17,7 +17,7 @@ kind: RoleBinding
 metadata:
   name: smartctl-prometheus-smartctl-exporter
   labels:
-    helm.sh/chart: prometheus-smartctl-exporter-0.16.0
+    helm.sh/chart: prometheus-smartctl-exporter-0.16.1
     app.kubernetes.io/name: prometheus-smartctl-exporter
     app.kubernetes.io/instance: smartctl
     app.kubernetes.io/version: "v0.14.0"
@@ -37,7 +37,7 @@ kind: Service
 metadata:
   name: smartctl-prometheus-smartctl-exporter
   labels:
-    helm.sh/chart: prometheus-smartctl-exporter-0.16.0
+    helm.sh/chart: prometheus-smartctl-exporter-0.16.1
     app.kubernetes.io/name: prometheus-smartctl-exporter
     app.kubernetes.io/instance: smartctl
     app.kubernetes.io/version: "v0.14.0"
@@ -59,7 +59,7 @@ kind: DaemonSet
 metadata:
   name: smartctl-prometheus-smartctl-exporter-0
   labels:
-    helm.sh/chart: prometheus-smartctl-exporter-0.16.0
+    helm.sh/chart: prometheus-smartctl-exporter-0.16.1
     app.kubernetes.io/name: prometheus-smartctl-exporter
     app.kubernetes.io/instance: smartctl
     app.kubernetes.io/version: "v0.14.0"
@@ -126,7 +126,7 @@ kind: PrometheusRule
 metadata:
   name: smartctl-prometheus-smartctl-exporter.rules
   labels:
-    helm.sh/chart: prometheus-smartctl-exporter-0.16.0
+    helm.sh/chart: prometheus-smartctl-exporter-0.16.1
     app.kubernetes.io/name: prometheus-smartctl-exporter
     app.kubernetes.io/instance: smartctl
     app.kubernetes.io/version: "v0.14.0"
@@ -196,7 +196,7 @@ kind: ServiceMonitor
 metadata:
   name: smartctl-prometheus-smartctl-exporter
   labels:
-    helm.sh/chart: prometheus-smartctl-exporter-0.16.0
+    helm.sh/chart: prometheus-smartctl-exporter-0.16.1
     app.kubernetes.io/name: prometheus-smartctl-exporter
     app.kubernetes.io/instance: smartctl
     app.kubernetes.io/version: "v0.14.0"
@@ -215,7 +215,7 @@ spec:
       - infra-smartctl-exporter
   selector:
     matchLabels:
-      helm.sh/chart: prometheus-smartctl-exporter-0.16.0
+      helm.sh/chart: prometheus-smartctl-exporter-0.16.1
       app.kubernetes.io/name: prometheus-smartctl-exporter
       app.kubernetes.io/instance: smartctl
       app.kubernetes.io/version: "v0.14.0"

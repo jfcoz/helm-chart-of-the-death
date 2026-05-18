@@ -27,7 +27,8 @@ spec:
   chart:
     spec:
       chart: tempo-distributed
-      version: "2.19.0"
+      # each major contains upgrade process in changelog
+      version: "2.22.0"
       sourceRef:
         kind: HelmRepository
         name: "grafana-community"

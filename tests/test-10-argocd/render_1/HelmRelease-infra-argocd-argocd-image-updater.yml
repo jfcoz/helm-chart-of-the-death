@@ -29,11 +29,13 @@ spec:
   chart:
     spec:
       chart: argocd-image-updater
+      # each major contains upgrade process in changelog
+      version: "1.2.1"
       sourceRef:
         kind: HelmRepository
         name: "argo"
         namespace: flux-system
-      version: "1.1.5"
+      interval: 1h
   values:
     metrics:
       enabled: false
