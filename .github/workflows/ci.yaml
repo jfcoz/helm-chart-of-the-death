@@ -3,6 +3,10 @@ name: Lint and Test Charts
 on:
   pull_request:
 
+concurrency:
+  # test only PRs one by one
+  group: pull_request
+
 jobs:
   lint-test:
     timeout-minutes: 10
