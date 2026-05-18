@@ -124,7 +124,7 @@ components:
       namespace: infra-argocd
       chart:
         name: argocd-image-updater
-        version: "1.1.5"
+        version: "1.2.1"
         repository: argo
       values: {}
 
