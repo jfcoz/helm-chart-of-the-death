@@ -449,7 +449,7 @@ components:
       namespace: infra-external-secrets
       chart:
         name: external-secrets
-        version: "2.4.1"
+        version: "2.5.0"
         repository: external-secrets
       release:
         timeout: 5m
