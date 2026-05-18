@@ -18,7 +18,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: custom-objects-only
-    namespace: flux-system
+    namespace: {{ $.Release.Namespace }}
   values:
     customObjects:
       {{- if $me.issuers.letsencrypt }}
