@@ -34,5 +34,4 @@ spec:
         kind: HelmRepository
         name: "cnpg"
         namespace: flux-system
-      interval: 1h
   values: {}

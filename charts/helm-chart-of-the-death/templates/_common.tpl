@@ -48,6 +48,5 @@ chart:
       kind: HelmRepository
       name: {{ $me.chart.repository | quote }}
       namespace: {{ $.Release.Namespace }}
-    interval: 1h
 {{- end }}
 {{- end }}

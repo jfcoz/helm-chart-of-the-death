@@ -30,7 +30,6 @@ spec:
         kind: HelmRepository
         name: "falcosecurity"
         namespace: flux-system
-      interval: 1h
   values:
     collectors:
       containerd:

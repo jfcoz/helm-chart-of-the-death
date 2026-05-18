@@ -30,7 +30,6 @@ spec:
         kind: HelmRepository
         name: "kubernetes-ingress-nginx"
         namespace: flux-system
-      interval: 1h
   values:
     controller:
       config: null

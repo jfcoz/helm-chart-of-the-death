@@ -32,7 +32,6 @@ spec:
         kind: HelmRepository
         name: "cilium"
         namespace: flux-system
-      interval: 1h
   values:
     cluster:
       name: change-me

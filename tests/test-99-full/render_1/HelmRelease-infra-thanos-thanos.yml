@@ -34,7 +34,6 @@ spec:
         kind: HelmRepository
         name: "stevehipwell"
         namespace: flux-system
-      interval: 1h
   values:
     compact:
       enabled: true

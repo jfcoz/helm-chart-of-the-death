@@ -37,7 +37,6 @@ spec:
         kind: HelmRepository
         name: "datadog"
         namespace: flux-system
-      interval: 1h
   values:
     agents:
       containers:

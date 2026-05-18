@@ -33,7 +33,6 @@ spec:
         kind: HelmRepository
         name: "prometheus-community"
         namespace: flux-system
-      interval: 1h
   values:
     # until https://github.com/prometheus-community/smartctl_exporter/issues/105
     image:

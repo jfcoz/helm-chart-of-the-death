@@ -35,7 +35,6 @@ spec:
         kind: HelmRepository
         name: "grafana"
         namespace: flux-system
-      interval: 1h
   values:
     backend:
       replicas: 0

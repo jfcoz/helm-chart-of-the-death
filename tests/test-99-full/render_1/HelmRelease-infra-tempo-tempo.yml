@@ -33,7 +33,6 @@ spec:
         kind: HelmRepository
         name: "grafana-community"
         namespace: flux-system
-      interval: 1h
   values:
     compactor:
       config:
