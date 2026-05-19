@@ -24,7 +24,7 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: gateway-api
+    name: crds-gateway-api
     namespace: {{ .Release.Namespace }}
   path: "./config/crd/{{ .Values.features.gatewayAPI.type | default "standard" }}"
 {{- end }}
