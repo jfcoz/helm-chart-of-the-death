@@ -1,0 +1,44 @@
+{{- /* loop on components categories */}}
+{{- range keys ($.Values.components) }}
+{{- $category := . }}
+{{- /* loop on components */}}
+{{- range keys (dig . false $.Values.components) }}
+{{- $component := . }}
+{{- $isManaged := dig $category $component "managed" false $.Values.components }}
+{{- $chartRepository := dig $category $component "chart" "repository" "" $.Values.components }}
+{{- $chartName := dig $category $component "chart" "name" "" $.Values.components }}
+{{- $chartVersion := dig $category $component "chart" "version" "" $.Values.components }}
+{{- $helmResourcePolicyKeep := dig $category $component "helmResourcePolicyKeep" "" $.Values.components }}
+{{- if and
+           $isManaged
+}}
+
+{{- /* search url in repositories */}}
+{{ $chartUrl := "" }}
+{{- range ($.Values.repositories) }}
+{{- if (eq .name $chartRepository) }}
+{{- $chartUrl = .url }}
+{{- end }}
+{{- end }}
+
+{{- if (regexMatch "^(oci)://" $chartUrl) }}
+
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: {{ $chartRepository }}-{{ $chartName }}
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    {{- if $helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+spec:
+  interval: 1h
+  url: {{ $chartUrl }}/{{ $chartName }}
+  ref:
+    tag: {{ $chartVersion }}
+---
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

@@ -24,6 +24,7 @@ spec:
   chart:
     spec:
       chart: ingress-nginx
+      # each major contains upgrade process in changelog
       version: "4.15.1"
       sourceRef:
         kind: HelmRepository

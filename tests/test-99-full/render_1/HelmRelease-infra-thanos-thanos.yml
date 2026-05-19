@@ -28,6 +28,7 @@ spec:
   chart:
     spec:
       chart: thanos
+      # each major contains upgrade process in changelog
       version: "1.23.0"
       sourceRef:
         kind: HelmRepository

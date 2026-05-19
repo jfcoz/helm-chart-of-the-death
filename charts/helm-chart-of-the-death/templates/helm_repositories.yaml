@@ -22,7 +22,7 @@
 {{- end }}
 
 {{- if $needed }}
-
+{{- if not (regexMatch "^(oci)://" .url) }}
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
@@ -35,9 +35,7 @@ metadata:
 spec:
   interval: 1h
   url: {{ .url }}
-  {{- if (regexMatch "^(oci)://" .url) }}
-  type: oci
-  {{- end }}
 ---
+{{- end }}
 {{- end }}
 {{- end }}

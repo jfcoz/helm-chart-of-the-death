@@ -24,11 +24,13 @@ spec:
   chart:
     spec:
       chart: cert-manager
+      # each major contains upgrade process in changelog
+      version: "v1.20.2"
       sourceRef:
         kind: HelmRepository
         name: "jetstack"
         namespace: flux-system
-      version: "v1.20.2"
+      interval: 1h
   values:
     installCRDs: true
     resources:

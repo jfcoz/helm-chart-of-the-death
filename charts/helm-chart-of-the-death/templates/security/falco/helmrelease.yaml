@@ -12,14 +12,7 @@ metadata:
 spec:
   # include common.fluxcd.release
   {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
-  chart:
-    spec:
-      chart: {{ $me.chart.name }}
-      sourceRef:
-        kind: HelmRepository
-        name: {{ $me.chart.repository | quote }}
-        namespace: {{ $.Release.Namespace }}
-      version: {{ $me.chart.version | quote }}
+  {{- include "common.fluxcd.chartSpec" (list $ $me) | nindent 2 }}
   values:
     {{- include "security.falco.mergedValues" . | nindent 4 }}
 {{- end }}

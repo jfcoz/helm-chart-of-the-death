@@ -24,6 +24,8 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
+  # here we override the chart name
+
   chart:
     spec:
       chart: kyverno-policies

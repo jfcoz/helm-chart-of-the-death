@@ -10,11 +10,11 @@ metadata:
     helm.sh/resource-policy: keep
     {{- end }}
 spec:
-  # include common.fluxcd.release
-  {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
   dependsOn:
     - name: cert-manager
       namespace: {{ $me.namespace }}
+  # include common.fluxcd.release
+  {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
   chartRef:
     kind: OCIRepository
     name: custom-objects-only

@@ -15,16 +15,8 @@ spec:
       namespace: {{ $me.namespace }}
   # include common.fluxcd.release
   {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
-  chart:
-    spec:
-      chart: kyverno-policies
-      # each major contains upgrade process in changelog
-      version: {{ $me.chart.version | quote }}
-      sourceRef:
-        kind: HelmRepository
-        name: {{ $me.chart.repository | quote }}
-        namespace: {{ $.Release.Namespace }}
-      interval: 1h
+  # here we override the chart name
+  {{- include "common.fluxcd.chartSpec" (list $ (mergeOverwrite $me (dict "chart" (dict "name" "kyverno-policies")))) | nindent 2 }}
   values:
     {{- include "security.kyverno.policies.mergedValues" . | nindent 4 }}
 {{- end }}

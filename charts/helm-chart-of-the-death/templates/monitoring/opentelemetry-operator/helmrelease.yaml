@@ -12,15 +12,7 @@ metadata:
 spec:
   # include common.fluxcd.release
   {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
-  chart:
-    spec:
-      chart: {{ $me.chart.name }}
-      version: {{ $me.chart.version | quote }}
-      sourceRef:
-        kind: HelmRepository
-        name: {{ $me.chart.repository | quote }}
-        namespace: {{ $.Release.Namespace }}
-      interval: 1h
+  {{- include "common.fluxcd.chartSpec" (list $ $me) | nindent 2 }}
   values:
     admissionWebhooks:
       certManager:

@@ -29,6 +29,7 @@ spec:
   chart:
     spec:
       chart: loki
+      # each major contains upgrade process in changelog
       version: "7.0.0"
       sourceRef:
         kind: HelmRepository
