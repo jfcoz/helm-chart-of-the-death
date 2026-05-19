@@ -1,15 +1,16 @@
-installCRDs: true
-resources:
-  requests:
-    memory: 150Mi
-    cpu: 3m
 cainjector:
   resources:
     requests:
-      memory: 170Mi
       cpu: 2m
+      memory: 170Mi
+config: null
+installCRDs: true
+resources:
+  requests:
+    cpu: 3m
+    memory: 150Mi
 webhook:
   resources:
     requests:
-      memory: 30Mi
       cpu: 1m
+      memory: 30Mi

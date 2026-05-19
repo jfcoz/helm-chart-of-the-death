@@ -14,19 +14,5 @@ spec:
   {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
   {{- include "common.fluxcd.chartSpec" (list $ $me) | nindent 2 }}
   values:
-    installCRDs: true
-    resources:
-      requests:
-        memory: 150Mi
-        cpu: 3m
-    cainjector:
-      resources:
-        requests:
-          memory: 170Mi
-          cpu: 2m
-    webhook:
-      resources:
-        requests:
-          memory: 30Mi
-          cpu: 1m
+    {{- include "security.certManager.mergedValues" . | nindent 4 }}
 {{- end }}
