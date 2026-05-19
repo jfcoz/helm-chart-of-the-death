@@ -1,0 +1,9 @@
+{{- $me := .Values.components.cni.cilium }}
+
+{{- if include "common.managed" $me }}
+
+  {{- if not .Values.general.kubernetesApi.host }}
+    {{- fail "missing general.kubernetesApi.host which is required by Cilium" }}
+  {{- end }}
+
+{{- end }}
