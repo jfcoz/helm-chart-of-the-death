@@ -57,7 +57,7 @@ disallow-capabilities:
       kinds:
       - Pod
       names:
-      - "svclb-nginx-ingress-ingress-nginx-controller-*"
+      - "svclb-*"
   {{- end }}
 
 disallow-host-namespaces:
