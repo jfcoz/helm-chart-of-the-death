@@ -34,8 +34,7 @@ general:
 features:
   gatewayAPI:
     enabled: true
-    # standard or experimental
-    # type: standard
+    type: experimental
 
 repositories:
   - name: argo
