@@ -51,3 +51,5 @@ datadog:
   operator:
     enabled: false
   site: datadoghq.eu
+discovery:
+  enabled: false

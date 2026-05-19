@@ -23,6 +23,24 @@ disallow-capabilities:
       - "rook-ceph.cephfs.csi.ceph.com-nodeplugin*"
       - "rook-ceph.rbd.csi.ceph.com-nodeplugin*"
   {{- end }}
+  {{- if and
+         (include "common.used" .Values.components.monitoring.datadog)
+         ( or
+             (eq ((.Values.components.monitoring.datadog.values).discovery).enabled nil)
+             ((.Values.components.monitoring.datadog.values).discovery).enabled
+         )
+  }}
+  {{- /* if not set, discovery is enabled by default */}}
+  - resources:
+      namespaces:
+      - {{ .Values.components.monitoring.datadog.namespace }}
+      kinds:
+      - DaemonSet
+      - Pod
+      names:
+      - "datadog"
+      - "datadog-*"
+  {{- end }}
   {{- if include "common.used" .Values.components.monitoring.k8sMonitoring }}
   - resources:
       namespaces:

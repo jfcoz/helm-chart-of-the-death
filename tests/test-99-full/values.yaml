@@ -40,6 +40,8 @@ components:
         clusterAgent:
           # fix token in ci manifests
           token: 4uftrVcbSdZL47LdGBvVNMO9G7xDoCAa
+        discovery:
+          enabled: false
         datadog:
           apm:
             instrumentation:
