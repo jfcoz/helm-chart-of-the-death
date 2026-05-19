@@ -671,6 +671,24 @@ grafana:
   resources:
     requests:
       memory: 150Mi
+  route:
+    main:
+      enabled: true
+      parentRefs:
+        - group: gateway.networking.k8s.io
+          kind: Gateway
+          name: scaleway-gateway
+          namespace: kube-system
+          sectionName: https-prometheus
+    redirect:
+      enabled: true
+      httpsRedirect: true
+      parentRefs:
+        - group: gateway.networking.k8s.io
+          kind: Gateway
+          name: scaleway-gateway
+          namespace: kube-system
+          sectionName: http
   sidecar:
     resources:
       requests:

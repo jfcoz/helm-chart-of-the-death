@@ -5,6 +5,8 @@ envoy:
   updateStrategy:
     rollingUpdate:
       maxUnavailable: 33%
+gatewayAPI:
+  enabled: true
 ipam:
   operator:
     clusterPoolIPv4PodCIDRList:

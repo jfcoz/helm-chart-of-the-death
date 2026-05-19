@@ -7,6 +7,11 @@ general:
   kubernetesApi:
     host: fake.domain.name
 
+features:
+  gatewayAPI:
+    enabled: true
+    type: experimental
+
 components:
   cni:
     cilium:

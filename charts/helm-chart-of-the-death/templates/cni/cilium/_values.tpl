@@ -16,6 +16,10 @@ envoy:
     rollingUpdate:
       maxUnavailable: 33%
 
+{{- if .Values.features.gatewayAPI.enabled }}
+gatewayAPI:
+  enabled: true
+{{- end }}
 
 {{- if and
   (eq .Values.kubernetesDistribution "k3s")

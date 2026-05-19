@@ -332,6 +332,7 @@ grafana:
       access: proxy
       url: {{ template "monitoring.thanos.endpoint" . }}
     {{- end }}
+  {{- if include "common.used" .Values.components.ingress.nginxIngressController }}
   ingress:
     enabled: true
     ingressClassName: nginx
@@ -343,6 +344,28 @@ grafana:
     - secretName: grafana-general-tls
       hosts:
         - grafana.{{ .Values.general.ingressWildcardSuffix }}
+  {{- end }}
+  {{- if .Values.features.gatewayAPI.enabled }}
+  {{- /* TODO: add variables */}}
+  route:
+    main:
+      enabled: true
+      parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: scaleway-gateway
+        namespace: kube-system
+        sectionName: https-prometheus
+    redirect:
+      enabled: true
+      httpsRedirect: true
+      parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: scaleway-gateway
+        namespace: kube-system
+        sectionName: http
+  {{- end }}
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
