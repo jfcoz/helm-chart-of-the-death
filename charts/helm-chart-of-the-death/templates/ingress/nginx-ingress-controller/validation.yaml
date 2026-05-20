@@ -1,0 +1,5 @@
+{{- if include "common.used" .Values.components.ingress.nginxIngressController }}
+{{- if not .Values.general.dnsWildcardSuffixes.ingress.nginx }}
+{{- fail "general.dnsWildcardSuffixes.ingress.nginx is mandatory when ingress nginx is used" }}
+{{- end }}
+{{- end }}

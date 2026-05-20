@@ -1,6 +1,6 @@
 {{/* argocd endpoint */}}
 {{- define "gitops.argocd.domain" -}}
-argocd.{{ .Values.general.ingressWildcardSuffix | required "missing general.ingressWildcardSuffix" }}
+argocd.{{ .Values.general.dnsWildcardSuffixes.ingress.nginx | required "missing general.ingressWildcardSuffix" }}
 {{- end }}
 
 {{/* argocd dex callback */}}

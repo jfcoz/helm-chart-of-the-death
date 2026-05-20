@@ -4,8 +4,14 @@ kubernetesDistribution: k3s
 
 general:
   clusterName: change-me
-  ingressWildcardSuffix: replaced.by.kustomization
   grafanaAdminPassword: change_me
+
+  dnsWildcardSuffixes:
+    ingress:
+      nginx: replaced.by.kustomization
+    gateway:
+      cilium: replaced.by.kustomization
+
   kubernetesApi:
     host: fake.domain.name
 

@@ -1,7 +1,13 @@
 general:
   clusterName: change-me
-  ingressWildcardSuffix: replaced.by.kustomization
   grafanaAdminPassword: change_me
+
+  dnsWildcardSuffixes:
+    ingress:
+      nginx: replaced.by.kustomization
+    gateway:
+      cilium: replaced.by.kustomization
+
 alerts:
   alertmanager_slack_webhook: https://example.com
   alertmanager_watchdog_webhook: https://example.com

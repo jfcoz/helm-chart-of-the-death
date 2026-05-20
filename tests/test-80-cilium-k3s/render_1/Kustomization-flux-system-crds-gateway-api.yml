@@ -12,6 +12,6 @@ spec:
   prune: true
   sourceRef:
     kind: GitRepository
-    name: gateway-api
+    name: crds-gateway-api
     namespace: flux-system
   path: "./config/crd/experimental"

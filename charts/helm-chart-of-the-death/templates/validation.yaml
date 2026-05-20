@@ -8,3 +8,6 @@
 {{ fail "invalid general.clusterName" }}
 {{ end }}
 
+{{- if .Values.general.ingressWildcardSuffix }}
+{{ fail "general.ingressWildcardSuffix is deprecated. use general.dnsWildcardSuffixes.ingress.nginx instead" }}
+{{- end }}

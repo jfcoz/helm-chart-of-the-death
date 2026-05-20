@@ -7,10 +7,15 @@ kubernetesDistribution: none
 
 general:
   clusterName: change-me
-  # ingressWildcardSuffix: replaced.by.kustomization
   # contactAddress: replaced.by.kustomization
   # grafanaAdminPassword: must.be.replaced.by.kustomization
   # clusterName: must.be.replaced.by.kustomization
+
+  dnsWildcardSuffixes:
+    ingress:
+      nginx: replaced.by.kustomization
+    gateway:
+      cilium: replaced.by.kustomization
 
   kubernetesApi:
     # host: replaced.by.kustomization

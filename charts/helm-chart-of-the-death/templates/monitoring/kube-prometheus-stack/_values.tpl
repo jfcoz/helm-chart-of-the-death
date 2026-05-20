@@ -277,7 +277,7 @@ grafana:
   adminPassword: {{ .Values.general.grafanaAdminPassword | required "general.grafanaAdminPassword is mandatory" | quote }}
   grafana.ini:
     server:
-      root_url: "https://grafana.{{ .Values.general.ingressWildcardSuffix }}"
+      root_url: "https://grafana.{{ .Values.general.dnsWildcardSuffixes.ingress.nginx }}"
     database:
       # Workaround for database is locked error:  https://github.com/grafana/grafana/issues/65115
       wal: true
@@ -337,19 +337,21 @@ grafana:
     enabled: true
     ingressClassName: nginx
     hosts:
-      - grafana.{{ .Values.general.ingressWildcardSuffix }}
+      - grafana.{{ .Values.general.dnsWildcardSuffixes.ingress.nginx }}
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
     tls:
     - secretName: grafana-general-tls
       hosts:
-        - grafana.{{ .Values.general.ingressWildcardSuffix }}
+        - grafana.{{ .Values.general.dnsWildcardSuffixes.ingress.nginx }}
   {{- end }}
   {{- if .Values.features.gatewayAPI.enabled }}
   {{- /* TODO: add variables */}}
   route:
     main:
       enabled: true
+      hostnames:
+        - grafana.{{ .Values.general.dnsWildcardSuffixes.gateway.cilium }}
       parentRefs:
       - group: gateway.networking.k8s.io
         kind: Gateway
@@ -358,6 +360,8 @@ grafana:
         sectionName: https-prometheus
     redirect:
       enabled: true
+      hostnames:
+        - grafana.{{ .Values.general.dnsWildcardSuffixes.gateway.cilium }}
       httpsRedirect: true
       parentRefs:
       - group: gateway.networking.k8s.io
@@ -583,7 +587,7 @@ prometheus:
     externalLabels:
       cluster: {{ .Values.general.clusterName | default "Required general.clusterName" }}
     # ne marche pas, liens vers oncall mieux mais faux, et grafana ne peux plus afficher le detail des alertes
-    #externalUrl: https://grafana.{{ .Values.general.ingressWildcardSuffix }}
+    #externalUrl: https://grafana.{{ .Values.general.dnsWildcardSuffixes.ingress.nginx }}
     replicas: 1
     resources:
       requests:
@@ -693,13 +697,13 @@ alertmanager:
   #  enabled: true
   #  ingressClassName: nginx
   #  hosts:
-  #    - alertmanager.{{ .Values.general.ingressWildcardSuffix }}
+  #    - alertmanager.{{ .Values.general.dnsWildcardSuffixes.ingress.nginx }}
   #  annotations:
   #    cert-manager.io/cluster-issuer: letsencrypt-production
   #  tls:
   #  - secretName: alertmanager-general-tls
   #    hosts:
-  #      - alertmanager.{{ .Values.general.ingressWildcardSuffix }}
+  #      - alertmanager.{{ .Values.general.dnsWildcardSuffixes.ingress.nginx }}
   {{- if not (($me.values).alertmanager).config }}
   config:
     inhibit_rules:

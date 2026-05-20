@@ -674,6 +674,8 @@ grafana:
   route:
     main:
       enabled: true
+      hostnames:
+        - grafana.replaced.by.kustomization
       parentRefs:
         - group: gateway.networking.k8s.io
           kind: Gateway
@@ -682,6 +684,8 @@ grafana:
           sectionName: https-prometheus
     redirect:
       enabled: true
+      hostnames:
+        - grafana.replaced.by.kustomization
       httpsRedirect: true
       parentRefs:
         - group: gateway.networking.k8s.io

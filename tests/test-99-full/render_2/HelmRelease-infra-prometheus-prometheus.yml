@@ -3338,6 +3338,8 @@ spec:
       name: scaleway-gateway
       namespace: kube-system
       sectionName: https-prometheus
+  hostnames:
+    - grafana.replaced.by.kustomization
   rules:
     - backendRefs:
         - name: prometheus-grafana
@@ -3368,6 +3370,8 @@ spec:
       name: scaleway-gateway
       namespace: kube-system
       sectionName: http
+  hostnames:
+    - grafana.replaced.by.kustomization
   rules:
     - filters:
         - type: RequestRedirect

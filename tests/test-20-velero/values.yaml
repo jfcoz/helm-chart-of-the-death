@@ -3,8 +3,14 @@ cloudProvider: scw
 
 general:
   clusterName: change-me
-  ingressWildcardSuffix: replaced.by.kustomization
   grafanaAdminPassword: change_me
+
+  dnsWildcardSuffixes:
+    ingress:
+      nginx: replaced.by.kustomization
+    gateway:
+      cilium: replaced.by.kustomization
+
   fluxcd:
     release:
       # reduce interval to detect ClusterIssuer api capabilities after cert-manager installation
