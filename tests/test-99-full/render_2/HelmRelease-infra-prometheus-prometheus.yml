@@ -219,7 +219,6 @@ data:
     provisioning = /etc/grafana/provisioning
     [server]
     domain = grafana.replaced.by.kustomization
-    root_url = https://grafana.replaced.by.kustomization
     [unified_storage]
     index_path = /var/lib/grafana-search/bleve
   dashboardproviders.yaml: |
@@ -2727,7 +2726,7 @@ spec:
         app.kubernetes.io/instance: prometheus
         app.kubernetes.io/version: "13.0.1-security-01"
       annotations:
-        checksum/config: dc144f227341d480e799aa94c0808cfd5194321fd3ec3e7ef1767e903fb0876b
+        checksum/config: 0c123d84ac7b90722a1ea10eefd8c618af6cfd81e15177efb3dbae9c367551c5
         checksum/dashboards-json-config: 8e66c4d7745d97df3a9501b631d4ed1c4ffc8e6a62ea758a60cc4a54d9285e47
         checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
         checksum/secret: 1e66c39583fdabda3ba738bc2d1ead751694697306ad56796c9c163c5abaec4f
@@ -3335,7 +3334,12 @@ spec:
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      name: scaleway-gateway
+      name: scaleway-gateway-par1
+      namespace: kube-system
+      sectionName: https-prometheus
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: scaleway-gateway-par2
       namespace: kube-system
       sectionName: https-prometheus
   hostnames:
@@ -3367,7 +3371,12 @@ spec:
   parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      name: scaleway-gateway
+      name: scaleway-gateway-par1
+      namespace: kube-system
+      sectionName: http
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: scaleway-gateway-par2
       namespace: kube-system
       sectionName: http
   hostnames:

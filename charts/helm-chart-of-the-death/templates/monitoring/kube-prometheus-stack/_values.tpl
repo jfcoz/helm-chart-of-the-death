@@ -276,8 +276,9 @@
 grafana:
   adminPassword: {{ .Values.general.grafanaAdminPassword | required "general.grafanaAdminPassword is mandatory" | quote }}
   grafana.ini:
-    server:
-      root_url: "https://grafana.{{ .Values.general.dnsWildcardSuffixes.ingress.nginx }}"
+    # server:
+    # root_url is needed for oauth callback, not used yet. TODO: ingress nginx or cilium gateway if both are enabled
+    #   root_url: "https://grafana.{{ (((.general).dnsWildcardSuffixes).ingress).nginx }}"
     database:
       # Workaround for database is locked error:  https://github.com/grafana/grafana/issues/65115
       wal: true
@@ -586,8 +587,6 @@ prometheus:
     ruleSelectorNilUsesHelmValues: false
     externalLabels:
       cluster: {{ .Values.general.clusterName | default "Required general.clusterName" }}
-    # ne marche pas, liens vers oncall mieux mais faux, et grafana ne peux plus afficher le detail des alertes
-    #externalUrl: https://grafana.{{ .Values.general.dnsWildcardSuffixes.ingress.nginx }}
     replicas: 1
     resources:
       requests:
@@ -691,19 +690,6 @@ alertmanager:
           resources:
             requests:
               storage: 2Gi
-  ## disabled : currently no auth
-  # see https://github.com/prometheus-community/helm-charts/issues/1754
-  #ingress:
-  #  enabled: true
-  #  ingressClassName: nginx
-  #  hosts:
-  #    - alertmanager.{{ .Values.general.dnsWildcardSuffixes.ingress.nginx }}
-  #  annotations:
-  #    cert-manager.io/cluster-issuer: letsencrypt-production
-  #  tls:
-  #  - secretName: alertmanager-general-tls
-  #    hosts:
-  #      - alertmanager.{{ .Values.general.dnsWildcardSuffixes.ingress.nginx }}
   {{- if not (($me.values).alertmanager).config }}
   config:
     inhibit_rules:

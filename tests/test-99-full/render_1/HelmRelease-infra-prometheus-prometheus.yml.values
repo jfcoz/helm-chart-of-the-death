@@ -647,8 +647,6 @@ grafana:
   grafana.ini:
     database:
       wal: true
-    server:
-      root_url: https://grafana.replaced.by.kustomization
   ingress:
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
@@ -679,7 +677,12 @@ grafana:
       parentRefs:
         - group: gateway.networking.k8s.io
           kind: Gateway
-          name: scaleway-gateway
+          name: scaleway-gateway-par1
+          namespace: kube-system
+          sectionName: https-prometheus
+        - group: gateway.networking.k8s.io
+          kind: Gateway
+          name: scaleway-gateway-par2
           namespace: kube-system
           sectionName: https-prometheus
     redirect:
@@ -690,7 +693,12 @@ grafana:
       parentRefs:
         - group: gateway.networking.k8s.io
           kind: Gateway
-          name: scaleway-gateway
+          name: scaleway-gateway-par1
+          namespace: kube-system
+          sectionName: http
+        - group: gateway.networking.k8s.io
+          kind: Gateway
+          name: scaleway-gateway-par2
           namespace: kube-system
           sectionName: http
   sidecar:

@@ -111,7 +111,34 @@ components:
             routes:
               - receiver: "null"
 
-      values: {}
+      values:
+        grafana:
+          route:
+            main:
+              parentRefs:
+              - group: gateway.networking.k8s.io
+                kind: Gateway
+                name: scaleway-gateway-par1
+                namespace: kube-system
+                sectionName: https-prometheus
+              - group: gateway.networking.k8s.io
+                kind: Gateway
+                name: scaleway-gateway-par2
+                namespace: kube-system
+                sectionName: https-prometheus
+            redirect:
+              parentRefs:
+              - group: gateway.networking.k8s.io
+                kind: Gateway
+                name: scaleway-gateway-par1
+                namespace: kube-system
+                sectionName: http
+              - group: gateway.networking.k8s.io
+                kind: Gateway
+                name: scaleway-gateway-par2
+                namespace: kube-system
+                sectionName: http
+
     thanos:
       namespace: infra-thanos
       managed: true
