@@ -11,11 +11,12 @@ general:
   # grafanaAdminPassword: must.be.replaced.by.kustomization
   # clusterName: must.be.replaced.by.kustomization
 
-  dnsWildcardSuffixes:
-    ingress:
-      nginx: replaced.by.kustomization
-    gateway:
-      cilium: replaced.by.kustomization
+  # each ingress/loadbalancer entrypoint should have a *.cluster.example.com DNS record
+  # dnsWildcardSuffixes:
+  #   ingress:
+  #     nginx: replaced.by.kustomization
+  #   gateway:
+  #     cilium: replaced.by.kustomization
 
   kubernetesApi:
     # host: replaced.by.kustomization
