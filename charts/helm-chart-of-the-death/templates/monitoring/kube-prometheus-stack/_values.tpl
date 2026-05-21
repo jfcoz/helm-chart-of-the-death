@@ -274,6 +274,9 @@
 {{- $me := .Values.components.monitoring.kubePrometheusStack }}
 {{- $falco := .Values.components.security.falco }}
 grafana:
+  # TODO: re-enable only on mono-zone or multi-zone with regional or bi-zone storage
+  # persistence:
+  #   enabled: true
   adminPassword: {{ .Values.general.grafanaAdminPassword | required "general.grafanaAdminPassword is mandatory" | quote }}
   grafana.ini:
     server:
