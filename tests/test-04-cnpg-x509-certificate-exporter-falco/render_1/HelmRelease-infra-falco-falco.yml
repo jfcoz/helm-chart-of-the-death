@@ -44,7 +44,7 @@ spec:
           rollingUpdate:
             maxUnavailable: 50%
     customRules:
-      default-rules-exclusions.yaml: |2-
+      default-rules-exclusions.yaml: |-
 
         # Macro k8s_containers:
         # fluxcd

@@ -6,7 +6,7 @@ metadata:
   name: thanos-compact
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.23.0
+    helm.sh/chart: thanos-1.23.1
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
     app.kubernetes.io/version: "0.41.0"
@@ -22,7 +22,7 @@ metadata:
   name: thanos-query
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.23.0
+    helm.sh/chart: thanos-1.23.1
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
     app.kubernetes.io/version: "0.41.0"
@@ -38,7 +38,7 @@ metadata:
   name: thanos-store-gateway
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.23.0
+    helm.sh/chart: thanos-1.23.1
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
     app.kubernetes.io/version: "0.41.0"
@@ -54,7 +54,7 @@ metadata:
   name: thanos-objstore-config
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.23.0
+    helm.sh/chart: thanos-1.23.1
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
     app.kubernetes.io/version: "0.41.0"
@@ -70,7 +70,7 @@ metadata:
   name: thanos-compact-headless
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.23.0
+    helm.sh/chart: thanos-1.23.1
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
     app.kubernetes.io/version: "0.41.0"
@@ -97,7 +97,7 @@ metadata:
   name: thanos-query
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.23.0
+    helm.sh/chart: thanos-1.23.1
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
     app.kubernetes.io/version: "0.41.0"
@@ -126,7 +126,7 @@ metadata:
   name: thanos-store-gateway-headless
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.23.0
+    helm.sh/chart: thanos-1.23.1
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
     app.kubernetes.io/version: "0.41.0"
@@ -156,7 +156,7 @@ metadata:
   name: thanos-query
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.23.0
+    helm.sh/chart: thanos-1.23.1
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
     app.kubernetes.io/version: "0.41.0"
@@ -247,7 +247,7 @@ metadata:
   name: thanos-compact
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.23.0
+    helm.sh/chart: thanos-1.23.1
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
     app.kubernetes.io/version: "0.41.0"
@@ -374,7 +374,7 @@ metadata:
   name: thanos-store-gateway
   namespace: infra-thanos
   labels:
-    helm.sh/chart: thanos-1.23.0
+    helm.sh/chart: thanos-1.23.1
     app.kubernetes.io/name: thanos
     app.kubernetes.io/instance: thanos
     app.kubernetes.io/version: "0.41.0"

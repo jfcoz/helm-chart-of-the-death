@@ -30,7 +30,7 @@ spec:
     spec:
       chart: argo-cd
       # each major contains upgrade process in changelog
-      version: "9.5.14"
+      version: "9.5.15"
       sourceRef:
         kind: HelmRepository
         name: "argo"
