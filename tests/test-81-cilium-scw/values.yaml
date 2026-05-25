@@ -1,0 +1,18 @@
+cloudProvider: scw
+
+general:
+  clusterName: change-me
+  kubernetesApi:
+    host: fake.domain.name
+
+features:
+  gatewayAPI:
+    enabled: true
+    type: experimental
+
+components:
+  cni:
+    cilium:
+      used: true
+    ciliumScwHubble:
+      managed: true

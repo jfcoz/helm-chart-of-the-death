@@ -1,0 +1,21 @@
+{{- if eq .Values.cloudProvider "scw" }}
+{{- $cilium := .Values.components.cni.cilium }}
+{{- $me := .Values.components.cni.ciliumScwHubble }}
+{{- if include "common.managed" $me }}
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cilium-scw-hubble
+  namespace: {{ $cilium.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+spec:
+  # include common.fluxcd.release
+  {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
+  {{- include "common.fluxcd.chartSpec" (list $ $me) | nindent 2 }}
+  values:
+    {{- include "cni.ciliumScwHubble.mergedValues" . | nindent 4 }}
+{{- end }}
+{{- end }}

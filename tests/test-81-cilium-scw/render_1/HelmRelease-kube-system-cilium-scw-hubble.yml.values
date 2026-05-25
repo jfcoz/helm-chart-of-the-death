@@ -1,0 +1,28 @@
+hubble:
+  export:
+    dynamic:
+      config:
+        content:
+          - fieldMask:
+              - time
+              - uuid
+              - verdict
+              - l7.http.code
+              - l7.http.method
+              - l7.http.url
+              - l7.http.protocol
+              - IP
+              - destination.pod_name
+              - source.pod_name
+              - l7.type
+              - l7.latency_ns
+              - l7.http.headers
+            fileMaxBackups: 0
+            fileMaxSizeMb: 2137
+            filePath: /dev/stdout
+            includeFilters:
+              - event_type:
+                  - type: 129
+            name: l7-http-stdout
+        enabled: true
+      enabled: true

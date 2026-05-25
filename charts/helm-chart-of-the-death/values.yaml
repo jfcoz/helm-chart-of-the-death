@@ -1,4 +1,4 @@
-# cloudProvider aws/gcp/ovh/scw/do/none
+# cloudProvider aws/gcp/ovh/scw (Scaleway)/do (Digital Ocean)/none
 cloudProvider: none
 multiZone: true
 
@@ -73,6 +73,8 @@ repositories:
     url: https://open-telemetry.github.io/opentelemetry-helm-charts
   - name: prometheus-community
     url: https://prometheus-community.github.io/helm-charts
+  - name: scaleway
+    url: https://helm.scw.cloud/
   - name: stevehipwell
     url: https://stevehipwell.github.io/helm-charts/
   - name: vmware-tanzu
@@ -93,6 +95,16 @@ components:
       release:
         timeout: 30m
       values: {}
+
+    # On Scaleway, Hubble must be deployed as an addon: https://www.scaleway.com/en/docs/tutorials/deploying-hubble-add-on-scaleway-kubernetes-clusters/
+    ciliumScwHubble:
+      managed: false
+      used: false
+      helmResourcePolicyKeep: true
+      chart:
+        name: scaleway-cilium-hubble
+        version: "0.1.3"
+        repository: scaleway
 
   gitops:
     argocd:
