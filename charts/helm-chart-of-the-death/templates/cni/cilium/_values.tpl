@@ -49,6 +49,10 @@ ipam:
     - 10.42.0.0/16
 {{- end }}
 
+# https://docs.cilium.io/en/stable/configuration/api-rate-limiting/#configuration-parameters
+apiRateLimit: |
+  endpoint-create=auto-adjust:true,mean-over:25,endpoint-delete=auto-adjust:true,mean-over:25
+
 {{- end }}
 
 

@@ -10,7 +10,7 @@ controller:
       rollingUpdate:
         maxUnavailable: 50%
 customRules:
-  default-rules-exclusions.yaml: |-
+  default-rules-exclusions.yaml: |2-
 
     # Macro k8s_containers:
     # fluxcd
