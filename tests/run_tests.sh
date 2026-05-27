@@ -25,7 +25,7 @@ chart_dir=$PWD/../charts/helm-chart-of-the-death/
 # --dry-run=server allow lookup function and Capabilities on 4.x
 dryrun=client
 
-apiversions='--api-versions objectbucket.io/v1alpha1 --kube-version=1.32.0'
+apiversions='--api-versions objectbucket.io/v1alpha1,monitoring.coreos.com/v1 --kube-version=1.32.0'
 
 helm lint $chart_dir
 

@@ -8,6 +8,11 @@ k8sServiceHost: {{ .Values.general.kubernetesApi.host | required "missing genera
 k8sServicePort: {{ .Values.general.kubernetesApi.port }}
 
 {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
+prometheus:
+  metricsService: true
+  enabled: true
+  serviceMonitor:
+    enabled: true
 dashboards:
   enabled: true
 {{- end }}

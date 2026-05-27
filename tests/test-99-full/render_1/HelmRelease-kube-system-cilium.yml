@@ -54,6 +54,11 @@ spec:
         enabled: true
       rollOutPods: true
     policyDenyResponse: icmp
+    prometheus:
+      enabled: true
+      metricsService: true
+      serviceMonitor:
+        enabled: true
     rollOutCilliumPods: true
     routingMode: tunnel
     tunnelProtocol: geneve

@@ -650,6 +650,10 @@ rules:
   - apiGroups: ["autoscaling"]
     resources: ["horizontalpodautoscalers"]
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  # Rules which allow the management of ServiceMonitor.
+  - apiGroups: ["monitoring.coreos.com"]
+    resources: ["servicemonitors"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
   # Rules which allow the management of Ingresses and NetworkPolicies.
   - apiGroups: ["networking.k8s.io"]
     resources: ["ingresses", "networkpolicies"]
