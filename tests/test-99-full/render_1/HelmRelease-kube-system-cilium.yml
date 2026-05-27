@@ -37,6 +37,8 @@ spec:
     apiRateLimit: endpoint-create=auto-adjust:true,mean-over:25,endpoint-delete=auto-adjust:true,mean-over:25
     cluster:
       name: change-me
+    dashboards:
+      enabled: true
     defaultLBServiceIPAM: none
     gatewayAPI:
       enabled: true
@@ -48,6 +50,8 @@ spec:
     k8sServicePort: 6443
     kubeProxyReplacement: true
     operator:
+      dashboards:
+        enabled: true
       rollOutPods: true
     policyDenyResponse: icmp
     rollOutCilliumPods: true

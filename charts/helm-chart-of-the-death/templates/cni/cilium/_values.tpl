@@ -7,8 +7,17 @@ cluster:
 k8sServiceHost: {{ .Values.general.kubernetesApi.host | required "missing general.kubernetesApi.host" }}
 k8sServicePort: {{ .Values.general.kubernetesApi.port }}
 
+{{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
+dashboards:
+  enabled: true
+{{- end }}
+
 operator:
   rollOutPods: true
+  {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
+  dashboards:
+    enabled: true
+  {{- end }}
 
 rollOutCilliumPods: true
 
