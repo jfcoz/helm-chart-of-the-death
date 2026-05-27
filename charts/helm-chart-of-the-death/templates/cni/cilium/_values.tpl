@@ -7,14 +7,10 @@ cluster:
 k8sServiceHost: {{ .Values.general.kubernetesApi.host | required "missing general.kubernetesApi.host" }}
 k8sServicePort: {{ .Values.general.kubernetesApi.port }}
 
-updateStrategy:
-  rollingUpdate:
-    maxUnavailable: 33%
+operator:
+  rollOutPods: true
 
-envoy:
-  updateStrategy:
-    rollingUpdate:
-      maxUnavailable: 33%
+rollOutCilliumPods: true
 
 {{- if .Values.features.gatewayAPI.enabled }}
 gatewayAPI:

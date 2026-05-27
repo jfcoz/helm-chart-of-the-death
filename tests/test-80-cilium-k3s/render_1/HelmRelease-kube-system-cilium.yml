@@ -36,10 +36,6 @@ spec:
     cluster:
       name: change-me
     defaultLBServiceIPAM: none
-    envoy:
-      updateStrategy:
-        rollingUpdate:
-          maxUnavailable: 33%
     gatewayAPI:
       enabled: true
     ipam:
@@ -49,9 +45,9 @@ spec:
     k8sServiceHost: fake.domain.name
     k8sServicePort: 6443
     kubeProxyReplacement: true
+    operator:
+      rollOutPods: true
     policyDenyResponse: icmp
+    rollOutCilliumPods: true
     routingMode: tunnel
     tunnelProtocol: geneve
-    updateStrategy:
-      rollingUpdate:
-        maxUnavailable: 33%
