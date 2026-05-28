@@ -514,6 +514,14 @@ grafana:
           type: file
         - disableDeletion: true
           editable: false
+          folder: Cilium
+          name: Cilium
+          options:
+            path: /var/lib/grafana/dashboards/cilium
+          orgId: 1
+          type: file
+        - disableDeletion: true
+          editable: false
           folder: X509 certificate exporter
           name: x509-certificate-exporter
           options:
@@ -588,6 +596,13 @@ grafana:
       rbd-overview:
         datasource: Prometheus
         url: https://raw.githubusercontent.com/ceph/ceph/main/monitoring/ceph-mixin/dashboards_out/rbd-overview.json
+    cilium:
+      cilium-agent:
+        datasource: Prometheus
+        url: https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/cilium-agent/dashboards/cilium-dashboard.json
+      cilium-operator:
+        datasource: Prometheus
+        url: https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/cilium-operator/dashboards/cilium-operator-dashboard.json
     default:
       blackbox-exporter:
         datasource: Prometheus

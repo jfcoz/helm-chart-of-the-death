@@ -391,6 +391,16 @@ grafana:
         editable: false
         options:
           path: /var/lib/grafana/dashboards/fluxcd
+      {{- if include "common.used" .Values.components.cni.cilium }}
+      - name: 'Cilium'
+        orgId: 1
+        folder: 'Cilium'
+        type: file
+        disableDeletion: true
+        editable: false
+        options:
+          path: /var/lib/grafana/dashboards/cilium
+      {{- end }}
       {{- if include "common.used" .Values.components.database.cnpg }}
       - name: 'CNPG'
         orgId: 1
@@ -454,6 +464,20 @@ grafana:
         url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/refs/heads/main/monitoring/configs/dashboards/logs.json
         datasource: Loki
       {{- end }}
+    {{- if include "common.used" .Values.components.cni.cilium }}
+    cilium:
+      {{- $cilium := .Values.components.cni.cilium }}
+      {{- if not ((($cilium).values).dashboards).enabled }}
+      cilium-agent:
+        url: https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/cilium-agent/dashboards/cilium-dashboard.json
+        datasource: Prometheus
+      {{- end }}
+      {{- if not (((($cilium).values).operator).dashboards).enabled }}
+      cilium-operator:
+        url: https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/cilium-operator/dashboards/cilium-operator-dashboard.json
+        datasource: Prometheus
+      {{- end }}
+    {{- end }}
     {{- if include "common.used" .Values.components.database.cnpg }}
     cnpg:
       cloudnativepg:

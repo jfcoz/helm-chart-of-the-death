@@ -242,6 +242,14 @@ data:
       type: file
     - disableDeletion: true
       editable: false
+      folder: Cilium
+      name: Cilium
+      options:
+        path: /var/lib/grafana/dashboards/cilium
+      orgId: 1
+      type: file
+    - disableDeletion: true
+      editable: false
       folder: X509 certificate exporter
       name: x509-certificate-exporter
       options:
@@ -277,6 +285,7 @@ data:
     set -euf
     mkdir -p /var/lib/grafana/dashboards/default
     mkdir -p /var/lib/grafana/dashboards/fluxcd
+    mkdir -p /var/lib/grafana/dashboards/cilium
     mkdir -p /var/lib/grafana/dashboards/x509-certificate-exporter
     mkdir -p /var/lib/grafana/dashboards/falco
     mkdir -p /var/lib/grafana/dashboards/ceph
@@ -407,6 +416,24 @@ data:
       "https://raw.githubusercontent.com/ceph/ceph/main/monitoring/ceph-mixin/dashboards_out/rbd-overview.json" \
       | sed '/-- .* --/! s/"datasource":.*,/"datasource": "Prometheus",/g' \
     > "/var/lib/grafana/dashboards/ceph/rbd-overview.json"
+      
+    curl -skf \
+    --connect-timeout 60 \
+    --max-time 60 \
+    -H "Accept: application/json" \
+    -H "Content-Type: application/json;charset=UTF-8" \
+      "https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/cilium-agent/dashboards/cilium-dashboard.json" \
+      | sed '/-- .* --/! s/"datasource":.*,/"datasource": "Prometheus",/g' \
+    > "/var/lib/grafana/dashboards/cilium/cilium-agent.json"
+      
+    curl -skf \
+    --connect-timeout 60 \
+    --max-time 60 \
+    -H "Accept: application/json" \
+    -H "Content-Type: application/json;charset=UTF-8" \
+      "https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/cilium-operator/dashboards/cilium-operator-dashboard.json" \
+      | sed '/-- .* --/! s/"datasource":.*,/"datasource": "Prometheus",/g' \
+    > "/var/lib/grafana/dashboards/cilium/cilium-operator.json"
       
     curl -skf \
     --connect-timeout 60 \
@@ -554,6 +581,21 @@ metadata:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/version: "13.0.1-security-01"
     dashboard-provider: ceph
+data:
+  {}
+---
+# Source: kube-prometheus-stack/charts/grafana/templates/dashboards-json-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-grafana-dashboards-cilium
+  namespace: infra-prometheus
+  labels:
+    helm.sh/chart: grafana-12.4.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/version: "13.0.1-security-01"
+    dashboard-provider: cilium
 data:
   {}
 ---
@@ -2705,8 +2747,8 @@ spec:
         app.kubernetes.io/instance: prometheus
         app.kubernetes.io/version: "13.0.1-security-01"
       annotations:
-        checksum/config: 0c123d84ac7b90722a1ea10eefd8c618af6cfd81e15177efb3dbae9c367551c5
-        checksum/dashboards-json-config: 8ca0716bd0e92194804dfc499cb9f6e97a6d86183a69721aa99ebc19af18d763
+        checksum/config: 51ba6356084af0d49bbc9def891040ab5f937ade42030a0e4c4c5f1932aff40e
+        checksum/dashboards-json-config: 261cbc482d8c253f4e6c98e38eb10033d8a4c87f5eb12b440b56055c1486984b
         checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
         checksum/secret: 1e66c39583fdabda3ba738bc2d1ead751694697306ad56796c9c163c5abaec4f
         kubectl.kubernetes.io/default-container: grafana
@@ -2920,6 +2962,9 @@ spec:
         - name: dashboards-ceph
           configMap:
             name: prometheus-grafana-dashboards-ceph
+        - name: dashboards-cilium
+          configMap:
+            name: prometheus-grafana-dashboards-cilium
         - name: dashboards-default
           configMap:
             name: prometheus-grafana-dashboards-default
