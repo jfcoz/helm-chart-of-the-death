@@ -28,7 +28,7 @@ spec:
     spec:
       chart: prometheus-pushgateway
       # each major contains upgrade process in changelog
-      version: "3.6.0"
+      version: "3.6.1"
       sourceRef:
         kind: HelmRepository
         name: "prometheus-community"

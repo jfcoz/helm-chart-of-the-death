@@ -190,7 +190,7 @@ metadata:
   labels:
     helm.sh/chart: scaleway-cilium-hubble-0.1.3
     app.kubernetes.io/name: scaleway-cilium-hubble
-    app.kubernetes.io/instance: cilium-scw-hubble
+    app.kubernetes.io/instance: scaleway-cilium-hubble
     app.kubernetes.io/version: "v1.17.3"
     app.kubernetes.io/managed-by: Helm
 spec:
@@ -417,7 +417,7 @@ metadata:
   labels:
     helm.sh/chart: scaleway-cilium-hubble-0.1.3
     app.kubernetes.io/name: scaleway-cilium-hubble
-    app.kubernetes.io/instance: cilium-scw-hubble
+    app.kubernetes.io/instance: scaleway-cilium-hubble
     app.kubernetes.io/version: "v1.17.3"
     app.kubernetes.io/managed-by: Helm
 spec:
