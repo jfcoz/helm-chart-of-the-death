@@ -1,4 +1,6 @@
 apiRateLimit: endpoint-create=auto-adjust:true,mean-over:25,endpoint-delete=auto-adjust:true,mean-over:25
+bpf:
+  masquerade: true
 cluster:
   name: change-me
 defaultLBServiceIPAM: none

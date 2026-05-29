@@ -7,6 +7,10 @@ cluster:
 k8sServiceHost: {{ .Values.general.kubernetesApi.host | required "missing general.kubernetesApi.host" }}
 k8sServicePort: {{ .Values.general.kubernetesApi.port }}
 
+bpf:
+  # https://docs.cilium.io/en/stable/network/concepts/masquerading/#ebpf-based
+  masquerade: true
+
 {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
 prometheus:
   metricsService: true
