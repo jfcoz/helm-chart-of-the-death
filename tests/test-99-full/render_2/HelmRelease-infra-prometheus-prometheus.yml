@@ -59,9 +59,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 automountServiceAccountToken: true
@@ -76,9 +76,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
     app: kube-prometheus-stack-operator
@@ -99,9 +99,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 automountServiceAccountToken: true
@@ -136,9 +136,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -156,9 +156,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1134,9 +1134,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1202,9 +1202,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1225,9 +1225,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1248,9 +1248,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1271,9 +1271,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1294,9 +1294,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1317,9 +1317,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1340,9 +1340,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1363,9 +1363,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1386,9 +1386,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1409,9 +1409,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1432,9 +1432,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1455,9 +1455,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1478,9 +1478,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1501,9 +1501,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1524,9 +1524,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1547,9 +1547,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1570,9 +1570,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1593,9 +1593,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1616,9 +1616,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1639,9 +1639,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1662,9 +1662,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1685,9 +1685,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1708,9 +1708,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1731,9 +1731,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1754,9 +1754,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1777,9 +1777,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1800,9 +1800,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -2018,9 +2018,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
     app: kube-prometheus-stack-operator
@@ -2145,9 +2145,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 rules:
@@ -2225,9 +2225,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
     app: kube-prometheus-stack-operator
@@ -2252,9 +2252,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 roleRef:
@@ -2357,9 +2357,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -2389,9 +2389,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
   namespace: kube-system
@@ -2416,9 +2416,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
   namespace: kube-system
@@ -2444,9 +2444,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
   namespace: kube-system
@@ -2472,9 +2472,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
   namespace: kube-system
@@ -2499,9 +2499,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
     app: kube-prometheus-stack-operator
@@ -2529,9 +2529,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -2561,9 +2561,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -3106,9 +3106,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
     app: kube-prometheus-stack-operator
@@ -3127,9 +3127,9 @@ spec:
         
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/instance: prometheus
-        app.kubernetes.io/version: "85.3.3"
+        app.kubernetes.io/version: "86.0.1"
         app.kubernetes.io/part-of: kube-prometheus-stack
-        chart: kube-prometheus-stack-85.3.3
+        chart: kube-prometheus-stack-86.0.1
         release: "prometheus"
         heritage: "Helm"
         app: kube-prometheus-stack-operator
@@ -3138,14 +3138,14 @@ spec:
     spec:
       containers:
         - name: kube-prometheus-stack
-          image: "quay.io/prometheus-operator/prometheus-operator:v0.90.1"
+          image: "quay.io/prometheus-operator/prometheus-operator:v0.91.0"
           imagePullPolicy: "IfNotPresent"
           args:
             - --kubelet-service=kube-system/prometheus-kube-prometheus-kubelet
             - --kubelet-endpoints=true
             - --kubelet-endpointslice=false
             - --localhost=127.0.0.1
-            - --prometheus-config-reloader=quay.io/prometheus-operator/prometheus-config-reloader:v0.90.1
+            - --prometheus-config-reloader=quay.io/prometheus-operator/prometheus-config-reloader:v0.91.0
             - --config-reloader-cpu-request=1m
             - --config-reloader-cpu-limit=500m
             - --config-reloader-memory-request=30Mi
@@ -3258,9 +3258,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -3401,9 +3401,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -3441,9 +3441,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -3553,9 +3553,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -3912,9 +3912,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4055,9 +4055,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4087,9 +4087,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4255,9 +4255,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4323,9 +4323,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4358,9 +4358,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4385,9 +4385,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4412,9 +4412,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4439,9 +4439,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4466,9 +4466,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4555,9 +4555,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4703,9 +4703,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4825,9 +4825,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5147,9 +5147,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5178,9 +5178,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5255,9 +5255,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5280,9 +5280,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5313,9 +5313,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5382,9 +5382,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5433,9 +5433,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5714,9 +5714,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5914,9 +5914,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6028,9 +6028,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6118,9 +6118,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6322,9 +6322,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6365,9 +6365,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6468,9 +6468,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6806,9 +6806,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6836,9 +6836,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6893,9 +6893,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6986,9 +6986,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7356,9 +7356,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7389,9 +7389,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7419,9 +7419,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7460,9 +7460,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7490,9 +7490,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7520,9 +7520,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7553,9 +7553,9 @@ metadata:
     app: kube-prometheus-stack-kubelet    
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7667,9 +7667,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
     app: kube-prometheus-stack-operator
@@ -7707,9 +7707,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7739,9 +7739,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7769,9 +7769,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -7832,9 +7832,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -7854,9 +7854,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -7885,9 +7885,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -7915,9 +7915,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -7945,9 +7945,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -7975,9 +7975,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -7992,9 +7992,9 @@ spec:
         
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/instance: prometheus
-        app.kubernetes.io/version: "85.3.3"
+        app.kubernetes.io/version: "86.0.1"
         app.kubernetes.io/part-of: kube-prometheus-stack
-        chart: kube-prometheus-stack-85.3.3
+        chart: kube-prometheus-stack-86.0.1
         release: "prometheus"
         heritage: "Helm"
         app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -8041,9 +8041,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "85.3.3"
+    app.kubernetes.io/version: "86.0.1"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-85.3.3
+    chart: kube-prometheus-stack-86.0.1
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -8058,9 +8058,9 @@ spec:
         
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/instance: prometheus
-        app.kubernetes.io/version: "85.3.3"
+        app.kubernetes.io/version: "86.0.1"
         app.kubernetes.io/part-of: kube-prometheus-stack
-        chart: kube-prometheus-stack-85.3.3
+        chart: kube-prometheus-stack-86.0.1
         release: "prometheus"
         heritage: "Helm"
         app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator

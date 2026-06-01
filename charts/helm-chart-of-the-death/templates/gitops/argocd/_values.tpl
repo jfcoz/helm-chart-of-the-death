@@ -27,6 +27,20 @@ server:
     tls: true
     {{- end }}
 
+  {{- if .Values.features.gatewayAPI.enabled }}
+  {{- /* TODO: add variables */}}
+  httproute:
+    enabled: true
+    hostnames:
+      - grafana.{{ .Values.general.dnsWildcardSuffixes.gateway.cilium }}
+    parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: scaleway-gateway
+      namespace: kube-system
+      sectionName: https-prometheus
+  {{- end }}
+ 
 
   {{- if include "common.used" .Values.components.security.certManager }}
   certificate:

@@ -43,10 +43,10 @@ metadata:
   name: falco
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.5
+    helm.sh/chart: falco-9.0.0
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
-    app.kubernetes.io/version: "0.43.1"
+    app.kubernetes.io/version: "0.44.0"
     app.kubernetes.io/managed-by: Helm
 ---
 # Source: falco/charts/falcosidekick/templates/secrets-ui.yaml
@@ -646,10 +646,10 @@ metadata:
   name: falco
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.5
+    helm.sh/chart: falco-9.0.0
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
-    app.kubernetes.io/version: "0.43.1"
+    app.kubernetes.io/version: "0.44.0"
     app.kubernetes.io/managed-by: Helm
 data:
   falco.yaml: |-
@@ -669,10 +669,6 @@ data:
     config_files:
     - /etc/falco/config.d
     engine:
-      ebpf:
-        buf_size_preset: 4
-        drop_failed_exit: false
-        probe: ${HOME}/.falco/falco-bpf.o
       kind: modern_ebpf
       kmod:
         buf_size_preset: 4
@@ -690,12 +686,6 @@ data:
       enabled: false
       filename: ./events.txt
       keep_alive: false
-    grpc:
-      bind_address: unix:///run/falco/falco.sock
-      enabled: false
-      threadiness: 0
-    grpc_output:
-      enabled: false
     http_output:
       ca_bundle: ""
       ca_cert: ""
@@ -828,10 +818,10 @@ metadata:
   name: falco-falcoctl
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.5
+    helm.sh/chart: falco-9.0.0
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
-    app.kubernetes.io/version: "0.43.1"
+    app.kubernetes.io/version: "0.44.0"
     app.kubernetes.io/managed-by: Helm
 data:
   falcoctl.yaml: |-
@@ -852,7 +842,7 @@ data:
         refs:
         - falco-rules:5
         - ghcr.io/falcosecurity/plugins/plugin/k8smeta:0.4.1
-        - ghcr.io/falcosecurity/plugins/plugin/container:0.6.3
+        - ghcr.io/falcosecurity/plugins/plugin/container:0.7.1
         resolveDeps: true
         rulesfilesDir: /rulesfiles
         stateDir: /artifactstate
@@ -867,10 +857,10 @@ metadata:
   name: falco-rules
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.5
+    helm.sh/chart: falco-9.0.0
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
-    app.kubernetes.io/version: "0.43.1"
+    app.kubernetes.io/version: "0.44.0"
     app.kubernetes.io/managed-by: Helm
 data:
   default-rules-exclusions.yaml: |-
@@ -1041,10 +1031,10 @@ metadata:
   name: falco
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.5
+    helm.sh/chart: falco-9.0.0
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
-    app.kubernetes.io/version: "0.43.1"
+    app.kubernetes.io/version: "0.44.0"
     app.kubernetes.io/managed-by: Helm
 rules:
   - apiGroups:
@@ -1107,10 +1097,10 @@ metadata:
   name: falco
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.5
+    helm.sh/chart: falco-9.0.0
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
-    app.kubernetes.io/version: "0.43.1"
+    app.kubernetes.io/version: "0.44.0"
     app.kubernetes.io/managed-by: Helm
 subjects:
   - kind: ServiceAccount
@@ -1245,10 +1235,10 @@ metadata:
   name: falco-metrics
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.5
+    helm.sh/chart: falco-9.0.0
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
-    app.kubernetes.io/version: "0.43.1"
+    app.kubernetes.io/version: "0.44.0"
     app.kubernetes.io/managed-by: Helm
     type: "falco-metrics"
 spec:
@@ -1269,10 +1259,10 @@ metadata:
   name: falco
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-8.0.5
+    helm.sh/chart: falco-9.0.0
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
-    app.kubernetes.io/version: "0.43.1"
+    app.kubernetes.io/version: "0.44.0"
     app.kubernetes.io/managed-by: Helm
 spec:
   selector:
@@ -1286,8 +1276,8 @@ spec:
         app.kubernetes.io/name: falco
         app.kubernetes.io/instance: falco
       annotations:
-        checksum/config: e76853bac2e512ebc7a04e1583a6c2777df52222b6a0170097ed4812bbd1010a
-        checksum/rules: 40874e75e7ae10924de43f7f7524f5e36f95944eeeb137152a2ace10b2459e4e
+        checksum/config: 6ef9f6b062581f33029a81f9105bfc964300da6da402f1df495a128d16d3aad0
+        checksum/rules: 3cc387e5846a5f7d467f65aeb1105fd0a4721dea60afa6bbedbb89275b44df71
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     spec:
       serviceAccountName: falco
@@ -1301,7 +1291,7 @@ spec:
           operator: Exists
       containers:
         - name: falco
-          image: docker.io/falcosecurity/falco:0.43.1
+          image: docker.io/falcosecurity/falco:0.44.0
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -1393,9 +1383,8 @@ spec:
               subPath: falco.yaml
             - mountPath: /etc/falco/rules.d
               name: rules-volume
-            
         - name: falcoctl-artifact-follow
-          image: docker.io/falcosecurity/falcoctl:0.12.2
+          image: docker.io/falcosecurity/falcoctl:0.13.0
           imagePullPolicy: IfNotPresent
           args:
             - artifact
@@ -1417,7 +1406,7 @@ spec:
               name: artifact-state-dir
       initContainers:
         - name: falco-driver-loader
-          image: docker.io/falcosecurity/falco-driver-loader:0.43.1
+          image: docker.io/falcosecurity/falco-driver-loader:0.44.0
           imagePullPolicy: IfNotPresent
           args:
             - auto
@@ -1455,7 +1444,7 @@ spec:
             - name: FALCOCTL_DRIVER_CONFIG_CONFIGMAP
               value: falco
         - name: falcoctl-artifact-install
-          image: docker.io/falcosecurity/falcoctl:0.12.2
+          image: docker.io/falcosecurity/falcoctl:0.13.0
           imagePullPolicy: IfNotPresent
           args:
             - artifact
@@ -1542,7 +1531,6 @@ spec:
         - name: rules-volume
           configMap:
             name: falco-rules
-        
   updateStrategy:
     rollingUpdate:
       maxUnavailable: 50%

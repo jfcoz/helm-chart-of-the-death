@@ -54,6 +54,16 @@ server:
       group: cert-manager.io
       kind: ClusterIssuer
       name: self-signed
+  httproute:
+    enabled: true
+    hostnames:
+      - grafana.replaced.by.kustomization
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: scaleway-gateway
+        namespace: kube-system
+        sectionName: https-prometheus
   ingress:
     annotations:
       nginx.ingress.kubernetes.io/backend-protocol: HTTPS

@@ -30,7 +30,7 @@ spec:
     spec:
       chart: argo-cd
       # each major contains upgrade process in changelog
-      version: "9.5.15"
+      version: "9.5.16"
       sourceRef:
         kind: HelmRepository
         name: "argo"
@@ -93,6 +93,16 @@ spec:
           group: cert-manager.io
           kind: ClusterIssuer
           name: self-signed
+      httproute:
+        enabled: true
+        hostnames:
+          - grafana.replaced.by.kustomization
+        parentRefs:
+          - group: gateway.networking.k8s.io
+            kind: Gateway
+            name: scaleway-gateway
+            namespace: kube-system
+            sectionName: https-prometheus
       ingress:
         annotations:
           nginx.ingress.kubernetes.io/backend-protocol: HTTPS
