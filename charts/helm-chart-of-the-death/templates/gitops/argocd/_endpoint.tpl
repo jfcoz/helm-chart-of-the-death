@@ -1,6 +1,12 @@
 {{/* argocd endpoint */}}
 {{- define "gitops.argocd.domain" -}}
-argocd.{{ .Values.general.dnsWildcardSuffixes.ingress.nginx | required "missing general.ingressWildcardSuffix" }}
+{{- if (((.Values.general).dnsWildcardSuffixes).gateway).cilium -}}
+argocd.{{ .Values.general.dnsWildcardSuffixes.gateway.cilium }}
+{{- else if (((.Values.general).dnsWildcardSuffixes).ingress).nginx -}}
+argocd.{{ .Values.general.dnsWildcardSuffixes.ingress.nginx }}
+{{- else }}
+{{- fail "at least one general.dnsWildcardSuffixes is missing for argocd" }}
+{{- end }}
 {{- end }}
 
 {{/* argocd dex callback */}}
