@@ -32,7 +32,7 @@ server:
   httproute:
     enabled: true
     hostnames:
-      - grafana.{{ .Values.general.dnsWildcardSuffixes.gateway.cilium }}
+      - argocd.{{ .Values.general.dnsWildcardSuffixes.gateway.cilium }}
     parentRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
