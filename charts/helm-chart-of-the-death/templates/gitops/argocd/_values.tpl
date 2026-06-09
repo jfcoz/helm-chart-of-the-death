@@ -11,6 +11,7 @@ server:
     ingressClassName: nginx
     annotations:
       {{- if include "common.used" .Values.components.security.certManager }}
+      cert-manager.io/cluster-issuer: letsencrypt-production
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       {{- end }}
     {{- end }}

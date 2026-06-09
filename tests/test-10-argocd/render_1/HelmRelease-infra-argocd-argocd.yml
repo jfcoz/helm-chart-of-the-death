@@ -105,6 +105,7 @@ spec:
             sectionName: https-prometheus
       ingress:
         annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
           nginx.ingress.kubernetes.io/backend-protocol: HTTPS
         enabled: true
         ingressClassName: nginx
