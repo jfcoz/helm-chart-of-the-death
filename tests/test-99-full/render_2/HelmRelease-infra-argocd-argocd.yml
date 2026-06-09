@@ -33752,7 +33752,7 @@ spec:
       namespace: kube-system
       sectionName: https-prometheus
   hostnames:
-    - grafana.replaced.by.kustomization
+    - argocd.replaced.by.kustomization
   rules:
     - backendRefs:
         - group: ''

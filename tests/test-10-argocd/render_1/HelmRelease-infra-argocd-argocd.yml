@@ -96,7 +96,7 @@ spec:
       httproute:
         enabled: true
         hostnames:
-          - grafana.replaced.by.kustomization
+          - argocd.replaced.by.kustomization
         parentRefs:
           - group: gateway.networking.k8s.io
             kind: Gateway
