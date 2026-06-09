@@ -50,6 +50,15 @@ disallow-capabilities:
       names:
       - "k8s-monitoring-alloy-logs-*"
   {{- end }}
+  {{- if eq .Values.cloudProvider "scw" }}
+  - resources:
+      namespaces:
+      - kube-system
+      kinds:
+      - Pod
+      names:
+      - "csi-node-*"
+  {{- end }}
   {{- if eq .Values.kubernetesDistribution "k3s" }}
   - resources:
       namespaces:
@@ -57,7 +66,7 @@ disallow-capabilities:
       kinds:
       - Pod
       names:
-      - "svclb-nginx-ingress-ingress-nginx-controller-*"
+      - "svclb-*"
   {{- end }}
 
 disallow-host-namespaces:
@@ -107,6 +116,15 @@ disallow-host-namespaces:
   - resources:
       namespaces:
       - {{ .Values.components.monitoring.smartctlExporter.namespace }}
+  {{- end }}
+  {{- if eq .Values.cloudProvider "scw" }}
+  - resources:
+      namespaces:
+      - kube-system
+      kinds:
+      - Pod
+      names:
+      - "csi-node-*"
   {{- end }}
 
 disallow-host-path:
@@ -221,6 +239,15 @@ disallow-host-path:
       - "falco-*"
       - "infra-falco-falco-*"
   {{- end }}
+  {{- if eq .Values.cloudProvider "scw" }}
+  - resources:
+      namespaces:
+      - kube-system
+      kinds:
+      - Pod
+      names:
+      - "csi-node-*"
+  {{- end }}
 
 disallow-host-ports:
   any:
@@ -297,6 +324,15 @@ disallow-privileged-containers:
       names:
       - "falco-*"
       - "infra-falco-falco-*"
+  {{- end }}
+  {{- if eq .Values.cloudProvider "scw" }}
+  - resources:
+      namespaces:
+      - kube-system
+      kinds:
+      - Pod
+      names:
+      - "csi-node-*"
   {{- end }}
 
 disallow-selinux:

@@ -4,6 +4,12 @@ set -o pipefail
 shopt -s nullglob
 #set -x
 
+if ! yq --version | grep mikefarah >/dev/null; then
+	echo "bad yq version used" 1>&2
+	echo "on Debian, install yq-go instead of yq" 1>&2
+	exit 1
+fi
+
 helm repo update
 
 if [ ! -z "$1" ]; then
@@ -19,7 +25,7 @@ chart_dir=$PWD/../charts/helm-chart-of-the-death/
 # --dry-run=server allow lookup function and Capabilities on 4.x
 dryrun=client
 
-apiversions='--api-versions objectbucket.io/v1alpha1'
+apiversions='--api-versions objectbucket.io/v1alpha1,monitoring.coreos.com/v1 --kube-version=1.32.0'
 
 helm lint $chart_dir
 

@@ -1,0 +1,30 @@
+---
+# Source: helm-chart-of-the-death/templates/validation_common_merge.yaml
+# test 0 OK
+
+# test 0 bis OK
+
+
+# test 1 OK
+
+# test 2 OK
+
+# test 3 OK
+
+# test 4 OK
+
+# test 5 OK
+---
+# Source: helm-chart-of-the-death/templates/features/gateway-api.yaml
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: crds-gateway-api
+  namespace: flux-system
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  interval: 12h
+  url: https://github.com/kubernetes-sigs/gateway-api
+  ref:
+    tag: v1.5.1

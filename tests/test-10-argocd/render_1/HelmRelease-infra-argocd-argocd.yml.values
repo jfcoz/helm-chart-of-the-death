@@ -54,8 +54,19 @@ server:
       group: cert-manager.io
       kind: ClusterIssuer
       name: self-signed
+  httproute:
+    enabled: true
+    hostnames:
+      - argocd.replaced.by.kustomization
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: scaleway-gateway
+        namespace: kube-system
+        sectionName: https-prometheus
   ingress:
     annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-production
       nginx.ingress.kubernetes.io/backend-protocol: HTTPS
     enabled: true
     ingressClassName: nginx

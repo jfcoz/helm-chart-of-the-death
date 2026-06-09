@@ -18,7 +18,10 @@ webhook:
       cpu: 1m
 
 config:
-  {{- if include "common.used" .Values.components.cni.cilium }}
+  {{- if and 
+            ( (.Values.features.gatewayAPI).enabled )
+            (include "common.used" .Values.components.cni.cilium)
+  }}
   enableGatewayAPI: true
   {{- end }}
 

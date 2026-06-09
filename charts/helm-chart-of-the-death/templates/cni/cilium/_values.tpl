@@ -7,15 +7,33 @@ cluster:
 k8sServiceHost: {{ .Values.general.kubernetesApi.host | required "missing general.kubernetesApi.host" }}
 k8sServicePort: {{ .Values.general.kubernetesApi.port }}
 
-updateStrategy:
-  rollingUpdate:
-    maxUnavailable: 33%
+bpf:
+  # https://docs.cilium.io/en/stable/network/concepts/masquerading/#ebpf-based
+  masquerade: true
 
-envoy:
-  updateStrategy:
-    rollingUpdate:
-      maxUnavailable: 33%
+{{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
+prometheus:
+  metricsService: true
+  enabled: true
+  serviceMonitor:
+    enabled: true
+dashboards:
+  enabled: true
+{{- end }}
 
+operator:
+  rollOutPods: true
+  {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
+  dashboards:
+    enabled: true
+  {{- end }}
+
+rollOutCilliumPods: true
+
+{{- if .Values.features.gatewayAPI.enabled }}
+gatewayAPI:
+  enabled: true
+{{- end }}
 
 {{- if and
   (eq .Values.kubernetesDistribution "k3s")
@@ -44,6 +62,10 @@ ipam:
     clusterPoolIPv4PodCIDRList:
     - 10.42.0.0/16
 {{- end }}
+
+# https://docs.cilium.io/en/stable/configuration/api-rate-limiting/#configuration-parameters
+apiRateLimit: |
+  endpoint-create=auto-adjust:true,mean-over:25,endpoint-delete=auto-adjust:true,mean-over:25
 
 {{- end }}
 

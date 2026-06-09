@@ -29,7 +29,7 @@ policyExclude:
           kinds:
             - Pod
           names:
-            - svclb-nginx-ingress-ingress-nginx-controller-*
+            - svclb-*
           namespaces:
             - kube-system
   disallow-host-namespaces:

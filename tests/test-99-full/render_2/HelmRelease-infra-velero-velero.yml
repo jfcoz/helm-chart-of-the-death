@@ -364,6 +364,63 @@ spec:
     region: "eu-west-3"
     s3ForcePathStyle: "true"
 ---
+# Source: velero/templates/prometheusrule.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: velero
+  labels:
+    app.kubernetes.io/name: velero
+    app.kubernetes.io/instance: velero
+    app.kubernetes.io/managed-by: Helm
+spec:
+  groups:
+  - name: velero
+    rules:
+    - alert: VeleroPartialFailure
+      annotations:
+        summary: At least one Velero partial backup failure on schedule {{ $labels.schedule
+          }}
+      expr: sum(rate(velero_backup_partial_failure_total{schedule=~".+"}[1d])) by (schedule)
+        > 0
+      for: 3m
+      labels:
+        severity: critical
+    - alert: VeleroBackupFailure
+      annotations:
+        summary: At least one Velero backup failure on schedule {{ $labels.schedule }}
+      expr: sum(rate(velero_backup_failure_total{schedule=~".+"}[1d])) by (schedule) >
+        0
+      for: 3m
+      labels:
+        severity: critical
+    - alert: VeleroVolumeSnapshotFailure
+      annotations:
+        summary: At least one Velero volume snapshot failure on schedule {{ $labels.schedule
+          }}
+      expr: sum(rate(velero_volume_snapshot_failure_total{schedule=~".+"}[1d])) by (schedule)
+        > 0
+      for: 3m
+      labels:
+        severity: critical
+    - alert: VeleroBackupDeletionFailure
+      annotations:
+        summary: At least one Velero backup deletion failure on schedule {{ $labels.schedule
+          }}
+      expr: sum(rate(velero_backup_deletion_failure_total{schedule=~".+"}[1d])) by (schedule)
+        > 0
+      for: 3m
+      labels:
+        severity: critical
+    - alert: VeleroMissingSchedule
+      annotations:
+        summary: No Velero backup since one day on schedule {{ $labels.schedule }}
+      expr: sum(rate(velero_backup_attempt_total{schedule=~".+"}[1d])) by (schedule) ==
+        0
+      for: 3m
+      labels:
+        severity: critical
+---
 # Source: velero/templates/schedule.yaml
 apiVersion: velero.io/v1
 kind: Schedule
@@ -382,6 +439,29 @@ spec:
     - clustersbomreports.aquasecurity.github.io
     - sbomreports.aquasecurity.github.io
     ttl: 744h
+---
+# Source: velero/templates/servicemonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: velero
+  labels:
+    app.kubernetes.io/name: velero
+    app.kubernetes.io/instance: velero
+    app.kubernetes.io/managed-by: Helm
+    helm.sh/chart: velero-12.0.1
+spec:
+  namespaceSelector:
+    matchNames:
+      - infra-velero
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: velero
+      app.kubernetes.io/instance: velero
+  endpoints:
+  - port: http-monitoring
+    interval: 30s
+    scrapeTimeout: 10s
 ---
 # Source: velero/templates/upgrade-crds/serviceaccount-upgrade.yaml
 apiVersion: v1

@@ -1,4 +1,4 @@
-# cloudProvider aws/gcp/ovh/scw/do/none
+# cloudProvider aws/gcp/ovh/scw (Scaleway)/do (Digital Ocean)/none
 cloudProvider: none
 multiZone: true
 
@@ -7,10 +7,16 @@ kubernetesDistribution: none
 
 general:
   clusterName: change-me
-  # ingressWildcardSuffix: replaced.by.kustomization
   # contactAddress: replaced.by.kustomization
   # grafanaAdminPassword: must.be.replaced.by.kustomization
   # clusterName: must.be.replaced.by.kustomization
+
+  # each ingress/loadbalancer entrypoint should have a *.cluster.example.com DNS record
+  # dnsWildcardSuffixes:
+  #   ingress:
+  #     nginx: replaced.by.kustomization
+  #   gateway:
+  #     cilium: replaced.by.kustomization
 
   kubernetesApi:
     # host: replaced.by.kustomization
@@ -31,6 +37,10 @@ general:
       test:
         enable: true
 
+features:
+  gatewayAPI:
+    enabled: true
+    type: experimental
 
 repositories:
   - name: argo
@@ -63,6 +73,8 @@ repositories:
     url: https://open-telemetry.github.io/opentelemetry-helm-charts
   - name: prometheus-community
     url: https://prometheus-community.github.io/helm-charts
+  - name: scaleway
+    url: https://helm.scw.cloud/
   - name: stevehipwell
     url: https://stevehipwell.github.io/helm-charts/
   - name: vmware-tanzu
@@ -84,6 +96,16 @@ components:
         timeout: 30m
       values: {}
 
+    # On Scaleway, Hubble must be deployed as an addon: https://www.scaleway.com/en/docs/tutorials/deploying-hubble-add-on-scaleway-kubernetes-clusters/
+    ciliumScwHubble:
+      managed: false
+      used: false
+      helmResourcePolicyKeep: true
+      chart:
+        name: scaleway-cilium-hubble
+        version: "0.1.3"
+        repository: scaleway
+
   gitops:
     argocd:
       managed: false
@@ -98,24 +120,45 @@ components:
       release:
         timeout: 5m
       dex_connectors: {}
-      #  github:
-      #    client:
-      #      # create oauth app from:
-      #      # organization app: https://github.com/organizations/$org_name/settings/applications
-      #      # personal app: https://github.com/settings/applications/new
-      #      # recommended setup:
-      #      #   application name: ${cluster_name}-argocd
-      #      #   homepage url: https://argocd.{ingressWildcardSuffix}/
-      #      #   application description: ArgoCD on ${cluster_name} cluster
-      #      #   authorization callback url: https://argocd.{ingressWildcardSuffix}/api/dex/callback
-      #      id: my_github_client_id
-      #      secret: my_github_client_secret
-      #    orgs:
-      #      - name: orgname
-      #        teams:
-      #        - team1
-      #        - team2
+        # github:
+        #   client:
+        #     # create oauth app from:
+        #     # organization app: https://github.com/organizations/$org_name/settings/applications
+        #     # personal app: https://github.com/settings/applications/new
+        #     # recommended setup:
+        #     #   application name: ${cluster_name}-argocd
+        #     #   homepage url: https://argocd.{ingressWildcardSuffix}/
+        #     #   application description: ArgoCD on ${cluster_name} cluster
+        #     #   authorization callback url: https://argocd.{ingressWildcardSuffix}/api/dex/callback
+        #     id: my_github_client_id
+        #     secret: my_github_client_secret
+        #   orgs:
+        #     - name: orgname
+        #       teams:
+        #       - team1
+        #       - team2
       values: {}
+        # configs:
+        #   rbac:
+        #     policy.csv: |
+        #       g, coopTilleuls:lt-sre, role:admin
+        #     policy.default: role:readonly
+        # dex:
+        #   logLevel: debug
+        # server:
+        #   httproute:
+        #     parentRefs:
+        #     - group: gateway.networking.k8s.io
+        #       kind: Gateway
+        #       name: scaleway-gateway-par1
+        #       namespace: kube-system
+        #       sectionName: https-prometheus
+        #     - group: gateway.networking.k8s.io
+        #       kind: Gateway
+        #       name: scaleway-gateway-par2
+        #       namespace: kube-system
+        #       sectionName: https-prometheus
+
 
     argocdImageUpdater:
       managed: false
@@ -239,6 +282,33 @@ components:
         # alertmanager:
         #   config:
         #     # setting anything here overwrite all default helm-chart-of-the-death configuration
+        # grafana:
+        #   route:
+        #     main:
+        #       parentRefs:
+        #       - group: gateway.networking.k8s.io
+        #         kind: Gateway
+        #         name: scaleway-gateway-par1
+        #         namespace: kube-system
+        #         sectionName: https-prometheus
+        #       - group: gateway.networking.k8s.io
+        #         kind: Gateway
+        #         name: scaleway-gateway-par2
+        #         namespace: kube-system
+        #         sectionName: https-prometheus
+        #     redirect:
+        #       parentRefs:
+        #       - group: gateway.networking.k8s.io
+        #         kind: Gateway
+        #         name: scaleway-gateway-par1
+        #         namespace: kube-system
+        #         sectionName: http
+        #       - group: gateway.networking.k8s.io
+        #         kind: Gateway
+        #         name: scaleway-gateway-par2
+        #         namespace: kube-system
+        #         sectionName: http
+
 
     thanos:
       namespace: infra-thanos

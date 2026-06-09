@@ -25,7 +25,7 @@ spec:
     spec:
       chart: falco
       # each major contains upgrade process in changelog
-      version: "8.0.5"
+      version: "9.0.0"
       sourceRef:
         kind: HelmRepository
         name: "falcosecurity"
@@ -44,7 +44,7 @@ spec:
           rollingUpdate:
             maxUnavailable: 50%
     customRules:
-      default-rules-exclusions.yaml: |2-
+      default-rules-exclusions.yaml: |-
 
         # Macro k8s_containers:
         # fluxcd

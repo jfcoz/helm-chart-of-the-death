@@ -11,6 +11,7 @@ server:
     ingressClassName: nginx
     annotations:
       {{- if include "common.used" .Values.components.security.certManager }}
+      cert-manager.io/cluster-issuer: letsencrypt-production
       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
       {{- end }}
     {{- end }}
@@ -27,6 +28,20 @@ server:
     tls: true
     {{- end }}
 
+  {{- if .Values.features.gatewayAPI.enabled }}
+  {{- /* TODO: add variables */}}
+  httproute:
+    enabled: true
+    hostnames:
+      - argocd.{{ .Values.general.dnsWildcardSuffixes.gateway.cilium }}
+    parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: scaleway-gateway
+      namespace: kube-system
+      sectionName: https-prometheus
+  {{- end }}
+ 
 
   {{- if include "common.used" .Values.components.security.certManager }}
   certificate:

@@ -1,0 +1,17 @@
+---
+# Source: helm-chart-of-the-death/templates/features/gateway-api.yaml
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: crds-gateway-api
+  namespace: flux-system
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  interval: 1h
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: crds-gateway-api
+    namespace: flux-system
+  path: "./config/crd/experimental"

@@ -276,8 +276,9 @@
 grafana:
   adminPassword: {{ .Values.general.grafanaAdminPassword | required "general.grafanaAdminPassword is mandatory" | quote }}
   grafana.ini:
-    server:
-      root_url: "https://grafana.{{ .Values.general.ingressWildcardSuffix }}"
+    # server:
+    # root_url is needed for oauth callback, not used yet. TODO: ingress nginx or cilium gateway if both are enabled
+    #   root_url: "https://grafana.{{ (((.general).dnsWildcardSuffixes).ingress).nginx }}"
     database:
       # Workaround for database is locked error:  https://github.com/grafana/grafana/issues/65115
       wal: true
@@ -332,17 +333,44 @@ grafana:
       access: proxy
       url: {{ template "monitoring.thanos.endpoint" . }}
     {{- end }}
+  {{- if include "common.used" .Values.components.ingress.nginxIngressController }}
   ingress:
     enabled: true
     ingressClassName: nginx
     hosts:
-      - grafana.{{ .Values.general.ingressWildcardSuffix }}
+      - grafana.{{ .Values.general.dnsWildcardSuffixes.ingress.nginx }}
     annotations:
       cert-manager.io/cluster-issuer: letsencrypt-production
     tls:
     - secretName: grafana-general-tls
       hosts:
-        - grafana.{{ .Values.general.ingressWildcardSuffix }}
+        - grafana.{{ .Values.general.dnsWildcardSuffixes.ingress.nginx }}
+  {{- end }}
+  {{- if .Values.features.gatewayAPI.enabled }}
+  {{- /* TODO: add variables */}}
+  route:
+    main:
+      enabled: true
+      hostnames:
+        - grafana.{{ .Values.general.dnsWildcardSuffixes.gateway.cilium }}
+      parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: scaleway-gateway
+        namespace: kube-system
+        sectionName: https-prometheus
+    redirect:
+      enabled: true
+      hostnames:
+        - grafana.{{ .Values.general.dnsWildcardSuffixes.gateway.cilium }}
+      httpsRedirect: true
+      parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: scaleway-gateway
+        namespace: kube-system
+        sectionName: http
+  {{- end }}
   dashboardProviders:
     dashboardproviders.yaml:
       apiVersion: 1
@@ -363,6 +391,16 @@ grafana:
         editable: false
         options:
           path: /var/lib/grafana/dashboards/fluxcd
+      {{- if include "common.used" .Values.components.cni.cilium }}
+      - name: 'Cilium'
+        orgId: 1
+        folder: 'Cilium'
+        type: file
+        disableDeletion: true
+        editable: false
+        options:
+          path: /var/lib/grafana/dashboards/cilium
+      {{- end }}
       {{- if include "common.used" .Values.components.database.cnpg }}
       - name: 'CNPG'
         orgId: 1
@@ -426,6 +464,20 @@ grafana:
         url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/refs/heads/main/monitoring/configs/dashboards/logs.json
         datasource: Loki
       {{- end }}
+    {{- if include "common.used" .Values.components.cni.cilium }}
+    cilium:
+      {{- $cilium := .Values.components.cni.cilium }}
+      {{- if not ((($cilium).values).dashboards).enabled }}
+      cilium-agent:
+        url: https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/cilium-agent/dashboards/cilium-dashboard.json
+        datasource: Prometheus
+      {{- end }}
+      {{- if not (((($cilium).values).operator).dashboards).enabled }}
+      cilium-operator:
+        url: https://raw.githubusercontent.com/cilium/cilium/refs/heads/main/install/kubernetes/cilium/files/cilium-operator/dashboards/cilium-operator-dashboard.json
+        datasource: Prometheus
+      {{- end }}
+    {{- end }}
     {{- if include "common.used" .Values.components.database.cnpg }}
     cnpg:
       cloudnativepg:
@@ -559,8 +611,6 @@ prometheus:
     ruleSelectorNilUsesHelmValues: false
     externalLabels:
       cluster: {{ .Values.general.clusterName | default "Required general.clusterName" }}
-    # ne marche pas, liens vers oncall mieux mais faux, et grafana ne peux plus afficher le detail des alertes
-    #externalUrl: https://grafana.{{ .Values.general.ingressWildcardSuffix }}
     replicas: 1
     resources:
       requests:
@@ -664,19 +714,6 @@ alertmanager:
           resources:
             requests:
               storage: 2Gi
-  ## disabled : currently no auth
-  # see https://github.com/prometheus-community/helm-charts/issues/1754
-  #ingress:
-  #  enabled: true
-  #  ingressClassName: nginx
-  #  hosts:
-  #    - alertmanager.{{ .Values.general.ingressWildcardSuffix }}
-  #  annotations:
-  #    cert-manager.io/cluster-issuer: letsencrypt-production
-  #  tls:
-  #  - secretName: alertmanager-general-tls
-  #    hosts:
-  #      - alertmanager.{{ .Values.general.ingressWildcardSuffix }}
   {{- if not (($me.values).alertmanager).config }}
   config:
     inhibit_rules:
