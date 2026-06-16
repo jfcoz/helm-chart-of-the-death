@@ -614,7 +614,7 @@ components:
       helmResourcePolicyKeep: true
       chart:
         name: plugin-barman-cloud
-        version: "0.6.0"
+        version: "0.7.0"
         repository: cnpg
       release:
         timeout: 5m
