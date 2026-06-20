@@ -53,8 +53,8 @@ spec:
               kinds:
                 - Pod
               names:
-                - rook-ceph.cephfs.csi.ceph.com-nodeplugin*
-                - rook-ceph.rbd.csi.ceph.com-nodeplugin*
+                - cephfs.csi.ceph.com-nodeplugin*
+                - rbd.csi.ceph.com-nodeplugin*
               namespaces:
                 - rook-ceph
           - resources:

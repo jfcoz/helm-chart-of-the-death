@@ -6,7 +6,7 @@ metadata:
   name: cnpg-cloudnative-pg
   namespace: cnpg-operator
   labels:
-    helm.sh/chart: cloudnative-pg-0.28.2
+    helm.sh/chart: cloudnative-pg-0.28.3
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
     app.kubernetes.io/version: "1.29.1"
@@ -37,7 +37,7 @@ metadata:
   name: cnpg-controller-manager-config
   namespace: cnpg-operator
   labels:
-    helm.sh/chart: cloudnative-pg-0.28.2
+    helm.sh/chart: cloudnative-pg-0.28.3
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
     app.kubernetes.io/version: "1.29.1"
@@ -52,7 +52,7 @@ metadata:
   name: cnpg-default-monitoring
   namespace: cnpg-operator
   labels:
-    helm.sh/chart: cloudnative-pg-0.28.2
+    helm.sh/chart: cloudnative-pg-0.28.3
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
     app.kubernetes.io/version: "1.29.1"
@@ -19505,7 +19505,7 @@ kind: ClusterRole
 metadata:
   name: cnpg-cloudnative-pg
   labels:
-    helm.sh/chart: cloudnative-pg-0.28.2
+    helm.sh/chart: cloudnative-pg-0.28.3
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
     app.kubernetes.io/version: "1.29.1"
@@ -19745,7 +19745,7 @@ kind: ClusterRole
 metadata:
   name: cnpg-cloudnative-pg-view
   labels:
-    helm.sh/chart: cloudnative-pg-0.28.2
+    helm.sh/chart: cloudnative-pg-0.28.3
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
     app.kubernetes.io/version: "1.29.1"
@@ -19776,7 +19776,7 @@ kind: ClusterRole
 metadata:
   name: cnpg-cloudnative-pg-edit
   labels:
-    helm.sh/chart: cloudnative-pg-0.28.2
+    helm.sh/chart: cloudnative-pg-0.28.3
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
     app.kubernetes.io/version: "1.29.1"
@@ -19809,7 +19809,7 @@ kind: ClusterRoleBinding
 metadata:
   name: cnpg-cloudnative-pg
   labels:
-    helm.sh/chart: cloudnative-pg-0.28.2
+    helm.sh/chart: cloudnative-pg-0.28.3
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
     app.kubernetes.io/version: "1.29.1"
@@ -19830,7 +19830,7 @@ metadata:
   name: cnpg-webhook-service
   namespace: cnpg-operator
   labels:
-    helm.sh/chart: cloudnative-pg-0.28.2
+    helm.sh/chart: cloudnative-pg-0.28.3
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
     app.kubernetes.io/version: "1.29.1"
@@ -19852,7 +19852,7 @@ metadata:
   name: cnpg-cloudnative-pg
   namespace: cnpg-operator
   labels:
-    helm.sh/chart: cloudnative-pg-0.28.2
+    helm.sh/chart: cloudnative-pg-0.28.3
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
     app.kubernetes.io/version: "1.29.1"
@@ -19866,9 +19866,9 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/rbac: f492d9ab9a2a8528147e6a825cfeafe0f63feffc5089bd9bcffebc19692fb496
-        checksum/config: b3d5a766d5266b96fc062449b8a0649c1ccaf72bcafff978ecc204ce77863eda
-        checksum/monitoring-config: a445e9758d44a8655e6a4bac82d4b7fffac8e667b8c5e09bcdfd274b8d6edcaf
+        checksum/rbac: 85bdb248c697ec523a0427ffc5b55c77e6841d04b2b8d5dd23f57e69aba726eb
+        checksum/config: 8f400aa927efeaaf5ccd19f5e72d0543ac3b772cb85423af5376945da0577179
+        checksum/monitoring-config: f565f04a9a79a0a04f23433d810a87e61f21086535b61a8e885ee6e1dfe654b6
       labels:
         app.kubernetes.io/name: cloudnative-pg
         app.kubernetes.io/instance: cnpg
@@ -20098,7 +20098,7 @@ kind: MutatingWebhookConfiguration
 metadata:
   name: cnpg-mutating-webhook-configuration
   labels:
-    helm.sh/chart: cloudnative-pg-0.28.2
+    helm.sh/chart: cloudnative-pg-0.28.3
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
     app.kubernetes.io/version: "1.29.1"
@@ -20195,7 +20195,7 @@ kind: ValidatingWebhookConfiguration
 metadata:
   name: cnpg-validating-webhook-configuration
   labels:
-    helm.sh/chart: cloudnative-pg-0.28.2
+    helm.sh/chart: cloudnative-pg-0.28.3
     app.kubernetes.io/name: cloudnative-pg
     app.kubernetes.io/instance: cnpg
     app.kubernetes.io/version: "1.29.1"

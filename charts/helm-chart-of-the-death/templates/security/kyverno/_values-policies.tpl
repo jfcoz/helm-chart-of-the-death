@@ -19,9 +19,6 @@ disallow-capabilities:
       - {{ .Values.components.storage.rook.namespace }}
       kinds:
       - Pod
-      names:
-      - "rook-ceph.cephfs.csi.ceph.com-nodeplugin*"
-      - "rook-ceph.rbd.csi.ceph.com-nodeplugin*"
   {{- end }}
   {{- if and
          (include "common.used" .Values.components.monitoring.datadog)

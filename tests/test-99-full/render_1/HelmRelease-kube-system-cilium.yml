@@ -27,7 +27,7 @@ spec:
     spec:
       chart: cilium
       # each major contains upgrade process in changelog
-      version: "1.19.4"
+      version: "1.19.5"
       sourceRef:
         kind: HelmRepository
         name: "cilium"

@@ -30,7 +30,7 @@ spec:
     spec:
       chart: keda
       # each major contains upgrade process in changelog
-      version: "2.19.0"
+      version: "2.20.1"
       sourceRef:
         kind: HelmRepository
         name: "kedacore"

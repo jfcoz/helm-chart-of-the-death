@@ -27,7 +27,7 @@ spec:
     spec:
       chart: velero
       # each major contains upgrade process in changelog
-      version: "12.0.1"
+      version: "12.0.3"
       sourceRef:
         kind: HelmRepository
         name: "vmware-tanzu"

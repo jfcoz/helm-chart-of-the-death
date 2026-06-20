@@ -5,10 +5,10 @@ kind: ServiceAccount
 automountServiceAccountToken: true
 metadata:
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
   name: prometheus-grafana
   namespace: infra-prometheus
 ---
@@ -18,13 +18,13 @@ kind: ServiceAccount
 automountServiceAccountToken: true
 metadata:
   labels:    
-    helm.sh/chart: kube-state-metrics-7.4.0
+    helm.sh/chart: kube-state-metrics-7.4.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "2.19.0"
+    app.kubernetes.io/version: "2.19.1"
     release: prometheus
   name: prometheus-kube-state-metrics
   namespace: infra-prometheus
@@ -59,9 +59,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 automountServiceAccountToken: true
@@ -76,9 +76,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
     app: kube-prometheus-stack-operator
@@ -99,9 +99,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 automountServiceAccountToken: true
@@ -113,10 +113,10 @@ metadata:
   name: prometheus-grafana
   namespace: infra-prometheus
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
     app.kubernetes.io/component: admin-secret
 type: Opaque
 data:
@@ -136,9 +136,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -156,9 +156,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -169,10 +169,10 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
   name: prometheus-grafana-config-dashboards
   namespace: infra-prometheus
 data:
@@ -198,10 +198,10 @@ metadata:
   name: prometheus-grafana
   namespace: infra-prometheus
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
 data:
   
   plugins: grafana-piechart-panel
@@ -576,10 +576,10 @@ metadata:
   name: prometheus-grafana-dashboards-ceph
   namespace: infra-prometheus
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
     dashboard-provider: ceph
 data:
   {}
@@ -591,10 +591,10 @@ metadata:
   name: prometheus-grafana-dashboards-cilium
   namespace: infra-prometheus
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
     dashboard-provider: cilium
 data:
   {}
@@ -606,10 +606,10 @@ metadata:
   name: prometheus-grafana-dashboards-default
   namespace: infra-prometheus
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
     dashboard-provider: default
 data:
   {}
@@ -621,10 +621,10 @@ metadata:
   name: prometheus-grafana-dashboards-falco
   namespace: infra-prometheus
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
     dashboard-provider: falco
 data:
   {}
@@ -636,10 +636,10 @@ metadata:
   name: prometheus-grafana-dashboards-fluxcd
   namespace: infra-prometheus
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
     dashboard-provider: fluxcd
 data:
   {}
@@ -651,10 +651,10 @@ metadata:
   name: prometheus-grafana-dashboards-trivy
   namespace: infra-prometheus
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
     dashboard-provider: trivy
 data:
   {}
@@ -666,10 +666,10 @@ metadata:
   name: prometheus-grafana-dashboards-x509-certificate-exporter
   namespace: infra-prometheus
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
     dashboard-provider: x509-certificate-exporter
 data:
   {}
@@ -681,13 +681,13 @@ metadata:
   name: prometheus-kube-state-metrics-customresourcestate-config
   namespace: infra-prometheus
   labels:    
-    helm.sh/chart: kube-state-metrics-7.4.0
+    helm.sh/chart: kube-state-metrics-7.4.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "2.19.0"
+    app.kubernetes.io/version: "2.19.1"
     release: prometheus
 data:
   config.yaml: |
@@ -1134,9 +1134,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1202,9 +1202,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1225,14 +1225,14 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
   apiserver.json: |-
-    {"editable":true,"links":[{"asDropdown":true,"includeVars":true,"keepTime":true,"tags":["kubernetes-mixin"],"targetBlank":false,"title":"Kubernetes","type":"dashboards"}],"panels":[{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"The SLO (service level objective) and other metrics displayed on this dashboard are for informational purposes only.","gridPos":{"h":2,"w":24,"x":0,"y":0},"id":1,"options":{"content":"The SLO (service level objective) and other metrics displayed on this dashboard are for informational purposes only."},"pluginVersion":"v11.4.0","title":"Notice","type":"text"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many percent of requests (both read and write) in 30 days have been answered successfully and fast enough?","fieldConfig":{"defaults":{"decimals":3,"unit":"percentunit"}},"gridPos":{"h":7,"w":8,"x":0,"y":2},"id":2,"interval":"1m","pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"apiserver_request:availability30d{verb=\"all\", cluster=\"$cluster\"}"}],"title":"Availability (30d) > 99.000%","type":"stat"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How much error budget is left looking at our 0.990% availability guarantees?","fieldConfig":{"defaults":{"custom":{"fillOpacity":100},"decimals":3,"unit":"percentunit"}},"gridPos":{"h":7,"w":16,"x":8,"y":2},"id":3,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"100 * (apiserver_request:availability30d{verb=\"all\", cluster=\"$cluster\"} - 0.990000)","legendFormat":"errorbudget"}],"title":"ErrorBudget (30d) > 99.000%","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many percent of read requests (LIST,GET) in 30 days have been answered successfully and fast enough?","fieldConfig":{"defaults":{"decimals":3,"unit":"percentunit"}},"gridPos":{"h":7,"w":6,"x":0,"y":9},"id":4,"interval":"1m","pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"apiserver_request:availability30d{verb=\"read\", cluster=\"$cluster\"}"}],"title":"Read Availability (30d)","type":"stat"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many read requests (LIST,GET) per second do the apiservers get by code?","fieldConfig":{"defaults":{"custom":{"fillOpacity":100,"stacking":{"mode":"normal"}},"unit":"reqps"},"overrides":[{"matcher":{"id":"byRegexp","options":"/2../i"},"properties":[{"id":"color","value":"#56A64B"}]},{"matcher":{"id":"byRegexp","options":"/3../i"},"properties":[{"id":"color","value":"#F2CC0C"}]},{"matcher":{"id":"byRegexp","options":"/4../i"},"properties":[{"id":"color","value":"#3274D9"}]},{"matcher":{"id":"byRegexp","options":"/5../i"},"properties":[{"id":"color","value":"#E02F44"}]}]},"gridPos":{"h":7,"w":6,"x":6,"y":9},"id":5,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum by (code) (code_resource:apiserver_request_total:rate5m{verb=\"read\", cluster=\"$cluster\"})","legendFormat":"{{ code }}"}],"title":"Read SLI - Requests","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many percent of read requests (LIST,GET) per second are returned with errors (5xx)?","fieldConfig":{"defaults":{"min":0,"unit":"percentunit"}},"gridPos":{"h":7,"w":6,"x":12,"y":9},"id":6,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum by (resource) (code_resource:apiserver_request_total:rate5m{verb=\"read\",code=~\"5..\", cluster=\"$cluster\"}) / sum by (resource) (code_resource:apiserver_request_total:rate5m{verb=\"read\", cluster=\"$cluster\"})","legendFormat":"{{ resource }}"}],"title":"Read SLI - Errors","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many seconds is the 99th percentile for reading (LIST|GET) a given resource?","fieldConfig":{"defaults":{"unit":"s"}},"gridPos":{"h":7,"w":6,"x":18,"y":9},"id":7,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"cluster_quantile:apiserver_request_sli_duration_seconds:histogram_quantile{verb=\"read\", cluster=\"$cluster\"}","legendFormat":"{{ resource }}"}],"title":"Read SLI - Duration","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many percent of write requests (POST|PUT|PATCH|DELETE) in 30 days have been answered successfully and fast enough?","fieldConfig":{"defaults":{"decimals":3,"unit":"percentunit"}},"gridPos":{"h":7,"w":6,"x":0,"y":16},"id":8,"interval":"1m","pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"apiserver_request:availability30d{verb=\"write\", cluster=\"$cluster\"}"}],"title":"Write Availability (30d)","type":"stat"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many write requests (POST|PUT|PATCH|DELETE) per second do the apiservers get by code?","fieldConfig":{"defaults":{"custom":{"fillOpacity":100,"stacking":{"mode":"normal"}},"unit":"reqps"},"overrides":[{"matcher":{"id":"byRegexp","options":"/2../i"},"properties":[{"id":"color","value":"#56A64B"}]},{"matcher":{"id":"byRegexp","options":"/3../i"},"properties":[{"id":"color","value":"#F2CC0C"}]},{"matcher":{"id":"byRegexp","options":"/4../i"},"properties":[{"id":"color","value":"#3274D9"}]},{"matcher":{"id":"byRegexp","options":"/5../i"},"properties":[{"id":"color","value":"#E02F44"}]}]},"gridPos":{"h":7,"w":6,"x":6,"y":16},"id":9,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum by (code) (code_resource:apiserver_request_total:rate5m{verb=\"write\", cluster=\"$cluster\"})","legendFormat":"{{ code }}"}],"title":"Write SLI - Requests","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many percent of write requests (POST|PUT|PATCH|DELETE) per second are returned with errors (5xx)?","fieldConfig":{"defaults":{"min":0,"unit":"percentunit"}},"gridPos":{"h":7,"w":6,"x":12,"y":16},"id":10,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum by (resource) (code_resource:apiserver_request_total:rate5m{verb=\"write\",code=~\"5..\", cluster=\"$cluster\"}) / sum by (resource) (code_resource:apiserver_request_total:rate5m{verb=\"write\", cluster=\"$cluster\"})","legendFormat":"{{ resource }}"}],"title":"Write SLI - Errors","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many seconds is the 99th percentile for writing (POST|PUT|PATCH|DELETE) a given resource?","fieldConfig":{"defaults":{"unit":"s"}},"gridPos":{"h":7,"w":6,"x":18,"y":16},"id":11,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"cluster_quantile:apiserver_request_sli_duration_seconds:histogram_quantile{verb=\"write\", cluster=\"$cluster\"}","legendFormat":"{{ resource }}"}],"title":"Write SLI - Duration","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"fieldConfig":{"defaults":{"min":0,"unit":"ops"}},"gridPos":{"h":7,"w":12,"x":0,"y":23},"id":12,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":false},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum(rate(workqueue_adds_total{job=\"apiserver\", instance=~\"$instance\", cluster=\"$cluster\"}[$__rate_interval])) by (instance, name)","legendFormat":"{{instance}} {{name}}"}],"title":"Work Queue Add Rate","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"fieldConfig":{"defaults":{"min":0,"unit":"short"}},"gridPos":{"h":7,"w":12,"x":12,"y":23},"id":13,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":false},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum(rate(workqueue_depth{job=\"apiserver\", instance=~\"$instance\", cluster=\"$cluster\"}[$__rate_interval])) by (instance, name)","legendFormat":"{{instance}} {{name}}"}],"title":"Work Queue Depth","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"fieldConfig":{"defaults":{"min":0,"unit":"s"}},"gridPos":{"h":7,"w":24,"x":0,"y":30},"id":14,"interval":"1m","options":{"legend":{"asTable":true,"calcs":["lastNotNull"],"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"histogram_quantile(0.99, sum(rate(workqueue_queue_duration_seconds_bucket{job=\"apiserver\", instance=~\"$instance\", cluster=\"$cluster\"}[$__rate_interval])) by (instance, name, le))","legendFormat":"{{instance}} {{name}}"}],"title":"Work Queue Latency","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"fieldConfig":{"defaults":{"unit":"bytes"}},"gridPos":{"h":7,"w":8,"x":0,"y":37},"id":15,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"process_resident_memory_bytes{job=\"apiserver\",instance=~\"$instance\", cluster=\"$cluster\"}","legendFormat":"{{instance}}"}],"title":"Memory","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"fieldConfig":{"defaults":{"min":0,"unit":"short"}},"gridPos":{"h":7,"w":8,"x":8,"y":37},"id":16,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"rate(process_cpu_seconds_total{job=\"apiserver\",instance=~\"$instance\", cluster=\"$cluster\"}[$__rate_interval])","legendFormat":"{{instance}}"}],"title":"CPU usage","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"fieldConfig":{"defaults":{"unit":"short"}},"gridPos":{"h":7,"w":8,"x":16,"y":37},"id":17,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"go_goroutines{job=\"apiserver\",instance=~\"$instance\", cluster=\"$cluster\"}","legendFormat":"{{instance}}"}],"title":"Goroutines","type":"timeseries"}],"refresh":"10s","schemaVersion":39,"tags":["kubernetes-mixin"],"templating":{"list":[{"current":{"selected":true,"text":"default","value":"default"},"hide":0,"label":"Data source","name":"datasource","query":"prometheus","regex":"","type":"datasource"},{"datasource":{"type":"prometheus","uid":"${datasource}"},"hide":2,"label":"cluster","name":"cluster","query":"label_values(up{job=\"apiserver\"}, cluster)","refresh":2,"sort":1,"type":"query","allValue":".*"},{"datasource":{"type":"prometheus","uid":"${datasource}"},"hide":0,"includeAll":true,"name":"instance","query":"label_values(up{job=\"apiserver\", cluster=\"$cluster\"}, instance)","refresh":2,"sort":1,"type":"query"}]},"time":{"from":"now-1h","to":"now"},"timezone": "utc","title":"Kubernetes / API server","uid":"09ec8aa1e996d6ffcd6817bbaff4db1b"}
+    {"editable":true,"links":[{"asDropdown":true,"includeVars":true,"keepTime":true,"tags":["kubernetes-mixin"],"targetBlank":false,"title":"Kubernetes","type":"dashboards"}],"panels":[{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"The SLO (service level objective) and other metrics displayed on this dashboard are for informational purposes only.","gridPos":{"h":2,"w":24,"x":0,"y":0},"id":1,"options":{"content":"The SLO (service level objective) and other metrics displayed on this dashboard are for informational purposes only."},"pluginVersion":"v11.4.0","title":"Notice","type":"text"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many percent of requests (both read and write) in 30 days have been answered successfully and fast enough?","fieldConfig":{"defaults":{"decimals":3,"unit":"percentunit"}},"gridPos":{"h":7,"w":8,"x":0,"y":2},"id":2,"interval":"1m","pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"apiserver_request:availability30d{verb=\"all\", cluster=\"$cluster\"}"}],"title":"Availability (30d) > 99.000%","type":"stat"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How much error budget is left looking at our 99.000% availability guarantee?","fieldConfig":{"defaults":{"custom":{"fillOpacity":100},"decimals":3,"unit":"percentunit"}},"gridPos":{"h":7,"w":16,"x":8,"y":2},"id":3,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"100 * (apiserver_request:availability30d{verb=\"all\", cluster=\"$cluster\"} - 0.990000)","legendFormat":"error budget"}],"title":"Error Budget (30d) > 99.000%","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many percent of read requests (LIST,GET) in 30 days have been answered successfully and fast enough?","fieldConfig":{"defaults":{"decimals":3,"unit":"percentunit"}},"gridPos":{"h":7,"w":6,"x":0,"y":9},"id":4,"interval":"1m","pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"apiserver_request:availability30d{verb=\"read\", cluster=\"$cluster\"}"}],"title":"Read Availability (30d)","type":"stat"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many read requests (LIST,GET) per second do the apiservers get by code?","fieldConfig":{"defaults":{"custom":{"fillOpacity":100,"stacking":{"mode":"normal"}},"unit":"reqps"},"overrides":[{"matcher":{"id":"byRegexp","options":"/2../i"},"properties":[{"id":"color","value":"#56A64B"}]},{"matcher":{"id":"byRegexp","options":"/3../i"},"properties":[{"id":"color","value":"#F2CC0C"}]},{"matcher":{"id":"byRegexp","options":"/4../i"},"properties":[{"id":"color","value":"#3274D9"}]},{"matcher":{"id":"byRegexp","options":"/5../i"},"properties":[{"id":"color","value":"#E02F44"}]}]},"gridPos":{"h":7,"w":6,"x":6,"y":9},"id":5,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum by (code) (code_resource:apiserver_request_total:rate5m{verb=\"read\", cluster=\"$cluster\"})","legendFormat":"{{ code }}"}],"title":"Read SLI - Requests","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many percent of read requests (LIST,GET) per second are returned with errors (5xx)?","fieldConfig":{"defaults":{"min":0,"unit":"percentunit"}},"gridPos":{"h":7,"w":6,"x":12,"y":9},"id":6,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum by (resource) (code_resource:apiserver_request_total:rate5m{verb=\"read\",code=~\"5..\", cluster=\"$cluster\"}) / sum by (resource) (code_resource:apiserver_request_total:rate5m{verb=\"read\", cluster=\"$cluster\"})","legendFormat":"{{ resource }}"}],"title":"Read SLI - Errors","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many seconds is the 99th percentile for reading (LIST|GET) a given resource?","fieldConfig":{"defaults":{"unit":"s"}},"gridPos":{"h":7,"w":6,"x":18,"y":9},"id":7,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"cluster_quantile:apiserver_request_sli_duration_seconds:histogram_quantile{verb=\"read\", cluster=\"$cluster\"}","legendFormat":"{{ resource }}"}],"title":"Read SLI - Duration","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many percent of write requests (POST|PUT|PATCH|DELETE) in 30 days have been answered successfully and fast enough?","fieldConfig":{"defaults":{"decimals":3,"unit":"percentunit"}},"gridPos":{"h":7,"w":6,"x":0,"y":16},"id":8,"interval":"1m","pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"apiserver_request:availability30d{verb=\"write\", cluster=\"$cluster\"}"}],"title":"Write Availability (30d)","type":"stat"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many write requests (POST|PUT|PATCH|DELETE) per second do the apiservers get by code?","fieldConfig":{"defaults":{"custom":{"fillOpacity":100,"stacking":{"mode":"normal"}},"unit":"reqps"},"overrides":[{"matcher":{"id":"byRegexp","options":"/2../i"},"properties":[{"id":"color","value":"#56A64B"}]},{"matcher":{"id":"byRegexp","options":"/3../i"},"properties":[{"id":"color","value":"#F2CC0C"}]},{"matcher":{"id":"byRegexp","options":"/4../i"},"properties":[{"id":"color","value":"#3274D9"}]},{"matcher":{"id":"byRegexp","options":"/5../i"},"properties":[{"id":"color","value":"#E02F44"}]}]},"gridPos":{"h":7,"w":6,"x":6,"y":16},"id":9,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum by (code) (code_resource:apiserver_request_total:rate5m{verb=\"write\", cluster=\"$cluster\"})","legendFormat":"{{ code }}"}],"title":"Write SLI - Requests","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many percent of write requests (POST|PUT|PATCH|DELETE) per second are returned with errors (5xx)?","fieldConfig":{"defaults":{"min":0,"unit":"percentunit"}},"gridPos":{"h":7,"w":6,"x":12,"y":16},"id":10,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum by (resource) (code_resource:apiserver_request_total:rate5m{verb=\"write\",code=~\"5..\", cluster=\"$cluster\"}) / sum by (resource) (code_resource:apiserver_request_total:rate5m{verb=\"write\", cluster=\"$cluster\"})","legendFormat":"{{ resource }}"}],"title":"Write SLI - Errors","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"description":"How many seconds is the 99th percentile for writing (POST|PUT|PATCH|DELETE) a given resource?","fieldConfig":{"defaults":{"unit":"s"}},"gridPos":{"h":7,"w":6,"x":18,"y":16},"id":11,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"cluster_quantile:apiserver_request_sli_duration_seconds:histogram_quantile{verb=\"write\", cluster=\"$cluster\"}","legendFormat":"{{ resource }}"}],"title":"Write SLI - Duration","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"fieldConfig":{"defaults":{"min":0,"unit":"ops"}},"gridPos":{"h":7,"w":12,"x":0,"y":23},"id":12,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":false},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum(rate(workqueue_adds_total{job=\"apiserver\", instance=~\"$instance\", cluster=\"$cluster\"}[$__rate_interval])) by (instance, name)","legendFormat":"{{instance}} {{name}}"}],"title":"Work Queue Add Rate","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"fieldConfig":{"defaults":{"min":0,"unit":"short"}},"gridPos":{"h":7,"w":12,"x":12,"y":23},"id":13,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":false},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"sum(rate(workqueue_depth{job=\"apiserver\", instance=~\"$instance\", cluster=\"$cluster\"}[$__rate_interval])) by (instance, name)","legendFormat":"{{instance}} {{name}}"}],"title":"Work Queue Depth","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"fieldConfig":{"defaults":{"min":0,"unit":"s"}},"gridPos":{"h":7,"w":24,"x":0,"y":30},"id":14,"interval":"1m","options":{"legend":{"asTable":true,"calcs":["lastNotNull"],"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"histogram_quantile(0.99, sum(rate(workqueue_queue_duration_seconds_bucket{job=\"apiserver\", instance=~\"$instance\", cluster=\"$cluster\"}[$__rate_interval])) by (instance, name, le))","legendFormat":"{{instance}} {{name}}"}],"title":"Work Queue Latency","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"fieldConfig":{"defaults":{"unit":"bytes"}},"gridPos":{"h":7,"w":8,"x":0,"y":37},"id":15,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"process_resident_memory_bytes{job=\"apiserver\",instance=~\"$instance\", cluster=\"$cluster\"}","legendFormat":"{{instance}}"}],"title":"Memory","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"fieldConfig":{"defaults":{"min":0,"unit":"short"}},"gridPos":{"h":7,"w":8,"x":8,"y":37},"id":16,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"rate(process_cpu_seconds_total{job=\"apiserver\",instance=~\"$instance\", cluster=\"$cluster\"}[$__rate_interval])","legendFormat":"{{instance}}"}],"title":"CPU usage","type":"timeseries"},{"datasource":{"type":"datasource","uid":"-- Mixed --"},"fieldConfig":{"defaults":{"unit":"short"}},"gridPos":{"h":7,"w":8,"x":16,"y":37},"id":17,"interval":"1m","options":{"legend":{"asTable":true,"placement":"right","showLegend":true},"tooltip":{"mode":"single"}},"pluginVersion":"v11.4.0","targets":[{"datasource":{"type":"prometheus","uid":"${datasource}"},"expr":"go_goroutines{job=\"apiserver\",instance=~\"$instance\", cluster=\"$cluster\"}","legendFormat":"{{instance}}"}],"title":"Goroutines","type":"timeseries"}],"refresh":"10s","schemaVersion":39,"tags":["kubernetes-mixin"],"templating":{"list":[{"current":{"selected":true,"text":"default","value":"default"},"hide":0,"label":"Data source","name":"datasource","query":"prometheus","regex":"","type":"datasource"},{"datasource":{"type":"prometheus","uid":"${datasource}"},"hide":2,"label":"cluster","name":"cluster","query":"label_values(up{job=\"apiserver\"}, cluster)","refresh":2,"sort":1,"type":"query","allValue":".*"},{"datasource":{"type":"prometheus","uid":"${datasource}"},"hide":0,"includeAll":true,"name":"instance","query":"label_values(up{job=\"apiserver\", cluster=\"$cluster\"}, instance)","refresh":2,"sort":1,"type":"query"}]},"time":{"from":"now-1h","to":"now"},"timezone": "utc","title":"Kubernetes / API server","uid":"09ec8aa1e996d6ffcd6817bbaff4db1b"}
 ---
 # Source: kube-prometheus-stack/templates/grafana/dashboards-1.14/cluster-total.yaml
 apiVersion: v1
@@ -1248,9 +1248,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1271,9 +1271,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1294,9 +1294,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1317,9 +1317,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1340,9 +1340,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1363,9 +1363,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1386,9 +1386,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1409,9 +1409,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1432,9 +1432,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1455,9 +1455,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1478,9 +1478,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1501,9 +1501,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1524,9 +1524,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1547,9 +1547,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1570,9 +1570,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1593,9 +1593,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1616,9 +1616,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1639,9 +1639,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1662,9 +1662,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1685,9 +1685,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1708,9 +1708,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1731,9 +1731,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1754,9 +1754,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1777,9 +1777,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1800,9 +1800,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 data:
@@ -1814,10 +1814,10 @@ kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
   name: prometheus-grafana-clusterrole
 rules:
   - apiGroups: [""] # "" indicates the core API group
@@ -1829,13 +1829,13 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:    
-    helm.sh/chart: kube-state-metrics-7.4.0
+    helm.sh/chart: kube-state-metrics-7.4.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "2.19.0"
+    app.kubernetes.io/version: "2.19.1"
     release: prometheus
   name: prometheus-kube-state-metrics
 rules:
@@ -2018,9 +2018,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
     app: kube-prometheus-stack-operator
@@ -2145,9 +2145,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 rules:
@@ -2180,10 +2180,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: prometheus-grafana-clusterrolebinding
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
 subjects:
   - kind: ServiceAccount
     name: prometheus-grafana
@@ -2198,13 +2198,13 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:    
-    helm.sh/chart: kube-state-metrics-7.4.0
+    helm.sh/chart: kube-state-metrics-7.4.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "2.19.0"
+    app.kubernetes.io/version: "2.19.1"
     release: prometheus
   name: prometheus-kube-state-metrics
 roleRef:
@@ -2225,9 +2225,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
     app: kube-prometheus-stack-operator
@@ -2252,9 +2252,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 roleRef:
@@ -2273,10 +2273,10 @@ metadata:
   name: prometheus-grafana
   namespace: infra-prometheus
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
 spec:
   type: ClusterIP
   ports:
@@ -2295,13 +2295,13 @@ metadata:
   name: prometheus-kube-state-metrics
   namespace: infra-prometheus
   labels:    
-    helm.sh/chart: kube-state-metrics-7.4.0
+    helm.sh/chart: kube-state-metrics-7.4.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "2.19.0"
+    app.kubernetes.io/version: "2.19.1"
     release: prometheus
   annotations:
 spec:
@@ -2357,9 +2357,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -2389,9 +2389,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
   namespace: kube-system
@@ -2416,9 +2416,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
   namespace: kube-system
@@ -2444,9 +2444,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
   namespace: kube-system
@@ -2472,9 +2472,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
   namespace: kube-system
@@ -2499,9 +2499,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
     app: kube-prometheus-stack-operator
@@ -2529,9 +2529,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -2561,9 +2561,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -2726,10 +2726,10 @@ metadata:
   name: prometheus-grafana
   namespace: infra-prometheus
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
 spec:
   replicas: 1
   revisionHistoryLimit: 10
@@ -2742,13 +2742,13 @@ spec:
   template:
     metadata:
       labels:
-        helm.sh/chart: grafana-12.4.1
+        helm.sh/chart: grafana-12.4.5
         app.kubernetes.io/name: grafana
         app.kubernetes.io/instance: prometheus
-        app.kubernetes.io/version: "13.0.1-security-01"
+        app.kubernetes.io/version: "13.0.2"
       annotations:
         checksum/config: 51ba6356084af0d49bbc9def891040ab5f937ade42030a0e4c4c5f1932aff40e
-        checksum/dashboards-json-config: 261cbc482d8c253f4e6c98e38eb10033d8a4c87f5eb12b440b56055c1486984b
+        checksum/dashboards-json-config: 43ed1f1d4341a79fef4030b5253c6432961efc23b23c3d0686c558980a7fa76f
         checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
         checksum/secret: 1e66c39583fdabda3ba738bc2d1ead751694697306ad56796c9c163c5abaec4f
         kubectl.kubernetes.io/default-container: grafana
@@ -2870,7 +2870,7 @@ spec:
             - name: sc-datasources-volume
               mountPath: "/etc/grafana/provisioning/datasources"
         - name: grafana
-          image: "docker.io/grafana/grafana:13.0.1-security-01"
+          image: "docker.io/grafana/grafana:13.0.2"
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false
@@ -2999,13 +2999,13 @@ metadata:
   name: prometheus-kube-state-metrics
   namespace: infra-prometheus
   labels:    
-    helm.sh/chart: kube-state-metrics-7.4.0
+    helm.sh/chart: kube-state-metrics-7.4.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "2.19.0"
+    app.kubernetes.io/version: "2.19.1"
     release: prometheus
 spec:
   selector:
@@ -3019,13 +3019,13 @@ spec:
   template:
     metadata:
       labels:        
-        helm.sh/chart: kube-state-metrics-7.4.0
+        helm.sh/chart: kube-state-metrics-7.4.1
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/component: metrics
         app.kubernetes.io/part-of: kube-state-metrics
         app.kubernetes.io/name: kube-state-metrics
         app.kubernetes.io/instance: prometheus
-        app.kubernetes.io/version: "2.19.0"
+        app.kubernetes.io/version: "2.19.1"
         release: prometheus
     spec:
       automountServiceAccountToken: true
@@ -3051,7 +3051,7 @@ spec:
           mountPath: /etc/customresourcestate
           readOnly: true
         imagePullPolicy: IfNotPresent
-        image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.0
+        image: registry.k8s.io/kube-state-metrics/kube-state-metrics:v2.19.1
         ports:
         - containerPort: 8080
           name: http
@@ -3106,9 +3106,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
     app: kube-prometheus-stack-operator
@@ -3127,9 +3127,9 @@ spec:
         
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/instance: prometheus
-        app.kubernetes.io/version: "86.0.1"
+        app.kubernetes.io/version: "86.2.3"
         app.kubernetes.io/part-of: kube-prometheus-stack
-        chart: kube-prometheus-stack-86.0.1
+        chart: kube-prometheus-stack-86.2.3
         release: "prometheus"
         heritage: "Helm"
         app: kube-prometheus-stack-operator
@@ -3223,10 +3223,10 @@ metadata:
   name: prometheus-grafana
   namespace: infra-prometheus
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-production"
 spec:
@@ -3258,15 +3258,15 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
-  image: "quay.io/prometheus/alertmanager:v0.32.1"
+  image: "quay.io/prometheus/alertmanager:v0.33.0"
   imagePullPolicy: "IfNotPresent"
-  version: "v0.32.1"
+  version: "v0.33.0"
   replicas: 2
   listenLocal: false
   serviceAccountName: prometheus-kube-prometheus-alertmanager
@@ -3327,10 +3327,10 @@ metadata:
   name: prometheus-grafana
   namespace: infra-prometheus
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
 spec:
   parentRefs:
     - group: gateway.networking.k8s.io
@@ -3364,10 +3364,10 @@ metadata:
   name: prometheus-grafana-redirect
   namespace: infra-prometheus
   labels:
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
 spec:
   parentRefs:
     - group: gateway.networking.k8s.io
@@ -3401,9 +3401,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -3441,9 +3441,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -3455,9 +3455,9 @@ spec:
         port: http-web
         pathPrefix: "/"
         apiVersion: v2
-  image: "quay.io/prometheus/prometheus:v3.11.3-distroless"
+  image: "quay.io/prometheus/prometheus:v3.12.0-distroless"
   imagePullPolicy: "IfNotPresent"
-  version: "v3.11.3-distroless"
+  version: "v3.12.0-distroless"
   externalLabels:
     cluster: change-me
   enableRemoteWriteReceiver: true
@@ -3553,9 +3553,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -3912,9 +3912,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4055,9 +4055,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4087,9 +4087,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4255,9 +4255,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4323,9 +4323,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4358,9 +4358,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4385,9 +4385,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4412,9 +4412,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4439,9 +4439,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4466,9 +4466,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4555,9 +4555,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4703,9 +4703,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -4825,9 +4825,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5147,9 +5147,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5178,9 +5178,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5255,9 +5255,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5280,9 +5280,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5313,9 +5313,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5382,9 +5382,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5433,9 +5433,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5460,6 +5460,12 @@ spec:
         sum by (namespace, pod, job, cluster) (
           max by (namespace, pod, job, cluster) (
             kube_pod_status_phase{job="kube-state-metrics", namespace=~".*", phase=~"Pending|Unknown"}
+            or
+            (
+              kube_pod_status_phase{job="kube-state-metrics", namespace=~".*", phase="Running"} == 1
+              and on (namespace, pod, cluster)
+              kube_pod_status_ready{job="kube-state-metrics", namespace=~".*", condition="true"} == 0
+            )
           ) * on (namespace, pod, cluster) group_left() topk by (namespace, pod, cluster) (
             1, max by (namespace, pod, owner_kind, cluster) (kube_pod_owner{owner_kind!="Job"})
           )
@@ -5714,9 +5720,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -5827,11 +5833,13 @@ spec:
         runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubequotaalmostfull
         summary: Namespace quota is going to be full.
       expr: |-
-        max without (instance, job, type) (
-          kube_resourcequota{job="kube-state-metrics", type="used"}
+        topk by (cluster, namespace, resource, resourcequota) (1,
+          max without (instance, job, type) (
+            kube_resourcequota{job="kube-state-metrics", type="used"}
+          )
         )
         / on (cluster, namespace, resource, resourcequota) group_left()
-        (
+        topk by (cluster, namespace, resource, resourcequota) (1,
           max without (instance, job, type) (
             kube_resourcequota{job="kube-state-metrics", type="hard"}
           ) > 0
@@ -5846,11 +5854,13 @@ spec:
         runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubequotafullyused
         summary: Namespace quota is fully used.
       expr: |-
-        max without (instance, job, type) (
-          kube_resourcequota{job="kube-state-metrics", type="used"}
+        topk by (cluster, namespace, resource, resourcequota) (1,
+          max without (instance, job, type) (
+            kube_resourcequota{job="kube-state-metrics", type="used"}
+          )
         )
         / on (cluster, namespace, resource, resourcequota) group_left()
-        (
+        topk by (cluster, namespace, resource, resourcequota) (1,
           max without (instance, job, type) (
             kube_resourcequota{job="kube-state-metrics", type="hard"}
           ) > 0
@@ -5865,11 +5875,13 @@ spec:
         runbook_url: https://runbooks.prometheus-operator.dev/runbooks/kubernetes/kubequotaexceeded
         summary: Namespace quota has exceeded the limits.
       expr: |-
-        max without (instance, job, type) (
-          kube_resourcequota{job="kube-state-metrics", type="used"}
+        topk by (cluster, namespace, resource, resourcequota) (1,
+          max without (instance, job, type) (
+            kube_resourcequota{job="kube-state-metrics", type="used"}
+          )
         )
         / on (cluster, namespace, resource, resourcequota) group_left()
-        (
+        topk by (cluster, namespace, resource, resourcequota) (1,
           max without (instance, job, type) (
             kube_resourcequota{job="kube-state-metrics", type="hard"}
           ) > 0
@@ -5914,9 +5926,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6028,9 +6040,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6118,9 +6130,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6322,9 +6334,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6365,9 +6377,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6468,9 +6480,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6806,9 +6818,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6836,9 +6848,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6893,9 +6905,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -6986,9 +6998,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7273,10 +7285,10 @@ metadata:
   namespace: infra-prometheus
   labels:
     release: "prometheus"
-    helm.sh/chart: grafana-12.4.1
+    helm.sh/chart: grafana-12.4.5
     app.kubernetes.io/name: grafana
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "13.0.1-security-01"
+    app.kubernetes.io/version: "13.0.2"
 spec:
   endpoints:
   - port: http-web
@@ -7299,13 +7311,13 @@ metadata:
   name: prometheus-kube-state-metrics
   namespace: infra-prometheus
   labels:    
-    helm.sh/chart: kube-state-metrics-7.4.0
+    helm.sh/chart: kube-state-metrics-7.4.1
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: metrics
     app.kubernetes.io/part-of: kube-state-metrics
     app.kubernetes.io/name: kube-state-metrics
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "2.19.0"
+    app.kubernetes.io/version: "2.19.1"
     release: prometheus
 spec:
   jobLabel: app.kubernetes.io/name  
@@ -7356,9 +7368,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7389,9 +7401,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7419,9 +7431,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7460,9 +7472,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7490,9 +7502,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7520,9 +7532,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7553,9 +7565,9 @@ metadata:
     app: kube-prometheus-stack-kubelet    
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7667,9 +7679,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
     app: kube-prometheus-stack-operator
@@ -7707,9 +7719,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7739,9 +7751,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
 spec:
@@ -7769,9 +7781,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -7832,9 +7844,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -7854,9 +7866,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -7885,9 +7897,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -7915,9 +7927,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -7945,9 +7957,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -7975,9 +7987,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -7992,9 +8004,9 @@ spec:
         
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/instance: prometheus
-        app.kubernetes.io/version: "86.0.1"
+        app.kubernetes.io/version: "86.2.3"
         app.kubernetes.io/part-of: kube-prometheus-stack
-        chart: kube-prometheus-stack-86.0.1
+        chart: kube-prometheus-stack-86.2.3
         release: "prometheus"
         heritage: "Helm"
         app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -8041,9 +8053,9 @@ metadata:
     
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/instance: prometheus
-    app.kubernetes.io/version: "86.0.1"
+    app.kubernetes.io/version: "86.2.3"
     app.kubernetes.io/part-of: kube-prometheus-stack
-    chart: kube-prometheus-stack-86.0.1
+    chart: kube-prometheus-stack-86.2.3
     release: "prometheus"
     heritage: "Helm"
     app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
@@ -8058,9 +8070,9 @@ spec:
         
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/instance: prometheus
-        app.kubernetes.io/version: "86.0.1"
+        app.kubernetes.io/version: "86.2.3"
         app.kubernetes.io/part-of: kube-prometheus-stack
-        chart: kube-prometheus-stack-86.0.1
+        chart: kube-prometheus-stack-86.2.3
         release: "prometheus"
         heritage: "Helm"
         app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
