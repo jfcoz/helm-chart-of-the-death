@@ -446,7 +446,7 @@ components:
       namespace: infra-smartctl-exporter
       chart:
         name: prometheus-smartctl-exporter
-        version: "0.16"
+        version: "0.17"
         repository: prometheus-community
       release:
         timeout: 10m
