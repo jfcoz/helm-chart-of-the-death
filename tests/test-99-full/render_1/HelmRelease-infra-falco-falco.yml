@@ -25,7 +25,7 @@ spec:
     spec:
       chart: falco
       # each major contains upgrade process in changelog
-      version: "9.0.0"
+      version: "9.1.0"
       sourceRef:
         kind: HelmRepository
         name: "falcosecurity"
