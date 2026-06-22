@@ -43,10 +43,10 @@ metadata:
   name: falco
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-9.0.0
+    helm.sh/chart: falco-9.1.0
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
-    app.kubernetes.io/version: "0.44.0"
+    app.kubernetes.io/version: "0.44.1"
     app.kubernetes.io/managed-by: Helm
 ---
 # Source: falco/charts/falcosidekick/templates/secrets-ui.yaml
@@ -646,10 +646,10 @@ metadata:
   name: falco
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-9.0.0
+    helm.sh/chart: falco-9.1.0
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
-    app.kubernetes.io/version: "0.44.0"
+    app.kubernetes.io/version: "0.44.1"
     app.kubernetes.io/managed-by: Helm
 data:
   falco.yaml: |-
@@ -676,6 +676,7 @@ data:
       modern_ebpf:
         buf_size_preset: 4
         cpus_for_each_buffer: 2
+        disable_iterators: false
         drop_failed_exit: false
     falco_libs:
       snaplen: 80
@@ -723,6 +724,7 @@ data:
       jemalloc_stats_enabled: false
       kernel_event_counters_enabled: true
       kernel_event_counters_per_cpu_enabled: false
+      kernel_iter_event_counters_enabled: true
       libbpf_stats_enabled: true
       output_rule: false
       plugins_metrics_enabled: true
@@ -818,10 +820,10 @@ metadata:
   name: falco-falcoctl
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-9.0.0
+    helm.sh/chart: falco-9.1.0
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
-    app.kubernetes.io/version: "0.44.0"
+    app.kubernetes.io/version: "0.44.1"
     app.kubernetes.io/managed-by: Helm
 data:
   falcoctl.yaml: |-
@@ -857,10 +859,10 @@ metadata:
   name: falco-rules
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-9.0.0
+    helm.sh/chart: falco-9.1.0
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
-    app.kubernetes.io/version: "0.44.0"
+    app.kubernetes.io/version: "0.44.1"
     app.kubernetes.io/managed-by: Helm
 data:
   default-rules-exclusions.yaml: |-
@@ -1031,10 +1033,10 @@ metadata:
   name: falco
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-9.0.0
+    helm.sh/chart: falco-9.1.0
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
-    app.kubernetes.io/version: "0.44.0"
+    app.kubernetes.io/version: "0.44.1"
     app.kubernetes.io/managed-by: Helm
 rules:
   - apiGroups:
@@ -1097,10 +1099,10 @@ metadata:
   name: falco
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-9.0.0
+    helm.sh/chart: falco-9.1.0
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
-    app.kubernetes.io/version: "0.44.0"
+    app.kubernetes.io/version: "0.44.1"
     app.kubernetes.io/managed-by: Helm
 subjects:
   - kind: ServiceAccount
@@ -1235,10 +1237,10 @@ metadata:
   name: falco-metrics
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-9.0.0
+    helm.sh/chart: falco-9.1.0
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
-    app.kubernetes.io/version: "0.44.0"
+    app.kubernetes.io/version: "0.44.1"
     app.kubernetes.io/managed-by: Helm
     type: "falco-metrics"
 spec:
@@ -1259,10 +1261,10 @@ metadata:
   name: falco
   namespace: infra-falco
   labels:
-    helm.sh/chart: falco-9.0.0
+    helm.sh/chart: falco-9.1.0
     app.kubernetes.io/name: falco
     app.kubernetes.io/instance: falco
-    app.kubernetes.io/version: "0.44.0"
+    app.kubernetes.io/version: "0.44.1"
     app.kubernetes.io/managed-by: Helm
 spec:
   selector:
@@ -1276,8 +1278,8 @@ spec:
         app.kubernetes.io/name: falco
         app.kubernetes.io/instance: falco
       annotations:
-        checksum/config: 6ef9f6b062581f33029a81f9105bfc964300da6da402f1df495a128d16d3aad0
-        checksum/rules: 3cc387e5846a5f7d467f65aeb1105fd0a4721dea60afa6bbedbb89275b44df71
+        checksum/config: 5c374e0951e980ab4ad061aec2b68ea119491b8ec6dea56c3613ec5c1ffe9ac4
+        checksum/rules: a7a8a98022fbd65aecd3578fd63ced017bc1e831c84aabe50185b511ecd6d85c
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     spec:
       serviceAccountName: falco
@@ -1291,7 +1293,7 @@ spec:
           operator: Exists
       containers:
         - name: falco
-          image: docker.io/falcosecurity/falco:0.44.0
+          image: docker.io/falcosecurity/falco:0.44.1
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -1406,7 +1408,7 @@ spec:
               name: artifact-state-dir
       initContainers:
         - name: falco-driver-loader
-          image: docker.io/falcosecurity/falco-driver-loader:0.44.0
+          image: docker.io/falcosecurity/falco-driver-loader:0.44.1
           imagePullPolicy: IfNotPresent
           args:
             - auto

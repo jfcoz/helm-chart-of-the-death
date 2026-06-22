@@ -29,7 +29,7 @@ spec:
     spec:
       chart: plugin-barman-cloud
       # each major contains upgrade process in changelog
-      version: "0.6.0"
+      version: "0.7.0"
       sourceRef:
         kind: HelmRepository
         name: "cnpg"

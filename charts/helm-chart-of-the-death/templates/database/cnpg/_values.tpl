@@ -9,6 +9,13 @@ config:
     # renew before x509-certificate-exporter warningDaysLeft : https://github.com/enix/x509-certificate-exporter/blob/main/deploy/charts/x509-certificate-exporter/values.yaml
     EXPIRING_CHECK_THRESHOLD: "30"
     {{- end }}
+
+
+{{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
+monitoring:
+  podMonitorEnabled: true
+{{- end }}
+
 {{- end }}
 
 {{/* merged values : default + user  */}}

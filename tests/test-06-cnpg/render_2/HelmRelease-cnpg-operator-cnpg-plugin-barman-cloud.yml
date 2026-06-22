@@ -4,10 +4,10 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    helm.sh/chart: plugin-barman-cloud-0.6.0
+    helm.sh/chart: plugin-barman-cloud-0.7.0
     app.kubernetes.io/name: plugin-barman-cloud
     app.kubernetes.io/instance: cnpg-plugin-barman-cloud
-    app.kubernetes.io/version: "v0.12.0"
+    app.kubernetes.io/version: "v0.13.0"
     app.kubernetes.io/managed-by: Helm
   name: cnpg-plugin-barman-cloud
   namespace: cnpg-operator
@@ -15,7 +15,7 @@ metadata:
 # Source: plugin-barman-cloud/templates/configmap.yaml
 apiVersion: v1
 data:
-  SIDECAR_IMAGE: "ghcr.io/cloudnative-pg/plugin-barman-cloud-sidecar:v0.12.0"
+  SIDECAR_IMAGE: "ghcr.io/cloudnative-pg/plugin-barman-cloud-sidecar:v0.13.0"
 kind: ConfigMap
 metadata:
   name: plugin-barman-cloud-config
@@ -26,7 +26,7 @@ apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    controller-gen.kubebuilder.io/version: v0.20.1
+    controller-gen.kubebuilder.io/version: v0.21.0
     helm.sh/resource-policy: keep
   name: objectstores.barmancloud.cnpg.io
 spec:
@@ -168,10 +168,11 @@ spec:
                         description: |-
                           Compress a backup file (a tar file per tablespace) while streaming it
                           to the object store. Available options are empty string (no
-                          compression, default), `gzip`, `bzip2`, and `snappy`.
+                          compression, default), `gzip`, `bzip2`, `lz4`, and `snappy`.
                         enum:
                         - bzip2
                         - gzip
+                        - lz4
                         - snappy
                         type: string
                       encryption:
@@ -199,6 +200,25 @@ spec:
                         format: int32
                         minimum: 1
                         type: integer
+                      restoreAdditionalCommandArgs:
+                        description: |-
+                          Additional arguments that can be appended to the 'barman-cloud-restore'
+                          command-line invocation. These arguments provide flexibility to customize
+                          the data restore process further, according to specific requirements or
+                          configurations.
+
+                          Example:
+                          In a scenario where specialized restore options are required, such as setting
+                          a specific read timeout or defining custom behavior, users can use this field
+                          to specify additional command arguments.
+
+                          Note:
+                          It's essential to ensure that the provided arguments are valid and supported
+                          by the 'barman-cloud-restore' command, to avoid potential errors or unintended
+                          behavior during execution.
+                        items:
+                          type: string
+                        type: array
                     type: object
                   destinationPath:
                     description: |-
@@ -796,10 +816,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
-    helm.sh/chart: plugin-barman-cloud-0.6.0
+    helm.sh/chart: plugin-barman-cloud-0.7.0
     app.kubernetes.io/name: plugin-barman-cloud
     app.kubernetes.io/instance: cnpg-plugin-barman-cloud
-    app.kubernetes.io/version: "v0.12.0"
+    app.kubernetes.io/version: "v0.13.0"
     app.kubernetes.io/managed-by: Helm
   name: cnpg-plugin-barman-cloud-binding
 roleRef:
@@ -816,10 +836,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   labels:
-    helm.sh/chart: plugin-barman-cloud-0.6.0
+    helm.sh/chart: plugin-barman-cloud-0.7.0
     app.kubernetes.io/name: plugin-barman-cloud
     app.kubernetes.io/instance: cnpg-plugin-barman-cloud
-    app.kubernetes.io/version: "v0.12.0"
+    app.kubernetes.io/version: "v0.13.0"
     app.kubernetes.io/managed-by: Helm
   name: cnpg-plugin-barman-cloud-leader-election-role
   namespace: cnpg-operator
@@ -861,10 +881,10 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
-    helm.sh/chart: plugin-barman-cloud-0.6.0
+    helm.sh/chart: plugin-barman-cloud-0.7.0
     app.kubernetes.io/name: plugin-barman-cloud
     app.kubernetes.io/instance: cnpg-plugin-barman-cloud
-    app.kubernetes.io/version: "v0.12.0"
+    app.kubernetes.io/version: "v0.13.0"
     app.kubernetes.io/managed-by: Helm
   name: cnpg-plugin-barman-cloud-leader-election-rolebinding
   namespace: cnpg-operator
@@ -882,10 +902,10 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    helm.sh/chart: plugin-barman-cloud-0.6.0
+    helm.sh/chart: plugin-barman-cloud-0.7.0
     app.kubernetes.io/name: plugin-barman-cloud
     app.kubernetes.io/instance: cnpg-plugin-barman-cloud
-    app.kubernetes.io/version: "v0.12.0"
+    app.kubernetes.io/version: "v0.13.0"
     app.kubernetes.io/managed-by: Helm
     cnpg.io/pluginName: barman-cloud.cloudnative-pg.io
   annotations:
@@ -908,10 +928,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    helm.sh/chart: plugin-barman-cloud-0.6.0
+    helm.sh/chart: plugin-barman-cloud-0.7.0
     app.kubernetes.io/name: plugin-barman-cloud
     app.kubernetes.io/instance: cnpg-plugin-barman-cloud
-    app.kubernetes.io/version: "v0.12.0"
+    app.kubernetes.io/version: "v0.13.0"
     app.kubernetes.io/managed-by: Helm
   name: cnpg-plugin-barman-cloud
   namespace: cnpg-operator
@@ -945,7 +965,7 @@ spec:
             configMapKeyRef:
               key: SIDECAR_IMAGE
               name: plugin-barman-cloud-config
-        image: "ghcr.io/cloudnative-pg/plugin-barman-cloud:v0.12.0"
+        image: "ghcr.io/cloudnative-pg/plugin-barman-cloud:v0.13.0"
         name: barman-cloud
         ports:
         - containerPort: 9090
