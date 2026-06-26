@@ -250,6 +250,14 @@ data:
       type: file
     - disableDeletion: true
       editable: false
+      folder: PostgreSQL
+      name: PostgreSQL
+      options:
+        path: /var/lib/grafana/dashboards/postgresql
+      orgId: 1
+      type: file
+    - disableDeletion: true
+      editable: false
       folder: X509 certificate exporter
       name: x509-certificate-exporter
       options:
@@ -286,6 +294,7 @@ data:
     mkdir -p /var/lib/grafana/dashboards/default
     mkdir -p /var/lib/grafana/dashboards/fluxcd
     mkdir -p /var/lib/grafana/dashboards/cilium
+    mkdir -p /var/lib/grafana/dashboards/postgresql
     mkdir -p /var/lib/grafana/dashboards/x509-certificate-exporter
     mkdir -p /var/lib/grafana/dashboards/falco
     mkdir -p /var/lib/grafana/dashboards/ceph
@@ -556,6 +565,24 @@ data:
     --max-time 60 \
     -H "Accept: application/json" \
     -H "Content-Type: application/json;charset=UTF-8" \
+      "https://grafana.com/api/dashboards/13115/revisions/1/download" \
+      | sed '/-- .* --/! s/"datasource":.*,/"datasource": "Prometheus",/g' \
+    > "/var/lib/grafana/dashboards/postgresql/postgresql-database-with-kps.json"
+      
+    curl -skf \
+    --connect-timeout 60 \
+    --max-time 60 \
+    -H "Accept: application/json" \
+    -H "Content-Type: application/json;charset=UTF-8" \
+      "https://raw.githubusercontent.com/jfcoz/grafana-config/refs/heads/main/dashboards/postgresql_table_stats.json" \
+          | sed -E '/-- .* --/! s/\$\{?DS_PROMETHEUS\}?/Prometheus/g' \
+    > "/var/lib/grafana/dashboards/postgresql/postgresql-table-stats.json"
+      
+    curl -skf \
+    --connect-timeout 60 \
+    --max-time 60 \
+    -H "Accept: application/json" \
+    -H "Content-Type: application/json;charset=UTF-8" \
       "https://raw.githubusercontent.com/jfcoz/grafana-config/main/dashboards/trivy_image_scan.json" \
       | sed '/-- .* --/! s/"datasource":.*,/"datasource": "Prometheus",/g' \
     > "/var/lib/grafana/dashboards/trivy/trivy-image-scan.json"
@@ -641,6 +668,21 @@ metadata:
     app.kubernetes.io/instance: prometheus
     app.kubernetes.io/version: "13.1.0"
     dashboard-provider: fluxcd
+data:
+  {}
+---
+# Source: kube-prometheus-stack/charts/grafana/templates/dashboards-json-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-grafana-dashboards-postgresql
+  namespace: infra-prometheus
+  labels:
+    helm.sh/chart: grafana-12.7.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: prometheus
+    app.kubernetes.io/version: "13.1.0"
+    dashboard-provider: postgresql
 data:
   {}
 ---
@@ -2747,8 +2789,8 @@ spec:
         app.kubernetes.io/instance: prometheus
         app.kubernetes.io/version: "13.1.0"
       annotations:
-        checksum/config: 51ba6356084af0d49bbc9def891040ab5f937ade42030a0e4c4c5f1932aff40e
-        checksum/dashboards-json-config: 40c0055849e0e49f7d919a4e7e79f6eb403dcbae610798a205935bd53ff7925f
+        checksum/config: a923a4b07d5340fed965f6f9859f71d03a6ce9627be34171d38b30fa0f44da80
+        checksum/dashboards-json-config: 96e07a6d7644dd4a86fb6378be9c33be328840bb37ce211fcf4027c5394bba12
         checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
         checksum/secret: 1e66c39583fdabda3ba738bc2d1ead751694697306ad56796c9c163c5abaec4f
         kubectl.kubernetes.io/default-container: grafana
@@ -2974,6 +3016,9 @@ spec:
         - name: dashboards-fluxcd
           configMap:
             name: prometheus-grafana-dashboards-fluxcd
+        - name: dashboards-postgresql
+          configMap:
+            name: prometheus-grafana-dashboards-postgresql
         - name: dashboards-trivy
           configMap:
             name: prometheus-grafana-dashboards-trivy

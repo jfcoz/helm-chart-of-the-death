@@ -522,6 +522,14 @@ grafana:
           type: file
         - disableDeletion: true
           editable: false
+          folder: PostgreSQL
+          name: PostgreSQL
+          options:
+            path: /var/lib/grafana/dashboards/postgresql
+          orgId: 1
+          type: file
+        - disableDeletion: true
+          editable: false
           folder: X509 certificate exporter
           name: x509-certificate-exporter
           options:
@@ -649,6 +657,16 @@ grafana:
       logs:
         datasource: Loki
         url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/refs/heads/main/monitoring/configs/dashboards/logs.json
+    postgresql:
+      postgresql-database-with-kps:
+        datasource: Prometheus
+        gnetId: 13115
+        revision: 1
+      postgresql-table-stats:
+        datasource:
+          - name: DS_PROMETHEUS
+            value: Prometheus
+        url: https://raw.githubusercontent.com/jfcoz/grafana-config/refs/heads/main/dashboards/postgresql_table_stats.json
     trivy:
       trivy-image-scan:
         datasource: Prometheus
