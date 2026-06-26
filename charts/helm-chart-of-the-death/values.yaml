@@ -472,6 +472,20 @@ components:
         timeout: 5m
       values: {}
 
+    postgresqlExporter:
+      managed: false
+      used: false
+      helmResourcePolicyKeep: true
+      namespace: infra-prometheus
+      chart:
+        name: prometheus-postgres-exporter
+        version: "8.0.0"
+        repository: prometheus-community
+      release:
+        timeout: 5m
+      values: {}
+
+
   backup:
     velero:
       managed: false

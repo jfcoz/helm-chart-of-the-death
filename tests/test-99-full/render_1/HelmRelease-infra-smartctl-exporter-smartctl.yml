@@ -28,7 +28,7 @@ spec:
     spec:
       chart: prometheus-smartctl-exporter
       # each major contains upgrade process in changelog
-      version: "0.16"
+      version: "0.17"
       sourceRef:
         kind: HelmRepository
         name: "prometheus-community"

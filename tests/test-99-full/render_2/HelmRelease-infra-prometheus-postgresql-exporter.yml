@@ -1,0 +1,168 @@
+---
+# Source: prometheus-postgres-exporter/templates/role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: postgresql-exporter-prometheus-postgres-exporter
+  namespace: infra-prometheus
+  labels:
+    helm.sh/chart: prometheus-postgres-exporter-8.0.0
+    app.kubernetes.io/name: prometheus-postgres-exporter
+    app.kubernetes.io/instance: postgresql-exporter
+    app.kubernetes.io/version: "v0.19.1"
+---
+# Source: prometheus-postgres-exporter/templates/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: postgresql-exporter-prometheus-postgres-exporter
+  namespace: infra-prometheus
+  labels:
+    helm.sh/chart: prometheus-postgres-exporter-8.0.0
+    app.kubernetes.io/name: prometheus-postgres-exporter
+    app.kubernetes.io/instance: postgresql-exporter
+    app.kubernetes.io/version: "v0.19.1"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: postgresql-exporter-prometheus-postgres-exporter
+subjects:
+- kind: ServiceAccount
+  name: default
+---
+# Source: prometheus-postgres-exporter/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql-exporter-prometheus-postgres-exporter
+  namespace: infra-prometheus
+  labels:
+    helm.sh/chart: prometheus-postgres-exporter-8.0.0
+    app.kubernetes.io/name: prometheus-postgres-exporter
+    app.kubernetes.io/instance: postgresql-exporter
+    app.kubernetes.io/version: "v0.19.1"
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 9187
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: prometheus-postgres-exporter
+    app.kubernetes.io/instance: postgresql-exporter
+---
+# Source: prometheus-postgres-exporter/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgresql-exporter-prometheus-postgres-exporter
+  namespace: infra-prometheus
+  labels:
+    helm.sh/chart: prometheus-postgres-exporter-8.0.0
+    app.kubernetes.io/name: prometheus-postgres-exporter
+    app.kubernetes.io/instance: postgresql-exporter
+    app.kubernetes.io/version: "v0.19.1"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus-postgres-exporter
+      app.kubernetes.io/instance: postgresql-exporter
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: prometheus-postgres-exporter
+        app.kubernetes.io/instance: postgresql-exporter
+      annotations:
+        checksum/config: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+        checksum/secrets: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+    spec:
+      automountServiceAccountToken: false
+      serviceAccountName: default
+      securityContext:
+        runAsGroup: 1001
+        runAsNonRoot: true
+        runAsUser: 1001
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: prometheus-postgres-exporter
+          args:
+          - "--config.file=/etc/postgres_exporter.yml"
+          - "--web.listen-address=:9187"
+          - --collector.statio_user_indexes
+          - --collector.stat_user_tables
+          - --collector.stat_statements
+          env:
+          - name: DATA_SOURCE_NAME
+            valueFrom:
+              secretKeyRef:
+                name: postgres-exporter
+                key: datasource
+          image: "quay.io/prometheuscommunity/postgres-exporter:v0.19.1"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9187
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            timeoutSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+              scheme: HTTP
+            timeoutSeconds: 1
+          resources:
+            limits:
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 60Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+              - ALL
+            privileged: false
+            readOnlyRootFilesystem: true
+          volumeMounts:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - preference:
+              matchExpressions:
+              - key: type
+                operator: In
+                values:
+                - spot
+            weight: 1
+      tolerations:
+        - effect: NoSchedule
+          key: type
+          operator: Equal
+          value: spot
+      volumes:
+---
+# Source: prometheus-postgres-exporter/templates/servicemonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: postgresql-exporter-prometheus-postgres-exporter
+  namespace: "infra-prometheus"
+spec:
+  endpoints:
+  - port: http
+  jobLabel: postgresql-exporter-prometheus-postgres-exporter
+  namespaceSelector:
+    matchNames:
+    - "infra-prometheus"
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus-postgres-exporter
+      app.kubernetes.io/instance: postgresql-exporter
