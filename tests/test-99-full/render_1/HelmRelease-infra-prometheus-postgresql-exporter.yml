@@ -1,0 +1,73 @@
+---
+# Source: helm-chart-of-the-death/templates/monitoring/postgresql-exporter/helmrelease.yaml
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: postgresql-exporter
+  namespace: infra-prometheus
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  dependsOn:
+    - name: prometheus
+      namespace: infra-prometheus
+  # include common.fluxcd.release
+  install:
+    crds: Create
+    remediation:
+      retries: 10
+  interval: 1h
+  test:
+    enable: false
+  timeout: 5m
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  chart:
+    spec:
+      chart: prometheus-postgres-exporter
+      # each major contains upgrade process in changelog
+      version: "8.0.0"
+      sourceRef:
+        kind: HelmRepository
+        name: "prometheus-community"
+        namespace: flux-system
+      interval: 1h
+  values:
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - preference:
+              matchExpressions:
+                - key: type
+                  operator: In
+                  values:
+                    - spot
+            weight: 1
+    config:
+      datasource: {}
+      datasourceSecret:
+        key: datasource
+        name: postgres-exporter
+      extraArgs:
+        - --collector.statio_user_indexes
+        - --collector.stat_user_tables
+        - --collector.stat_statements
+    prometheusRule:
+      enabled: false
+    resources:
+      limits:
+        memory: 128Mi
+      requests:
+        cpu: 50m
+        memory: 60Mi
+    serviceAccount:
+      create: false
+    serviceMonitor:
+      enabled: true
+    tolerations:
+      - effect: NoSchedule
+        key: type
+        operator: Equal
+        value: spot

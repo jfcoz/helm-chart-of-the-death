@@ -1,0 +1,36 @@
+affinity:
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - preference:
+          matchExpressions:
+            - key: type
+              operator: In
+              values:
+                - spot
+        weight: 1
+config:
+  datasource: {}
+  datasourceSecret:
+    key: datasource
+    name: postgres-exporter
+  extraArgs:
+    - --collector.statio_user_indexes
+    - --collector.stat_user_tables
+    - --collector.stat_statements
+prometheusRule:
+  enabled: false
+resources:
+  limits:
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 60Mi
+serviceAccount:
+  create: false
+serviceMonitor:
+  enabled: true
+tolerations:
+  - effect: NoSchedule
+    key: type
+    operator: Equal
+    value: spot

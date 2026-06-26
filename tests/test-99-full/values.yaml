@@ -191,6 +191,10 @@ components:
       managed: true
       helmResourcePolicyKeep: true
       namespace: infra-blackbox-exporter
+    postgresqlExporter:
+      managed: true
+      helmResourcePolicyKeep: true
+      namespace: infra-prometheus
 
   backup:
     velero:
