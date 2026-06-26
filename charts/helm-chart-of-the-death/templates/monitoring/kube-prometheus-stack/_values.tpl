@@ -411,6 +411,16 @@ grafana:
         options:
           path: /var/lib/grafana/dashboards/cnpg
       {{- end }}
+      {{- if include "common.used" .Values.components.monitoring.postgresqlExporter }}
+      - name: 'PostgreSQL'
+        orgId: 1
+        folder: 'PostgreSQL'
+        type: file
+        disableDeletion: true
+        editable: false
+        options:
+          path: /var/lib/grafana/dashboards/postgresql
+      {{- end }}
       {{- if include "common.used" .Values.components.monitoring.x509CertificateExporter }}
       - name: 'x509-certificate-exporter'
         orgId: 1
@@ -482,6 +492,18 @@ grafana:
     cnpg:
       cloudnativepg:
         url: https://raw.githubusercontent.com/cloudnative-pg/grafana-dashboards/refs/heads/main/charts/cluster/grafana-dashboard.json
+        datasource: Prometheus
+    {{- end }}
+{{- if include "common.used" .Values.components.monitoring.postgresqlExporter }}
+    postgresql:
+      postgresql-table-stats:
+        url: https://raw.githubusercontent.com/jfcoz/grafana-config/refs/heads/main/dashboards/postgresql_table_stats.json
+        datasource:
+        - name: DS_PROMETHEUS
+          value: Prometheus
+      postgresql-database-with-kps:
+        gnetId: 13115
+        revision: 1
         datasource: Prometheus
     {{- end }}
     {{- if include "common.used" .Values.components.security.falco }}
