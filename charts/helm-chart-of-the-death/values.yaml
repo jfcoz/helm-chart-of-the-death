@@ -517,7 +517,7 @@ components:
       namespace: infra-cert-manager
       chart:
         name: cert-manager
-        version: "v1.20.2"
+        version: "v1.20.3"
         repository: jetstack
       release:
         timeout: 5m
