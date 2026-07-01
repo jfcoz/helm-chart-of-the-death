@@ -126,6 +126,15 @@ disallow-host-namespaces:
       names:
       - "csi-node-*"
   {{- end }}
+  {{- if eq .Values.cloudProvider "scw" }}
+  - resources:
+      namespaces:
+      - kube-system
+      kinds:
+      - Pod
+      names:
+      - "konnectivity-agent-*"
+  {{- end }}
 
 disallow-host-path:
   any:
