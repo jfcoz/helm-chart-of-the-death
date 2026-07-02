@@ -432,7 +432,7 @@ components:
       namespace: infra-tempo
       chart:
         name: tempo-distributed
-        version: "2.25.5"
+        version: "2.26.0"
         repository: grafana-community
       excludeFromBackup: true
       release:
