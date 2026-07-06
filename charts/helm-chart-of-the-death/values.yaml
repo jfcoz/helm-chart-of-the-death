@@ -479,7 +479,7 @@ components:
       namespace: infra-prometheus
       chart:
         name: prometheus-postgres-exporter
-        version: "8.0.0"
+        version: "8.1.0"
         repository: prometheus-community
       release:
         timeout: 5m
