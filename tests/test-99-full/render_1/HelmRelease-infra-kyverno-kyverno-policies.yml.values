@@ -262,4 +262,5 @@ policyExclude:
             - svclb-nginx-ingress-ingress-nginx-controller-*
           namespaces:
             - kube-system
+policyType: ValidatingPolicy
 validationFailureAction: Enforce

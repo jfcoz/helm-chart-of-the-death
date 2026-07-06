@@ -22,4 +22,5 @@ policyExclude:
             - infra-falco-falco-*
           namespaces:
             - infra-falco
+policyType: ValidatingPolicy
 validationFailureAction: Enforce
