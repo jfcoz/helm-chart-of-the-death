@@ -28,7 +28,7 @@ spec:
     spec:
       chart: prometheus-postgres-exporter
       # each major contains upgrade process in changelog
-      version: "8.0.0"
+      version: "8.1.0"
       sourceRef:
         kind: HelmRepository
         name: "prometheus-community"

@@ -1,4 +1,4 @@
-{{/* values */}}
+{{/* policy excludes */}}
 {{- define "security.kyverno.policies.defaultValues.policyExclude" }}
 {{- $me := .Values.components.security.kyverno }}
 disallow-capabilities:
@@ -434,8 +434,14 @@ policyExclude:
 {{- $me := .Values.components.security.kyverno }}
 # default failurePolicy Fail will block is webhook made an error. Ignore will continue
 failurePolicy: Ignore
+
 # validationFailureAction : Audit or Enforce
 validationFailureAction: Enforce
+
+{{- if (semverCompare ">=3.7.0" $me.chart.version) }}
+# ClusterPolicy is deprecated from Kyverno 1.17
+policyType: ValidatingPolicy
+{{- end }}
 
 {{- template "security.kyverno.policies.mergedPolicyExclude" . }}
 {{- end }}
