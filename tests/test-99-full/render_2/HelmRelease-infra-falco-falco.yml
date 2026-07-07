@@ -921,6 +921,10 @@ data:
       condition: |
         or (proc.cmdline contains "ddog_daemon_entry_point" )
         or (proc.cmdline contains "ddog_crashtracker_entry_point" )
+    - list: known_ptrace_binaries
+      items: [dd-ipc-helper]
+      override:
+        items: append
     - macro: k8s_containers
       override:
         condition: append
@@ -1452,7 +1456,7 @@ spec:
         app.kubernetes.io/instance: falco
       annotations:
         checksum/config: 5c374e0951e980ab4ad061aec2b68ea119491b8ec6dea56c3613ec5c1ffe9ac4
-        checksum/rules: aad7ffe77cc557f4124e75ee8d145911d06307b10c053ed0af5ced5dea66a566
+        checksum/rules: 89b001d2805f13f601814d36fbce4dfa787833693917730067f1c9ed5c1f95ff
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
     spec:
       serviceAccountName: falco

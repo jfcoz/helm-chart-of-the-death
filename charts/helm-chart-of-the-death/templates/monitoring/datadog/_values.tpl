@@ -48,6 +48,21 @@ datadog:
     # disable Tracing by default to reduce costs
     value: 0
 
+  # we force communication via local service
+  # else we need kyverno disable-host-path exclusion for any application Pod
+  # for this we need to disable socket/enable port on dogstatsd and apm
+  dogstatsd:
+    useSocketVolume: false
+    useHostPort: false
+
+  apm:
+    socketEnabled: false
+    portEnabled: false
+    useLocalService: true
+
+  admissionController:
+    configMode: service
+
 
 agents:
   priorityClassCreate: true

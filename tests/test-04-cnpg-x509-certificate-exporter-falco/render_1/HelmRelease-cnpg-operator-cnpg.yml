@@ -28,7 +28,7 @@ spec:
     spec:
       chart: cloudnative-pg
       # each major contains upgrade process in changelog
-      version: "0.28.3"
+      version: "0.29.0"
       sourceRef:
         kind: HelmRepository
         name: "cnpg"

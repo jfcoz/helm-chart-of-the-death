@@ -65,6 +65,10 @@ customRules:
       condition: |
         or (proc.cmdline contains "ddog_daemon_entry_point" )
         or (proc.cmdline contains "ddog_crashtracker_entry_point" )
+    - list: known_ptrace_binaries
+      items: [dd-ipc-helper]
+      override:
+        items: append
     {{- end }}
     {{- if include "common.used" .Values.components.monitoring.keda }}
     - macro: k8s_containers
