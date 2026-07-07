@@ -32,7 +32,7 @@ spec:
     spec:
       chart: datadog
       # each major contains upgrade process in changelog
-      version: "3.227.1"
+      version: "3.229.0"
       sourceRef:
         kind: HelmRepository
         name: "datadog"
@@ -68,12 +68,20 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: datadogrun,varlog,tmpdir,config
       token: 4uftrVcbSdZL47LdGBvVNMO9G7xDoCAa
     datadog:
+      admissionController:
+        configMode: service
       apiKey: 0123456789abcdef0123456789abcdef
       apm:
         instrumentation:
           skipKPITelemetry: true
+        portEnabled: false
+        socketEnabled: false
+        useLocalService: true
       clusterName: change-me
       containerExcludeLogs: image:gke.gcr.io/event-exporter
+      dogstatsd:
+        useHostPort: false
+        useSocketVolume: false
       env:
         - name: DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION
           value: 60
