@@ -57,7 +57,7 @@ datadog:
 
   apm:
     socketEnabled: false
-    portEnabled: false
+    portEnabled: true
     useLocalService: true
 
   admissionController:
