@@ -271,6 +271,15 @@ disallow-host-ports:
       - "cilium-envoy-*"
       - "cilium-operator-*"
   {{- end }}
+  {{- if include "common.used" .Values.components.monitoring.datadog }}
+  - resources:
+      namespaces:
+      - {{ .Values.components.monitoring.datadog.namespace }}
+      kinds:
+      - Pod
+      names:
+      - "datadog-*"
+  {{- end }}
   {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
   - resources:
       namespaces:
