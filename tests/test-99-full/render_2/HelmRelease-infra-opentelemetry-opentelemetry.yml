@@ -7,9 +7,9 @@ metadata:
   name: opentelemetry-operator
   namespace: infra-opentelemetry
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -890,6 +890,13 @@ spec:
                 type: object
               serviceAccount:
                 type: string
+              tls:
+                properties:
+                  insecure:
+                    type: boolean
+                  insecure_skip_verify:
+                    type: boolean
+                type: object
               tolerations:
                 items:
                   properties:
@@ -15586,8 +15593,47 @@ spec:
                 > 0) || !has(self.additionalContainers)'
           status:
             properties:
+              conditions:
+                items:
+                  properties:
+                    lastTransitionTime:
+                      format: date-time
+                      type: string
+                    message:
+                      maxLength: 32768
+                      type: string
+                    observedGeneration:
+                      format: int64
+                      minimum: 0
+                      type: integer
+                    reason:
+                      maxLength: 1024
+                      minLength: 1
+                      pattern: ^[A-Za-z]([A-Za-z0-9_,:]*[A-Za-z0-9_])?$
+                      type: string
+                    status:
+                      enum:
+                      - "True"
+                      - "False"
+                      - Unknown
+                      type: string
+                    type:
+                      maxLength: 316
+                      pattern: ^([a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*/)?(([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9])$
+                      type: string
+                  required:
+                  - lastTransitionTime
+                  - message
+                  - reason
+                  - status
+                  - type
+                  type: object
+                type: array
               image:
                 type: string
+              observedGeneration:
+                format: int64
+                type: integer
               scale:
                 properties:
                   replicas:
@@ -17840,9 +17886,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18018,6 +18064,16 @@ rules:
     verbs:
       - get
       - list
+      - watch
+  - apiGroups:
+      - operators.coreos.com
+    resources:
+      - clusterserviceversions
+    verbs:
+      - get
+      - list
+      - patch
+      - update
       - watch
   - apiGroups:
       - coordination.k8s.io
@@ -18229,9 +18285,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18248,9 +18304,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18270,9 +18326,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18469,9 +18525,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18492,9 +18548,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18516,9 +18572,9 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18539,9 +18595,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18560,9 +18616,9 @@ spec:
       annotations:
         kubectl.kubernetes.io/default-container: manager
       labels:
-        helm.sh/chart: opentelemetry-operator-0.118.0
+        helm.sh/chart: opentelemetry-operator-0.119.0
         app.kubernetes.io/name: opentelemetry-operator
-        app.kubernetes.io/version: "0.153.0"
+        app.kubernetes.io/version: "0.154.0"
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/part-of: opentelemetry-operator
         app.kubernetes.io/instance: opentelemetry
@@ -18577,7 +18633,7 @@ spec:
             - --enable-leader-election
             - --health-probe-addr=:8081
             - --webhook-port=9443
-            - --collector-image=ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-k8s:0.153.0
+            - --collector-image=ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-k8s:0.154.0
           command:
             - /manager
           env:
@@ -18587,7 +18643,7 @@ spec:
                   fieldPath: spec.serviceAccountName
             - name: ENABLE_WEBHOOKS
               value: "true"
-          image: "ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator:0.153.0"
+          image: "ghcr.io/open-telemetry/opentelemetry-operator/opentelemetry-operator:0.154.0"
           name: manager
           imagePullPolicy: IfNotPresent
           ports:
@@ -18646,9 +18702,9 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18672,9 +18728,9 @@ apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18691,9 +18747,9 @@ metadata:
   annotations:
     cert-manager.io/inject-ca-from: infra-opentelemetry/opentelemetry-opentelemetry-operator-serving-cert
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18797,9 +18853,9 @@ metadata:
   name: opentelemetry-opentelemetry-operator
   namespace: infra-opentelemetry
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18815,9 +18871,9 @@ metadata:
   name: opentelemetry-opentelemetry-operator
   namespace: infra-opentelemetry
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18844,9 +18900,9 @@ metadata:
   annotations:
     cert-manager.io/inject-ca-from: infra-opentelemetry/opentelemetry-opentelemetry-operator-serving-cert
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18979,9 +19035,9 @@ metadata:
   name: "opentelemetry-opentelemetry-operator-cert-manager"
   namespace: infra-opentelemetry
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -18994,7 +19050,7 @@ spec:
       image: "busybox:latest"
       env:
         - name: CERT_MANAGER_CLUSTERIP
-          value: "cert-manager-webhook"
+          value: "cert-manager-webhook.cert-manager"
         - name: CERT_MANAGER_PORT
           value: "443"
       command:
@@ -19003,11 +19059,17 @@ spec:
         # The following shell script tests if the cert-manager service is up. If the service is up, when we try
         # to wget its exposed port, we will get an HTTP error 400.
         - |
-          wget_output=$(wget -q "$CERT_MANAGER_CLUSTERIP:$CERT_MANAGER_PORT")
-          if wget_output=="wget: server returned error: HTTP/1.0 400 Bad Request"
-          then exit 0
-          else exit 1
-          fi
+          i=0
+          while [ "$i" -lt 30 ]; do
+            wget_output=$(wget -q "$CERT_MANAGER_CLUSTERIP:$CERT_MANAGER_PORT" 2>&1 || true)
+            if [ "$wget_output" = "wget: server returned error: HTTP/1.0 400 Bad Request" ]; then
+              exit 0
+            fi
+            i=$((i + 1))
+            sleep 2
+          done
+          echo "$wget_output"
+          exit 1
       securityContext: 
             allowPrivilegeEscalation: false
             capabilities:
@@ -19029,12 +19091,12 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "opentelemetry-opentelemetry-operator-metrics"
+  name: "opentelemetry-opentelemetry-operator-metrics-test"
   namespace: infra-opentelemetry
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -19056,11 +19118,17 @@ spec:
         # The following shell script tests if the controller-manager-metrics-service is up.
         # If the service is up, when we try to wget its exposed port, we will get an HTTP error 400.
         - |
-          wget_output=$(wget -q "$MANAGER_METRICS_SERVICE_CLUSTERIP:$MANAGER_METRICS_SERVICE_PORT")
-          if wget_output=="wget: server returned error: HTTP/1.0 400 Bad Request"
-          then exit 0
-          else exit 1
-          fi
+          i=0
+          while [ "$i" -lt 30 ]; do
+            wget_output=$(wget -q "$MANAGER_METRICS_SERVICE_CLUSTERIP:$MANAGER_METRICS_SERVICE_PORT" 2>&1 || true)
+            if [ "$wget_output" = "wget: server returned error: HTTP/1.0 400 Bad Request" ]; then
+              exit 0
+            fi
+            i=$((i + 1))
+            sleep 2
+          done
+          echo "$wget_output"
+          exit 1
       securityContext: 
             allowPrivilegeEscalation: false
             capabilities:
@@ -19082,12 +19150,12 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "opentelemetry-opentelemetry-operator-webhook"
+  name: "opentelemetry-opentelemetry-operator-webhook-test"
   namespace: infra-opentelemetry
   labels:
-    helm.sh/chart: opentelemetry-operator-0.118.0
+    helm.sh/chart: opentelemetry-operator-0.119.0
     app.kubernetes.io/name: opentelemetry-operator
-    app.kubernetes.io/version: "0.153.0"
+    app.kubernetes.io/version: "0.154.0"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/part-of: opentelemetry-operator
     app.kubernetes.io/instance: opentelemetry
@@ -19109,11 +19177,17 @@ spec:
         # The following shell script tests if the webhook service is up. If the service is up, when we try
         # to wget its exposed port, we will get an HTTP error 400.
         - |
-          wget_output=$(wget -q "$WEBHOOK_SERVICE_CLUSTERIP:$WEBHOOK_SERVICE_PORT")
-          if wget_output=="wget: server returned error: HTTP/1.0 400 Bad Request"
-          then exit 0
-          else exit 1
-          fi
+          i=0
+          while [ "$i" -lt 30 ]; do
+            wget_output=$(wget -q "$WEBHOOK_SERVICE_CLUSTERIP:$WEBHOOK_SERVICE_PORT" 2>&1 || true)
+            if [ "$wget_output" = "wget: server returned error: HTTP/1.0 400 Bad Request" ]; then
+              exit 0
+            fi
+            i=$((i + 1))
+            sleep 2
+          done
+          echo "$wget_output"
+          exit 1
       securityContext: 
             allowPrivilegeEscalation: false
             capabilities:

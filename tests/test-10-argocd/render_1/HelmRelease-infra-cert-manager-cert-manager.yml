@@ -25,7 +25,7 @@ spec:
     spec:
       chart: cert-manager
       # each major contains upgrade process in changelog
-      version: "v1.20.3"
+      version: "v1.21.0"
       sourceRef:
         kind: HelmRepository
         name: "jetstack"
