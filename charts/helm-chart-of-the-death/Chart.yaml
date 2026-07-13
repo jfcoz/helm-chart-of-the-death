@@ -1,7 +1,7 @@
 apiVersion: v2
 name: helm-chart-of-the-death
 description: "One chart to rule them all !"
-version: 2.37.1
+version: 2.38.0
 icon: https://raw.githubusercontent.com/jfcoz/helm-chart-of-the-death/refs/heads/main/docs/media/helm-chart-of-the-death_64.png
 maintainers:
 - name: jfcoz
