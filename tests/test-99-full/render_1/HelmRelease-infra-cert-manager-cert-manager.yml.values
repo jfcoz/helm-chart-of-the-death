@@ -4,7 +4,8 @@ cainjector:
       cpu: 2m
       memory: 170Mi
 config:
-  enableGatewayAPI: true
+  gatewayAPI:
+    enabled: true
 installCRDs: true
 resources:
   requests:

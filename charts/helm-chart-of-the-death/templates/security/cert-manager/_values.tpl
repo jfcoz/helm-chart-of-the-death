@@ -22,7 +22,12 @@ config:
             ( (.Values.features.gatewayAPI).enabled )
             (include "common.used" .Values.components.cni.cilium)
   }}
+  {{- if semverCompare ">=1.21.0" $me.chart.version }}
+  gatewayAPI:
+    enabled: true
+  {{- else }}
   enableGatewayAPI: true
+  {{- end }}
   {{- end }}
 
 {{- end }}
