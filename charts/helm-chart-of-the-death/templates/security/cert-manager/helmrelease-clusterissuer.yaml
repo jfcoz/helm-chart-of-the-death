@@ -39,7 +39,7 @@ spec:
             solvers:
                - http01:
                   ingress:
-                    class: nginx
+                    ingressClassName: nginx
       clusterissuer-letsencrypt-production: |
         apiVersion: cert-manager.io/v1
         kind: ClusterIssuer
@@ -57,7 +57,7 @@ spec:
             solvers:
                - http01:
                   ingress:
-                    class: nginx
+                    ingressClassName: nginx
       {{- end }}
       {{- if $me.issuers.selfsigned }}
       clusterissuer-selfsigned: |
