@@ -212,7 +212,7 @@ components:
       helmResourcePolicyKeep: true
       chart:
         name: keda
-        version: "2.20.1"
+        version: "2.20.2"
         repository: kedacore
       release:
         timeout: 5m
