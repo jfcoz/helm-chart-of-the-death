@@ -15,6 +15,7 @@ spec:
     remediation:
       retries: 10
   interval: 1h
+  maxHistory: 3
   test:
     enable: false
   timeout: 30m
@@ -27,7 +28,7 @@ spec:
     spec:
       chart: cilium
       # each major contains upgrade process in changelog
-      version: "1.19.5"
+      version: "1.19.6"
       sourceRef:
         kind: HelmRepository
         name: "cilium"

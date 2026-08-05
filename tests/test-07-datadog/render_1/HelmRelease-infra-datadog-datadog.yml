@@ -14,6 +14,7 @@ spec:
     remediation:
       retries: 10
   interval: 1h
+  maxHistory: 3
   test:
     enable: true
   timeout: 5m
@@ -25,7 +26,7 @@ spec:
     spec:
       chart: datadog
       # each major contains upgrade process in changelog
-      version: "3.231.2"
+      version: "3.231.6"
       sourceRef:
         kind: HelmRepository
         name: "datadog"

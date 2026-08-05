@@ -14,6 +14,7 @@ spec:
     remediation:
       retries: 10
   interval: 1m
+  maxHistory: 3
   test:
     enable: true
   timeout: 5m
@@ -25,7 +26,7 @@ spec:
     spec:
       chart: cert-manager
       # each major contains upgrade process in changelog
-      version: "v1.21.0"
+      version: "v1.21.1"
       sourceRef:
         kind: HelmRepository
         name: "jetstack"

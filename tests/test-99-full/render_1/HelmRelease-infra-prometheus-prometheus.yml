@@ -22,6 +22,7 @@ spec:
     remediation:
       retries: 10
   interval: 1h
+  maxHistory: 3
   test:
     enable: false
   timeout: 10m
@@ -34,7 +35,7 @@ spec:
     spec:
       chart: kube-prometheus-stack
       # each major contains upgrade process in changelog
-      version: "87.15.1"
+      version: "87.21.0"
       sourceRef:
         kind: HelmRepository
         name: "prometheus-community"
