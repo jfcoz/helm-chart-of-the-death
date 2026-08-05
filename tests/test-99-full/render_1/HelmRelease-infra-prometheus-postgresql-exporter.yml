@@ -17,6 +17,7 @@ spec:
     remediation:
       retries: 10
   interval: 1h
+  maxHistory: 3
   test:
     enable: false
   timeout: 5m
@@ -28,7 +29,7 @@ spec:
     spec:
       chart: prometheus-postgres-exporter
       # each major contains upgrade process in changelog
-      version: "8.1.1"
+      version: "8.2.0"
       sourceRef:
         kind: HelmRepository
         name: "prometheus-community"

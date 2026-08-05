@@ -26,6 +26,7 @@ general:
     release:
       interval: 1h
       timeout: 10m
+      maxHistory: 3
       install:
         crds: Create
         remediation:

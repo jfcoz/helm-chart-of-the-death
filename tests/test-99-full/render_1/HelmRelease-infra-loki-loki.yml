@@ -18,6 +18,7 @@ spec:
     remediation:
       retries: 10
   interval: 1h
+  maxHistory: 3
   test:
     enable: false
   timeout: 20m

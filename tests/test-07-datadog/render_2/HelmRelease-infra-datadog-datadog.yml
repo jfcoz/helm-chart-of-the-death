@@ -15,7 +15,7 @@ metadata:
   name: datadog-clusterchecks
   namespace: infra-datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -58,7 +58,7 @@ metadata:
   name: datadog
   namespace: infra-datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -102,7 +102,7 @@ metadata:
   name: datadog-cluster-agent
   namespace: infra-datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -159,10 +159,10 @@ automountServiceAccountToken: true
 metadata:
   labels:
     app: "datadog"
-    chart: "datadog-3.231.2"
+    chart: "datadog-3.231.6"
     heritage: "Helm"
     release: "datadog"
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -178,7 +178,7 @@ metadata:
   name: datadog
   namespace: infra-datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -191,7 +191,7 @@ metadata:
   name: datadog
   namespace: infra-datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -207,7 +207,7 @@ metadata:
   name: datadog-cluster-agent
   namespace: infra-datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -223,7 +223,7 @@ metadata:
   name: datadog-cluster-agent-confd
   namespace: infra-datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -278,7 +278,7 @@ metadata:
   name: datadog-endpoint-config
   namespace: infra-datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -295,20 +295,20 @@ metadata:
   name: datadog-installinfo
   namespace: infra-datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/version: "7"
   annotations:
-    checksum/install_info: 5f1d3da5d58ce26d36e481c3678ff8954bac1bf5bdf33f627f190c11ecbe3014
+    checksum/install_info: 8199d3ccb8de57a13810b90d5d5df9db8cdb233e6ecce17488620b045885e31f
 data:
   install_info: |
     ---
     install_method:
       tool: helm
       tool_version: Helm
-      installer_version: datadog-3.231.2
+      installer_version: datadog-3.231.6
 ---
 # Source: datadog/templates/kpi-telemetry-configmap.yaml
 apiVersion: v1
@@ -317,7 +317,7 @@ metadata:
   name: datadog-kpi-telemetry-configmap
   namespace: infra-datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -334,7 +334,7 @@ metadata:
   name: datadog-system-probe-config
   namespace: infra-datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -361,7 +361,7 @@ data:
     network_config:
       enabled: false
       conntrack_init_timeout: 10s
-      direct_send: false
+      direct_send: true
     service_monitoring_config:
       enabled: false
       tls:
@@ -425,7 +425,7 @@ metadata:
   name: datadog-security
   namespace: infra-datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -665,7 +665,7 @@ apiVersion: "rbac.authorization.k8s.io/v1"
 kind: ClusterRole
 metadata:
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -874,7 +874,7 @@ apiVersion: "rbac.authorization.k8s.io/v1"
 kind: ClusterRole
 metadata:
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -970,7 +970,7 @@ apiVersion: "rbac.authorization.k8s.io/v1"
 kind: ClusterRole
 metadata:
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -1145,7 +1145,7 @@ kind: ClusterRole
 metadata:
   name: datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -1202,7 +1202,7 @@ apiVersion: "rbac.authorization.k8s.io/v1"
 kind: ClusterRoleBinding
 metadata:
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -1222,7 +1222,7 @@ apiVersion: "rbac.authorization.k8s.io/v1"
 kind: ClusterRoleBinding
 metadata:
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -1242,7 +1242,7 @@ apiVersion: "rbac.authorization.k8s.io/v1"
 kind: ClusterRoleBinding
 metadata:
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -1263,7 +1263,7 @@ kind: ClusterRoleBinding
 metadata:
   name: datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -1282,7 +1282,7 @@ apiVersion: "rbac.authorization.k8s.io/v1"
 kind: Role
 metadata:
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -1302,7 +1302,7 @@ apiVersion: "rbac.authorization.k8s.io/v1"
 kind: Role
 metadata:
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -1324,7 +1324,7 @@ apiVersion: "rbac.authorization.k8s.io/v1"
 kind: RoleBinding
 metadata:
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -1345,7 +1345,7 @@ apiVersion: "rbac.authorization.k8s.io/v1"
 kind: RoleBinding
 metadata:
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -1368,7 +1368,7 @@ metadata:
   name: datadog-cluster-agent
   namespace: infra-datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -1390,10 +1390,10 @@ metadata:
   namespace: infra-datadog
   labels:
     app: "datadog"
-    chart: "datadog-3.231.2"
+    chart: "datadog-3.231.6"
     release: "datadog"
     heritage: "Helm"
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -1416,10 +1416,10 @@ metadata:
   namespace: infra-datadog
   labels:
     app: "datadog"
-    chart: "datadog-3.231.2"
+    chart: "datadog-3.231.6"
     release: "datadog"
     heritage: "Helm"
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog"
     app.kubernetes.io/managed-by: Helm
@@ -1445,7 +1445,7 @@ metadata:
   name: datadog
   namespace: infra-datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog-agent"
     app.kubernetes.io/managed-by: Helm
@@ -1474,9 +1474,9 @@ spec:
         
       name: datadog
       annotations:
-        checksum/clusteragent_token: ca5f56f3218202c8f159837630076d555f2c64bfcbc5c940beae090ecbf71626
-        checksum/api_key: 2ab3100fe98211b1be0302edbd73b87ded8cb1223fc8ab4e048df8df5dd5cc85
-        checksum/install_info: 5f1d3da5d58ce26d36e481c3678ff8954bac1bf5bdf33f627f190c11ecbe3014
+        checksum/clusteragent_token: 8cfba6ec249568ec04fba0ee34058a1fc30dfc79940d65224867c50bb3256e1e
+        checksum/api_key: 2a9757242e1afb9501d7233c2bbd41124dd800efacdfdc0ca394563a304f4e6b
+        checksum/install_info: 8199d3ccb8de57a13810b90d5d5df9db8cdb233e6ecce17488620b045885e31f
         checksum/autoconf-config: 74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b
         checksum/confd-config: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
         checksum/checksd-config: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
@@ -1487,7 +1487,7 @@ spec:
       priorityClassName: datadog
       containers:
       - name: agent
-        image: "registry.datadoghq.com/agent:7.80.1"
+        image: "registry.datadoghq.com/agent:7.81.1"
         imagePullPolicy: IfNotPresent
         command: ["agent", "run"]
         securityContext:
@@ -1535,6 +1535,8 @@ spec:
             value: "true"
           - name: DD_KUBELET_USE_API_SERVER
             value: "false"
+          - name: DD_KUBERNETES_USE_ENDPOINT_SLICES
+            value: "true"
           - name: DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION
             value: "60"
           - name: DD_KUBERNETES_METADATA_TAG_UPDATE_FREQ
@@ -1733,7 +1735,7 @@ spec:
           successThreshold: 1
           timeoutSeconds: 5
       - name: trace-agent
-        image: "registry.datadoghq.com/agent:7.80.1"
+        image: "registry.datadoghq.com/agent:7.81.1"
         imagePullPolicy: IfNotPresent
         command: ["trace-loader", "/etc/datadog-agent/datadog.yaml", "trace-agent", "-config=/etc/datadog-agent/datadog.yaml"]
         securityContext:
@@ -1781,6 +1783,8 @@ spec:
             value: "true"
           - name: DD_KUBELET_USE_API_SERVER
             value: "false"
+          - name: DD_KUBERNETES_USE_ENDPOINT_SLICES
+            value: "true"
           - name: DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION
             value: "60"
           - name: DD_KUBERNETES_METADATA_TAG_UPDATE_FREQ
@@ -1871,7 +1875,7 @@ spec:
             port: 8126
           timeoutSeconds: 5
       - name: system-probe
-        image: "registry.datadoghq.com/agent:7.80.1"
+        image: "registry.datadoghq.com/agent:7.81.1"
         imagePullPolicy: IfNotPresent
       
         securityContext:
@@ -1929,6 +1933,8 @@ spec:
             value: "true"
           - name: DD_KUBELET_USE_API_SERVER
             value: "false"
+          - name: DD_KUBERNETES_USE_ENDPOINT_SLICES
+            value: "true"
           - name: DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION
             value: "60"
           - name: DD_KUBERNETES_METADATA_TAG_UPDATE_FREQ
@@ -2036,7 +2042,7 @@ spec:
       initContainers:
       - name: init-volume
         
-        image: "registry.datadoghq.com/agent:7.80.1"
+        image: "registry.datadoghq.com/agent:7.81.1"
         imagePullPolicy: IfNotPresent
         command: ["bash", "-c"]
         args:
@@ -2049,7 +2055,7 @@ spec:
           {}
       - name: init-config
         
-        image: "registry.datadoghq.com/agent:7.80.1"
+        image: "registry.datadoghq.com/agent:7.81.1"
         imagePullPolicy: IfNotPresent
         command:
           - bash
@@ -2111,6 +2117,8 @@ spec:
             value: "true"
           - name: DD_KUBELET_USE_API_SERVER
             value: "false"
+          - name: DD_KUBERNETES_USE_ENDPOINT_SLICES
+            value: "true"
           - name: DD_LOGS_CONFIG_TAGGER_WARMUP_DURATION
             value: "60"
           - name: DD_KUBERNETES_METADATA_TAG_UPDATE_FREQ
@@ -2132,7 +2140,7 @@ spec:
           
       - name: seccomp-setup
         
-        image: "registry.datadoghq.com/agent:7.80.1"
+        image: "registry.datadoghq.com/agent:7.81.1"
         imagePullPolicy: IfNotPresent
         command:
         - cp
@@ -2273,7 +2281,7 @@ metadata:
   name: datadog-cluster-agent
   namespace: infra-datadog
   labels:
-    helm.sh/chart: 'datadog-3.231.2'
+    helm.sh/chart: 'datadog-3.231.6'
     app.kubernetes.io/name: "datadog"
     app.kubernetes.io/instance: "datadog-cluster-agent"
     app.kubernetes.io/managed-by: Helm
@@ -2308,18 +2316,18 @@ spec:
         
       name: datadog-cluster-agent
       annotations:
-        checksum/clusteragent_token: ca5f56f3218202c8f159837630076d555f2c64bfcbc5c940beae090ecbf71626
-        checksum/clusteragent-configmap: f41b778a8b82d42b94edbd8a575fefbbc74bd20930efe3b02dd2225f27feac0f
-        checksum/api_key: 2ab3100fe98211b1be0302edbd73b87ded8cb1223fc8ab4e048df8df5dd5cc85
+        checksum/clusteragent_token: 8cfba6ec249568ec04fba0ee34058a1fc30dfc79940d65224867c50bb3256e1e
+        checksum/clusteragent-configmap: b5ee67e7c191280fc6bf0807fcea9ba92f7b1bde7319590538713d76e7918325
+        checksum/api_key: 2a9757242e1afb9501d7233c2bbd41124dd800efacdfdc0ca394563a304f4e6b
         checksum/application_key: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
-        checksum/install_info: 5f1d3da5d58ce26d36e481c3678ff8954bac1bf5bdf33f627f190c11ecbe3014
+        checksum/install_info: 8199d3ccb8de57a13810b90d5d5df9db8cdb233e6ecce17488620b045885e31f
         cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: datadogrun,varlog,tmpdir,config
     spec:
       serviceAccountName: datadog-cluster-agent
       automountServiceAccountToken: true
       initContainers:
       - name: init-volume
-        image: "registry.datadoghq.com/cluster-agent:7.80.1"
+        image: "registry.datadoghq.com/cluster-agent:7.81.1"
         imagePullPolicy: IfNotPresent
         command:
           - cp
@@ -2332,7 +2340,7 @@ spec:
             mountPath: /opt/datadog-agent
       containers:
       - name: cluster-agent
-        image: "registry.datadoghq.com/cluster-agent:7.80.1"
+        image: "registry.datadoghq.com/cluster-agent:7.81.1"
         imagePullPolicy: IfNotPresent
         resources:
           {}
