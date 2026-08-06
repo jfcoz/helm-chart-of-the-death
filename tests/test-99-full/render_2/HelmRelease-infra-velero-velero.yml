@@ -213,16 +213,12 @@ spec:
             requests:
               cpu: 5m
               memory: 100Mi
-            updateStrategy:
-              rollingUpdate:
-                maxUnavailable: 50%
       tolerations:
         - effect: NoSchedule
-          key: master
           operator: Exists
-        - effect: NoSchedule
-          key: storage
-          operator: Exists
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 50%
 ---
 # Source: velero/templates/deployment.yaml
 apiVersion: apps/v1

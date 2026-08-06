@@ -33,6 +33,28 @@ stringData:
   test.key: very_secret
 type: Opaque
 ---
+# Source: velero/templates/configmaps.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: velero-resource-policies
+  namespace: infra-velero
+  labels:
+    app.kubernetes.io/name: velero
+    app.kubernetes.io/instance: velero
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: 1.18.1
+    helm.sh/chart: velero-12.1.0
+data:
+  policies.yaml: |
+    version: v1
+    volumePolicies:
+      - conditions:
+          csi:
+            driver: filestorage.csi.scaleway.com
+        action:
+          type: fs-backup
+---
 # Source: velero/templates/repo-maintenance-configmap.yaml
 apiVersion: v1
 kind: ConfigMap
@@ -133,6 +155,114 @@ spec:
     name: velero
     app.kubernetes.io/name: velero
     app.kubernetes.io/instance: velero
+---
+# Source: velero/templates/node-agent-daemonset.yaml
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: node-agent
+  namespace: infra-velero
+  labels:
+    app.kubernetes.io/name: velero
+    app.kubernetes.io/instance: velero
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/version: 1.18.1
+    helm.sh/chart: velero-12.1.0
+spec:
+  selector:
+    matchLabels:
+      name: node-agent
+  template:
+    metadata:
+      labels:
+        name: node-agent
+        role: node-agent
+        app.kubernetes.io/name: velero
+        app.kubernetes.io/instance: velero
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/version: 1.18.1
+        helm.sh/chart: velero-12.1.0
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: plugins,scratch
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8085"
+        prometheus.io/scrape: "true"
+    spec:
+      serviceAccountName: velero-server
+      automountServiceAccountToken: true
+      securityContext:
+        runAsUser: 0
+      terminationGracePeriodSeconds: 3600
+      volumes:
+        - name: cloud-credentials
+          secret:
+            secretName: cloud-credentials
+        - name: host-pods
+          hostPath:
+            path: /var/lib/kubelet/pods
+        - name: host-plugins
+          hostPath:
+            path: /var/lib/kubelet/plugins
+        - name: scratch
+          emptyDir: {}
+      dnsPolicy: ClusterFirst
+      containers:
+        - name: node-agent
+          image: "docker.io/velero/velero:v1.18.1"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http-monitoring
+              containerPort: 8085
+          command:
+            - /velero
+          args:
+            - node-agent
+            - server
+            - --features=EnableCSI
+            - --log-level=info
+          volumeMounts:
+            - name: cloud-credentials
+              mountPath: /credentials
+            - name: host-pods
+              mountPath: /host_pods
+              mountPropagation: HostToContainer
+            - name: host-plugins
+              mountPath: /host_plugins
+              mountPropagation: HostToContainer
+            - name: scratch
+              mountPath: /scratch
+          env:
+            - name: VELERO_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: VELERO_SCRATCH_DIR
+              value: /scratch
+            - name: AWS_SHARED_CREDENTIALS_FILE
+              value: /credentials/cloud
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: /credentials/cloud
+            - name: AZURE_CREDENTIALS_FILE
+              value: /credentials/cloud
+            - name: ALIBABA_CLOUD_CREDENTIALS_FILE
+              value: /credentials/cloud
+          securityContext:
+          resources:
+            limits:
+              memory: 500Mi
+            requests:
+              cpu: 5m
+              memory: 100Mi
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 50%
 ---
 # Source: velero/templates/deployment.yaml
 apiVersion: apps/v1
@@ -363,6 +493,9 @@ spec:
     excludedResources:
     - clustersbomreports.aquasecurity.github.io
     - sbomreports.aquasecurity.github.io
+    resourcePolicy:
+      kind: ConfigMap
+      name: velero-resource-policies
     ttl: 744h
 ---
 # Source: velero/templates/servicemonitor.yaml
