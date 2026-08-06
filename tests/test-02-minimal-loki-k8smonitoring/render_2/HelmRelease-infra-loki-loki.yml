@@ -983,7 +983,7 @@ spec:
   replicas: 1
   strategy:
     type: RollingUpdate
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: loki
@@ -1173,7 +1173,7 @@ spec:
     rollingUpdate:
       partition: 0
   serviceName: loki-headless
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   
   persistentVolumeClaimRetentionPolicy:
     whenDeleted: Delete

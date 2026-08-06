@@ -15,6 +15,10 @@ storage:
       access_key: '{{ "{{" }} (((lookup "v1" "Secret" {{ $me.namespace | quote }} "tempo-bucket").data).AWS_ACCESS_KEY_ID) | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
       secret_key: '{{ "{{" }} (((lookup "v1" "Secret" {{ $me.namespace | quote }} "tempo-bucket").data).AWS_SECRET_ACCESS_KEY) | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
       insecure: true
+
+tempo:
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
+
 compactor:
   resources:
     requests:
@@ -24,12 +28,14 @@ compactor:
   config:
     compaction:
       block_retention: 2h
+
 distributor:
   resources:
     requests:
       memory: 150Mi
     limits:
       memory: 150Mi
+
 ingester:
   config:
     replication_factor: 1
@@ -61,29 +67,35 @@ ingester:
       memory: 500Mi
     limits:
       memory: 1000Mi
+
 memcached:
   resources:
     requests:
       memory: 2Mi
     limits:
       memory: 50Mi
+
 querier:
   resources:
     requests:
       memory: 100Mi
     limits:
       memory: 500Mi
+
 queryFrontend:
   resources:
     requests:
       memory: 70Mi
     limits:
       memory: 100Mi
+
 metaMonitoring:
   serviceMonitor:
     enabled: true
+
 prometheusRule:
   enabled: true
+
 metricsGenerator:
   enabled: true
   remote_write:

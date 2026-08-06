@@ -60,7 +60,9 @@ hostPathsExporter:
       cpu: 1000m
       memory: 30M
 {{- end }}
+
 secretsExporter:
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   cache:
     maxDuration: 600
   resources:

@@ -73,6 +73,8 @@ storage:
       insecure: true
       region: rook
       secret_key: '{{ (((lookup "v1" "Secret" "infra-tempo" "tempo-bucket").data).AWS_SECRET_ACCESS_KEY) | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
+tempo:
+  revisionHistoryLimit: 3
 traces:
   otlp:
     grpc:

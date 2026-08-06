@@ -52,6 +52,7 @@ spec:
               memory: 100Mi
       priorityClassCreate: true
       priorityClassName: datadog
+      revisionHistoryLimit: 3
       tolerations:
         - operator: Exists
       updateStrategy:
@@ -60,6 +61,7 @@ spec:
     clusterAgent:
       podAnnotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: datadogrun,varlog,tmpdir,config
+      revisionHistoryLimit: 3
       token: 4uftrVcbSdZL47LdGBvVNMO9G7xDoCAa
     datadog:
       admissionController:

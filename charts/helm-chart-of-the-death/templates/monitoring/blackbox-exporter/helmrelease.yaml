@@ -17,6 +17,7 @@ spec:
   {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
   {{- include "common.fluxcd.chartSpec" (list $ $me) | nindent 2 }}
   values:
+    revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
     resources:
       requests:
         cpu: 10m

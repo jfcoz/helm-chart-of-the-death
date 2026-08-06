@@ -702,6 +702,7 @@ grafana:
   resources:
     requests:
       memory: 150Mi
+  revisionHistoryLimit: 3
   route:
     main:
       enabled: true
@@ -1205,6 +1206,7 @@ kube-state-metrics:
     requests:
       cpu: 30m
       memory: 200Mi
+  revisionHistoryLimit: 3
 kubeControllerManager:
   enabled: false
 prometheus:
@@ -1272,6 +1274,7 @@ prometheus-node-exporter:
     requests:
       cpu: 20m
       memory: 25M
+  revisionHistoryLimit: 3
   updateStrategy:
     rollingUpdate:
       maxUnavailable: 30%
@@ -1291,3 +1294,4 @@ prometheusOperator:
     requests:
       cpu: 0m
       memory: 40Mi
+  revisionHistoryLimit: 3

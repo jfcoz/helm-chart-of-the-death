@@ -274,6 +274,7 @@
 {{- $me := .Values.components.monitoring.kubePrometheusStack }}
 {{- $falco := .Values.components.security.falco }}
 grafana:
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   adminPassword: {{ .Values.general.grafanaAdminPassword | required "general.grafanaAdminPassword is mandatory" | quote }}
   grafana.ini:
     # server:
@@ -682,7 +683,9 @@ prometheus:
             secret_key: '{{ "{{" }} (((lookup "v1" "Secret" "{{ .Values.components.monitoring.thanos.namespace }}" "thanos-bucket").data).AWS_SECRET_ACCESS_KEY) | default "bucket secret is not yet available" | b64dec }}'
             insecure: true
     {{- end }}
+
 prometheus-node-exporter:
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   resources:
     requests:
       memory: 25M
@@ -697,7 +700,9 @@ prometheus-node-exporter:
     # and custom
     - --collector.ethtool
     - --collector.ethtool.device-exclude="^(brq|tap|veth|vxlan|virbr|usb).*$"
+
 prometheusOperator:
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   resources:
     limits:
       cpu: 1000m
@@ -904,7 +909,9 @@ alertmanager:
 
 kubeControllerManager:
   enabled: false
+
 kube-state-metrics:
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   metricLabelsAllowlist:
     - nodes=[topology.kubernetes.io/region,topology.kubernetes.io/zone]
   resources:
@@ -922,12 +929,14 @@ kube-state-metrics:
       spec:
         resources:
           {{- include "monitoring.kubePrometheusStack.kubeStateMetrics.Flux.customResourceState" . | nindent 10 }}
+
 defaultRules:
   rules:
     # TODO: kubernetesDistribution condition
     kubeProxy: false
     kubeSchedulerAlerting: false
     kubeSchedulerRecording: false
+
 # custom Rules to override "for" and "severity" in defaultRules
 customRules:
   # TODO: cluster-autoscaler condition

@@ -35,6 +35,7 @@ spec:
         namespace: flux-system
       interval: 1h
   values:
+    revisionHistoryLimit: 3
     admissionWebhooks:
       certManager:
         enabled: true

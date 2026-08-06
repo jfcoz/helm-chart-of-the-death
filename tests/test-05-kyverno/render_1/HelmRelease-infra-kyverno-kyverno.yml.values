@@ -11,6 +11,7 @@ admissionController:
   podAnnotations:
     cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
   replicas: 1
+  revisionHistoryLimit: 3
   tolerations:
     - effect: NoSchedule
       key: storage
@@ -19,10 +20,12 @@ backgroundController:
   resources:
     requests:
       cpu: 1m
+  revisionHistoryLimit: 3
 cleanupController:
   resources:
     requests:
       cpu: 1m
+  revisionHistoryLimit: 3
 config:
   webhooks:
     namespaceSelector:
@@ -45,5 +48,6 @@ reportsController:
     requests:
       cpu: 1m
       memory: 100Mi
+  revisionHistoryLimit: 3
 test:
   sleep: 1

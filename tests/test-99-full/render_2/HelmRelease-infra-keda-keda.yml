@@ -11996,7 +11996,7 @@ metadata:
     app.kubernetes.io/version: 2.20.2
     app.kubernetes.io/instance: keda
 spec:
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   replicas: 1
   selector:
     matchLabels:
@@ -12139,7 +12139,7 @@ metadata:
     app.kubernetes.io/version: 2.20.2
     app.kubernetes.io/instance: keda
 spec:
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   replicas: 1
   selector:
     matchLabels:
@@ -12272,7 +12272,7 @@ metadata:
     app.kubernetes.io/version: 2.20.2
     app.kubernetes.io/instance: keda
 spec:
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   replicas: 1
   selector:
     matchLabels:

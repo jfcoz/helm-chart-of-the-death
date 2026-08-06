@@ -1,6 +1,15 @@
 {{/* values */}}
 {{- define "monitoring.keda.defaultValues" }}
 # doc: https://github.com/kedacore/charts/tree/main/keda
+operator:
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
+
+metricsServer:
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
+
+webhooks:
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
+
 prometheus:
   metricServer:
     enabled: true

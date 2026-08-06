@@ -43,3 +43,4 @@ spec:
           memory: 300M
       service:
         externalTrafficPolicy: Local
+    revisionHistoryLimit: 3

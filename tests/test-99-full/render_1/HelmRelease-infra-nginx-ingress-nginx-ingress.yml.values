@@ -14,3 +14,4 @@ controller:
   updateStrategy:
     rollingUpdate:
       maxUnavailable: 50%
+revisionHistoryLimit: 3

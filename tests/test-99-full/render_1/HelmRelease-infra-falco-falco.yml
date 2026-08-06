@@ -121,6 +121,7 @@ spec:
       requests:
         cpu: 100m
         memory: 150M
+    revisionHistoryLimit: 3
     serviceMonitor:
       create: true
     tolerations:

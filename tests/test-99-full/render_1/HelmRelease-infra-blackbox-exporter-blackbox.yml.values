@@ -1,3 +1,4 @@
+revisionHistoryLimit: 3
 resources:
   requests:
     cpu: 10m

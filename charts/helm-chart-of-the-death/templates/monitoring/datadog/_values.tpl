@@ -65,6 +65,7 @@ datadog:
 
 
 agents:
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   priorityClassCreate: true
   priorityClassName: datadog
 
@@ -97,6 +98,7 @@ agents:
       maxUnavailable: "50%"
 
 clusterAgent:
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   podAnnotations:
     cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: datadogrun,varlog,tmpdir,config
 

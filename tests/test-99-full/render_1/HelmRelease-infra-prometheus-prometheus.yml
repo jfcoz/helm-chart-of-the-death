@@ -746,6 +746,7 @@ spec:
       resources:
         requests:
           memory: 150Mi
+      revisionHistoryLimit: 3
       route:
         main:
           enabled: true
@@ -1249,6 +1250,7 @@ spec:
         requests:
           cpu: 30m
           memory: 200Mi
+      revisionHistoryLimit: 3
     kubeControllerManager:
       enabled: false
     prometheus:
@@ -1316,6 +1318,7 @@ spec:
         requests:
           cpu: 20m
           memory: 25M
+      revisionHistoryLimit: 3
       updateStrategy:
         rollingUpdate:
           maxUnavailable: 30%
@@ -1335,6 +1338,7 @@ spec:
         requests:
           cpu: 0m
           memory: 40Mi
+      revisionHistoryLimit: 3
   postRenderers:
     - kustomize:
         ##replace severity warning by critical on KubePodCrashLooping

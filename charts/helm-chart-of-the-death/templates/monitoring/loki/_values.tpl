@@ -9,6 +9,7 @@ global:
 {{- end }}
 
 loki:
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   commonConfig:
     {{- if eq $me.config.deploymentMode "SingleBinary" }}
     replication_factor: 1

@@ -311,6 +311,7 @@ tolerations:
   - effect: NoSchedule
     key: storage
     operator: Exists
+revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
 resources:
   requests:
     cpu: 100m

@@ -76,6 +76,7 @@ loki:
     volume_enabled: true
   pattern_ingester:
     enabled: true
+  revisionHistoryLimit: 3
   schemaConfig:
     configs:
       - from: "2025-11-23"

@@ -1455,7 +1455,7 @@ metadata:
     agent.datadoghq.com/component: agent
     
 spec:
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: datadog
@@ -2234,7 +2234,7 @@ metadata:
     
 spec:
   replicas: 1
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   strategy:
     rollingUpdate:
       maxSurge: 1
