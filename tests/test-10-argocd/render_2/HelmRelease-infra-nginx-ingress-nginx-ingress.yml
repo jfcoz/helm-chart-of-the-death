@@ -363,7 +363,7 @@ spec:
       app.kubernetes.io/instance: nginx-ingress
       app.kubernetes.io/component: controller
   replicas: 1
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   minReadySeconds: 0
   template:
     metadata:

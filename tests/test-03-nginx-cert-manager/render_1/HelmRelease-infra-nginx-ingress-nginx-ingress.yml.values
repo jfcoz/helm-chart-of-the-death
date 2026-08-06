@@ -9,3 +9,4 @@ controller:
   service:
     externalTrafficPolicy: ""
     type: ClusterIP
+revisionHistoryLimit: 3

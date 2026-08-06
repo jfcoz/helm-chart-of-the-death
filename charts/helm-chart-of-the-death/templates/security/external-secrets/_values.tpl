@@ -1,18 +1,21 @@
 {{/* values */}}
 {{- define "security.externalSecrets.defaultValues" }}
 {{- $me := .Values.components.security.externalSecrets }}
+revisionHistoryLimit: 3
 resources:
   requests:
     cpu: 5m
     memory: 32M
 
 certController:
+  revisionHistoryLimit: 3
   resources:
     requests:
       cpu: 5m
       memory: 32M
 
 webhook:
+  revisionHistoryLimit: 3
   resources:
     requests:
       cpu: 5m

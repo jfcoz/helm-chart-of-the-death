@@ -68,6 +68,7 @@ server:
 
 
 controller:
+  revisionHistoryLimit: 3
   metrics:
     {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
     enabled: true

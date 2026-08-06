@@ -154,6 +154,7 @@ spec:
       app.kubernetes.io/instance: x509
       app.kubernetes.io/component: secrets
   replicas: 1
+  revisionHistoryLimit: 3
   template:
     metadata:
       labels:

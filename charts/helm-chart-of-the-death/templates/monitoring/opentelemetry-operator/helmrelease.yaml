@@ -14,6 +14,7 @@ spec:
   {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
   {{- include "common.fluxcd.chartSpec" (list $ $me) | nindent 2 }}
   values:
+    revisionHistoryLimit: 3
     admissionWebhooks:
       certManager:
         enabled: true

@@ -61,6 +61,7 @@ spec:
         requests:
           cpu: 5m
           memory: 40M
+      revisionHistoryLimit: 3
     dex:
       enabled: false
       logLevel: debug

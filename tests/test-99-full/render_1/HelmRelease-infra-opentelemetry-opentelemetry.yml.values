@@ -1,3 +1,4 @@
+revisionHistoryLimit: 3
 admissionWebhooks:
   certManager:
     enabled: true

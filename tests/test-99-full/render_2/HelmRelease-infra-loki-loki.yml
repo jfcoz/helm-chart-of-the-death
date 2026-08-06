@@ -915,7 +915,7 @@ spec:
     rollingUpdate:
       maxSurge: 0
       maxUnavailable: 1
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: loki
@@ -1021,7 +1021,7 @@ spec:
   replicas: 1
   strategy:
     type: RollingUpdate
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: loki
@@ -1111,7 +1111,7 @@ spec:
     rollingUpdate:
       maxSurge: 0
       maxUnavailable: 1
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: loki
@@ -1229,7 +1229,7 @@ spec:
     rollingUpdate:
       maxSurge: 0
       maxUnavailable: 1
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: loki
@@ -1337,7 +1337,7 @@ spec:
     rollingUpdate:
       maxSurge: 0
       maxUnavailable: 1
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: loki
@@ -1683,7 +1683,7 @@ spec:
     rollingUpdate:
       partition: 0
   serviceName: loki-compactor-headless
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: loki
@@ -1801,7 +1801,7 @@ spec:
   updateStrategy:
     type: RollingUpdate
   serviceName: loki-index-gateway-headless
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: loki
@@ -1914,7 +1914,7 @@ spec:
   updateStrategy:
     type: RollingUpdate
   serviceName: loki-ingester-headless
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: loki
@@ -2041,7 +2041,7 @@ spec:
     rollingUpdate:
       partition: 0
   serviceName: loki-pattern-ingester-headless
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app.kubernetes.io/name: loki
@@ -2284,7 +2284,7 @@ metadata:
     app.kubernetes.io/part-of: memberlist
 spec:
   replicas: 0
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   serviceName: loki-ruler
   selector:
     matchLabels:

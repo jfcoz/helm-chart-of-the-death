@@ -1,3 +1,7 @@
+metricsServer:
+  revisionHistoryLimit: 3
+operator:
+  revisionHistoryLimit: 3
 prometheus:
   metricServer:
     enabled: true
@@ -19,3 +23,5 @@ prometheus:
       enabled: true
     serviceMonitor:
       enabled: true
+webhooks:
+  revisionHistoryLimit: 3

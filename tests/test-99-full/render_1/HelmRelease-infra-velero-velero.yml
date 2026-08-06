@@ -121,6 +121,7 @@ spec:
       requests:
         cpu: 0m
         memory: 300Mi
+    revisionHistoryLimit: 3
     schedules:
       nightly:
         schedule: 29 3 * * *

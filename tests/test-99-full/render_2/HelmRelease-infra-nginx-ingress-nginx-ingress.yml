@@ -362,7 +362,7 @@ spec:
       app.kubernetes.io/name: ingress-nginx
       app.kubernetes.io/instance: nginx-ingress
       app.kubernetes.io/component: controller
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   updateStrategy: 
     rollingUpdate:
       maxUnavailable: 50%

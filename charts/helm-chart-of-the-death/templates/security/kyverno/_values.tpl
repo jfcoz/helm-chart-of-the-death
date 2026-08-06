@@ -2,6 +2,7 @@
 {{- define "security.kyverno.defaultValues" }}
 {{- $me := .Values.components.security.kyverno }}
 admissionController:
+  revisionHistoryLimit: 3
   replicas: 3
   tolerations:
   - key: storage
@@ -32,15 +33,21 @@ admissionController:
         memory: 150M
   podAnnotations:
     cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
+
 backgroundController:
+  revisionHistoryLimit: 3
   resources:
     requests:
       cpu: 1m
+
 cleanupController:
+  revisionHistoryLimit: 3
   resources:
     requests:
       cpu: 1m
+
 reportsController:
+  revisionHistoryLimit: 3
   podAnnotations:
     cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
   resources:
@@ -49,10 +56,12 @@ reportsController:
       memory: 100Mi
     limits:
       memory: 200Mi
+
 features:
   omitEvents:
     eventTypes:
       - PolicyApplied
+
 test:
   sleep: 1
 config:

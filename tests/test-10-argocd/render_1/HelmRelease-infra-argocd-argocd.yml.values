@@ -16,6 +16,7 @@ controller:
     requests:
       cpu: 5m
       memory: 40M
+  revisionHistoryLimit: 3
 dex:
   logLevel: debug
   metrics:

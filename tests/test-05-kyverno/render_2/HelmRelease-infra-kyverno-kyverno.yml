@@ -88744,7 +88744,7 @@ metadata:
     helm.sh/chart: kyverno-3.8.2
 spec:
   replicas: 1
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -88987,7 +88987,7 @@ metadata:
     helm.sh/chart: kyverno-3.8.2
 spec:
   replicas: 
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -89119,7 +89119,7 @@ metadata:
     helm.sh/chart: kyverno-3.8.2
 spec:
   replicas: 
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -89286,7 +89286,7 @@ metadata:
     helm.sh/chart: kyverno-3.8.2
 spec:
   replicas: 
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 3
   strategy:
     rollingUpdate:
       maxSurge: 1
