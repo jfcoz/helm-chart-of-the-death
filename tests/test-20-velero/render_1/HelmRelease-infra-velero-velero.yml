@@ -33,6 +33,17 @@ spec:
         namespace: flux-system
       interval: 1h
   values:
+    configMaps:
+      resource-policies:
+        data:
+          policies.yaml: |
+            version: v1
+            volumePolicies:
+              - conditions:
+                  csi:
+                    driver: filestorage.csi.scaleway.com
+                action:
+                  type: fs-backup
     configuration:
       backupStorageLocation:
         - bucket: velero-bucket
@@ -50,6 +61,7 @@ spec:
       volumeSnapshotLocation: []
     credentials:
       existingSecret: cloud-credentials
+    deployNodeAgent: true
     extraObjects:
       - apiVersion: v1
         kind: Secret
@@ -132,16 +144,12 @@ spec:
         requests:
           cpu: 5m
           memory: 100Mi
-        updateStrategy:
-          rollingUpdate:
-            maxUnavailable: 50%
       tolerations:
         - effect: NoSchedule
-          key: master
           operator: Exists
-        - effect: NoSchedule
-          key: storage
-          operator: Exists
+      updateStrategy:
+        rollingUpdate:
+          maxUnavailable: 50%
     podAnnotations:
       cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: plugins,scratch
     resources:
@@ -158,6 +166,9 @@ spec:
           excludedResources:
             - clustersbomreports.aquasecurity.github.io
             - sbomreports.aquasecurity.github.io
+          resourcePolicy:
+            kind: ConfigMap
+            name: velero-resource-policies
           ttl: 744h
     upgradeJobResources:
       limits:

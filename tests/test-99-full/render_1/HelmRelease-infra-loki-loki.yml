@@ -31,7 +31,7 @@ spec:
     spec:
       chart: loki
       # each major contains upgrade process in changelog
-      version: "7.0.0"
+      version: "7.2.0"
       sourceRef:
         kind: HelmRepository
         name: "grafana"

@@ -188,7 +188,7 @@ metadata:
   name: hubble-peer
   namespace: kube-system
   labels:
-    helm.sh/chart: scaleway-cilium-hubble-0.1.3
+    helm.sh/chart: scaleway-cilium-hubble-0.1.4
     app.kubernetes.io/name: scaleway-cilium-hubble
     app.kubernetes.io/instance: scaleway-cilium-hubble
     app.kubernetes.io/version: "v1.17.3"
@@ -415,7 +415,7 @@ metadata:
   name: enable-hubble
   namespace: kube-system
   labels:
-    helm.sh/chart: scaleway-cilium-hubble-0.1.3
+    helm.sh/chart: scaleway-cilium-hubble-0.1.4
     app.kubernetes.io/name: scaleway-cilium-hubble
     app.kubernetes.io/instance: scaleway-cilium-hubble
     app.kubernetes.io/version: "v1.17.3"

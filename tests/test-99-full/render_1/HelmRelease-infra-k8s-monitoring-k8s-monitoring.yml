@@ -33,7 +33,7 @@ spec:
     spec:
       chart: k8s-monitoring
       # each major contains upgrade process in changelog
-      version: "4.2.2"
+      version: "4.3.2"
       sourceRef:
         kind: HelmRepository
         name: "grafana"
