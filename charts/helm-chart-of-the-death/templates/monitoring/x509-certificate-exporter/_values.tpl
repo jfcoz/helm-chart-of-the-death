@@ -62,7 +62,7 @@ hostPathsExporter:
 {{- end }}
 
 secretsExporter:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   cache:
     maxDuration: 600
   resources:

@@ -2,13 +2,13 @@
 {{- define "monitoring.keda.defaultValues" }}
 # doc: https://github.com/kedacore/charts/tree/main/keda
 operator:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
 
 metricsServer:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
 
 webhooks:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
 
 prometheus:
   metricServer:

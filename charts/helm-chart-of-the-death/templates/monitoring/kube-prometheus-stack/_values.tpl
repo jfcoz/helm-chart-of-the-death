@@ -274,7 +274,7 @@
 {{- $me := .Values.components.monitoring.kubePrometheusStack }}
 {{- $falco := .Values.components.security.falco }}
 grafana:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   adminPassword: {{ .Values.general.grafanaAdminPassword | required "general.grafanaAdminPassword is mandatory" | quote }}
   grafana.ini:
     # server:
@@ -685,7 +685,7 @@ prometheus:
     {{- end }}
 
 prometheus-node-exporter:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   resources:
     requests:
       memory: 25M
@@ -702,7 +702,7 @@ prometheus-node-exporter:
     - --collector.ethtool.device-exclude="^(brq|tap|veth|vxlan|virbr|usb).*$"
 
 prometheusOperator:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   resources:
     limits:
       cpu: 1000m
@@ -911,7 +911,7 @@ kubeControllerManager:
   enabled: false
 
 kube-state-metrics:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   metricLabelsAllowlist:
     - nodes=[topology.kubernetes.io/region,topology.kubernetes.io/zone]
   resources:

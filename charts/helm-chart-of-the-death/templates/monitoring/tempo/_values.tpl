@@ -17,7 +17,7 @@ storage:
       insecure: true
 
 tempo:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
 
 compactor:
   resources:

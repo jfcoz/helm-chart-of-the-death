@@ -41,7 +41,7 @@ kubectl:
     # sera inutile apres le merge/release de https://github.com/vmware-tanzu/helm-charts/pull/706
 
 
-revisionHistoryLimit: 3
+revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
 resources:
   requests:
     cpu: 0m

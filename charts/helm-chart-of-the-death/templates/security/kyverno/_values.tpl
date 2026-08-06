@@ -2,7 +2,7 @@
 {{- define "security.kyverno.defaultValues" }}
 {{- $me := .Values.components.security.kyverno }}
 admissionController:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   replicas: 3
   tolerations:
   - key: storage
@@ -35,19 +35,19 @@ admissionController:
     cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
 
 backgroundController:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   resources:
     requests:
       cpu: 1m
 
 cleanupController:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   resources:
     requests:
       cpu: 1m
 
 reportsController:
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   podAnnotations:
     cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
   resources:

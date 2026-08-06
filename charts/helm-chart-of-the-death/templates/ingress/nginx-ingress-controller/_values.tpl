@@ -1,6 +1,6 @@
 {{/* values */}}
 {{- define "ingress.nginxIngressController.defaultValues" }}
-revisionHistoryLimit: 3
+revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
 
 controller:
   # TODO: nodeSelector based on nodes with nat rules on 80/443
