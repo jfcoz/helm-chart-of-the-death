@@ -88961,7 +88961,8 @@ spec:
               readOnly: true
       volumes:
       - name: sigstore
-        emptyDir: {}
+        emptyDir:
+          medium: Memory
       - name: apicall-token
         projected:
           defaultMode: 0444
@@ -89410,7 +89411,8 @@ spec:
               readOnly: true
       volumes:
       - name: sigstore
-        emptyDir: {}
+        emptyDir:
+          medium: Memory
       - name: apicall-token
         projected:
           defaultMode: 0444
