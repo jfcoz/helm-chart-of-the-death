@@ -3,6 +3,9 @@
 {{- $me := .Values.components.security.kyverno }}
 admissionController:
   revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
+  sigstoreVolume:
+    emptyDir:
+      medium: Memory
   replicas: 3
   tolerations:
   - key: storage
@@ -48,6 +51,9 @@ cleanupController:
 
 reportsController:
   revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
+  sigstoreVolume:
+    emptyDir:
+      medium: Memory
   podAnnotations:
     cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
   resources:

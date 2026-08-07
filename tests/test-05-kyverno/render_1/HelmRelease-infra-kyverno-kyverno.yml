@@ -52,6 +52,9 @@ spec:
         cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: sigstore
       replicas: 1
       revisionHistoryLimit: 3
+      sigstoreVolume:
+        emptyDir:
+          medium: Memory
       tolerations:
         - effect: NoSchedule
           key: storage
@@ -89,5 +92,8 @@ spec:
           cpu: 1m
           memory: 100Mi
       revisionHistoryLimit: 3
+      sigstoreVolume:
+        emptyDir:
+          medium: Memory
     test:
       sleep: 1
