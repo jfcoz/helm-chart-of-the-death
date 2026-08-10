@@ -29,7 +29,7 @@ spec:
     spec:
       chart: prometheus-pushgateway
       # each major contains upgrade process in changelog
-      version: "3.6.1"
+      version: "3.8.0"
       sourceRef:
         kind: HelmRepository
         name: "prometheus-community"
@@ -44,3 +44,6 @@ spec:
         - namespaceSelector:
             matchLabels:
               network-policy-push-gateway: "true"
+    persistentVolume:
+      emptyDir:
+        medium: Memory
