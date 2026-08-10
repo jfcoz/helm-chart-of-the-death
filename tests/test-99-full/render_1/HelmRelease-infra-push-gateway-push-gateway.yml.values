@@ -6,3 +6,6 @@ networkPolicy:
     - namespaceSelector:
         matchLabels:
           network-policy-push-gateway: "true"
+persistentVolume:
+  emptyDir:
+    medium: Memory
