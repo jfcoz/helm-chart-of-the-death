@@ -1,3 +1,32 @@
+{{- /*
+monitoring.loki.topologySpreadConstraints: create standard topologySpreadConstraints
+args: labelSelector_function_prefix
+*/}}
+{{- define "monitoring.loki.topologySpreadConstraints" }}
+
+  {{- /* check input type */}}
+  {{- if not (kindIs "slice" .) }}
+    {{- fail "monitoring.loki.topologySpreadConstraints: bad arg" }}
+  {{- end -}}
+
+  {{- /* check input length */}}
+  {{- if not (eq (len .) 1) }}
+    {{- fail "monitoring.loki.topologySpreadConstraints: bad arg length" }}
+  {{- end -}}
+
+  {{- /* define vars */}}
+  {{- $name := (index . 0) -}}
+topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: topology.kubernetes.io/zone
+    whenUnsatisfiable: DoNotSchedule
+    labelSelector:
+      matchLabels:
+        app.kubernetes.io/component: {{ $name }}
+        app.kubernetes.io/name: '{{ "{{" }} include "loki.name" . }}'
+        app.kubernetes.io/instance: '{{ "{{" }} .Release.Name }}'
+{{- end }}
+
 {{/* values for deploymentMode=SingleBinary */}}
 {{- define "monitoring.loki.deploymentMode.singleBinary" }}
 {{- $me := .Values.components.monitoring.loki }}
@@ -93,10 +122,12 @@ backend:
   replicas: 3
   podAnnotations:
     cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,sc-rules-volume
+  {{ include "monitoring.loki.topologySpreadConstraints" (list "backend") | nindent 2 }}
 read:
   replicas: 3
   podAnnotations:
     cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,data
+  {{ include "monitoring.loki.topologySpreadConstraints" (list "read") | nindent 2 }}
 write:
   replicas: 3
   {{- if $me.excludeFromBackup }}
@@ -108,6 +139,7 @@ write:
       # CSI Snapshot
       velero.io/exclude-from-backup: "true"
   {{- end }}
+  {{ include "monitoring.loki.topologySpreadConstraints" (list "write") | nindent 2 }}
 
 # deploymentMode: SingleBinary only, so we disable it
 singleBinary:
@@ -171,6 +203,8 @@ distributor:
       memory: 70M
     limits:
       memory: 100M
+  {{ include "monitoring.loki.topologySpreadConstraints" (list "distributor") | nindent 2 }}
+
 queryFrontend:
   autoscaling:
     enabled: true
@@ -183,6 +217,7 @@ queryFrontend:
       memory: 150M
     limits:
       memory: 200M
+  {{ include "monitoring.loki.topologySpreadConstraints" (list "queryFrontend") | nindent 2 }}
 queryScheduler:
   replicas: 1
   # Not available
@@ -196,6 +231,7 @@ queryScheduler:
       memory: 50M
     limits:
       memory: 200M
+  {{ include "monitoring.loki.topologySpreadConstraints" (list "queryScheduler") | nindent 2 }}
 ingester:
   enabled: true
   autoscaling:
@@ -204,6 +240,7 @@ ingester:
     minReplicas: 2
     # default 60
     targetCPUUtilizationPercentage: 90
+  {{ include "monitoring.loki.topologySpreadConstraints" (list "ingester") | nindent 2 }}
   zoneAwareReplication:
     # default true
     enabled: false
@@ -232,6 +269,7 @@ ingester:
     - -log.level=warn
 patternIngester:
   replicas: 1
+  {{ include "monitoring.loki.topologySpreadConstraints" (list "patternIngester") | nindent 2 }}
   maxUnavailable: 1
   resources:
     requests:
@@ -245,6 +283,7 @@ querier:
     enabled: true
     # default 60
     targetCPUUtilizationPercentage: 90
+  {{ include "monitoring.loki.topologySpreadConstraints" (list "querier") | nindent 2 }}
   maxUnavailable: 1
   resources:
     requests:
@@ -260,6 +299,7 @@ ruler:
   # https://github.com/grafana/loki/issues/16599#issuecomment-3532876591
   storage:
     type: local
+  {{ include "monitoring.loki.topologySpreadConstraints" (list "ruler") | nindent 2 }}
 indexGateway:
   replicas: 1
   # Not available
@@ -275,6 +315,7 @@ indexGateway:
   extraArgs:
     # default log level is info
     - -log.level=warn
+  {{ include "monitoring.loki.topologySpreadConstraints" (list "indexGateway") | nindent 2 }}
 
 # Cf https://grafana.com/docs/loki/latest/setup/install/helm/install-microservices/
 bloomPlanner:

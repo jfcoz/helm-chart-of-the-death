@@ -17,4 +17,5 @@ prometheusRule:
         severity: critical
       annotations:
         summary: HTTP probe response code is not 200
-        description: "HTTP probe response code {{ $value }} is not 200, on {{ $labels.instance }}"
+        description: "HTTP probe response code {{ $value }} is not 200, on {{ $labels.instance
+          }}"
