@@ -27,36 +27,46 @@ metrics:
     spec:
       - alert: VeleroPartialFailure
         annotations:
-          summary: At least one Velero partial backup failure on schedule {{ $labels.schedule }}
-        expr: sum(rate(velero_backup_partial_failure_total{schedule=~".+"}[1d])) by (schedule) > 0
+          summary: At least one Velero partial backup failure on schedule {{ $labels.schedule
+            }}
+        expr: sum(rate(velero_backup_partial_failure_total{schedule=~".+"}[1d])) by
+          (schedule) > 0
         for: 3m
         labels:
           severity: critical
       - alert: VeleroBackupFailure
         annotations:
-          summary: At least one Velero backup failure on schedule {{ $labels.schedule }}
-        expr: sum(rate(velero_backup_failure_total{schedule=~".+"}[1d])) by (schedule) > 0
+          summary: At least one Velero backup failure on schedule {{ $labels.schedule
+            }}
+        expr: sum(rate(velero_backup_failure_total{schedule=~".+"}[1d])) by (schedule)
+          > 0
         for: 3m
         labels:
           severity: critical
       - alert: VeleroVolumeSnapshotFailure
         annotations:
-          summary: At least one Velero volume snapshot failure on schedule {{ $labels.schedule }}
-        expr: sum(rate(velero_volume_snapshot_failure_total{schedule=~".+"}[1d])) by (schedule) > 0
+          summary: At least one Velero volume snapshot failure on schedule {{ $labels.schedule
+            }}
+        expr: sum(rate(velero_volume_snapshot_failure_total{schedule=~".+"}[1d]))
+          by (schedule) > 0
         for: 3m
         labels:
           severity: critical
       - alert: VeleroBackupDeletionFailure
         annotations:
-          summary: At least one Velero backup deletion failure on schedule {{ $labels.schedule }}
-        expr: sum(rate(velero_backup_deletion_failure_total{schedule=~".+"}[1d])) by (schedule) > 0
+          summary: At least one Velero backup deletion failure on schedule {{ $labels.schedule
+            }}
+        expr: sum(rate(velero_backup_deletion_failure_total{schedule=~".+"}[1d]))
+          by (schedule) > 0
         for: 3m
         labels:
           severity: critical
       - alert: VeleroMissingSchedule
         annotations:
-          summary: No Velero backup since one day on schedule {{ $labels.schedule }}
-        expr: sum(rate(velero_backup_attempt_total{schedule=~".+"}[1d])) by (schedule) == 0
+          summary: No Velero backup since one day on schedule {{ $labels.schedule
+            }}
+        expr: sum(rate(velero_backup_attempt_total{schedule=~".+"}[1d])) by (schedule)
+          == 0
         for: 3m
         labels:
           severity: critical

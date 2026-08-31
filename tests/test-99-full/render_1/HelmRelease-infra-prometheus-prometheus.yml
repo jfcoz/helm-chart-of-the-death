@@ -35,7 +35,7 @@ spec:
     spec:
       chart: kube-prometheus-stack
       # each major contains upgrade process in changelog
-      version: "88.1.5"
+      version: "88.5.4"
       sourceRef:
         kind: HelmRepository
         name: "prometheus-community"
@@ -49,109 +49,151 @@ spec:
             rules:
               - alert: HelmReleaseNotReady
                 annotations:
-                  description: HelmRelease {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is in an unready state for more than 15 minutes.
-                  summary: HelmRelease {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is not ready
-                expr: gotk_resource_info{customresource_kind="HelmRelease", ready!="True"} > 0
+                  description: HelmRelease {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} is in an unready state for more than 15 minutes.
+                  summary: HelmRelease {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} is not ready
+                expr: gotk_resource_info{customresource_kind="HelmRelease", ready!="True"}
+                  > 0
                 for: 5m
                 labels:
-                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name }}'
+                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name
+                    }}'
                   service: fluxcd
                   severity: critical
               - alert: GitRepositorySyncFailed
                 annotations:
-                  description: GitRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has not been successfully synced for more than 15 minutes.
-                  summary: GitRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace }} sync failed
-                expr: gotk_resource_info{customresource_kind="GitRepository", ready!="True"} > 0
+                  description: GitRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} has not been successfully synced for more than 15 minutes.
+                  summary: GitRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} sync failed
+                expr: gotk_resource_info{customresource_kind="GitRepository", ready!="True"}
+                  > 0
                 for: 5m
                 labels:
-                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name }}'
+                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name
+                    }}'
                   service: fluxcd
                   severity: warning
               - alert: KustomizationNotApplied
                 annotations:
-                  description: Kustomization {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is not successfully applied for more than 15 minutes.
-                  summary: Kustomization {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is not applied
-                expr: gotk_resource_info{customresource_kind="Kustomization", ready!="True"} > 0
+                  description: Kustomization {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} is not successfully applied for more than 15 minutes.
+                  summary: Kustomization {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} is not applied
+                expr: gotk_resource_info{customresource_kind="Kustomization", ready!="True"}
+                  > 0
                 for: 5m
                 labels:
-                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name }}'
+                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name
+                    }}'
                   service: fluxcd
                   severity: critical
               - alert: ImageRepositorySyncFailed
                 annotations:
-                  description: ImageRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has not been successfully synced for more than 15 minutes.
-                  summary: ImageRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace }} sync failed
-                expr: gotk_resource_info{customresource_kind="ImageRepository", ready!="True"} > 0
+                  description: ImageRepository {{ $labels.name }} in namespace {{
+                    $labels.exported_namespace }} has not been successfully synced
+                    for more than 15 minutes.
+                  summary: ImageRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} sync failed
+                expr: gotk_resource_info{customresource_kind="ImageRepository", ready!="True"}
+                  > 0
                 for: 5m
                 labels:
-                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name }}'
+                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name
+                    }}'
                   service: fluxcd
                   severity: warning
               - alert: HelmChartFailed
                 annotations:
-                  description: HelmChart {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is not ready for more than 15 minutes.
-                  summary: HelmChart {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has failed
-                expr: gotk_resource_info{customresource_kind="HelmChart", ready!="True"} > 0
+                  description: HelmChart {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} is not ready for more than 15 minutes.
+                  summary: HelmChart {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} has failed
+                expr: gotk_resource_info{customresource_kind="HelmChart", ready!="True"}
+                  > 0
                 for: 5m
                 labels:
-                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name }}'
+                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name
+                    }}'
                   service: fluxcd
                   severity: warning
               - alert: HelmReleaseSuspended
                 annotations:
-                  description: HelmRelease {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been suspended.
-                  summary: HelmRelease {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is suspended
-                expr: gotk_resource_info{customresource_kind="HelmRelease", suspended="true"} > 0
+                  description: HelmRelease {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} has been suspended.
+                  summary: HelmRelease {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} is suspended
+                expr: gotk_resource_info{customresource_kind="HelmRelease", suspended="true"}
+                  > 0
                 for: 5m
                 labels:
-                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name }}'
+                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name
+                    }}'
                   service: fluxcd
                   severity: warning
               - alert: GitRepositorySuspended
                 annotations:
-                  description: GitRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been suspended.
-                  summary: GitRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is suspended
-                expr: gotk_resource_info{customresource_kind="GitRepository", suspended="true"} > 0
+                  description: GitRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} has been suspended.
+                  summary: GitRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} is suspended
+                expr: gotk_resource_info{customresource_kind="GitRepository", suspended="true"}
+                  > 0
                 for: 5m
                 labels:
-                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name }}'
+                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name
+                    }}'
                   service: fluxcd
                   severity: warning
               - alert: KustomizationSuspended
                 annotations:
-                  description: Kustomization {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been suspended.
-                  summary: Kustomization {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is suspended
-                expr: gotk_resource_info{customresource_kind="Kustomization", suspended="true"} > 0
+                  description: Kustomization {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} has been suspended.
+                  summary: Kustomization {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} is suspended
+                expr: gotk_resource_info{customresource_kind="Kustomization", suspended="true"}
+                  > 0
                 for: 5m
                 labels:
-                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name }}'
+                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name
+                    }}'
                   service: fluxcd
                   severity: warning
               - alert: ImageRepositorySuspended
                 annotations:
-                  description: ImageRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been suspended.
-                  summary: ImageRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is suspended
-                expr: gotk_resource_info{customresource_kind="ImageRepository", suspended="true"} > 0
+                  description: ImageRepository {{ $labels.name }} in namespace {{
+                    $labels.exported_namespace }} has been suspended.
+                  summary: ImageRepository {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} is suspended
+                expr: gotk_resource_info{customresource_kind="ImageRepository", suspended="true"}
+                  > 0
                 for: 5m
                 labels:
-                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name }}'
+                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name
+                    }}'
                   service: fluxcd
                   severity: warning
               - alert: HelmChartSuspended
                 annotations:
-                  description: HelmChart {{ $labels.name }} in namespace {{ $labels.exported_namespace }} has been suspended.
-                  summary: HelmChart {{ $labels.name }} in namespace {{ $labels.exported_namespace }} is suspended
-                expr: gotk_resource_info{customresource_kind="HelmChart", suspended="true"} > 0
+                  description: HelmChart {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} has been suspended.
+                  summary: HelmChart {{ $labels.name }} in namespace {{ $labels.exported_namespace
+                    }} is suspended
+                expr: gotk_resource_info{customresource_kind="HelmChart", suspended="true"}
+                  > 0
                 for: 5m
                 labels:
-                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name }}'
+                  exported_instance: '{{ $labels.exported_namespace }}/{{ $labels.name
+                    }}'
                   service: fluxcd
                   severity: warning
           - name: Trivy
             rules:
               - alert: ImageScanJobBlocked
                 annotations:
-                  summary: '{{ $labels.job_name }} image scan job is finished but not removed after more than five minutes.'
+                  summary: '{{ $labels.job_name }} image scan job is finished but
+                    not removed after more than five minutes.'
                 expr: sum by(job_name) (kube_job_complete{namespace="infra-trivy"})
                 for: 5m
                 labels:
@@ -175,7 +217,8 @@ spec:
                 record: node:load1_per_cpu_ratio
               - alert: NodeLoadHigh5m
                 annotations:
-                  description: The load average on node {{ $labels.node }} is too high since too long
+                  description: The load average on node {{ $labels.node }} is too
+                    high since too long
                   summary: Load per core > 16 for 5m on {{ $labels.node }}
                 expr: |-
                   avg by(node) (
@@ -186,7 +229,8 @@ spec:
                   severity: warning
               - alert: NodeLoadHigh15m
                 annotations:
-                  description: The load average on node {{ $labels.node }} is too high since too long
+                  description: The load average on node {{ $labels.node }} is too
+                    high since too long
                   summary: Load per core > 8 for 15m on {{ $labels.node }}
                 expr: |-
                   avg by(node) (
@@ -197,7 +241,8 @@ spec:
                   severity: warning
               - alert: NodeLoadHigh30m
                 annotations:
-                  description: The load average on node {{ $labels.node }} is too high since too long
+                  description: The load average on node {{ $labels.node }} is too
+                    high since too long
                   summary: Load per core > 4 for 30m on {{ $labels.node }}
                 expr: |-
                   avg by(node) (
@@ -208,7 +253,8 @@ spec:
                   severity: warning
               - alert: NodeLoadHigh120m
                 annotations:
-                  description: The load average on node {{ $labels.node }} is too high since too long
+                  description: The load average on node {{ $labels.node }} is too
+                    high since too long
                   summary: Load per core > 1 for 120m on {{ $labels.node }}
                 expr: |-
                   avg by(node) (
@@ -219,7 +265,8 @@ spec:
                   severity: warning
               - alert: NodeMemoryHigh
                 annotations:
-                  description: The memory usage on node {{ $labels.node }} is too high. Free+cache is less than 10%
+                  description: The memory usage on node {{ $labels.node }} is too
+                    high. Free+cache is less than 10%
                   summary: Memory high on {{ $labels.node }}
                 expr: |-
                   avg by(node) (
@@ -243,7 +290,8 @@ spec:
                   severity: warning
               - alert: NodeReboot
                 annotations:
-                  description: Node uptime on {{ $labels.node }} is less than one hour. Investigate reboot reason
+                  description: Node uptime on {{ $labels.node }} is less than one
+                    hour. Investigate reboot reason
                   summary: Node {{ $labels.node }} has rebooted
                 expr: |-
                   avg by(node) (
@@ -267,7 +315,8 @@ spec:
                   severity: warning
               - alert: CpuTemperatureWarning
                 annotations:
-                  description: Node CPU temperature on {{ $labels.node }} is more than 80% of limit
+                  description: Node CPU temperature on {{ $labels.node }} is more
+                    than 80% of limit
                   summary: Node CPU temperature warning on{{ $labels.node }}
                 expr: |-
                   avg by(node) (
@@ -291,7 +340,8 @@ spec:
                   severity: info
               - alert: CpuTemperatureCritical
                 annotations:
-                  description: Node CPU temperature on {{ $labels.node }} is more than 90% of limit
+                  description: Node CPU temperature on {{ $labels.node }} is more
+                    than 90% of limit
                   summary: Node CPU temperature warning on{{ $labels.node }}
                 expr: |-
                   avg by(node) (
@@ -317,7 +367,8 @@ spec:
             rules:
               - alert: ApiserverRequestedDeprecatedApis
                 annotations:
-                  description: Apiserver receive requests for deprecated Apis. This must be corrected before next upgrade
+                  description: Apiserver receive requests for deprecated Apis. This
+                    must be corrected before next upgrade
                   summary: ApiserverRequestedDeprecatedApis
                 expr: apiserver_requested_deprecated_apis > 0
                 for: 1m
@@ -327,17 +378,23 @@ spec:
             rules:
               - alert: ContainerRestartsTooMuch
                 annotations:
-                  description: The container {{ $labels.container }} of pod {{ $labels.pod }} in namespace {{ $labels.namespace }} has restarted more than one time in tha last hour, please analyse the cause
+                  description: The container {{ $labels.container }} of pod {{ $labels.pod
+                    }} in namespace {{ $labels.namespace }} has restarted more than
+                    one time in tha last hour, please analyse the cause
                   summary: ContainerRestartsTooMuch
-                expr: sum by(namespace,pod,container) (stdvar_over_time(kube_pod_container_status_restarts_total[1h])) > 1
+                expr: sum by(namespace,pod,container) (stdvar_over_time(kube_pod_container_status_restarts_total[1h]))
+                  > 1
                 for: 1m
                 labels:
                   severity: warning
               - alert: ContainerProbeIsFlapping
                 annotations:
-                  description: The {{ $labels.probe_type}} of container {{ $labels.container }} of pod {{ $labels.pod }} in namespace {{ $labels.namespace }} is flapping, please check the application
+                  description: The {{ $labels.probe_type}} of container {{ $labels.container
+                    }} of pod {{ $labels.pod }} in namespace {{ $labels.namespace
+                    }} is flapping, please check the application
                   summary: ContainerProbeIsFlapping
-                expr: sum by(namespace, pod, container, probe_type) (stddev_over_time(prober_probe_total{result="failed",probe_type!="Startup"}[10m])) > 2
+                expr: sum by(namespace, pod, container, probe_type) (stddev_over_time(prober_probe_total{result="failed",probe_type!="Startup"}[10m]))
+                  > 2
                 for: 1m
                 labels:
                   severity: warning
@@ -1289,13 +1346,15 @@ spec:
           objectStorageConfig:
             secret:
               config:
-                access_key: '{{ (((lookup "v1" "Secret" "infra-thanos" "thanos-bucket").data).AWS_ACCESS_KEY_ID) | default "bucket secret is not yet available" | b64dec }}'
+                access_key: '{{ (((lookup "v1" "Secret" "infra-thanos" "thanos-bucket").data).AWS_ACCESS_KEY_ID)
+                  | default "bucket secret is not yet available" | b64dec }}'
                 bucket: thanos-bucket
                 bucket_lookup_type: path
                 endpoint: rook-ceph-rgw-ceph-objectstore.rook-ceph.svc
                 insecure: true
                 region: rook
-                secret_key: '{{ (((lookup "v1" "Secret" "infra-thanos" "thanos-bucket").data).AWS_SECRET_ACCESS_KEY) | default "bucket secret is not yet available" | b64dec }}'
+                secret_key: '{{ (((lookup "v1" "Secret" "infra-thanos" "thanos-bucket").data).AWS_SECRET_ACCESS_KEY)
+                  | default "bucket secret is not yet available" | b64dec }}'
               type: S3
         topologySpreadConstraints:
           - labelSelector:

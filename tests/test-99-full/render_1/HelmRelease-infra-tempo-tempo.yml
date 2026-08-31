@@ -105,12 +105,14 @@ spec:
       trace:
         backend: s3
         s3:
-          access_key: '{{ (((lookup "v1" "Secret" "infra-tempo" "tempo-bucket").data).AWS_ACCESS_KEY_ID) | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
+          access_key: '{{ (((lookup "v1" "Secret" "infra-tempo" "tempo-bucket").data).AWS_ACCESS_KEY_ID)
+            | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
           bucket: tempo-bucket
           endpoint: rook-ceph-rgw-ceph-objectstore.rook-ceph.svc
           insecure: true
           region: rook
-          secret_key: '{{ (((lookup "v1" "Secret" "infra-tempo" "tempo-bucket").data).AWS_SECRET_ACCESS_KEY) | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
+          secret_key: '{{ (((lookup "v1" "Secret" "infra-tempo" "tempo-bucket").data).AWS_SECRET_ACCESS_KEY)
+            | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
     tempo:
       revisionHistoryLimit: 3
     traces:

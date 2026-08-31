@@ -26,7 +26,7 @@ spec:
     spec:
       chart: datadog
       # each major contains upgrade process in changelog
-      version: "3.231.6"
+      version: "3.240.0"
       sourceRef:
         kind: HelmRepository
         name: "datadog"

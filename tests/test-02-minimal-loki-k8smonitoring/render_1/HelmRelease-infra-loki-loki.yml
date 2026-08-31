@@ -85,15 +85,19 @@ spec:
             store: tsdb
       storage:
         bucketNames:
-          chunks: '{{ (((lookup "v1" "ConfigMap" "infra-loki" "loki-bucket").data).BUCKET_NAME) | default "bucket configmap not available yet" }}'
+          chunks: '{{ (((lookup "v1" "ConfigMap" "infra-loki" "loki-bucket").data).BUCKET_NAME)
+            | default "bucket configmap not available yet" }}'
           ruler: unused
         object_store:
           s3:
-            access_key_id: '{{ (((lookup "v1" "Secret" "infra-loki" "loki-bucket").data).AWS_ACCESS_KEY_ID) | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
+            access_key_id: '{{ (((lookup "v1" "Secret" "infra-loki" "loki-bucket").data).AWS_ACCESS_KEY_ID)
+              | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
             bucket_lookup_type: path
-            endpoint: '{{ (((lookup "v1" "ConfigMap" "infra-loki" "loki-bucket").data).BUCKET_HOST) | default "bucket configmap not available yet" }}'
+            endpoint: '{{ (((lookup "v1" "ConfigMap" "infra-loki" "loki-bucket").data).BUCKET_HOST)
+              | default "bucket configmap not available yet" }}'
             insecure: true
-            secret_access_key: '{{ (((lookup "v1" "Secret" "infra-loki" "loki-bucket").data).AWS_SECRET_ACCESS_KEY) | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
+            secret_access_key: '{{ (((lookup "v1" "Secret" "infra-loki" "loki-bucket").data).AWS_SECRET_ACCESS_KEY)
+              | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
         type: s3
         use_thanos_objstore: true
       tracing:

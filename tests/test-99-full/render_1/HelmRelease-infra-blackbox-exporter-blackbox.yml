@@ -31,7 +31,7 @@ spec:
     spec:
       chart: prometheus-blackbox-exporter
       # each major contains upgrade process in changelog
-      version: "11.15.1"
+      version: "11.17.2"
       sourceRef:
         kind: HelmRepository
         name: "prometheus-community"
@@ -57,4 +57,5 @@ spec:
             severity: critical
           annotations:
             summary: HTTP probe response code is not 200
-            description: "HTTP probe response code {{ $value }} is not 200, on {{ $labels.instance }}"
+            description: "HTTP probe response code {{ $value }} is not 200, on {{
+              $labels.instance }}"

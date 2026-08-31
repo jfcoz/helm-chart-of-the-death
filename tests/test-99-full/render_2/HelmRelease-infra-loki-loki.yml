@@ -933,6 +933,15 @@ spec:
         app.kubernetes.io/component: distributor
         app.kubernetes.io/part-of: memberlist
     spec:
+      topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/component: distributor
+              app.kubernetes.io/instance: 'loki'
+              app.kubernetes.io/name: 'loki'
+          maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
       serviceAccountName: loki
       
       securityContext:
@@ -1136,8 +1145,8 @@ spec:
               app.kubernetes.io/instance: 'loki'
               app.kubernetes.io/name: 'loki'
           maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: ScheduleAnyway
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
       serviceAccountName: loki
       
       securityContext:
@@ -1247,6 +1256,15 @@ spec:
         app.kubernetes.io/component: query-frontend
         app.kubernetes.io/part-of: memberlist
     spec:
+      topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/component: queryFrontend
+              app.kubernetes.io/instance: 'loki'
+              app.kubernetes.io/name: 'loki'
+          maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
       serviceAccountName: loki
       
       securityContext:
@@ -1355,6 +1373,15 @@ spec:
         app.kubernetes.io/component: query-scheduler
         app.kubernetes.io/part-of: memberlist
     spec:
+      topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/component: queryScheduler
+              app.kubernetes.io/instance: 'loki'
+              app.kubernetes.io/name: 'loki'
+          maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
       serviceAccountName: loki
       
       securityContext:
@@ -1883,6 +1910,15 @@ spec:
                 app.kubernetes.io/instance: 'loki'
                 app.kubernetes.io/name: 'loki'
             topologyKey: kubernetes.io/hostname
+      topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/component: indexGateway
+              app.kubernetes.io/instance: 'loki'
+              app.kubernetes.io/name: 'loki'
+          maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
       volumes:
         - name: config
           configMap:
@@ -1939,8 +1975,8 @@ spec:
               app.kubernetes.io/instance: 'loki'
               app.kubernetes.io/name: 'loki'
           maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: ScheduleAnyway
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
       serviceAccountName: loki
       
       securityContext:
@@ -2126,6 +2162,15 @@ spec:
                 app.kubernetes.io/instance: 'loki'
                 app.kubernetes.io/name: 'loki'
             topologyKey: kubernetes.io/hostname
+      topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/component: patternIngester
+              app.kubernetes.io/instance: 'loki'
+              app.kubernetes.io/name: 'loki'
+          maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
       volumes:
         - name: temp
           emptyDir: {}
@@ -2304,6 +2349,15 @@ spec:
         app.kubernetes.io/component: ruler
         app.kubernetes.io/part-of: memberlist
     spec:
+      topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/component: ruler
+              app.kubernetes.io/instance: 'loki'
+              app.kubernetes.io/name: 'loki'
+          maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
       serviceAccountName: loki
       
       securityContext:

@@ -71,6 +71,15 @@ spec:
         requests:
           cpu: 100m
           memory: 70M
+      topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/component: distributor
+              app.kubernetes.io/instance: '{{ .Release.Name }}'
+              app.kubernetes.io/name: '{{ include "loki.name" . }}'
+          maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
     gateway:
       podAnnotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: tmp,docker-entrypoint-d-override
@@ -85,6 +94,15 @@ spec:
         requests:
           cpu: 10m
           memory: 50M
+      topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/component: indexGateway
+              app.kubernetes.io/instance: '{{ .Release.Name }}'
+              app.kubernetes.io/name: '{{ include "loki.name" . }}'
+          maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
     ingester:
       autoscaling:
         enabled: true
@@ -99,6 +117,15 @@ spec:
         requests:
           cpu: 60m
           memory: 200M
+      topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/component: ingester
+              app.kubernetes.io/instance: '{{ .Release.Name }}'
+              app.kubernetes.io/name: '{{ include "loki.name" . }}'
+          maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
       zoneAwareReplication:
         enabled: false
     loki:
@@ -128,15 +155,19 @@ spec:
             store: tsdb
       storage:
         bucketNames:
-          chunks: '{{ (((lookup "v1" "ConfigMap" "infra-loki" "loki-bucket").data).BUCKET_NAME) | default "bucket configmap not available yet" }}'
+          chunks: '{{ (((lookup "v1" "ConfigMap" "infra-loki" "loki-bucket").data).BUCKET_NAME)
+            | default "bucket configmap not available yet" }}'
           ruler: unused
         object_store:
           s3:
-            access_key_id: '{{ (((lookup "v1" "Secret" "infra-loki" "loki-bucket").data).AWS_ACCESS_KEY_ID) | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
+            access_key_id: '{{ (((lookup "v1" "Secret" "infra-loki" "loki-bucket").data).AWS_ACCESS_KEY_ID)
+              | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
             bucket_lookup_type: path
-            endpoint: '{{ (((lookup "v1" "ConfigMap" "infra-loki" "loki-bucket").data).BUCKET_HOST) | default "bucket configmap not available yet" }}'
+            endpoint: '{{ (((lookup "v1" "ConfigMap" "infra-loki" "loki-bucket").data).BUCKET_HOST)
+              | default "bucket configmap not available yet" }}'
             insecure: true
-            secret_access_key: '{{ (((lookup "v1" "Secret" "infra-loki" "loki-bucket").data).AWS_SECRET_ACCESS_KEY) | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
+            secret_access_key: '{{ (((lookup "v1" "Secret" "infra-loki" "loki-bucket").data).AWS_SECRET_ACCESS_KEY)
+              | default "QnVja2V0U2VjcmV0Tm90QXZhaWxhYmxlWWV0" | b64dec }}'
         type: s3
         use_thanos_objstore: true
       tracing:
@@ -152,6 +183,15 @@ spec:
         requests:
           cpu: 20m
           memory: 100M
+      topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/component: patternIngester
+              app.kubernetes.io/instance: '{{ .Release.Name }}'
+              app.kubernetes.io/name: '{{ include "loki.name" . }}'
+          maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
     querier:
       autoscaling:
         enabled: true
@@ -161,6 +201,15 @@ spec:
         requests:
           cpu: 50m
           memory: 100M
+      topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/component: querier
+              app.kubernetes.io/instance: '{{ .Release.Name }}'
+              app.kubernetes.io/name: '{{ include "loki.name" . }}'
+          maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
     queryFrontend:
       autoscaling:
         enabled: true
@@ -172,6 +221,15 @@ spec:
         requests:
           cpu: 20m
           memory: 150M
+      topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/component: queryFrontend
+              app.kubernetes.io/instance: '{{ .Release.Name }}'
+              app.kubernetes.io/name: '{{ include "loki.name" . }}'
+          maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
     queryScheduler:
       replicas: 1
       resources:
@@ -180,6 +238,15 @@ spec:
         requests:
           cpu: 10m
           memory: 50M
+      topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/component: queryScheduler
+              app.kubernetes.io/instance: '{{ .Release.Name }}'
+              app.kubernetes.io/name: '{{ include "loki.name" . }}'
+          maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
     read:
       replicas: 0
     resultsCache:
@@ -191,6 +258,15 @@ spec:
     ruler:
       storage:
         type: local
+      topologySpreadConstraints:
+        - labelSelector:
+            matchLabels:
+              app.kubernetes.io/component: ruler
+              app.kubernetes.io/instance: '{{ .Release.Name }}'
+              app.kubernetes.io/name: '{{ include "loki.name" . }}'
+          maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: DoNotSchedule
     singleBinary:
       replicas: 0
     test:
