@@ -551,7 +551,7 @@ components:
       namespace: infra-kyverno
       chart:
         name: kyverno
-        version: "3.8.2"
+        version: "3.9.0"
         repository: kyverno
       release:
         timeout: 10m
