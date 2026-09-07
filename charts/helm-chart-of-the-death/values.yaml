@@ -321,7 +321,7 @@ components:
       helmResourcePolicyKeep: true
       chart:
         name: thanos
-        version: "1.23.1"
+        version: "1.24.1"
         repository: stevehipwell
       excludeFromBackup: true
       release:
