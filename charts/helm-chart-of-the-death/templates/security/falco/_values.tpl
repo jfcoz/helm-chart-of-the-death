@@ -389,7 +389,7 @@ falcosidekick:
       {{- end }}
       resources:
         requests:
-          memory: 300M
+          memory: 60M
           cpu: 5m
         limits:
           memory: 300M
