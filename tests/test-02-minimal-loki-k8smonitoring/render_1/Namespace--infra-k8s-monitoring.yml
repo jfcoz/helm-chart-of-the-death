@@ -1,8 +1,0 @@
----
-# Source: helm-chart-of-the-death/templates/monitoring/k8s-monitoring/namespace.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: infra-k8s-monitoring
-  annotations:
-    helm.sh/resource-policy: keep
