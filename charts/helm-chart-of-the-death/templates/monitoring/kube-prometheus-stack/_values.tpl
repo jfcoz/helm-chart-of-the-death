@@ -634,7 +634,7 @@ prometheus:
     ruleSelectorNilUsesHelmValues: false
     externalLabels:
       cluster: {{ .Values.general.clusterName | default "Required general.clusterName" }}
-    replicas: 1
+    replicas: {{ if .Values.multiZone }}2{{else}}1{{ end }}
     resources:
       requests:
         cpu: 800m
