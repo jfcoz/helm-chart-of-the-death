@@ -1,8 +1,0 @@
----
-# Source: helm-chart-of-the-death/templates/monitoring/x509-certificate-exporter/namespace.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: infra-x509
-  annotations:
-    helm.sh/resource-policy: keep

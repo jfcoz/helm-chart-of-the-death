@@ -1,8 +1,0 @@
----
-# Source: helm-chart-of-the-death/templates/monitoring/opentelemetry-operator/namespace.yaml
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: infra-opentelemetry
-  annotations:
-    helm.sh/resource-policy: keep
