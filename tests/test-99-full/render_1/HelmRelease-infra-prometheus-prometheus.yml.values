@@ -1276,7 +1276,7 @@ prometheus:
         velero.io/exclude-from-backup: "true"
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
-    replicas: 1
+    replicas: 2
     resources:
       limits:
         memory: 3Gi

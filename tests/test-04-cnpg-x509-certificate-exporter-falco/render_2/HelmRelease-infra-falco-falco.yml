@@ -1866,7 +1866,7 @@ spec:
               memory: 300M
             requests:
               cpu: 5m
-              memory: 300M
+              memory: 60M
       
       volumes:
         - name: config
