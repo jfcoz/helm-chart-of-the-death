@@ -1,6 +1,6 @@
 {{- $me := .Values.components.monitoring.thanos }}
 {{- if include "common.managed" $me }}
-{{- if .Capabilities.APIVersions.Has "objectbucket/v1alpha1" }}
+{{- if .Capabilities.APIVersions.Has "objectbucket.io/v1alpha1" }}
 apiVersion: objectbucket.io/v1alpha1
 kind: ObjectBucketClaim
 metadata:
