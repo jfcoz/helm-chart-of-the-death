@@ -27,6 +27,11 @@ spec:
             - kube-system
             - kube-node-lease
     manager:
+      # allow install of opentelemetry-operator before opentelemetry-collector
+      ignoreMissingCollectorCRDs: true
+      featureGatesMap:
+        # Cf https://github.com/open-telemetry/opentelemetry-operator/issues/4411
+        operator.networkpolicy: false
       collectorImage:
         repository: "ghcr.io/open-telemetry/opentelemetry-collector-releases/opentelemetry-collector-k8s"
       serviceMonitor:
