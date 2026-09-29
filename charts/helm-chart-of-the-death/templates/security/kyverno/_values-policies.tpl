@@ -436,6 +436,7 @@ policyExclude:
 failurePolicy: Ignore
 # validationFailureAction : Audit or Enforce
 validationFailureAction: Enforce
+policyType: ClusterPolicy
 
 {{- template "security.kyverno.policies.mergedPolicyExclude" . }}
 {{- end }}
