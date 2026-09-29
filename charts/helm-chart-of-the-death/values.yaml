@@ -556,6 +556,7 @@ components:
       release:
         timeout: 10m
       values: {}
+      policiesValues: {}
 
     falco:
       managed: false
