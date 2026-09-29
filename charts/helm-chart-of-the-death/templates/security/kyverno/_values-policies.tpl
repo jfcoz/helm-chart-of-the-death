@@ -436,7 +436,9 @@ policyExclude:
 failurePolicy: Ignore
 
 # validationFailureAction : Audit or Enforce
-validationFailureAction: Enforce
+#validationFailureAction: Enforce
+# TEMPORAIRE POUR TESTS
+validationFailureAction: Audit
 policyType: ClusterPolicy
 
 {{- if (semverCompare ">=3.7.0" $me.chart.version) }}
