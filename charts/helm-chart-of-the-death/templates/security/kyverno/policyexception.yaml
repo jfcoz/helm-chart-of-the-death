@@ -358,7 +358,7 @@ spec:
   matchConditions:
     - name: skip-by-name-and-namespace
       expression: "object.metadata.name.startsWith('falco') && object.metadata.namespace == '{{ .Values.components.security.falco.namespace }}'"
-    - name: skip-by-name-and-namespace
+    - name: skip-by-name-and-namespace-with-prefix
       expression: "object.metadata.name.startsWith('infra-falco-falco') && object.metadata.namespace == '{{ .Values.components.security.falco.namespace }}'"
 {{- end }}
 ---
