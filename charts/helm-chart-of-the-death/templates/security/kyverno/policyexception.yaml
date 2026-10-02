@@ -14,7 +14,7 @@ spec:
   policyRefs:
     - name: disallow-capabilities
       kind: ValidatingPolicy
-    - name: disallow-host-namespace
+    - name: disallow-host-namespaces
       kind: ValidatingPolicy
     - name: disallow-host-ports
       kind: ValidatingPolicy
@@ -37,7 +37,7 @@ spec:
   policyRefs:
     - name: disallow-capabilities
       kind: ValidatingPolicy
-    - name: disallow-host-namespace
+    - name: disallow-host-namespaces
       kind: ValidatingPolicy
     - name: disallow-host-path
       kind: ValidatingPolicy
@@ -58,7 +58,7 @@ metadata:
     helm.sh/resource-policy: keep
 spec:
   policyRefs:
-    - name: disallow-host-namespace
+    - name: disallow-host-namespaces
       kind: ValidatingPolicy
     - name: disallow-host-ports
       kind: ValidatingPolicy
@@ -203,7 +203,7 @@ spec:
     - name: disallow-capabilities
       kind: ValidatingPolicy
     {{- end }}
-    - name: disallow-host-namespace
+    - name: disallow-host-namespaces
       kind: ValidatingPolicy
     - name: disallow-host-path
       kind: ValidatingPolicy
@@ -266,7 +266,7 @@ spec:
   policyRefs:
     - name: disallow-capabilities
       kind: ValidatingPolicy
-    - name: disallow-host-namespace
+    - name: disallow-host-namespaces
       kind: ValidatingPolicy
     - name: disallow-host-path
       kind: ValidatingPolicy
@@ -288,7 +288,7 @@ metadata:
     helm.sh/resource-policy: keep
 spec:
   policyRefs:
-    - name: disallow-host-namespace
+    - name: disallow-host-namespaces
       kind: ValidatingPolicy
   matchConditions:
     - name: skip-by-name-and-namespace
@@ -348,7 +348,7 @@ metadata:
     helm.sh/resource-policy: keep
 spec:
   policyRefs:
-    - name: disallow-host-namespace
+    - name: disallow-host-namespaces
       kind: ValidatingPolicy
     - name: disallow-host-path
       kind: ValidatingPolicy
@@ -368,7 +368,7 @@ metadata:
     helm.sh/resource-policy: keep
 spec:
   policyRefs:
-    - name: disallow-host-namespace
+    - name: disallow-host-namespaces
       kind: ValidatingPolicy
     - name: disallow-host-path
       kind: ValidatingPolicy
@@ -393,7 +393,7 @@ spec:
   policyRefs:
     - name: disallow-privileged-containers
       kind: ValidatingPolicy
-    - name: disallow-host-namespace
+    - name: disallow-host-namespaces
       kind: ValidatingPolicy
   matchConditions:
     - name: skip-by-namespace
@@ -415,7 +415,7 @@ spec:
   policyRefs:
     - name: disallow-privileged-containers
       kind: ValidatingPolicy
-    - name: disallow-host-namespace
+    - name: disallow-host-namespaces
       kind: ValidatingPolicy
     - name: disallow-host-path
       kind: ValidatingPolicy
