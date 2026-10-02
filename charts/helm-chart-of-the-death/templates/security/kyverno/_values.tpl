@@ -67,6 +67,9 @@ features:
   omitEvents:
     eventTypes:
       - PolicyApplied
+  policyExceptions:
+    enabled: true
+    namespace: {{ $me.namespace }}
 
 test:
   sleep: 1
