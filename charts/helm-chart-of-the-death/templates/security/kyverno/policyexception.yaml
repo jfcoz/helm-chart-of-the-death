@@ -454,6 +454,8 @@ spec:
       kind: ValidatingPolicy
     - name: disallow-host-namespaces
       kind: ValidatingPolicy
+    - name: disallow-host-path
+      kind: ValidatingPolicy
   matchConditions:
     - name: skip-by-namespace
       expression: "object.metadata.namespace == '{{ .Values.components.monitoring.smartctlExporter.namespace }}'"
