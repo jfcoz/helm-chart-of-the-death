@@ -310,6 +310,8 @@ spec:
       kind: ValidatingPolicy
     - name: disallow-host-path
       kind: ValidatingPolicy
+    - name: restrict-apparmor-profiles
+      kind: ValidatingPolicy
   matchConditions:
     - name: skip-by-name-and-namespace-and-component
       expression: "object.metadata.name.startsWith('datadog') && object.metadata.namespace == '{{ .Values.components.monitoring.datadog.namespace }}' && object.metadata.labels['app.kubernetes.io/component']=='agent'"
