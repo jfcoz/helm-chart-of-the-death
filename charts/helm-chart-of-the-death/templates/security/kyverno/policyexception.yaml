@@ -24,6 +24,8 @@ spec:
       kind: ValidatingPolicy
     - name: disallow-selinux
       kind: ValidatingPolicy
+    - name: restrict-apparmor-profiles
+      kind: ValidatingPolicy
     - name: restrict-seccomp
       kind: ValidatingPolicy
   matchConditions:
