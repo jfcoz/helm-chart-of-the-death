@@ -469,10 +469,8 @@ spec:
     - name: disallow-host-path
       kind: ValidatingPolicy
   matchConditions:
-    - name: skip-by-name-and-namespace
-      expression: "object.metadata.name.startsWith('falco') && object.metadata.namespace == '{{ .Values.components.security.falco.namespace }}'"
-    - name: skip-by-name-and-namespace-with-prefix
-      expression: "object.metadata.name.startsWith('infra-falco-falco') && object.metadata.namespace == '{{ .Values.components.security.falco.namespace }}'"
+    - name: skip-by-namespace-and-app
+      expression: "object.metadata.namespace == '{{ .Values.components.security.falco.namespace }}' && object.metadata.labels['app.kubernetes.io/name'] == 'falco'"
 {{- end }}
 ---
 
