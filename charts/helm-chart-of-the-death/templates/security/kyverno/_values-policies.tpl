@@ -436,14 +436,13 @@ policyExclude:
 failurePolicy: Ignore
 
 # validationFailureAction : Audit or Enforce
-#validationFailureAction: Enforce
-# TEMPORAIRE POUR TESTS
-validationFailureAction: Audit
-policyType: ClusterPolicy
+validationFailureAction: Enforce
 
 {{- if (semverCompare ">=3.7.0" $me.chart.version) }}
 # ClusterPolicy is deprecated from Kyverno 1.17
 policyType: ValidatingPolicy
+{{- else }}
+policyType: ClusterPolicy
 {{- end }}
 
 {{- template "security.kyverno.policies.mergedPolicyExclude" . }}
