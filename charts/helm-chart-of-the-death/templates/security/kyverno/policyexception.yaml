@@ -413,6 +413,8 @@ spec:
   policyRefs:
     - name: disallow-host-namespaces
       kind: ValidatingPolicy
+    - name: disallow-privileged-containers
+      kind: ValidatingPolicy
   matchConditions:
     - name: skip-by-name-and-namespace-and
       expression: "object.metadata.name.startsWith('multipath-default-route') && object.metadata.namespace == 'kube-system'"
