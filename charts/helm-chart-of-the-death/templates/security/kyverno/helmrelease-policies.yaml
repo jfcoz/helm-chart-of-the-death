@@ -13,6 +13,11 @@ spec:
   dependsOn:
     - name: kyverno
       namespace: {{ $me.namespace }}
+    {{- if (semverCompare ">=3.7.0" $me.chart.version) }}
+    # load PolicyExceptions before ValidatingPolicies
+    - name: kyverno-policyexception
+      namespace: {{ $me.namespace }}
+    {{- end }}
   # include common.fluxcd.release
   {{- include "common.fluxcd.release" (list $ $me) | nindent 2 }}
   # here we override the chart name
