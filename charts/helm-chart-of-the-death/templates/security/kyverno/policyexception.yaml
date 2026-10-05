@@ -399,6 +399,21 @@ spec:
   matchConditions:
     - name: skip-by-name-and-namespace-and
       expression: "object.metadata.name.startsWith('filestorage-csi-node') && object.metadata.namespace == 'kube-system'"
+---
+apiVersion: policies.kyverno.io/v1
+kind: PolicyException
+metadata:
+  name: scaleway-multipath-default-route
+  namespace: infra-kyverno
+  annotations:
+    helm.sh/resource-policy: keep
+spec:
+  policyRefs:
+    - name: disallow-host-namespaces
+      kind: ValidatingPolicy
+  matchConditions:
+    - name: skip-by-name-and-namespace-and
+      expression: "object.metadata.name.startsWith('multipath-default-route') && object.metadata.namespace == 'kube-system'"
 {{- end }}
 ---
 
