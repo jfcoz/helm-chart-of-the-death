@@ -433,8 +433,8 @@ spec:
             - name: skip-by-name-and-namespace-and
               expression: "object.metadata.name.startsWith('multipath-default-route') && object.metadata.namespace == 'kube-system'"
       {{- end }}
-      
-      
+
+
       {{- if eq .Values.cloudProvider "scw" }}
       exclude-konnectivity-agent: |
         apiVersion: policies.kyverno.io/v1
@@ -452,8 +452,8 @@ spec:
             - name: skip-by-name-and-namespace
               expression: "object.metadata.name.startsWith('konnectivity-agent') && object.metadata.namespace == 'kube-system'"
       {{- end }}
-     
- 
+
+
       {{- if eq .Values.kubernetesDistribution "k3s" }}
       exclude-k3s-svclb: |
         apiVersion: policies.kyverno.io/v1
@@ -488,8 +488,8 @@ spec:
             - name: skip-by-name-and-namespace-and-component
               expression: "object.metadata.name.startsWith('svclb-nginx-ingress-ingress-nginx-controller') && object.metadata.namespace == 'kube-system'"
       {{- end }}
-      
-      
+
+
       {{- if include "common.used" .Values.components.security.trivy }}
       exclude-trivy-node-collector: |
         apiVersion: policies.kyverno.io/v1
@@ -510,7 +510,7 @@ spec:
               expression: "object.metadata.name.startsWith('node-collector') && object.metadata.namespace == '{{ .Values.components.security.trivy.namespace }}'"
       {{- end }}
 
-      
+
       {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
       exclude-prometheus-node-exporter: |
         apiVersion: policies.kyverno.io/v1
@@ -532,8 +532,8 @@ spec:
             - name: skip-by-name-and-namespace
               expression: "object.metadata.name.startsWith('prometheus-prometheus-node-exporter') && object.metadata.namespace == '{{ .Values.components.monitoring.kubePrometheusStack.namespace }}'"
       {{- end }}
-      
-      
+
+
       {{- if include "common.used" .Values.components.monitoring.smartctlExporter }}
       exclude-prometheus-smartctl-exporter: |
         apiVersion: policies.kyverno.io/v1
@@ -555,8 +555,8 @@ spec:
             - name: skip-by-namespace
               expression: "object.metadata.namespace == '{{ .Values.components.monitoring.smartctlExporter.namespace }}'"
       {{- end }}
-      
-      
+
+
       {{- if include "common.used" .Values.components.security.falco }}
       exclude-falco: |
         apiVersion: policies.kyverno.io/v1
@@ -578,8 +578,8 @@ spec:
             - name: skip-by-namespace-and-app
               expression: "object.metadata.namespace == '{{ .Values.components.security.falco.namespace }}' && object.metadata.labels['app.kubernetes.io/name'] == 'falco'"
       {{- end }}
-      
-      
+
+
       {{- if include "common.used" .Values.components.backup.velero }}
       exclude-velero-node-agent: |
         apiVersion: policies.kyverno.io/v1
@@ -598,7 +598,7 @@ spec:
               expression: "object.metadata.name.startsWith('node-agent') && object.metadata.namespace == '{{ .Values.components.backup.velero.namespace }}'"
       {{- end }}
 
-      
+
       {{- if include "common.used" .Values.components.monitoring.promtail }}
       exclude-promtail: |
         apiVersion: policies.kyverno.io/v1
@@ -616,8 +616,8 @@ spec:
             - name: skip-by-name-and-namespace
               expression: "object.metadata.name.startsWith('promtail') && object.metadata.namespace == '{{ .Values.components.monitoring.promtail.namespace }}'"
       {{- end }}
-      
-      
+
+
       {{- if include "common.used" .Values.components.monitoring.x509CertificateExporter }}
       exclude-x509-certificate-exporter: |
         apiVersion: policies.kyverno.io/v1
