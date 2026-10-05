@@ -51,6 +51,8 @@ spec:
       kind: ValidatingPolicy
     - name: disallow-selinux
       kind: ValidatingPolicy
+    - name: restrict-apparmor-profiles
+      kind: ValidatingPolicy
   matchConditions:
     - name: skip-by-name-and-namespace-and-app
       expression: "object.metadata.name.startsWith('cilium-envoy') && object.metadata.namespace == '{{ .Values.components.cni.cilium.namespace }}' && object.metadata.labels['app.kubernetes.io/name']=='cilium-envoy'"
