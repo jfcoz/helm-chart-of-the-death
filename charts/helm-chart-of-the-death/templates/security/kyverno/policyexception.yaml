@@ -28,7 +28,7 @@ spec:
       kind: ValidatingPolicy
   matchConditions:
     - name: skip-by-name-and-namespace-and-app
-      expression: "object.metadata.name.startsWith('cilium') && object.metadata.namespace == '{{ .Values.components.cni.cilium.namespace }}' && object.metatada.labels['app.kubernetes.io/name']=='cilium-agent'"
+      expression: "object.metadata.name.startsWith('cilium') && object.metadata.namespace == '{{ .Values.components.cni.cilium.namespace }}' && object.metadata.labels['app.kubernetes.io/name']=='cilium-agent'"
 ---
 apiVersion: policies.kyverno.io/v1
 kind: PolicyException
@@ -51,7 +51,7 @@ spec:
       kind: ValidatingPolicy
   matchConditions:
     - name: skip-by-name-and-namespace-and-app
-      expression: "object.metadata.name.startsWith('cilium-envoy') && object.metadata.namespace == '{{ .Values.components.cni.cilium.namespace }}' && object.metatada.labels['app.kubernetes.io/name']=='cilium-envoy'"
+      expression: "object.metadata.name.startsWith('cilium-envoy') && object.metadata.namespace == '{{ .Values.components.cni.cilium.namespace }}' && object.metadata.labels['app.kubernetes.io/name']=='cilium-envoy'"
 ---
 apiVersion: policies.kyverno.io/v1
 kind: PolicyException
@@ -228,7 +228,7 @@ spec:
       kind: ValidatingPolicy
   matchConditions:
     - name: skip-by-name-and-namespace-and-component
-      expression: "object.metadata.name.startsWith('datadog') && object.metadata.namespace == '{{ .Values.components.monitoring.datadog.namespace }}' && object.metatada.labels['app.kubernetes.io/component']=='agent'"
+      expression: "object.metadata.name.startsWith('datadog') && object.metadata.namespace == '{{ .Values.components.monitoring.datadog.namespace }}' && object.metadata.labels['app.kubernetes.io/component']=='agent'"
 {{- end }}
 ---
 
