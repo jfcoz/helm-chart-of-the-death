@@ -354,11 +354,11 @@ spec:
           matchConditions:
             - name: skip-by-name-and-namespace
               expression: "object.metadata.name.startsWith('k8s-monitoring-alloy-logs') && object.metadata.namespace == '{{ .Values.components.monitoring.k8sMonitoring.namespace }}'"
-      exclude-k8s-monitoring-allow-singleton: |
+      exclude-k8s-monitoring-alloy-singleton: |
         apiVersion: policies.kyverno.io/v1
         kind: PolicyException
         metadata:
-          name: k8s-monitoring-allow-singleton
+          name: k8s-monitoring-alloy-singleton
           namespace: infra-kyverno
           annotations:
             helm.sh/resource-policy: keep
