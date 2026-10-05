@@ -90,7 +90,7 @@ spec:
           matchConditions:
             - name: skip-by-name-and-namespace-and-app
               expression: "object.metadata.name.startsWith('cilium') && object.metadata.namespace == '{{ .Values.components.cni.cilium.namespace }}' && object.metadata.labels['app.kubernetes.io/name']=='cilium-agent'"
-      exclude-cilium-envoy:
+      exclude-cilium-envoy: |
         apiVersion: policies.kyverno.io/v1
         kind: PolicyException
         metadata:
@@ -369,6 +369,7 @@ spec:
           matchConditions:
             - name: skip-by-name-and-namespace
               expression: "object.metadata.name.startsWith('k8s-monitoring-alloy-singleton') && object.metadata.namespace == '{{ .Values.components.monitoring.k8sMonitoring.namespace }}'"
+      {{- end }}
 
 
       {{- if eq .Values.cloudProvider "scw" }}
