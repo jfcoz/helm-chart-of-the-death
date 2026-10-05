@@ -88,7 +88,7 @@ spec:
       kind: ValidatingPolicy
   matchConditions:
     - name: skip-by-name-and-namespace
-      expression: "object.metadata.name.startsWith('rook-ceph-objectstore') && object.metadata.namespace == '{{ .Values.components.storage.rook.namespace }}'"
+      expression: "object.metadata.name.startsWith('rook-ceph-rgw-ceph-objectstore') && object.metadata.namespace == '{{ .Values.components.storage.rook.namespace }}'"
 ---
 apiVersion: policies.kyverno.io/v1
 kind: PolicyException
