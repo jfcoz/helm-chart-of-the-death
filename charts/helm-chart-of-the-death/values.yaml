@@ -229,7 +229,7 @@ components:
       helmResourcePolicyKeep: true
       chart:
         name: kube-prometheus-stack
-        version: "91.8.1"
+        version: "91.9.0"
         repository: prometheus-community
       excludeFromBackup: true
       release:
