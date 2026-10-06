@@ -61,7 +61,7 @@ reportsController:
       cpu: 1m
       memory: 100Mi
     limits:
-      memory: 200Mi
+      memory: 300Mi
 
 features:
   omitEvents:
