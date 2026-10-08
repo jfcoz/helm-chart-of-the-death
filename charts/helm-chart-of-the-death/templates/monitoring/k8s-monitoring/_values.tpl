@@ -64,6 +64,12 @@ collectors:
       securityContext:
         capabilities:
           add: []
+      resources:
+        requests:
+          cpu: 20m
+          memory: 150M
+        limits:
+          memory: 200M
 
   alloy-logs:
     enabled: true
@@ -80,6 +86,12 @@ collectors:
       securityContext:
         capabilities:
           add: []
+      resources:
+        requests:
+          cpu: 20m
+          memory: 100M
+        limits:
+          memory: 150M
 
 
 destinations:
