@@ -5,6 +5,9 @@
 prometheusRules:
 {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
   create: true
+  # kyverno autorenew at 15 days
+  warningDaysLeft: 14
+  criticalDaysLeft: 3
 {{- else }}
   create: false
 {{- end }}
