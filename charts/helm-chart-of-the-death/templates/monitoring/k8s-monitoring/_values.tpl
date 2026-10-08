@@ -67,9 +67,9 @@ collectors:
       resources:
         requests:
           cpu: 20m
-          memory: 100M
-        limits:
           memory: 150M
+        limits:
+          memory: 200M
 
   alloy-logs:
     enabled: true
