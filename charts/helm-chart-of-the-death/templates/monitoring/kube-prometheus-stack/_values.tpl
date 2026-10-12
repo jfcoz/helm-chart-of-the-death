@@ -626,6 +626,9 @@ prometheus:
   thanosServiceMonitor:
     enabled: true
   prometheusSpec:
+    enableFeatures:
+    # needed by https://github.com/jfcoz/grafana-config/blob/main/dashboards/kubernetes_compute_resources_cluster_capacity.json
+    - promql-binop-fill-modifiers
     maximumStartupDurationSeconds: 900
     enableRemoteWriteReceiver: true
     serviceMonitorSelectorNilUsesHelmValues: false
