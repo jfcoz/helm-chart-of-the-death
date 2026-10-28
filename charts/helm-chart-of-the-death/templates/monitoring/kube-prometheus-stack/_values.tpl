@@ -1078,6 +1078,76 @@ additionalPrometheusRulesMap:
             annotations:
               summary: '{{ "{{" }} $labels.job_name }} image scan job is finished but not removed after more than five minutes.'
       {{- end }}
+      {{- if include "common.used" .Values.components.database.cnpg }}
+      # Cluster-wide alerts for every CNPG Cluster, including those deployed without the
+      # cloudnative-pg/cluster chart (which ships its own rules but none about backups).
+      # The job label is "<namespace>/<cluster>" (PodMonitor created by the operator).
+      # barman-cloud plugin backups expose barman_cloud_cloudnative_pg_io_* (cnpg_collector_* stays at 0),
+      # in-tree barmanObjectStore backups expose cnpg_collector_* : take the max of both.
+      - name: CNPG
+        rules:
+          # instances down, or cluster metrics vanished less than one day ago
+          - alert: CNPGClusterOffline
+            expr: |-
+              (max by (namespace, job) (cnpg_collector_up) == 0)
+              or
+              (max by (namespace, job) (max_over_time(cnpg_collector_up[1d])) unless max by (namespace, job) (cnpg_collector_up))
+            for: 5m
+            labels:
+              severity: critical
+            annotations:
+              summary: 'CNPG cluster {{ "{{" }} $labels.job }} is offline'
+              description: 'No instance of CNPG cluster {{ "{{" }} $labels.job }} is up.'
+          - alert: CNPGReplicationLag
+            expr: max by (namespace, job, pod) (cnpg_pg_replication_lag) > 300
+            for: 10m
+            labels:
+              severity: warning
+            annotations:
+              summary: 'CNPG replica {{ "{{" }} $labels.pod }} is lagging'
+              description: 'Replica {{ "{{" }} $labels.pod }} of CNPG cluster {{ "{{" }} $labels.job }} is more than 5 minutes behind the primary.'
+          # only the primary exposes a non-zero timestamp, hence the max
+          - alert: CNPGBackupTooOld
+            expr: |-
+              (time() - max by (namespace, job) ({__name__=~"cnpg_collector_last_available_backup_timestamp|barman_cloud_cloudnative_pg_io_last_available_backup_timestamp"}) > 26 * 3600)
+              and
+              max by (namespace, job) ({__name__=~"cnpg_collector_last_available_backup_timestamp|barman_cloud_cloudnative_pg_io_last_available_backup_timestamp"}) > 0
+            for: 30m
+            labels:
+              severity: critical_tomorrow
+            annotations:
+              summary: 'Last backup of CNPG cluster {{ "{{" }} $labels.job }} is too old'
+              description: 'No successful backup of CNPG cluster {{ "{{" }} $labels.job }} for more than 26 hours.'
+          - alert: CNPGBackupFailed
+            expr: |-
+              max by (namespace, job) ({__name__=~"cnpg_collector_last_failed_backup_timestamp|barman_cloud_cloudnative_pg_io_last_failed_backup_timestamp"})
+              >
+              max by (namespace, job) ({__name__=~"cnpg_collector_last_available_backup_timestamp|barman_cloud_cloudnative_pg_io_last_available_backup_timestamp"})
+            for: 5m
+            labels:
+              severity: critical_tomorrow
+            annotations:
+              summary: 'Last backup of CNPG cluster {{ "{{" }} $labels.job }} failed'
+              description: 'The last backup of CNPG cluster {{ "{{" }} $labels.job }} failed after the last successful one.'
+          - alert: CNPGNoBackup
+            expr: max by (namespace, job) ({__name__=~"cnpg_collector_last_available_backup_timestamp|barman_cloud_cloudnative_pg_io_last_available_backup_timestamp"}) == 0
+            for: 1d
+            labels:
+              severity: critical_tomorrow
+            annotations:
+              summary: 'CNPG cluster {{ "{{" }} $labels.job }} has no backup'
+              description: 'CNPG cluster {{ "{{" }} $labels.job }} never had a successful backup (backup not configured?).'
+          # a threshold on time since last archived WAL gives false positives on low-write databases:
+          # alert when the last failure is more recent than the last success
+          - alert: CNPGWALArchivingFailing
+            expr: max by (namespace, job, pod) (cnpg_pg_stat_archiver_last_failed_time) > max by (namespace, job, pod) (cnpg_pg_stat_archiver_last_archived_time)
+            for: 10m
+            labels:
+              severity: critical
+            annotations:
+              summary: 'WAL archiving of CNPG cluster {{ "{{" }} $labels.job }} is failing'
+              description: 'Continuous WAL archiving of {{ "{{" }} $labels.pod }} is failing: point-in-time recovery is no longer guaranteed.'
+      {{- end }}
       - name: Nodes
         rules:
           - record: node:load1_per_cpu_ratio
