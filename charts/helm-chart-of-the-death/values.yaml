@@ -498,7 +498,7 @@ components:
       namespace: infra-velero
       chart:
         name: velero
-        version: "12.2.1"
+        version: "12.2.2"
         repository: vmware-tanzu
       release:
         timeout: 10m
