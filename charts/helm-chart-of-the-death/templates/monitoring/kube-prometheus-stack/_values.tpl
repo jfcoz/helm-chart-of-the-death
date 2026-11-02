@@ -969,7 +969,7 @@ additionalPrometheusRulesMap:
 
           - alert: HelmReleaseNotReady
             expr: gotk_resource_info{customresource_kind="HelmRelease", ready!="True"} > 0
-            for: 5m
+            for: 30m
             labels:
               severity: critical
               service: fluxcd
@@ -989,7 +989,7 @@ additionalPrometheusRulesMap:
               description: "GitRepository {{ "{{" }} $labels.name }} in namespace {{ "{{" }} $labels.exported_namespace }} has not been successfully synced for more than 15 minutes."
           - alert: KustomizationNotApplied
             expr: gotk_resource_info{customresource_kind="Kustomization", ready!="True"} > 0
-            for: 5m
+            for: 15m
             labels:
               severity: critical
               service: fluxcd
