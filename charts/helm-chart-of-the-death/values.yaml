@@ -565,7 +565,7 @@ components:
       namespace: infra-falco
       chart:
         name: falco
-        version: "9.2.1"
+        version: "9.2.2"
         repository: falcosecurity
       excludeFromBackup: true
       release:
