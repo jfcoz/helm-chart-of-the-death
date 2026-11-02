@@ -9,7 +9,27 @@ concurrency:
   queue: max
 
 jobs:
+  check-rebase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Fail if the branch needs rebase
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if ! git merge-base --is-ancestor "$BASE_SHA" "$HEAD_SHA"; then
+            echo "This branch is not up to date with the base branch."
+            echo "Please rebase or merge the base branch, then push the changes."
+            exit 1
+          fi
+
   lint-test:
+    needs: check-rebase
     timeout-minutes: 10
 
     strategy:
