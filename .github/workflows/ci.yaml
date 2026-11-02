@@ -6,6 +6,7 @@ on:
 concurrency:
   # test only PRs one by one
   group: pull_request
+  queue: max
 
 jobs:
   lint-test:
