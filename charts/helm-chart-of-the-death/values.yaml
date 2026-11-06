@@ -348,6 +348,8 @@ components:
         # aws:
         #   roleArn: "change_me"
         #   region: "change_me"
+        # gpc:
+        #   region: "change_me"
       values: {}
 
     promtail:
