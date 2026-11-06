@@ -4,6 +4,8 @@
 ceph-block
 {{- else if eq .Values.cloudProvider "scw" -}}
 sbs-default
+{{- else if eq .Values.cloudProvider "gcp" -}}
+standard-rwo
 {{- else }}
 {{- fail "unsupported cloudProvider" }}
 {{- end }}
