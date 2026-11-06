@@ -108,10 +108,17 @@ spec:
       interval: 1h
   install:
     crds: Create
+    # de not wait for ready status of managed HelmReleases
+    disableWait: true
   upgrade:
     crds: CreateReplace
+    # de not wait for ready status of managed HelmReleases
+    disableWait: true
     remediation:
       retries: 3
+  rollback:
+    # de not wait for ready status of managed HelmReleases
+    disableWait: true
   driftDetection:
     mode: enabled
   test:
