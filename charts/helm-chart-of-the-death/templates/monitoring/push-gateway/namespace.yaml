@@ -1,5 +1,5 @@
 {{- $me := .Values.components.monitoring.pushGateway }}
-{{- if include "common.managed" .Values.components.monitoring.promtail }}
+{{- if include "common.managed" .Values.components.monitoring.pushGateway }}
 apiVersion: v1
 kind: Namespace
 metadata:
