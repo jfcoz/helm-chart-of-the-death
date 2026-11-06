@@ -34,14 +34,14 @@ object_store:
     region: {{ $me.config.aws.region | required "missing monitoring.loki.config.aws.region" }}
 
 {{- else if eq .Values.cloudProvider "gcp" }}
-type: gcp
+type: gcs
 use_thanos_objstore: true
 bucketNames:
   chunks: {{ (((((.Values.components).monitoring).loki).config).buckets).chunks | required "missing loki.monitoring.config.buckets.chunks" }}
   # https://github.com/grafana/loki/pull/19882
   ruler: unused
 object_store:
-  gcp:
+  gcs:
     # access_key_id/secret_access_key not needed, we use the serviceAccount role
     region: {{ $me.config.gcp.region | required "missing monitoring.loki.config.gcp.region" }}
 
