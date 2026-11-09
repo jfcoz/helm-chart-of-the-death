@@ -423,7 +423,7 @@ components:
       namespace: infra-push-gateway
       chart:
         name: prometheus-pushgateway
-        version: "3.10.1"
+        version: "3.11.2"
         repository: prometheus-community
       release:
         timeout: 5m
