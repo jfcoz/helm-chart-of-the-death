@@ -350,6 +350,7 @@ components:
         #   region: "change_me"
         # gpc:
         #   region: "change_me"
+        #   serviceAccountName: "change_me"
       values: {}
 
     promtail:

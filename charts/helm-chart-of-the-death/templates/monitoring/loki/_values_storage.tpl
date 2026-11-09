@@ -42,9 +42,9 @@ bucketNames:
   ruler: unused
 object_store:
   type: gcs
-  gcs:
+  #gcs:
     # access_key_id/secret_access_key not needed, we use the serviceAccount role
-    region: {{ $me.config.gcp.region | required "missing monitoring.loki.config.gcp.region" }}
+    #region: {{ $me.config.gcp.region | required "missing monitoring.loki.config.gcp.region" }}
 
 {{- else if eq .Values.cloudProvider "scw" }}
 type: s3
