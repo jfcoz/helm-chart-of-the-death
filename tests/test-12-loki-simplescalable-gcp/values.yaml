@@ -25,3 +25,4 @@ components:
           chunks: chunk-test-bucket
         gcp:
           region: europe-west1
+          serviceAccountName: "loki@projectid......gserviceaccount.com"
