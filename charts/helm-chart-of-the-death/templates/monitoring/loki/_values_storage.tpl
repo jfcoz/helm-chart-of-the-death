@@ -82,3 +82,23 @@ bucketNames:
 
 
 {{- end }}
+
+
+
+
+{{- define "monitoring.loki.loki.objectstore" -}}
+{{- $me := .Values.components.monitoring.loki -}}
+{{- if .Capabilities.APIVersions.Has "objectbucket.io/v1alpha1" -}}
+s3
+{{- else if eq .Values.cloudProvider "aws" -}}
+s3
+{{- else if eq .Values.cloudProvider "gcp" -}}
+gcs
+{{- else if eq .Values.cloudProvider "scw" -}}
+s3
+{{- else if ($me.values.minio).enabled -}}
+s3
+{{- else -}}
+{{ fail "monitoning.loki.loki.objectore not implemented yet for this cloudProvider" }}
+{{- end -}}
+{{- end }}

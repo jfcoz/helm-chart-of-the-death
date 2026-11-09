@@ -34,7 +34,7 @@ loki:
   compactor:
     # retention_enabled = marquer pour deletion apres le limits_config.retention_period
     retention_enabled: true
-    delete_request_store: s3
+    delete_request_store: {{ include "monitoring.loki.loki.objectstore" . }}
     # "Get \"https://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc/loki/?location=\": net/http: invalid header field value for \"Authorization\""
     # on utilise le PVC
     #delete_request_store: filesystem
@@ -54,7 +54,7 @@ loki:
     configs:
     - from: "2025-11-23"
       store: tsdb
-      object_store: s3
+      object_store: {{ include "monitoring.loki.loki.objectstore" . }}
       schema: v13
       index:
         prefix: loki_index_
