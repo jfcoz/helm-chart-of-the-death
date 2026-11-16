@@ -1315,14 +1315,17 @@ additionalPrometheusRulesMap:
       - name: Upgrades
         rules:
           - alert: ApiserverRequestedDeprecatedApis
+            # uniquement les API dont la suppression est planifiee (removed_release renseigne) :
+            # certaines API depreciees sans suppression prevue sont appelees par le control plane
+            # lui-meme (ex. Endpoints v1 par l'endpoint-controller depuis k8s 1.33) et ne sont pas corrigeables.
             expr: |-
-              apiserver_requested_deprecated_apis > 0
+              apiserver_requested_deprecated_apis{removed_release!=""} > 0
             for: 1m
             labels:
               severity: warning
             annotations:
               summary: 'ApiserverRequestedDeprecatedApis'
-              description: 'Apiserver receive requests for deprecated Apis. This must be corrected before next upgrade'
+              description: 'Apiserver receive requests for deprecated API {{ "{{" }} $labels.group }}/{{ "{{" }} $labels.version }} {{ "{{" }} $labels.resource }}, removed in {{ "{{" }} $labels.removed_release }}. This must be corrected before upgrading to this release'
       - name: Applications
         rules:
           - alert: ContainerRestartsTooMuch
