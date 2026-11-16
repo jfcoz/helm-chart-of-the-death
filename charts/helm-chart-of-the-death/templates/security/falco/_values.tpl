@@ -114,6 +114,7 @@ customRules:
             docker.io/kiwigrid/k8s-sidecar,
             mirror.gcr.io/kiwigrid/k8s-sidecar,
             quay.io/prometheus/prometheus,
+            quay.io/prometheus-operator/prometheus-operator,
             registry.k8s.io/kube-state-metrics/kube-state-metrics,
             ghcr.io/jkroepke/kube-webhook-certgen
           )
@@ -242,6 +243,7 @@ customRules:
         or (
           k8s.ns.name = "{{ .Values.components.security.certManager.namespace}}"
           and container.image.repository in (
+            quay.io/jetstack/cert-manager-cainjector,
             quay.io/jetstack/cert-manager-controller,
             quay.io/jetstack/cert-manager-webhook
           )
