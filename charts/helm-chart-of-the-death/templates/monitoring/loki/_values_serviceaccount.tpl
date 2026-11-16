@@ -9,7 +9,7 @@ serviceAccount:
 {{- else if eq .Values.cloudProvider "gcp" }}
 serviceAccount:
   annotations:
-    iam.gke.io/gcp-service-account: {{ (($me.config).gcp).serviceAccountName | required "missing loki config.gcp.serviceAccountName" }}
+    iam.gke.io/gcp-service-account: {{ (($me.config).gcp).serviceAccount | required "missing loki config.gcp.serviceAccount" }}
 {{- end }}
 
 {{- end }}
