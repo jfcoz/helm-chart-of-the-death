@@ -1017,6 +1017,168 @@ policyExclude:
         expression: "object.metadata.name.startsWith('x509-x509-certificate-exporter') && object.metadata.namespace == '{{ .Values.components.monitoring.x509CertificateExporter.namespace }}'"
 {{- end }}
 
+{{- if eq .Values.cloudProvider "gcp" }}
+# DaemonSets GKE de kube-system (namespace deja exclu du webhook : ces exceptions servent aux rapports en background)
+- apiVersion: policies.kyverno.io/v1
+  kind: PolicyException
+  metadata:
+    name: gke-calico-node
+    namespace: infra-kyverno
+    annotations:
+      helm.sh/resource-policy: keep
+  spec:
+    policyRefs:
+      - name: disallow-capabilities
+        kind: ValidatingPolicy
+      - name: disallow-host-namespaces
+        kind: ValidatingPolicy
+      - name: disallow-host-path
+        kind: ValidatingPolicy
+      - name: disallow-privileged-containers
+        kind: ValidatingPolicy
+    matchConditions:
+      - name: skip-by-name-and-namespace
+        expression: "object.metadata.name.startsWith('calico-node') && object.metadata.namespace == 'kube-system'"
+- apiVersion: policies.kyverno.io/v1
+  kind: PolicyException
+  metadata:
+    name: gke-calico-typha
+    namespace: infra-kyverno
+    annotations:
+      helm.sh/resource-policy: keep
+  spec:
+    policyRefs:
+      - name: disallow-host-namespaces
+        kind: ValidatingPolicy
+      - name: disallow-host-ports
+        kind: ValidatingPolicy
+    matchConditions:
+      - name: skip-by-name-and-namespace
+        expression: "object.metadata.name.startsWith('calico-typha') && object.metadata.namespace == 'kube-system'"
+- apiVersion: policies.kyverno.io/v1
+  kind: PolicyException
+  metadata:
+    name: gke-event-exporter-gke
+    namespace: infra-kyverno
+    annotations:
+      helm.sh/resource-policy: keep
+  spec:
+    policyRefs:
+      - name: disallow-host-path
+        kind: ValidatingPolicy
+    matchConditions:
+      - name: skip-by-name-and-namespace
+        expression: "object.metadata.name.startsWith('event-exporter-gke') && object.metadata.namespace == 'kube-system'"
+- apiVersion: policies.kyverno.io/v1
+  kind: PolicyException
+  metadata:
+    name: gke-fluentbit-gke
+    namespace: infra-kyverno
+    annotations:
+      helm.sh/resource-policy: keep
+  spec:
+    policyRefs:
+      - name: disallow-host-namespaces
+        kind: ValidatingPolicy
+      - name: disallow-host-path
+        kind: ValidatingPolicy
+      - name: disallow-host-ports
+        kind: ValidatingPolicy
+    matchConditions:
+      - name: skip-by-name-and-namespace
+        expression: "object.metadata.name.startsWith('fluentbit-gke') && object.metadata.namespace == 'kube-system'"
+- apiVersion: policies.kyverno.io/v1
+  kind: PolicyException
+  metadata:
+    name: gke-metadata-server
+    namespace: infra-kyverno
+    annotations:
+      helm.sh/resource-policy: keep
+  spec:
+    policyRefs:
+      - name: disallow-host-namespaces
+        kind: ValidatingPolicy
+      - name: disallow-host-path
+        kind: ValidatingPolicy
+      - name: disallow-host-ports
+        kind: ValidatingPolicy
+      - name: disallow-privileged-containers
+        kind: ValidatingPolicy
+    matchConditions:
+      - name: skip-by-name-and-namespace
+        expression: "object.metadata.name.startsWith('gke-metadata-server') && object.metadata.namespace == 'kube-system'"
+- apiVersion: policies.kyverno.io/v1
+  kind: PolicyException
+  metadata:
+    name: gke-metrics-agent
+    namespace: infra-kyverno
+    annotations:
+      helm.sh/resource-policy: keep
+  spec:
+    policyRefs:
+      - name: disallow-host-namespaces
+        kind: ValidatingPolicy
+    matchConditions:
+      - name: skip-by-name-and-namespace
+        expression: "object.metadata.name.startsWith('gke-metrics-agent') && object.metadata.namespace == 'kube-system'"
+- apiVersion: policies.kyverno.io/v1
+  kind: PolicyException
+  metadata:
+    name: gke-ip-masq-agent
+    namespace: infra-kyverno
+    annotations:
+      helm.sh/resource-policy: keep
+  spec:
+    policyRefs:
+      - name: disallow-capabilities
+        kind: ValidatingPolicy
+      - name: disallow-host-namespaces
+        kind: ValidatingPolicy
+      - name: disallow-privileged-containers
+        kind: ValidatingPolicy
+    matchConditions:
+      - name: skip-by-name-and-namespace
+        expression: "object.metadata.name.startsWith('ip-masq-agent') && object.metadata.namespace == 'kube-system'"
+- apiVersion: policies.kyverno.io/v1
+  kind: PolicyException
+  metadata:
+    name: gke-netd
+    namespace: infra-kyverno
+    annotations:
+      helm.sh/resource-policy: keep
+  spec:
+    policyRefs:
+      - name: disallow-capabilities
+        kind: ValidatingPolicy
+      - name: disallow-host-namespaces
+        kind: ValidatingPolicy
+      - name: disallow-host-path
+        kind: ValidatingPolicy
+      - name: disallow-privileged-containers
+        kind: ValidatingPolicy
+    matchConditions:
+      - name: skip-by-name-and-namespace
+        expression: "object.metadata.name.startsWith('netd') && object.metadata.namespace == 'kube-system'"
+- apiVersion: policies.kyverno.io/v1
+  kind: PolicyException
+  metadata:
+    name: gke-pdcsi-node
+    namespace: infra-kyverno
+    annotations:
+      helm.sh/resource-policy: keep
+  spec:
+    policyRefs:
+      - name: disallow-host-namespaces
+        kind: ValidatingPolicy
+      - name: disallow-host-path
+        kind: ValidatingPolicy
+      - name: disallow-privileged-containers
+        kind: ValidatingPolicy
+    matchConditions:
+      - name: skip-by-name-and-namespace
+        expression: "object.metadata.name.startsWith('pdcsi-node') && object.metadata.namespace == 'kube-system'"
+{{- end }}
+
 {{- end }}
 
 
