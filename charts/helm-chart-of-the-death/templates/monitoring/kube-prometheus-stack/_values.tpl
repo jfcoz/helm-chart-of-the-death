@@ -1235,23 +1235,29 @@ additionalPrometheusRulesMap:
               summary: 'Memory high on {{ "{{" }} $labels.node }}'
               description: "The memory usage on node {{ "{{" }} $labels.node }} is too high. Free+cache is less than 10%"
           - alert: NodeReboot
+            # uptime < 1h sur un objet Node existant depuis plus d'1h : vrai redemarrage.
+            # Les noeuds neufs (autoscaler, upgrade, auto-repair qui recree la VM) sont ignores.
             expr: |-
-              avg by(node) (
-                  avg by(internal_ip) (
-                      label_replace(
-                          avg by(instance) (
-                              (node_time_seconds{} - node_boot_time_seconds{})
-                          ),
-                          "internal_ip",
-                          "$1",
-                          "instance",
-                          "([^:]+):.*"
-                      )
-                  )
-                  * on(internal_ip) group_right
-                  kube_node_info
+              (
+                avg by(node) (
+                    avg by(internal_ip) (
+                        label_replace(
+                            avg by(instance) (
+                                (node_time_seconds{} - node_boot_time_seconds{})
+                            ),
+                            "internal_ip",
+                            "$1",
+                            "instance",
+                            "([^:]+):.*"
+                        )
+                    )
+                    * on(internal_ip) group_right
+                    kube_node_info
+                )
+                < 3600
               )
-              < 3600
+              and on(node)
+              (time() - kube_node_created) > 3600
             for: 3m
             labels:
               severity: warning
