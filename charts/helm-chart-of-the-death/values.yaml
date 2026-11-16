@@ -510,6 +510,12 @@ components:
         # aws:
         #   roleArn: "change_me"
         #   region: "change_me"
+        # gcp:
+        #   # Google Service Account lie au KSA velero (Workload Identity)
+        #   serviceAccount: "velero@<project>.iam.gserviceaccount.com"
+        #   snapshotType: STANDARD
+        #   # nom du KSA lie au GSA (defaut : velero)
+        #   kubernetesServiceAccount: velero
         encryption:
           enabled: false
           secretName: velero-repo-encryption

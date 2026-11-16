@@ -28,6 +28,13 @@
     customerKeyEncryptionFile: /encryption/{{ $me.config.encryption.keyName }}
     {{- end }}
 
+  {{- else if $me.config.gcp }}
+  provider: gcp
+  bucket: {{ $me.config.bucket | required "missing components.backup.velero.config.bucket" }}
+  config:
+    # Google Service Account utilise via Workload Identity
+    serviceAccount: {{ $me.config.gcp.serviceAccount | required "missing components.backup.velero.config.gcp.serviceAccount" }}
+
   {{- else }}
   {{- fail "Unsupported velero provider" }}
   {{- end }}

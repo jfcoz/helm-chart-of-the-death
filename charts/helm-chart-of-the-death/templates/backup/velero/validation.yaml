@@ -13,6 +13,14 @@
   
   {{- end }}
   
+  {{- if and $me.config.aws $me.config.gcp }}
+    {{ fail "components.backup.velero.config : aws and gcp are mutually exclusive" }}
+  {{- end }}
+
+  {{- if and $me.config.gcp $me.config.encryption.enabled }}
+    {{ fail "components.backup.velero.config.encryption is not supported with gcp" }}
+  {{- end }}
+
   {{/* Validate encryption */}}
   {{- if $me.config.encryption.enabled }}
     {{- if or
