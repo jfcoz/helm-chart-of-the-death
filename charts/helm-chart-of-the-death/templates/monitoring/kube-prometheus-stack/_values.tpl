@@ -1330,7 +1330,7 @@ additionalPrometheusRulesMap:
         rules:
           - alert: ContainerRestartsTooMuch
             expr: |-
-              sum by(namespace,pod,container) (stdvar_over_time(kube_pod_container_status_restarts_total[1h])) > 1
+              sum by(namespace,pod,container) (stdvar_over_time(kube_pod_container_status_restarts_total[10m])) > 1
             for: 15m
             labels:
               severity: warning
