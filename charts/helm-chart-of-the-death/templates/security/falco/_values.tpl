@@ -277,6 +277,18 @@ customRules:
           )
         )
     {{- end }}
+    {{- if include "common.used" .Values.components.security.trivy }}
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "{{ .Values.components.security.trivy.namespace}}"
+          and container.image.repository in (
+            mirror.gcr.io/aquasec/trivy-operator
+          )
+        )
+    {{- end }}
     {{- if include "common.used" .Values.components.storage.rook }}
     - macro: k8s_containers
       override:
