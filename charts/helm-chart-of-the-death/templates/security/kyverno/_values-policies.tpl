@@ -1177,6 +1177,24 @@ policyExclude:
     matchConditions:
       - name: skip-by-name-and-namespace
         expression: "object.metadata.name.startsWith('pdcsi-node') && object.metadata.namespace == 'kube-system'"
+- apiVersion: policies.kyverno.io/v1
+  kind: PolicyException
+  metadata:
+    name: gke-managed-networking-dra-driver
+    namespace: infra-kyverno
+    annotations:
+      helm.sh/resource-policy: keep
+  spec:
+    policyRefs:
+      - name: disallow-host-namespaces
+        kind: ValidatingPolicy
+      - name: disallow-host-path
+        kind: ValidatingPolicy
+      - name: disallow-privileged-containers
+        kind: ValidatingPolicy
+    matchConditions:
+      - name: skip-by-name-and-namespace
+        expression: "object.metadata.name.startsWith('networking-dra-driver') && object.metadata.namespace == 'gke-managed-networking-dra-driver'"
 {{- end }}
 
 {{- end }}
