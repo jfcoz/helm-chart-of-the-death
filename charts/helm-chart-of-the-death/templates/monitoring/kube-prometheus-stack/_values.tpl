@@ -1331,16 +1331,16 @@ additionalPrometheusRulesMap:
           - alert: ContainerRestartsTooMuch
             expr: |-
               sum by(namespace,pod,container) (stdvar_over_time(kube_pod_container_status_restarts_total[1h])) > 1
-            for: 1m
+            for: 15m
             labels:
               severity: warning
             annotations:
               summary: 'ContainerRestartsTooMuch'
-              description: 'The container {{ "{{" }} $labels.container }} of pod {{ "{{" }} $labels.pod }} in namespace {{ "{{" }} $labels.namespace }} has restarted more than one time in tha last hour, please analyse the cause'
+              description: 'The container {{ "{{" }} $labels.container }} of pod {{ "{{" }} $labels.pod }} in namespace {{ "{{" }} $labels.namespace }} has restarted more than one time in the last hour, please analyse the cause'
           - alert: ContainerProbeIsFlapping
             expr: |-
               sum by(namespace, pod, container, probe_type) (stddev_over_time(prober_probe_total{result="failed",probe_type!="Startup"}[10m])) > 2
-            for: 1m
+            for: 15m
             labels:
               severity: warning
             annotations:
