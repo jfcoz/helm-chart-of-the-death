@@ -169,6 +169,7 @@ customRules:
           k8s.ns.name = "{{ .Values.components.monitoring.x509CertificateExporter.namespace}}"
           and container.image.repository in (
             enix/x509-certificate-exporter,
+            quay.io/enix/x509-certificate-exporter,
             docker.io/enix/x509-certificate-exporter,
             mirror.gcr.io/enix/x509-certificate-exporter
           )
