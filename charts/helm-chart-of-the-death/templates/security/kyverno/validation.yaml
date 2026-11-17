@@ -1,0 +1,32 @@
+{{- $me := .Values.components.security.kyverno }}
+
+{{- if include "common.managed" $me }}
+
+  {{- if semverCompare ">=3.10.0" $me.chart.version }}
+  
+    {{/* Check that removed API are not in use anymore */}}
+
+    {{- $obsoleteapis := list 
+            (dict "api" "kyverno.io/v1" "name" "PolicyException")
+            (dict "api" "kyverno.io/v1" "name" "ClusterPolicy")
+            (dict "api" "kyverno.io/v1" "name" "CleanupPolicy")
+            (dict "api" "kyverno.io/v1" "name" "Policy")
+    }}
+
+    {{- $errors := list }}
+
+    {{- range $obsoleteapi := $obsoleteapis }}
+      {{- if $.Capabilities.APIVersions.Has (printf "%s/%s" $obsoleteapi.api $obsoleteapi.name) }}
+        {{- if gt (len (lookup $obsoleteapi.api $obsoleteapi.name "" "").items) 0 }}
+          {{ $errors = append $errors (printf "some %s %s still exists in the cluster. Migrate them before the kyverno upgrade" $obsoleteapi.api $obsoleteapi.name) }}
+        {{- end }}
+      {{- end }}
+    {{- end }}
+
+    {{- if gt (len $errors) 0 }}
+      {{ fail (join "\n" $errors) }}
+    {{- end }}
+  
+  {{- end }}
+
+{{- end }}
