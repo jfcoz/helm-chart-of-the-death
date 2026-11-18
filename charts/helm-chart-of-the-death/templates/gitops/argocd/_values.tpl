@@ -173,6 +173,10 @@ configs:
           orgs:
           {{ toYaml $me.dex_connectors.github.orgs | nindent 10 }}
       {{- end }}
+      {{- with $me.dex_static_clients }}
+      staticClients:
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
     {{- end }}
 
 

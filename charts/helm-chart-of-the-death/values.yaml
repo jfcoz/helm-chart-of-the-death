@@ -141,6 +141,13 @@ components:
         #       teams:
         #       - team1
         #       - team2
+      # extra OIDC clients of argocd's dex (needs dex_connectors), e.g. grafana SSO
+      dex_static_clients: []
+        # - id: grafana
+        #   name: Grafana
+        #   secret: my_random_secret
+        #   redirectURIs:
+        #     - https://grafana.{ingressWildcardSuffix}/login/generic_oauth
       values: {}
         # configs:
         #   rbac:
