@@ -979,6 +979,21 @@ policyExclude:
     matchConditions:
       - name: skip-by-name-and-namespace
         expression: "object.metadata.name.startsWith('node-agent') && object.metadata.namespace == '{{ .Values.components.backup.velero.namespace }}'"
+
+- apiVersion: policies.kyverno.io/v1
+  kind: PolicyException
+  metadata:
+    name: velero-podvolumebackup
+    namespace: infra-kyverno
+    annotations:
+      helm.sh/resource-policy: keep
+  spec:
+    policyRefs:
+      - name: disallow-host-path
+        kind: ValidatingPolicy
+    matchConditions:
+      - name: skip-by-namespace-and-label
+        expression: "object.metadata.namespace == '{{ .Values.components.backup.velero.namespace }}' && 'velero.io/pod-volume-backup' in object.metadata.labels"
 {{- end }}
 
 
