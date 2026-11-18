@@ -1,0 +1,26 @@
+{{- if eq .Values.cloudProvider "scw" }}
+{{- $certManager := .Values.components.security.certManager }}
+{{- $me := .Values.components.security.certManagerWebhookScaleway }}
+{{- if include "common.managed" $me }}
+{{- /* merged on copies: common.fluxcd.release writes into general.fluxcd.release, which every component shares */}}
+{{- $release := mergeOverwrite (deepCopy .Values.general.fluxcd.release) (deepCopy ($me.release | default dict)) }}
+{{- if include "common.managed" $certManager }}
+{{- /* the chart creates cert-manager Issuer and Certificate for its serving certificate */}}
+{{- $_ := set $release "dependsOn" (append (get $release "dependsOn" | default list) (dict "name" "cert-manager" "namespace" $certManager.namespace)) }}
+{{- end }}
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cert-manager-webhook-scaleway
+  namespace: {{ $certManager.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+spec:
+  {{- toYaml $release | nindent 2 }}
+  {{- include "common.fluxcd.chartSpec" (list $ $me) | nindent 2 }}
+  values:
+    {{- include "security.certManagerWebhookScaleway.mergedValues" . | nindent 4 }}
+{{- end }}
+{{- end }}

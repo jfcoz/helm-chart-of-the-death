@@ -46,6 +46,7 @@ jobs:
         - "test-08-external-secrets"
         - "test-10-argocd"
         - "test-20-velero"
+        - "test-21-cert-manager-scw"
         runson:
         - ubuntu-24.04
         - ubuntu-24.04-arm

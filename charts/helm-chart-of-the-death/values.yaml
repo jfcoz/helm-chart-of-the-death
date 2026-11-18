@@ -546,6 +546,21 @@ components:
         selfsigned: false
       values: {}
 
+    # Scaleway DNS-01 solver: https://github.com/scaleway/cert-manager-webhook-scaleway
+    # Deployed in certManager namespace, only with cloudProvider: scw
+    # Set values.secret.externalSecretName to a Secret with SCW_ACCESS_KEY and SCW_SECRET_KEY
+    certManagerWebhookScaleway:
+      managed: false
+      used: false
+      helmResourcePolicyKeep: true
+      chart:
+        name: scaleway-certmanager-webhook
+        version: "0.4.3"
+        repository: scaleway
+      release:
+        timeout: 5m
+      values: {}
+
     externalSecrets:
       managed: false
       used: false

@@ -1,0 +1,9 @@
+{{- $me := .Values.components.security.certManagerWebhookScaleway }}
+{{- if include "common.managed" $me }}
+{{- if ne .Values.cloudProvider "scw" }}
+{{- fail "components.security.certManagerWebhookScaleway requires cloudProvider: scw" }}
+{{- end }}
+{{- if not (include "common.used" .Values.components.security.certManager) }}
+{{- fail "components.security.certManagerWebhookScaleway requires components.security.certManager" }}
+{{- end }}
+{{- end }}

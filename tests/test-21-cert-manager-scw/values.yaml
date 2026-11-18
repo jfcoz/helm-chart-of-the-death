@@ -1,0 +1,15 @@
+cloudProvider: scw
+
+general:
+  clusterName: change-me
+
+components:
+  security:
+    certManager:
+      managed: true
+    certManagerWebhookScaleway:
+      managed: true
+      values:
+        secret:
+          accessKey: SCWXXXXXXXXXXXXXXXXX
+          secretKey: 11111111-1111-1111-1111-111111111111
