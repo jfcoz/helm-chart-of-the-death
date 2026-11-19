@@ -197,7 +197,14 @@ components:
         repository: kubernetes-ingress-nginx
       release:
         timeout: 30m
-      values: {}
+      values:
+        controller:
+          image:
+            registry: ghcr.io
+            image: cooptilleuls/ingress-nginx-controller
+            tag: v1.15.16
+            digest: sha256:13739483189a3352c74123c83441167e3d5e9e8f6a7864b3e7471b83d96cac48
+
 
   monitoring:
     datadog:
