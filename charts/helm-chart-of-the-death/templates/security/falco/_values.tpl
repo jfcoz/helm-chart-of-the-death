@@ -183,7 +183,8 @@ customRules:
         or (
           k8s.ns.name = "{{ .Values.components.ingress.nginxIngressController.namespace}}"
           and container.image.repository in (
-            registry.k8s.io/ingress-nginx/controller
+            registry.k8s.io/ingress-nginx/controller,
+            ghcr.io/cooptilleuls/ingress-nginx-controller
           )
         )
     {{- end }}
