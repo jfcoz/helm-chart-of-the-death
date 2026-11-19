@@ -349,7 +349,7 @@ components:
       helmResourcePolicyKeep: true
       chart:
         name: loki
-        version: "7.6.0"
+        version: "7.7.0"
         repository: grafana
       excludeFromBackup: true
       release:
