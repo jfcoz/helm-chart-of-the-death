@@ -16,6 +16,8 @@ monitoring:
   podMonitorEnabled: true
 {{- end }}
 
+podAnnotations:
+  cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: "scratch-data"
 {{- end }}
 
 {{/* merged values : default + user  */}}
