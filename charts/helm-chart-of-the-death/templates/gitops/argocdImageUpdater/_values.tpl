@@ -15,6 +15,8 @@ metrics:
   enabled: false
   {{- end }}
 
+podAnnotations:
+  cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: "tmp"
 {{- end }}
 
 

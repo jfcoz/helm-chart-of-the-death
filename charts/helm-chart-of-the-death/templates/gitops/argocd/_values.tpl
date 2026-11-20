@@ -65,9 +65,13 @@ server:
     requests:
       cpu: 2m
       memory: 50M
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: "plugins-home,tmp"
 
 
 controller:
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: "argocd-home,argocd-application-controller-tmp"
   revisionHistoryLimit: {{ .Values.general.revisionHistoryLimit }}
   metrics:
     {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
@@ -83,6 +87,8 @@ controller:
       memory: 40M
 
 repoServer:
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: "helm-working-dir,plugins,var-files,tmp,gpg-keyring"
   metrics:
     {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
     enabled: true
@@ -129,6 +135,8 @@ redis:
       memory: 20M
 
 applicationSet:
+  podAnnotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: "gpg-keyring,tmp"
   metrics:
     {{- if include "common.used" .Values.components.monitoring.kubePrometheusStack }}
     enabled: true
