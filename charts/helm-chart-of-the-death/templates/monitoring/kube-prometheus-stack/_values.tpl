@@ -646,6 +646,8 @@ prometheus:
         memory: 3Gi
     {{- if $me.excludeFromBackup }}
     podMetadata:
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict-local-volumes: "config-out"
       labels:
         # for FileSystemBackup
         velero.io/exclude-from-backup: "true"
