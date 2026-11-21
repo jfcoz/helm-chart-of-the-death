@@ -29,6 +29,8 @@ clusterEvents:
 podLogsViaLoki:
   enabled: true
   collector: alloy-logs
+  # We persist logs positions in hostPath, so we can read older logs if a new file is detected
+  onlyGatherNewLogLines: false
 
 nodeLogs:
   enabled: true
@@ -77,12 +79,22 @@ collectors:
       type: daemonset
       tolerations:
       - operator: Exists
+      volumes:
+        extra:
+          - name: alloy-log-positions
+            hostPath:
+              path: /var/lib/alloy-data
+              type: DirectoryOrCreate
 
     # https://github.com/grafana/k8s-monitoring-helm/blob/ea357b0204031a05adc478f4778875c6122b0a98/charts/k8s-monitoring/collectors/alloy-values.yaml
     # we remove useless capabilities
     alloy:
+      storagePath: /var/lib/alloy
       mounts:
         varlog: true
+        extra:
+          - name: alloy-log-positions
+            mountPath: /var/lib/alloy
       securityContext:
         capabilities:
           add: []
