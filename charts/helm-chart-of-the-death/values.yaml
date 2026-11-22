@@ -620,6 +620,17 @@ components:
           others: falco_slack
       values: {}
 
+    falcoTalon:
+      managed: false
+      used: false
+      helmResourcePolicyKeep: true
+      namespace: infra-falco
+      chart:
+        name: falco-talon
+        version: "0.5.0"
+        repository: falcosecurity
+      values: {}
+
     trivy:
       managed: false
       used: false
