@@ -34,6 +34,18 @@ customRules:
           )
         )
     {{- end }}
+    {{- if include "common.used" .Values.components.cni.cilium }}
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "{{ .Values.components.cni.cilium.namespace}}"
+          and container.image.repository in (
+            quay.io/cilium/cilium
+          )
+        )
+    {{- end }}
     {{- if include "common.used" .Values.components.gitops.argocd }}
     - macro: k8s_containers
       override:
@@ -264,6 +276,19 @@ customRules:
             mirror.gcr.io/falcosecurity/k8s-metacollector
           )
         )
+    {{- if include "common.used" .Values.components.security.falcoTalon }}
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "{{ .Values.components.security.falcoTalon.namespace}}"
+          and container.image.repository in (
+            falco.docker.scarf.sh/falcosecurity/falco-talon,
+            falcosecurity/falco-talon
+          )
+        )
+    {{- end }}
     {{- if include "common.used" .Values.components.security.kyverno }}
     - macro: k8s_containers
       override:
@@ -299,6 +324,7 @@ customRules:
         or (
           k8s.ns.name = "{{ .Values.components.storage.rook.namespace }}"
           and container.image.repository in (
+            docker.io/rook/ceph,
             quay.io/cephcsi/cephcsi,
             quay.io/cephcsi/ceph-csi-operator,
             registry.k8s.io/sig-storage/csi-snapshotter,
