@@ -24,6 +24,7 @@ config:
       description: test rule description
       match:
         rules:
+          # extracted from https://raw.githubusercontent.com/falcosecurity/rules/refs/heads/main/rules/falco_rules.yaml
           - Directory traversal monitored file read
           - Read sensitive file trusted after startup
           - Read sensitive file untrusted
