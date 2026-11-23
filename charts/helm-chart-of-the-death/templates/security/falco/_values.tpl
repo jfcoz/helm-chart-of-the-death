@@ -381,13 +381,6 @@ falcosidekick:
     requests:
       memory: 70M
       cpu: 2m
-
-  {{- if include "common.used" .Values.components.security.falcoTalon }}
-  outputs:
-    talon:
-      host: http://falco-talon.{{ $falcoTalon.namespace }}.svc.cluster.local:2803
-  {{- end }}
-
   {{- if include "common.used" .Values.components.monitoring.datadog }}
   podAnnotations:
     # https://github.com/falcosecurity/falcosidekick/issues/526
@@ -437,6 +430,11 @@ falcosidekick:
     #slack:
     #  webhookurl: "https://hooks.slack.com/services/TODO"
     #  minimumpriority: "warning"
+    {{- if include "common.used" .Values.components.security.falcoTalon }}
+    talon:
+      address: http://falco-talon.{{ $falcoTalon.namespace }}.svc.cluster.local:2803
+    {{- end }}
+
 metrics:
   # -- enabled specifies whether the metrics should be enabled.
   enabled: true
