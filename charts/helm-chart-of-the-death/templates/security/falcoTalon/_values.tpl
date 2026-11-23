@@ -1,6 +1,12 @@
 {{/* values */}}
 {{- define "security.falcoTalon.defaultValues" }}
 {{- $me := .Values.components.security.falcoTalon }}
+
+image:
+  # release 0.3 is from 2025
+  # in 0.3 k8sevents is not emmiting the event in the application namespace
+  tag: 23e1ca0
+
 replicaCount: 1
 
 # TODO: topologySpreadConstraints not implemented yet
