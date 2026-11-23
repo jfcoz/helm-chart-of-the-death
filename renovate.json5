@@ -15,6 +15,11 @@
       "automergeSchedule": [
         "* 9-16 * * 1-4"
       ]
+    },
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["cooptilleuls/ingress-nginx-controller"],
+      "registryUrls": ["https://ghcr.io"]
     }
   ],
   "bumpVersions": [
