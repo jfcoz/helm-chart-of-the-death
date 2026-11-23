@@ -12,6 +12,24 @@ config:
     leaderElection: "false"
   printAllEvents: true
 
+  rulesOverride: |
+    - action: Terminate Pod
+      actionner: kubernetes:terminate
+      parameters:
+        ignore_daemonsets: true
+        ignore_statefulsets: true
+        grace_period_seconds: 20
+
+    - rule: test rule
+      description: test rule description
+      match:
+        rules:
+          - Unexpected outbound connection destination
+          - Drop and execute new binary in container
+      actions:
+        - action: Terminate Pod
+          parameters:
+            gracePeriods: 2
 
 {{- end }}
 
