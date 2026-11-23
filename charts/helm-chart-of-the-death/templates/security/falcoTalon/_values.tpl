@@ -7,15 +7,9 @@ image:
   # in 0.3 k8sevents is not emmiting the event in the application namespace
   tag: 23e1ca0
 
-replicaCount: 1
-
 # TODO: topologySpreadConstraints not implemented yet
 
 config:
-  deduplication:
-    # needs quote, else default true replace false
-    # leaderElection try to use the falco namespace
-    leaderElection: "false"
   printAllEvents: true
 
   rulesOverride: |
