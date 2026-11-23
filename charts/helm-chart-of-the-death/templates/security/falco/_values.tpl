@@ -45,6 +45,10 @@ customRules:
             quay.io/cilium/cilium
           )
         )
+    - list: user_known_packet_socket_binaries
+      items: [cilium-agent]
+      override:
+        items: append
     {{- end }}
     {{- if include "common.used" .Values.components.gitops.argocd }}
     - macro: k8s_containers
