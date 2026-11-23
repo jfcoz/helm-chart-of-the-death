@@ -18,7 +18,8 @@ customRules:
             ghcr.io/fluxcd/helm-controller,
             ghcr.io/fluxcd/kustomize-controller,
             ghcr.io/fluxcd/notification-controller,
-            ghcr.io/fluxcd/source-controller
+            ghcr.io/fluxcd/source-controller,
+            docker.io/bitnami/sealed-secrets-controller
           )
         )
     {{- if include "common.used" .Values.components.backup.velero }}
