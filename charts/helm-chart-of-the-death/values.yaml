@@ -487,7 +487,7 @@ components:
       namespace: infra-blackbox-exporter
       chart:
         name: prometheus-blackbox-exporter
-        version: "11.22.0"
+        version: "11.26.2"
         repository: prometheus-community
       release:
         timeout: 5m
