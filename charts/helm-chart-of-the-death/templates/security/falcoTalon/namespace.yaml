@@ -1,0 +1,14 @@
+{{- $me := .Values.components.security.falcoTalon }}
+{{- $falco := .Values.components.security.falco }}
+{{- if include "common.managed" $me }}
+{{- if ne $me.namespace $falco.namespace }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ $me.namespace }}
+  annotations:
+    {{- if $me.helmResourcePolicyKeep }}
+    helm.sh/resource-policy: keep
+    {{- end }}
+{{- end }}
+{{- end }}

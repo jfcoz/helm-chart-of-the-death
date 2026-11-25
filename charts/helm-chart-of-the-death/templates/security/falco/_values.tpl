@@ -18,7 +18,8 @@ customRules:
             ghcr.io/fluxcd/helm-controller,
             ghcr.io/fluxcd/kustomize-controller,
             ghcr.io/fluxcd/notification-controller,
-            ghcr.io/fluxcd/source-controller
+            ghcr.io/fluxcd/source-controller,
+            docker.io/bitnami/sealed-secrets-controller
           )
         )
     {{- if include "common.used" .Values.components.backup.velero }}
@@ -33,6 +34,22 @@ customRules:
             mirror.gcr.io/velero/velero
           )
         )
+    {{- end }}
+    {{- if include "common.used" .Values.components.cni.cilium }}
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "{{ .Values.components.cni.cilium.namespace}}"
+          and container.image.repository in (
+            quay.io/cilium/cilium
+          )
+        )
+    - list: user_known_packet_socket_binaries
+      items: [cilium-agent]
+      override:
+        items: append
     {{- end }}
     {{- if include "common.used" .Values.components.gitops.argocd }}
     - macro: k8s_containers
@@ -264,6 +281,19 @@ customRules:
             mirror.gcr.io/falcosecurity/k8s-metacollector
           )
         )
+    {{- if include "common.used" .Values.components.security.falcoTalon }}
+    - macro: k8s_containers
+      override:
+        condition: append
+      condition: |
+        or (
+          k8s.ns.name = "{{ .Values.components.security.falcoTalon.namespace}}"
+          and container.image.repository in (
+            falco.docker.scarf.sh/falcosecurity/falco-talon,
+            falcosecurity/falco-talon
+          )
+        )
+    {{- end }}
     {{- if include "common.used" .Values.components.security.kyverno }}
     - macro: k8s_containers
       override:
@@ -299,6 +329,8 @@ customRules:
         or (
           k8s.ns.name = "{{ .Values.components.storage.rook.namespace }}"
           and container.image.repository in (
+            docker.io/rook/ceph,
+            quay.io/ceph/ceph,
             quay.io/cephcsi/cephcsi,
             quay.io/cephcsi/ceph-csi-operator,
             registry.k8s.io/sig-storage/csi-snapshotter,
@@ -326,6 +358,7 @@ customRules:
 {{/* values */}}
 {{- define "security.falco.defaultValues" }}
 {{- $me := .Values.components.security.falco }}
+{{- $falcoTalon := .Values.components.security.falcoTalon }}
 podPriorityClassName: system-node-critical
 tty: false
 tolerations:
@@ -429,6 +462,11 @@ falcosidekick:
     #slack:
     #  webhookurl: "https://hooks.slack.com/services/TODO"
     #  minimumpriority: "warning"
+    {{- if include "common.used" .Values.components.security.falcoTalon }}
+    talon:
+      address: http://falco-talon.{{ $falcoTalon.namespace }}.svc.cluster.local:2803
+    {{- end }}
+
 metrics:
   # -- enabled specifies whether the metrics should be enabled.
   enabled: true
