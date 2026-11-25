@@ -330,6 +330,7 @@ customRules:
           k8s.ns.name = "{{ .Values.components.storage.rook.namespace }}"
           and container.image.repository in (
             docker.io/rook/ceph,
+            quay.io/ceph/ceph,
             quay.io/cephcsi/cephcsi,
             quay.io/cephcsi/ceph-csi-operator,
             registry.k8s.io/sig-storage/csi-snapshotter,
